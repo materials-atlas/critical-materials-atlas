@@ -131,5 +131,51 @@ def evaluate(data):
     }
 
 
+def evaluate_followup(data):
+    """Vary the same severe shock and calculate separate EU-27 supply cases."""
+    capacity = data["europe_capacity"]["annual_gw_equivalent"]
+    assumptions = data["illustration"]
+    months = assumptions["months"]
+    severe = assumptions["scenarios"]["severe"]
+    min_share, max_share = assumptions["exposed_share_range"]
+    shares = [min_share + (max_share - min_share) * step / 4 for step in range(5)]
+    min_ingots, max_ingots = assumptions["operable_ingots_range_gw_per_year"]
+    ingot_rates = [min_ingots + (max_ingots - min_ingots) * step / 3 for step in range(4)]
+    outputs = [
+        [wafer_route({**capacity, "ingots": ingots}, assumptions, share, severe)["module_output_gw"]
+         for share in shares]
+        for ingots in ingot_rates
+    ]
+
+    inventory = data["eu27_inventory"]
+    eu_capacity = inventory["operating_gwp_per_year"]
+    # Treat the compatible fraction as 100% and yields as unity to bound output.
+    unity = dict.fromkeys(STAGES[1:], 1)
+    wafer_rates = [0, eu_capacity["cells"]]
+    eu_cases = [
+        {"qualified_wafer_import_gw_per_year": rate,
+         "module_output_gw": throughput(eu_capacity, months, unity, {"wafers": rate})["module_output_gw"]}
+        for rate in wafer_rates
+    ]
+    return {
+        "date": "2026-11-24",
+        "status": "Modelled",
+        "severe_shock_grid": {
+            "region": data["europe_capacity"]["region"],
+            "months": months,
+            "assumed_wafer_import_gw_per_year": assumptions["normal_wafer_import_rate_gw_per_year"],
+            "fixed_wafer_nameplate_gw_per_year": capacity["wafers"],
+            "exposed_share_of_assumed_wafer_imports": shares,
+            "usable_domestic_ingot_gw_per_year": ingot_rates,
+            "module_output_gw": outputs,
+        },
+        "eu27_sourcing_cases": {
+            "scope": inventory["scope"], "reference_month": inventory["reference_month"],
+            "capacity_source": inventory["source"], "months": months, "cases": eu_cases,
+            "assumptions": "Unit yields, full availability and compatibility of operating capacity, no stocks or other intermediate imports. Wafer receipts are hypothetical.",
+        },
+    }
+
+
 if __name__ == "__main__":
     print(json.dumps(evaluate(json.loads(INPUTS.read_text(encoding="utf-8"))), indent=2))

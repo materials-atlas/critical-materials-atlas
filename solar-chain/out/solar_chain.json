@@ -212,11 +212,11 @@
   "published": true,
   "chokepoint": {
     "product": "Solar modules",
-    "stage": "Ingot and wafer supply",
-    "mechanism": "thermodynamic",
-    "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
+    "stage": "Ingot and wafer manufacturing",
+    "mechanism": "capability",
+    "physics": "Usable supply depends on available equipment and qualified inputs",
     "holder": "China",
-    "share": "87–98% (wafers)",
+    "share": "About 87% of global wafer capacity (2024)",
     "control": "—",
     "conf": "estimate",
     "research": true
@@ -311,6 +311,76 @@
       "target_module_output_gw": 4.0,
       "additional_qualified_wafer_supply_gw": 3.25,
       "additional_annual_compatible_capacity_gw": 6.5
+    }
+  },
+  "review_addendum": {
+    "date": "2026-11-24",
+    "status": "Modelled",
+    "severe_shock_grid": {
+      "region": "Europe as published by IEA",
+      "months": 6,
+      "assumed_wafer_import_gw_per_year": 8.5,
+      "fixed_wafer_nameplate_gw_per_year": 1.5,
+      "exposed_share_of_assumed_wafer_imports": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "usable_domestic_ingot_gw_per_year": [
+        0.0,
+        0.5,
+        1.0,
+        1.5
+      ],
+      "module_output_gw": [
+        [
+          4.25,
+          3.1875,
+          2.125,
+          1.0625,
+          0.0
+        ],
+        [
+          4.5,
+          3.4375,
+          2.375,
+          1.3125,
+          0.25
+        ],
+        [
+          4.75,
+          3.6875,
+          2.625,
+          1.5625,
+          0.5
+        ],
+        [
+          5.0,
+          3.9375,
+          2.875,
+          1.8125,
+          0.75
+        ]
+      ]
+    },
+    "eu27_sourcing_cases": {
+      "scope": "EU-27",
+      "reference_month": "2025-08",
+      "capacity_source": "fraunhofer_eu",
+      "months": 6,
+      "cases": [
+        {
+          "qualified_wafer_import_gw_per_year": 0,
+          "module_output_gw": 0.0
+        },
+        {
+          "qualified_wafer_import_gw_per_year": 2.9,
+          "module_output_gw": 1.45
+        }
+      ],
+      "assumptions": "Unit yields, full availability and compatibility of operating capacity, no stocks or other intermediate imports. Wafer receipts are hypothetical."
     }
   }
 }

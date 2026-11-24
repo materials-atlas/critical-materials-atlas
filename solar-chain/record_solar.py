@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from string import Template
 
-from solar_flow import INPUTS, STAGES, evaluate
+from solar_flow import INPUTS, STAGES, evaluate, evaluate_followup
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out" / "solar_chain.json"
@@ -43,6 +43,17 @@ def share(stage, snapshot):
 def interval(bounds):
     low, high = bounds
     return value(low) if low == high else f"{value(low)}–{value(high)}"
+
+
+def sensitivity_rows(grid):
+    outputs = grid["module_output_gw"]
+    maximum = max(map(max, outputs)) or 1
+    return "\n".join(
+        f'<tr><th scope="row">{value(rate)}</th>'
+        + "".join(f'<td style="--level:{output / maximum:.1%}">{output:.2f}</td>' for output in row)
+        + "</tr>"
+        for rate, row in zip(grid["usable_domestic_ingot_gw_per_year"], outputs)
+    )
 
 
 def render(data, trade):
@@ -82,6 +93,9 @@ def render(data, trade):
         for scenario in result["scenarios"].values()
     ]
     sensitivity = result["paired_ingot_wafer_one_gw_annual_gain"]
+    followup = data["review_addendum"]
+    grid = followup["severe_shock_grid"]
+    eu_cases = followup["eu27_sourcing_cases"]["cases"]
     replacements = {
         "title": escape(TITLE), "deck": escape(DECK), "version": data["version"],
         "capacity_rows": "\n".join(stage_rows),
@@ -96,6 +110,17 @@ def render(data, trade):
         "intensity_ratio": value(intensity[0]["grams_per_wp"] / intensity[-1]["grams_per_wp"]),
         "months": result["scenario_months"],
         "scenario_rows": rows(scenario_rows),
+        "review_date": followup["date"],
+        "sensitivity_header": "".join(f'<th scope="col">{exposure:.0%}</th>'
+                                      for exposure in grid["exposed_share_of_assumed_wafer_imports"]),
+        "sensitivity_rows": sensitivity_rows(grid),
+        "normal_wafer_rate": value(grid["assumed_wafer_import_gw_per_year"]),
+        "fixed_wafer_rate": value(grid["fixed_wafer_nameplate_gw_per_year"]),
+        "output_with_imports": value(grid["module_output_gw"][-1][0]),
+        "output_without_imports": value(grid["module_output_gw"][-1][-1]),
+        "no_wafer_output": value(eu_cases[0]["module_output_gw"]),
+        "full_wafer_rate": value(eu_cases[1]["qualified_wafer_import_gw_per_year"]),
+        "full_wafer_output": value(eu_cases[1]["module_output_gw"]),
         "paired_gain": value(sensitivity),
         "target_fraction": f'{policy["target_fraction_of_open"]:.0%}',
         "target_gw": value(policy["target_module_output_gw"]),
@@ -121,11 +146,13 @@ def build():
     data.update({
         "title": "Solar-PV chain", "h1": TITLE, "deck": DECK, "published": True,
         "chokepoint": {
-            "product": "Solar modules", "stage": "Ingot and wafer supply", "mechanism": "thermodynamic",
-            "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
-            "holder": "China", "share": "87–98% (wafers)", "control": "—", "conf": "estimate", "research": True,
+            "product": "Solar modules", "stage": "Ingot and wafer manufacturing", "mechanism": "capability",
+            "physics": "Usable supply depends on available equipment and qualified inputs",
+            "holder": "China", "share": "About 87% of global wafer capacity (2024)",
+            "control": "—", "conf": "estimate", "research": True,
         },
         "flow_results": evaluate(data),
+        "review_addendum": evaluate_followup(data),
     })
     article = render(data, trade)
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

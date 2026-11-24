@@ -82,3 +82,19 @@ resilience needs same-region ingot and wafer capacity, plant utilization and
 yields, qualified input flows and contracts, inventory, costs and replacement
 lead times. The assessment ends at factory output. It does not estimate
 installed capacity, electricity generation or disruption probabilities.
+
+## Sourcing and capacity sensitivity, 24 November 2026
+
+The addendum uses the same severe interruption and holds the assumed
+pre-shock wafer import rate, wafer nameplate, yields and horizon fixed.
+Columns vary the China-origin share of the assumed import lane, with that
+share entirely lost. Rows vary the usable ingot rate from zero to the
+rate needed to fill domestic wafer nameplate. Each cell is module output
+over the horizon, in GW-equivalent. The grid explores the assumed range.
+
+The separate EU-27 calculation uses only Fraunhofer’s August 2025 inventory.
+Its two cases assume no qualified wafer arrivals or enough arrivals to
+fill the reported operating cell rate. Both assume no stocks or other
+imported intermediates, full use of compatible active lines and unit yields.
+These are boundary cases, with no observed importer share or arrival rate.
+The same builder writes both calculations to the evidence JSON.

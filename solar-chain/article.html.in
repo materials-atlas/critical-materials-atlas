@@ -7,6 +7,9 @@
   .table-wrap caption { text-align: left; font-size: .82rem; color: var(--mut); padding: .35rem .5rem; }
   th[scope="row"] { font-weight: 600; }
   meter { display: block; inline-size: 100%; min-inline-size: 8rem; accent-color: var(--acc); }
+  .evidence-label { color: var(--ink); }
+  .sensitivity-grid tbody td { text-align: right; font-variant-numeric: tabular-nums; background: #eef7f5; color: #17302c; }
+  .sensitivity-grid tbody td { background: color-mix(in srgb, #8cc9bc var(--level), #eef7f5); }
   #trade-slider { min-width: 0; }
   #static-trade[hidden] { display: none; }
 </style></head><body>
@@ -21,13 +24,14 @@
   <p class="byline">Evidence review · <time datetime="$version">24 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
 </div></section>
 <article>
-  <p>Europe had about $module_capacity GW per year of solar module manufacturing capacity in the IEA’s 2025 estimates. It had much less wafer capacity. With compatible equipment, full availability and a route with no imports or stocks at those manufacturing stages, the reported stages could support at most $closed_ceiling GW per year of module-equivalent output, or about $ratio of module nameplate capacity. The IEA figures omit ingots, so enforcing that additional step could lower the ceiling.</p>
+  <p><strong class="evidence-label">Calculated ceiling.</strong> Europe had about $module_capacity GW per year of solar module manufacturing capacity in the IEA’s 2025 estimates. It had much less wafer capacity. With compatible equipment, full availability and a route with no imports or stocks at those manufacturing stages, the reported stages could support at most $closed_ceiling GW per year of module-equivalent output, or about $ratio of module nameplate capacity. The IEA figures omit ingots, so enforcing that additional step could lower the ceiling.</p>
   <p>Capacity measures what factories are rated to make. Production measures what they actually make. The effect of a disruption also depends on qualified suppliers, inventories, utilization and how quickly alternative inputs can reach factories.</p>
+  <p class="note"><a href="#wafer-sensitivity">Dated addendum on wafer sourcing and output</a></p>
 
   <h2>Europe’s upstream capacity is smaller</h2>
   <div class="table-wrap" tabindex="0" role="region" aria-label="European solar manufacturing capacity">
     <table>
-      <caption>Approximate 2025 manufacturing capacity in Europe as reported by the IEA. The comparison treats upstream GW as module-equivalent annual rates.</caption>
+      <caption><strong class="evidence-label">Source estimates.</strong> Approximate 2025 manufacturing capacity in Europe as reported by the IEA. The comparison treats upstream GW as module-equivalent annual rates.</caption>
       <thead><tr><th scope="col">Stage</th><th scope="col">GW-equivalent per year</th><th scope="col">Capacity on a common scale</th></tr></thead>
       <tbody>
 $capacity_rows
@@ -41,7 +45,7 @@ $capacity_rows
   <h2>China’s share depends on the measure</h2>
   <div class="table-wrap" tabindex="0" role="region" aria-label="China production and capacity shares">
     <table>
-      <caption>China’s reported shares of global output and manufacturing capacity from separate sources</caption>
+      <caption><strong class="evidence-label">Source estimates.</strong> China’s reported shares of global output and manufacturing capacity from separate sources</caption>
       <thead><tr><th scope="col">Stage</th><th scope="col">2023 output · IEA PVPS 2024</th><th scope="col">2024 capacity · IEA policy report 2026</th></tr></thead>
       <tbody>
 $share_rows
@@ -53,7 +57,7 @@ $share_rows
 
   <h2>Silicon use fell per watt of cell output</h2>
   <table>
-    <caption>Rounded figures from the July 2026 Fraunhofer report</caption>
+    <caption><strong class="evidence-label">Source estimates.</strong> Rounded figures from the July 2026 Fraunhofer report</caption>
     <thead><tr><th scope="col">Year</th><th scope="col">Grams of polysilicon input per watt-peak of cell output</th><th scope="col">Wafer thickness, µm</th></tr></thead>
     <tbody>
 $intensity_rows
@@ -64,9 +68,36 @@ $intensity_rows
   <h2>A wafer supply stress test</h2>
   <p class="note">Figures in this section: <a href="../how-it-works#evidence" title="Modelled: depends on a model with assumptions or settings" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#efe9f6;color:#5b3a85">modelled</a> The import rate, exposure, yields and stocks are assumptions, not observed data.</p>
   <p><strong>Illustrative scenarios.</strong> The model follows one compatible crystalline-silicon route through polysilicon, ingots, wafers, cells and modules. The six-month open case assumes wafer deliveries sufficient to fill cell capacity at the stated point assumptions. The shocks remove half or all of the assumed China-origin wafer lane. The model varies that lane’s exposure from zero to all imports and usable ingot capacity from zero to the rate needed to support the published wafer capacity. No observed sourcing or inventory data set these values.</p>
+  <section id="wafer-sensitivity" aria-labelledby="wafer-sensitivity-title">
+    <h3 id="wafer-sensitivity-title">How sourcing changes the result</h3>
+    <p class="note">Addendum · <time datetime="$review_date">24 November 2026</time></p>
+    <p>The shock removes the exposed China-origin share of an assumed wafer import rate of $normal_wafer_rate GW-equivalent per year. The domestic wafer nameplate rate is fixed at $fixed_wafer_rate GW-equivalent per year. Rows vary the compatible ingot supply those plants can use. Columns vary the share of the assumed import lane lost. The model assumes no replacement shipments or opening stocks.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Module output under a wafer supply shock">
+      <table class="sensitivity-grid">
+        <caption><strong class="evidence-label">Modelled.</strong> Module-equivalent output in GW over $months months. Darker cells show higher output.</caption>
+        <colgroup><col></colgroup>
+        <colgroup span="5"></colgroup>
+        <thead>
+          <tr><td></td><th colspan="5" scope="colgroup">China-origin share of assumed wafer imports lost</th></tr>
+          <tr><th scope="col">Usable ingots (GW-equivalent/year)</th>$sensitivity_header</tr>
+        </thead>
+        <tbody>
+$sensitivity_rows
+        </tbody>
+      </table>
+    </div>
+    <p>At the highest assumed ingot rate, module output reaches $output_with_imports GW over $months months with the import lane intact and falls to $output_without_imports GW if the whole lane is lost. The wider Europe test has no plant-level sourcing data to establish which part of the table describes current supply.</p>
+
+    <h4>What the EU-27 inventory can bound</h4>
+    <p><strong class="evidence-label">Modelled from an operating-capacity inventory.</strong> In its August 2025 EU-27 inventory, Fraunhofer lists no active ingot or wafer plants. With no stocks or other imported intermediates, the compatible route yields $no_wafer_output GW over $months months without wafer deliveries. Supplying qualified wafers at an annual rate of $full_wafer_rate GW-equivalent would support up to $full_wafer_output GW in the same period, assuming full availability, compatibility and unit yields. This example uses the EU-27 inventory alone. The delivery rate is hypothetical. $eu.</p>
+
+    <h4>What a supply agreement can establish</h4>
+    <p>In 2022, Meyer Burger announced a binding agreement for wafers from Norwegian Crystals and reported initial deliveries for its heterojunction production route. Norway sits outside the EU-27. The company gave no delivery volume, and IEA PVPS records that Norwegian Crystals ceased operations in 2023. In Spain, Sunwafe described an integrated ingot and wafer project with commercial operations targeted for 2029. These examples distinguish a historical supply lane from proposed capacity. Estimating replacement supply today requires evidence of operating lines, qualified buyers and available shipments. <a href="https://www.semiconductorpackagingnews.com/uploads/1/20220816_MBTN_MM_Wafer_EN.pdf">Meyer Burger release</a>, <a href="https://www.iea-pvps.org/wp-content/uploads/2024/05/PVPS_Annual_Report_2023_v4-6.pdf#page=91">IEA PVPS Norway report</a> and <a href="https://sunwafe.com/sunwafe-secures-site-approval-and-appoints-ceo-to-advance-europes-first-large-scale-solar-wafer-plant/">Sunwafe announcement</a>.</p>
+  </section>
+
   <div class="table-wrap" tabindex="0" role="region" aria-label="Solar wafer supply scenario results">
     <table>
-      <caption>Module output in GW-equivalent over $months months. Ranges are from assumed inputs.</caption>
+      <caption><strong class="evidence-label">Modelled.</strong> Module output in GW-equivalent over $months months. Ranges are from assumed inputs.</caption>
       <thead><tr><th scope="col">Scenario</th><th scope="col">Point output</th><th scope="col">Output range</th><th scope="col">Loss range versus matched open case</th><th scope="col">Active capacity limits at the point</th></tr></thead>
       <tbody>
 $scenario_rows
@@ -94,7 +125,7 @@ $scenario_rows
     </div>
     <div class="table-wrap" tabindex="0" role="region" aria-label="World exports in broad solar-related categories">
       <table>
-        <caption>CEPII BACI V202601, <span id="trade-year" aria-live="polite">$trade_year</span></caption>
+        <caption><strong class="evidence-label">Customs data.</strong> CEPII BACI V202601, <span id="trade-year" aria-live="polite">$trade_year</span></caption>
         <thead><tr><th scope="col">Traded category</th><th scope="col">Nominal export value</th><th scope="col">Leading exporter</th><th scope="col">Scope</th></tr></thead>
         <tbody id="trade-body">
 $trade_rows

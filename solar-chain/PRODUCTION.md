@@ -80,3 +80,46 @@ different assumed procurement or capacity combinations. The result is a
 reproducible demonstration of dependencies and sensitivity. An empirical
 forecast needs a geographically matched plant inventory, operable yields and
 qualified sourcing and stock records.
+
+## Source and presentation follow-up, 24 November 2026
+
+- **2023 output (C01).** The archived builder cites IEA PVPS. Figures
+  4.2–4.5 give China’s shares as 92% for polysilicon, about 98% for wafers,
+  91.8% for cells and 84.6% for modules. For modules, the report’s 510 GW
+  for China divided by 612 GW globally gives 83.3%. The table retains
+  the published chart value with that discrepancy flagged.
+  [IEA PVPS Trends 2024, Figures 4.2–4.5](https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=53).
+- **2024 capacity (C01).** The IEA policy chart gives approximately
+  87% for polysilicon, 87% for wafers, 82% for cells and 75% for modules
+  in China. These are rounded readings of a capacity chart credited to
+  World Energy Outlook 2025. The Chokepoint Map uses the 2024 wafer
+  capacity share as its indicator, with the industrial capability label.
+  [IEA State of Energy Policy 2026, p. 52](https://www.iea.org/files/b3912b14-b276-4729-8f94-3d6f17b84226/StateofEnergyPolicy2026.pdf#page=53).
+- **Silicon intensity (C02).** Fraunhofer’s summary gives approximately
+  16 and 2 grams per watt-peak of cell output for 2004 and 2024. The
+  series chart puts the corresponding wafer thicknesses near 300 and
+  140 micrometres. The rounded endpoints give an approximate factor of
+  eight per watt-peak. The series changes data sources, and kerf recycling
+  enters the series in 2017.
+  [Fraunhofer ISE, pp. 8 and 36](https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=36).
+- **Regional capacity (C04, C05, C08).** The July 2026 IEA commentary
+  reports approximately 27 GW for polysilicon, 1.5 GW for wafers, 10 GW for
+  cells, 33 GW for modules and 95 GW for inverters in its Europe series.
+  Published ingot capacity and country membership are still missing. The
+  separate Fraunhofer EU-27 inventory, updated August 2025, reports zero
+  active ingot and wafer production and operating cell and module
+  capacity of 2.9 and 6.7 GWp/year. The addendum keeps the IEA
+  sensitivity table and the inventory-based EU-27 cases separate.
+  [IEA commentary](https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/),
+  [Fraunhofer ISE, p. 14](https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=14).
+- **Other IEA estimates (C06, C07).** Energy Technology Perspectives
+  cites 95% for China’s wafer capacity in a 2024 comparison. The July
+  commentary uses 95% with the wording “wafer production” in a 2025
+  capacity discussion and gives no separate wafer denominator. The
+  executive summary’s nearly 20% cost saving from North African wafers
+  is a levelised production-cost comparison of equal-size facilities.
+  The public figures do not establish a capacity trend or a cost ranking
+  at equal disruption risk.
+  [IEA capacity comparison](https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness),
+  [IEA July commentary](https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/),
+  [IEA cost comparison](https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary).
