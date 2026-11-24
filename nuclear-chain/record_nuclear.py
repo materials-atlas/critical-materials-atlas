@@ -114,6 +114,86 @@ def calculate(data):
     }
 
 
+def inventory_accounting(result):
+    """Track the original opening reserve on the model's minimum-supply path."""
+    opening = result["usable_opening_stock"]
+    # An early gap uses the whole reserve before replacements arrive. For a
+    # feasible path, the minimum replacement rate uses stock up to gross loss.
+    drawn = min(opening, result["gross_loss"])
+    return {
+        "opening_compatible_inventory_assumed": opening,
+        "drawn_before_replacements": min(opening, result["stock_required_before_replacements"]),
+        "drawn_by_scenario_end": drawn,
+        "opening_reserve_remaining_at_end": opening - drawn,
+    }
+
+
+def scenario_addendum(data):
+    """Preserve the original results and attach the scope and inventory accounts."""
+    calculated = data["calculated"]
+    cases = data["sensitivity"]["cases"]
+    scenarios = {}
+    for key, scenario in calculated["scenarios"].items():
+        accounts = []
+        for market in scenario["markets"]:
+            for year, results in market["by_baseline_year"].items():
+                for case, result in zip(cases, results, strict=True):
+                    accounts.append({
+                        "market": market["label"],
+                        "baseline_year": int(year),
+                        "replacement_delay_months": case["lag_months"],
+                        "assumed_opening_stock_months": case["usable_stock_months"],
+                        "gross_loss": result["gross_loss"],
+                        **inventory_accounting(result),
+                        "early_service_gap": result["uncovered_before_replacements"],
+                        "minimum_annual_replacement": result["minimum_annual_replacement"],
+                    })
+        scenarios[key] = {
+            "unit": scenario["unit"],
+            "available_qualified_uncommitted_supply": None,
+            "actual_shortage": None,
+            "reactor_level_consequences_assessed": False,
+            "inventory_basis": "Assumed compatible service-equivalent opening reserve",
+            "accounts": accounts,
+        }
+    rows = data["world_enrichment"]["esa_2025"]["rows"]
+    capacity = {operator: rows[operator] for operator in ("Urenco", "Orano")}
+    combined = sum(capacity.values())
+    requirement = calculated["joint_enrichment_threshold"]["2025"]
+    return {
+        "date": "2026-11-24",
+        "scenarios": scenarios,
+        "enrichment_capacity_screen": {
+            "source": "ESA 2025 Annual Report, Table 8",
+            "unit": "thousand SWU/year",
+            "reported_operator_capacity": capacity,
+            "combined_reported_capacity": combined,
+            "joint_immediate_no_stock_requirement": requirement,
+            "required_share_if_two_operators_alone_replace": requirement / combined,
+        },
+    }
+
+
+def account_rows(addendum, key):
+    for row in addendum["scenarios"][key]["accounts"]:
+        if row["baseline_year"] != 2025:
+            continue
+        rate = row["minimum_annual_replacement"]
+        stock_months = row["assumed_opening_stock_months"]
+        stock_label = f"{stock_months} months of stock" if stock_months else "No stock"
+        yield (
+            f'{row["market"]} · {stock_label}',
+            row["replacement_delay_months"],
+            display_number(row["gross_loss"], 2),
+            display_number(row["opening_compatible_inventory_assumed"], 2),
+            display_number(row["drawn_before_replacements"], 2),
+            display_number(row["drawn_by_scenario_end"], 2),
+            display_number(row["opening_reserve_remaining_at_end"], 2),
+            display_number(row["early_service_gap"], 2),
+            "No early-gap-free rate" if rate is None else display_number(rate, 2),
+        )
+
+
 def display_number(value, places=0):
     return f"{value:,.{places}f}"
 
@@ -209,7 +289,14 @@ def render(data, trade):
     markets = result["scenarios"]
     west = markets["western_conversion"]["markets"][0]["by_baseline_year"]
 
+    addendum = data["scenario_addendum"]
+    screen = addendum["enrichment_capacity_screen"]
     replacements = {
+        "enrichment_account_rows": table_rows(account_rows(addendum, "russian_enrichment")),
+        "conversion_account_rows": table_rows(account_rows(addendum, "western_conversion")),
+        "addendum_requirement": display_number(screen["joint_immediate_no_stock_requirement"] / 1_000, 3),
+        "addendum_reported_capacity": display_number(screen["combined_reported_capacity"] / 1_000, 1),
+        "addendum_capacity_share": f'{screen["required_share_if_two_operators_alone_replace"]:.1%}',
         "title": escape(TITLE),
         "deck": escape(DECK),
         "version": data["version"],
@@ -285,6 +372,7 @@ def main():
         },
         "calculated": calculate(data),
     })
+    data["scenario_addendum"] = scenario_addendum(data)
     html = render(data, trade)
     data["sources"] = {key: {"title": label, "url": url} for key, (label, url) in data["sources"].items()}
     (HERE / "out" / "nuclear_chain.json").write_text(

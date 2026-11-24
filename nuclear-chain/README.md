@@ -24,3 +24,19 @@ can regenerate the original trade extract from BACI with
 The [methods annex](NOTES.md) describes the calculation and its limits. The
 [claim register](PRODUCTION.md) records the original narrative, source
 reconciliation and publication status.
+
+## Scenario addendum reproduction
+
+Added 24 November 2026. The addendum records the stock draws and closing
+balances for the published cases. Its capacity screen compares the immediate
+joint replacement requirement with two operators' reported annual capacity.
+Use these commands from the repository root.
+
+```text
+python nuclear-chain/test_record_nuclear.py
+python nuclear-chain/record_nuclear.py
+```
+
+The first command verifies the inventory balance, the early-gap decision
+rule and the arithmetic of the 2025 capacity screen. The second generates
+the article and the `scenario_addendum` section of the evidence JSON.
