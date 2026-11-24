@@ -36,3 +36,14 @@ capacity constraint requires validated available output and backlog for
 each specification, comparable delivery dates, approved suppliers and
 project timetables. The illustrative schedules do not supply those
 observations. An independent specialist review remains outstanding.
+
+## Review corrections, 24 November 2026
+
+Every outside source was re-read. Four changes followed:
+
+- IEA, Building the Future Transmission Grid, p. 8: "the price of power transformers rose by around 75%". The page no longer says "large", "real terms" or "survey prices"; the four-year lead time is given as the source words it ("up to four years").
+- ENTSO-E 2026, p. 16: operators have "a limited view of manufacturing capacities". The page no longer says qualified capacity is unavailable. The report's own Figure 4a uses a 145–420 kV band beside the 245–420 kV text; both are noted.
+- National Laboratory of the Rockies 2026 is a supplement on hydropower rehabilitation; its 30-month average cites Wood Mackenzie.
+- Prodcom 27904155 to CN 85044086 is a partial correspondence (the CN code also feeds a telecom and computer power-supply line).
+
+The September grid-trade study's filed section 4.6b-c is kept as filed; the 24 November interpretation note and sensitivity table follow it.

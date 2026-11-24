@@ -6936,24 +6936,39 @@
     "extract/baci/HS17/Y2022.parquet",
     "extract/baci/HS17/Y2023.parquet",
     "extract/baci/HS17/Y2024.parquet",
+    "grid-chain/",
+    "grid-chain/out/goes.json",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "grid-chain/out/goes.json"
    ],
    "exit": 0,
-   "secs": 3.1,
-   "code_sha": "e233cff77fd9877e",
+   "secs": 8.3,
+   "code_sha": "daa831a4fc271f56",
    "restored": 1
   },
   "grid-chain/record_grid.py": {
-   "reads": [],
+   "reads": [
+    "eu-grid-supply/eurostat_audit.json",
+    "eu-grid-supply/exposure.py",
+    "grid-chain/",
+    "grid-chain/article.html.in",
+    "grid-chain/out/goes.json",
+    "grid-chain/out/grid_trade.json",
+    "grid-chain/out/transformer_replication.json",
+    "out/buildout_study.json",
+    "out/buildout_us.json",
+    "out/eu_grid_supply.json"
+   ],
    "writes": [
+    "grid-chain/grid-chain.html",
     "grid-chain/out/grid_chain.json"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "4cdedc693c642401"
+   "code_sha": "b2b1530d8d34304c",
+   "restored": 2
   },
   "heat-pump-chain/record_heat_pump.py": {
    "reads": [],
@@ -15673,6 +15688,28 @@
    "secs": 3.3,
    "code_sha": "1eebd736bd624e0e",
    "restored": 0
+  },
+  "build_grid_trade_paper.py": {
+   "reads": [
+    "__pycache__/add_canonicals.cpython-311.pyc",
+    "__pycache__/add_head.cpython-311.pyc",
+    "buildout-study/exploratory_electrical_boom.json",
+    "eu-grid-supply/exposure.py",
+    "out/buildout_comtrade.json",
+    "out/buildout_eu.json",
+    "out/buildout_origins.json",
+    "out/buildout_study.json",
+    "out/buildout_supply.json",
+    "out/buildout_us.json",
+    "out/eu_grid_supply.json"
+   ],
+   "writes": [
+    "grid-trade.html"
+   ],
+   "exit": 0,
+   "secs": 0.2,
+   "code_sha": "7e9dd1f91bb327e3",
+   "restored": 1
   }
  }
 }

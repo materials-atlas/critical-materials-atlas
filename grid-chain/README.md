@@ -25,7 +25,7 @@ year picker uses the existing checked-in extraction.
 ## Replicate data and estimates
 
 The committed results build offline. For a new source check, run
-`python eu-grid-supply/audit_eurostat.py` to fetch the public Eurostat tables.
+`python eu-grid-supply/fetch_eurostat_audit.py` to fetch the public Eurostat tables.
 That command replaces the audit input with the latest Eurostat vintage.
 The dated September study inputs stay in `out/eu_grid_supply.json` and
 `out/buildout_study.json`.
