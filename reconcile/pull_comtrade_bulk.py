@@ -35,6 +35,7 @@ Usage:
   python reconcile/pull_comtrade_bulk.py --freq A --cl HS --year-min 1988 --all-codes   # yearly series
   python reconcile/pull_comtrade_bulk.py --freq A --cl S1 --year-min 1962 --all-codes   # SITC rev.1
   python reconcile/pull_comtrade_bulk.py --tariffline --freq A --year-min 2000 --all-codes   # national tariff lines
+  python reconcile/pull_comtrade_bulk.py --type S --freq A --cl EB --year-min 2000 --all-codes   # services by partner
 
 Two things learned on the server (10 Nov 2026):
 
@@ -69,10 +70,10 @@ MANIFEST = os.path.join(OUTDIR, '_manifest.tsv')
 LOG = os.path.join(OUTDIR, '_bulk.log')
 KEYFILE = os.path.join(ROOT, 'pipeline', '.comtrade_key')
 
-LIST = 'https://comtradeapi.un.org/bulk/v1/get/C/%s/%s'      # freq, classification
+LIST = 'https://comtradeapi.un.org/bulk/v1/get/%s/%s/%s'     # type (C goods, S services), freq, classification
 # Tariff-line files (--tariffline, added 24 Nov 2026): the reporter's NATIONAL codes (8-10 digits), with
 # mode of transport (motCode) and customs procedure (customsCode). Same key, same premium grant.
-TL_LIST = 'https://comtradeapi.un.org/bulk/v1/getTariffline/C/%s/%s'
+TL_LIST = 'https://comtradeapi.un.org/bulk/v1/getTariffline/%s/%s/%s'
 YEAR_MAX, YEAR_MIN = time.gmtime().tm_year, 2000   # the current year, not a constant that goes stale
 QUOTA_EXIT = False           # --quota-exit: stop on an exhausted quota instead of sleeping it out
 QUOTA = re.compile(r'replenished in (\d+):(\d+):(\d+)')
@@ -186,7 +187,7 @@ def periods(years, freq='M'):
     return out
 
 
-def listing(session, headers, period, st, url=LIST % ('M', 'HS'), fresh=False):
+def listing(session, headers, period, st, url=LIST % ('C', 'M', 'HS'), fresh=False):
     """Every reporter's file for one period, in ONE call. Cached: the listing rarely changes,
     and re-listing 324 periods on each resume would be the only expensive part of a restart.
     fresh=True asks the server again (the --recheck pass: new filers, corrected files)."""
@@ -334,6 +335,8 @@ def main():
                          'that is new or whose publicationDate changed since we took it')
     ap.add_argument('--quota-exit', action='store_true',
                     help='stop (state saved) when the daily call quota runs out, instead of sleeping')
+    ap.add_argument('--type', choices=['C', 'S'], default='C',
+                    help='C goods (default), S services (EBOPS, yearly from 2000; same 34 columns as goods)')
     ap.add_argument('--tariffline', action='store_true',
                     help='tariff-line files (national codes, transport mode, customs procedure)')
     ap.add_argument('--stream-above-mb', type=float, default=150.0,
@@ -341,11 +344,15 @@ def main():
     a = ap.parse_args()
     global OUTDIR, STATE, MANIFEST, LOG, QUOTA_EXIT, ACTIVE, PREFIX6
     QUOTA_EXIT = a.quota_exit
-    url = (TL_LIST if a.tariffline else LIST) % (a.freq, a.cl)
+    url = (TL_LIST if a.tariffline else LIST) % (a.type, a.freq, a.cl)
     if a.tariffline:
         ACTIVE, PREFIX6 = TL_SCHEMA, True
-    if (a.tariffline or (a.freq, a.cl) != ('M', 'HS')) and 'CMA_BULK_DIR' not in os.environ:
-        OUTDIR = os.path.join(ROOT, 'raw', ('comtrade_tl_%s_%s' if a.tariffline else 'comtrade_bulk_%s_%s') % (a.freq, a.cl))
+    if a.type != 'C' and not a.all_codes:
+        sys.exit('--type S needs --all-codes (the atlas code filter is a list of goods codes)')
+    if (a.tariffline or a.type != 'C' or (a.freq, a.cl) != ('M', 'HS')) and 'CMA_BULK_DIR' not in os.environ:
+        sub = ('comtrade_tl_%s_%s' % (a.freq, a.cl) if a.tariffline else
+               'comtrade_bulk_%s_%s_%s' % (a.type, a.freq, a.cl) if a.type != 'C' else 'comtrade_bulk_%s_%s' % (a.freq, a.cl))
+        OUTDIR = os.path.join(ROOT, 'raw', sub)
         STATE = os.path.join(OUTDIR, '_state.json')
         MANIFEST = os.path.join(OUTDIR, '_manifest.tsv')
         LOG = os.path.join(OUTDIR, '_bulk.log')
