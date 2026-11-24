@@ -230,9 +230,18 @@ def fetch_one(session, headers, period, rep, keep, outdir, stream_above_mb=150.0
     tmp = os.path.join(outdir, '_tmp_%s_%s.txt.gz' % (period, rep['reporterCode']))
     tmp_p = None
     got = 0
-    for attempt in range(2):
+    for attempt in range(6):
         got = 0
         with session.get(rep['fileUrl'], headers=headers, timeout=1800, stream=True) as resp:
+            if resp.status_code == 429 and attempt < 5:
+                # 'Too many requests' (24 Nov 2026): small files (services, tariff lines) are asked for
+                # faster than the server allows. Wait and retry instead of skipping the file.
+                try:
+                    wait = float(resp.headers.get('Retry-After') or 0)
+                except ValueError:
+                    wait = 0
+                time.sleep(max(wait, 15 * (attempt + 1)))
+                continue
             if resp.status_code != 200:
                 if quota_wait(resp) and attempt == 0:
                     continue
