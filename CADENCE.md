@@ -17,7 +17,11 @@ python reconcile\build_recon_flows.py 2025     # -> out/flows_2025.json  (provis
 python reconcile\build_2026_nowcast.py         # -> out/flows_2026.json  (directional scenario)
 
 # 2. reference layers (mine / refine / reserves / EU lens) when USGS/IEA update
-Rscript build_static.R                         # -> out/data.json
+# DO NOT run build_static.R as it stands (24 Nov 2026): it rewrites out/data.json whole and destroys
+# seven curated fields no builder reproduces (recycling, substitutability, uses, host, reserve_life,
+# net_import_reliance, export_control) - it did on 3 Oct 2026. Update a field in data.json by a merge
+# that keeps the others, then run `python runner.py --run --skip-held`.
+# Rscript build_static.R                       # -> out/data.json  (see the warning above)
 
 # 3. regenerate the derived site artefacts (order matters: risk + wgi before criticality; insights last)
 python fetch_wgi.py                            # -> out/wgi.json (World Bank governance; only when WGI updates ~yearly)
@@ -68,7 +72,7 @@ revised upward for months; the slider tiers (measured / provisional* / direction
 | New **quarterly** Comtrade lands | refresh `flows_2025`/`flows_2026`, post a short **Update** entry |
 | New **annual** Comtrade for a year | rebuild that year; if it's the newest, it becomes the measured default |
 | **CEPII BACI** releases a new year | rebuild from BACI (authoritative), drop the provisional tier for that year |
-| **USGS / IEA** publish new editions | rerun `build_static.R`, note the vintage bump |
+| **USGS / IEA** publish new editions | merge the new values into `out/data.json` (NOT a `build_static.R` rerun - see step 2), note the vintage bump |
 | **Export-control / policy event** | add it to `POLICY_EVENTS` (the year-slider timeline) + an Update entry |
 
 ## The pre-registered moment
