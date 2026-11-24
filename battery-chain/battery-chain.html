@@ -1,26 +1,192 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/battery-chain/battery-chain">
-<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>Mined all over, made in China — Critical Materials Atlas</title><meta name="description" content="the battery metals are mined across Australia, DR Congo and Indonesia, but refining, cathode and cell-making run ~80-90% through China."><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>When can battery factories replace disrupted inputs? — Critical Materials Atlas</title>
+  <meta name="description" content="Battery ingredients change with the chemistry. Usable stocks, approved suppliers and access to upstream materials determine how long a factory can keep producing.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+  <link rel="canonical" href="https://criticalmaterialsatlas.org/battery-chain/battery-chain">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../chain-assets/chainview.css">
+  <style>
+    :root{--acc:#3f7d5a}
+    .study-nav{display:flex;flex-wrap:wrap;gap:.55rem 1.2rem;margin:1rem 0}
+    .table-wrap{overflow-x:auto}
+    .table-wrap table{margin:0}
+    figure.panel{margin-inline:0}
+    figure.panel figcaption{margin-top:.8rem}
+    details.panel summary{cursor:pointer;font-weight:700;color:var(--navy)}
+    details.panel .table-wrap{margin-top:.8rem}
+    #static-trade[hidden]{display:none}
+  </style>
+</head>
+<body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<div class="draftbar">Value Chains <span>— a research layer of the Critical Materials Atlas · Lithium-ion batteries</span></div>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
 <main id="main">
-<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Battery manufacturing</div>
+  <h1>When can battery factories replace disrupted inputs?</h1>
+  <p class="deck">Battery ingredients change with the chemistry. Usable stocks, approved suppliers and access to upstream materials determine how long a factory can keep producing.</p>
+  <p class="byline">Evidence release · <time datetime="2026-11-24">24 November 2026</time></p>
+</div></section>
 <article>
-<div class="callout hot" id="correction"></div>
-<div class="stats" id="stats"></div>
-<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
-<div id="history-wrap"></div>
-<div id="sections"></div>
-<h2>Customs records are context, not capability</h2>
-<p id="trade-intro"></p>
-<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0" aria-label="trade year"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
-<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
-<p id="conflegend" class="conflegend"></p>
-<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+<nav class="study-nav" aria-label="On this page">
+  <a href="#production">Production geography</a>
+  <a href="#europe">European exposure</a>
+  <a href="#disruption">Disruption model</a>
+  <a href="#trade">Trade records</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<h2>Battery recipes shape supply exposure</h2>
+<p>China produces most battery cells and an even larger share of the active materials used in electric car batteries. Lithium iron phosphate (LFP) avoids nickel and cobalt in the cathode. Both designs studied here use graphite anodes, and the LFP cathode uses a different set of refined inputs. A factory can weather a lost shipment if it has compatible stock and replacement material arrives in time. The model below tests these conditions for two hypothetical EU production lines.</p>
+<div class="chain">
+  <div class="hop"><div class="n">Mines and feedstocks</div><div class="t">Lithium, nickel, cobalt, phosphate and natural graphite have different supply maps. Synthetic graphite follows a different feedstock route.</div></div>
+  <div class="hop"><div class="n">Refining and precursors</div><div class="t">Battery-grade chemicals and precursor compounds have specification and production requirements of their own.</div></div>
+  <div class="hop"><div class="n">Active materials</div><div class="t">Cathode composition sets the cell chemistry. The anode uses graphite in the designs studied here.</div></div>
+  <div class="hop"><div class="n">Cells and packs</div><div class="t">Cell factories integrate qualified electrodes, electrolyte and separator. Pack plants integrate cells with cooling and controls.</div></div>
+</div>
+
+<h2 id="production">Production is concentrated at some stages more than others</h2>
+<div class="table-wrap"><table>
+  <caption>China’s share of global output by production stage</caption>
+  <thead><tr><th scope="col">Stage</th><th scope="col">Year</th><th scope="col">China’s share</th><th scope="col">Output measured</th></tr></thead>
+  <tbody><tr><th scope="row">Lithium refining</th><td>2023</td><td>Almost 65%</td><td>Global lithium refining, all destinations</td></tr>
+<tr><th scope="row">Cathode active material</th><td>2025</td><td>About 85%</td><td>Global output of cathode active material for electric car batteries</td></tr>
+<tr><th scope="row">Anode active material</th><td>2025</td><td>More than 90%</td><td>Global output of anode active material for electric car batteries</td></tr>
+<tr><th scope="row">Battery cells</th><td>2025</td><td>More than 80%</td><td>Global cell production by factory location</td></tr>
+<tr><th scope="row">Electric cars</th><td>2025</td><td>70%</td><td>Global electric car production by factory location</td></tr></tbody>
+</table></div>
+<p>IEA estimates show that Australia, Chile and China together mined about 85% of global lithium in 2023. The Democratic Republic of the Congo accounted for almost two-thirds of cobalt mining, and Indonesia for over half of nickel mining that year. These concentration figures have separate commodity denominators. The table uses physical production and reports each source’s precision. <a href="#source-iea_2025">IEA, Global EV Outlook 2025</a> and <a href="#source-iea_trade">Global EV Outlook 2026.</a></p>
+
+<figure class="panel" aria-labelledby="chemistry-figure">
+  <h3 id="chemistry-figure">China’s cathode and cell output by chemistry</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Chemistry group</th><th scope="col">Year</th><th scope="col">Cathode material</th><th scope="col">Cells</th></tr></thead>
+    <tbody><tr><th scope="row">Nickel-based</th><td>2024</td><td>Less than two-thirds</td><td>About 60%</td></tr>
+<tr><th scope="row">Lithium iron phosphate (LFP)</th><td>2024</td><td>More than 98%</td><td>More than 98%</td></tr></tbody>
+  </table></div>
+  <figcaption class="note">Share of global production within each chemistry group in the same source and year. The nickel-based group includes chemistries other than NMC. <a href="#source-iea_chemistry">IEA, Global Critical Minerals Outlook 2025.</a></figcaption>
+</figure>
+<p>Nickel manganese cobalt (NMC) cathodes need battery-grade nickel and cobalt. LFP cathodes use lithium, iron and phosphate. Battery-grade purified phosphoric acid and coated graphite can have concentrated supply even when phosphate rock or carbon feedstocks are widely available. The IEA reported LFP at below 10% of the global electric-car battery market in 2020, just under 30% in 2022 and nearly half in 2024. These are rounded benchmarks from different editions. The series measures battery uptake by energy capacity. <a href="#source-iea_2023">IEA, Global EV Outlook 2023</a>, <a href="#source-iea_2025">Global EV Outlook 2025</a> and <a href="#source-iea_chemistry">Global Critical Minerals Outlook 2025.</a></p>
+<p class="note"><b>Correction, 24 November 2026.</b> The previous article described refining, electrodes and cells with a single concentration range. The 2023 lithium-refining estimate is almost 65%. The 2025 active-material and cell estimates use separate output measures, as shown above.</p>
+
+<h2 id="europe">A European cell plant can rely on imported materials</h2>
+<p>The European Union accounted for almost 15% of global EV battery deployment in 2025. LFP supplied more than 10% of EU EV battery demand, and the IEA finds that almost all of that LFP came from China. Roughly 30% arrived as batteries and nearly 70% inside imported EVs. These shares track EU demand and direct or embedded imports of finished batteries. The example below traces potential lost input supply to domestic factories, which requires a different set of data. <a href="#source-iea_batteries">IEA, Global EV Outlook 2026, Electric vehicle batteries.</a></p>
+<p>A company's headquarters and the geographic location of its plants answer different questions. The IEA's 2025 capacity breakdown distinguishes the two. An installed cell line also needs enough qualified cathode active material, graphite and other supplies to run. A supplier's commercial-scale sample is one milestone in qualification. In June 2026, NOVONIX reported delivery of such a synthetic graphite sample for customer evaluation. This example establishes the existence of a qualification step and gives no generic approval time for European plants. <a href="#source-iea_batteries">IEA, Global EV Outlook 2026</a> and <a href="#source-qualification">NOVONIX disclosure, June 2026.</a></p>
+
+<h3>What existing studies already measure</h3>
+<p>The IEA tested how much lithium-ion battery deployment outside China could be met by manufacturing capacity located outside China, by stage and chemistry, at 85% nameplate utilisation. Its 2025 denominator covers electric vehicles and battery energy storage, and its nickel-based group includes NMC and nickel cobalt aluminium. Published research has also traced indirect exposure through upstream inputs, bounded uncertainty with network flows, and evaluated how chemistry shifts and recycling affect prices after disruptions. The question tested here is narrower. Given fixed recipes and assigned input contracts, how do usable stocks and supplier approval change the monthly production loss? The cases illustrate outcomes under stated assumptions. <a href="#source-iea_potential">IEA, Figure 7.15</a>, <a href="#source-upstream">2024 network-flow study</a>, <a href="#source-policy">2024 policy study</a> and <a href="#source-prices">2026 disruption study.</a></p>
+
+<h2 id="disruption">The input that limits production can change over time</h2>
+<p><span class="conf snapshot">Modelled</span> The example runs for 8 months and starts with a hypothetical NMC811 line and an LFP line, each rated at 1 GWh per month. For both, pre-disruption shipments meet full needs. A disruption removes specified deliveries from China and, in the traced case, the portion of other deliveries that requires disrupted Chinese upstream supply. A delivery already counted as direct exposure is counted once. Stocks start ready for use, and qualified replacement begins only after the stated delay. Production uses the current month's available materials and carries unused stocks into the next month.</p>
+
+<figure class="panel" aria-labelledby="monthly-output-figure">
+  <h3 id="monthly-output-figure">Monthly output with direct and upstream disruption</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Month</th><th scope="col">NMC811 (GWh)</th><th scope="col">NMC811 loss</th><th scope="col">NMC811 limit</th><th scope="col">LFP (GWh)</th><th scope="col">LFP loss</th><th scope="col">LFP limit</th></tr></thead>
+    <tbody><tr><th scope="row">1</th><td>0.800</td><td>20.0%</td><td>Graphite for the anode</td><td>1.000</td><td>0.0%</td><td>Cell limit</td></tr>
+<tr><th scope="row">2</th><td>0.300</td><td>70.0%</td><td>Graphite for the anode</td><td>1.000</td><td>0.0%</td><td>Graphite for the anode</td></tr>
+<tr><th scope="row">3</th><td>0.300</td><td>70.0%</td><td>Graphite for the anode</td><td>0.300</td><td>70.0%</td><td>Cathode active material, Graphite for the anode</td></tr>
+<tr><th scope="row">4</th><td>0.948</td><td>5.2%</td><td>Graphite for the anode</td><td>0.100</td><td>90.0%</td><td>Cathode active material</td></tr>
+<tr><th scope="row">5</th><td>0.948</td><td>5.2%</td><td>Graphite for the anode</td><td>0.100</td><td>90.0%</td><td>Cathode active material</td></tr>
+<tr><th scope="row">6</th><td>0.948</td><td>5.2%</td><td>Graphite for the anode</td><td>0.820</td><td>18.0%</td><td>Cathode active material</td></tr>
+<tr><th scope="row">7</th><td>0.948</td><td>5.2%</td><td>Graphite for the anode</td><td>0.820</td><td>18.0%</td><td>Cathode active material</td></tr>
+<tr><th scope="row">8</th><td>0.948</td><td>5.2%</td><td>Graphite for the anode</td><td>0.820</td><td>18.0%</td><td>Cathode active material</td></tr></tbody>
+  </table></div>
+  <figcaption class="note"><span class="conf snapshot">Modelled</span> Loss is relative to each line’s 1 GWh monthly baseline. Inputs that reach their constraint together are both shown. Cathode and anode inventories are assigned to individual lines.</figcaption>
+</figure>
+<p>The NMC811 line loses 20% of its baseline in the first month because its graphite stock runs low, while the LFP line loses 0%. Across the full period, NMC811 loses 23.25% and LFP loses 38%. Once the LFP inventory runs down, its cathode becomes the continuing constraint. In this example, the shorter and longer comparisons rank the lines differently.</p>
+
+<figure class="panel" aria-labelledby="case-summary">
+  <h3 id="case-summary">Cumulative output loss under different sourcing assumptions</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Case</th><th scope="col">NMC811 loss</th><th scope="col">LFP loss</th></tr></thead>
+    <tbody><tr><th scope="row">No disruption</th><td>0.00%</td><td>0.00%</td></tr>
+<tr><th scope="row">Direct origin only</th><td>12.50%</td><td>28.00%</td></tr>
+<tr><th scope="row">Direct and upstream exposure</th><td>23.25%</td><td>38.00%</td></tr>
+<tr><th scope="row">Alternatives qualified at the start</th><td>0.00%</td><td>0.00%</td></tr>
+<tr><th scope="row">No eligible replacement deliveries</th><td>63.75%</td><td>65.00%</td></tr></tbody>
+  </table></div>
+  <figcaption class="note"><span class="conf snapshot">Modelled</span> Each loss uses the same 8-month undisturbed output for its denominator. The prequalified case advances the same available alternative volumes to the first month. Existing stock bridges the remaining gap through the stated horizon.</figcaption>
+</figure>
+
+<details class="panel"><summary>Recipe coefficients and model assumptions</summary>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Line and input</th><th scope="col">Design intensity (t/GWh)</th><th scope="col">Directly exposed</th><th scope="col">Additionally exposed upstream</th><th scope="col">Opening stock at full demand (months)</th><th scope="col">First replacement month</th><th scope="col">Qualified replacement (t/month)</th></tr></thead>
+  <tbody><tr><th scope="row">NMC811 · Cathode active material</th><td>1,272.1</td><td>20%</td><td>30%</td><td>1.0</td><td>5</td><td>636</td></tr>
+<tr><th scope="row">NMC811 · Graphite for the anode</th><td>915.0</td><td>50%</td><td>20%</td><td>0.5</td><td>4</td><td>593</td></tr>
+<tr><th scope="row">LFP · Cathode active material</th><td>2,064.9</td><td>80%</td><td>10%</td><td>2.0</td><td>6</td><td>1,487</td></tr>
+<tr><th scope="row">LFP · Graphite for the anode</th><td>1,054.4</td><td>50%</td><td>20%</td><td>1.4</td><td>4</td><td>683</td></tr></tbody>
+</table></div>
+<p class="note">The material intensities come from Argonne’s 70.6 kWh battery-electric vehicle pack examples. They are design values for active cathode material and graphite, with no allowance for factory scrap. The model treats them as recipe intensities per nominal energy produced on the line. Exposure, stocks, lead times and alternative quantities are illustrative. The additional upstream share is a fraction of the full input requirement after multiplying the share of other deliveries by their assumed dependency. <a href="#source-recipe">Argonne National Laboratory, GREET 2020, Tables 1 and 4.</a></p></details>
+
+<details class="panel"><summary>Stock thresholds and sensitivity</summary>
+<div class="table-wrap"><table>
+  <caption>Conditions for maintaining full output in the traced case</caption>
+  <thead><tr><th scope="col">Line and input</th><th scope="col">Usable stock needed until qualification (tonnes)</th><th scope="col">Sustained replacement required (t/month)</th><th scope="col">Replacement assumed (t/month)</th></tr></thead>
+  <tbody><tr><th scope="row">NMC811 · Cathode active material</th><td>2,544</td><td>636</td><td>636</td></tr>
+<tr><th scope="row">NMC811 · Graphite for the anode</th><td>1,922</td><td>641</td><td>593</td></tr>
+<tr><th scope="row">LFP · Cathode active material</th><td>9,292</td><td>1,858</td><td>1,487</td></tr>
+<tr><th scope="row">LFP · Graphite for the anode</th><td>2,214</td><td>738</td><td>683</td></tr></tbody>
+</table></div>
+<p class="note">The stock threshold sums missing deliveries through the wait for qualification at full production. With stocks drawn down, all missing flows must be replaced to maintain the undisturbed output indefinitely. Eligible alternative volume is rated capacity multiplied by its operational and commercially uncommitted fractions, capped at the lost delivery volume.</p>
+<div class="table-wrap"><table>
+  <caption>Eight-month loss across selected assumptions</caption>
+  <thead><tr><th scope="col">Line</th><th scope="col">Cumulative output loss</th></tr></thead>
+  <tbody><tr><th scope="row">NMC811</th><td>17.0% to 58.8%</td></tr>
+<tr><th scope="row">LFP</th><td>13.0% to 77.5%</td></tr></tbody>
+</table></div>
+<p class="note"><span class="conf snapshot">Modelled</span> The range crosses half or twice the opening stock, zero or three extra months of delay and half or all the replacement volume. With double the opening stock and the original qualification schedule and supply volumes, the full-period losses are 17% for NMC811 and 13% for LFP. The selected ranges carry no probabilities.</p></details>
+
+<h3>What it takes to estimate a real disruption</h3>
+<p>For a plant-specific result, each material needs a supplier and upstream origin, usable inventory, dated commitments, compatible specifications and a firm qualification schedule. Equipment, power and the other cell inputs are assumed available here. The model holds the chemistry and cell rating fixed, allocates stocks and contracts separately to the lines, and leaves prices and downstream demand outside the calculation. The reviewed public evidence provides no validated EU-wide schedule of qualified alternatives, orders and inventories. The reported thresholds apply to the specified lines and sourcing assumptions.</p>
+
+<h2 id="trade">Trade records show goods crossing borders</h2>
+<p>The frozen extract covers lithium-ion accumulators and lithium carbonate. An accumulator can include cells, modules or packs and can be used outside vehicles. Values here are reported cross-border goods in nominal US dollars. Product-level export data give no direct measure of factory output, qualified capacity, embedded origin or battery grade.</p>
+<div class="panel">
+  <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">2024</b></div>
+  <div class="table-wrap"><table>
+    <caption>Reported world goods trade. Latest static snapshot is 2024.</caption>
+    <thead><tr><th scope="col">Traded good</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Product coverage</th></tr></thead>
+    <tbody id="trade-body"><tr data-trade-code="850760"><th scope="row">Lithium-ion accumulators (HS 850760)</th><td>$115.7 billion</td><td>China · 59%</td><td>Lithium-ion accumulators can include cells, modules and packs across applications. The archive reports values from 2017.</td></tr>
+<tr data-trade-code="283691"><th scope="row">Lithium carbonate (HS 283691)</th><td>$3.8 billion</td><td>Chile · 74%</td><td>Lithium carbonate, all grades and uses. The export record gives no battery-grade split or mine origin.</td></tr></tbody>
+  </table></div>
+  <p class="note">The archive uses HS02 through 2016 and HS17 from 2017. Empty rows mark years with no recorded value for the code in this extract. <a href="#source-baci">CEPII BACI V202601.</a></p>
+</div>
+
+<h2 id="sources">Sources and downloads</h2>
+<ul class="source-list"><li id="source-iea_trade"><a href="https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade">IEA, Global EV Outlook 2026, Manufacturing and trade</a></li>
+<li id="source-iea_batteries"><a href="https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries">IEA, Global EV Outlook 2026, Electric vehicle batteries</a></li>
+<li id="source-iea_potential"><a href="https://www.iea.org/files/857aa690-2a43-453f-9f12-147cc8f0a1dd/GlobalEVOutlook2026.pdf#page=149">IEA, Global EV Outlook 2026, Figure 7.15 and Annex C</a></li>
+<li id="source-iea_chemistry"><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/beyond-nmc-batteries-supply-chain-issues-for-emerging-battery-technologies">IEA, Global Critical Minerals Outlook 2025, Beyond NMC batteries</a></li>
+<li id="source-iea_2025"><a href="https://www.iea.org/reports/global-ev-outlook-2025/electric-vehicle-batteries">IEA, Global EV Outlook 2025, Electric vehicle batteries</a></li>
+<li id="source-iea_2023"><a href="https://www.iea.org/reports/global-ev-outlook-2023/trends-in-batteries">IEA, Global EV Outlook 2023, Trends in batteries</a></li>
+<li id="source-iea_costs"><a href="https://www.iea.org/reports/batteries-and-secure-energy-transitions/status-of-battery-demand-and-supply">IEA, Batteries and Secure Energy Transitions, Status of battery demand and supply, 2024</a></li>
+<li id="source-recipe"><a href="https://greet.anl.gov/files/bom_lib_2020">Argonne National Laboratory, Update of bill of materials and cathode chemistry in GREET 2020, EV pack Tables 1 and 4</a></li>
+<li id="source-qualification"><a href="https://www.sec.gov/Archives/edgar/data/1859795/000119312526266701/nvx-ex99_1.htm">NOVONIX, delivery of production qualification sample, SEC filing, 11 June 2026</a></li>
+<li id="source-upstream"><a href="https://doi.org/10.1038/s41467-024-46418-1">Nature Communications, Electric vehicle battery chemistry affects supply chain disruption vulnerabilities, 2024, corrected 2025</a></li>
+<li id="source-policy"><a href="https://doi.org/10.1038/s41560-024-01649-w">Nature Energy, US industrial policy may reduce electric vehicle battery supply chain vulnerabilities and influence technology choice, 2024</a></li>
+<li id="source-prices"><a href="https://doi.org/10.1038/s41467-026-79046-y">Nature Communications, Electric vehicle battery materials supply disruptions can be mitigated with chemistry changes and recycling, 2026</a></li>
+<li id="source-baci"><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a></li></ul>
+<p><a href="out/battery_chain.json">Evidence and model results</a> · <a href="out/battery_trade.json">Trade JSON</a> · <a href="library">Earlier research library</a></p>
+<p><a href="../lithium-chain/lithium-chain">Lithium</a> · <a href="../cobalt-chain/cobalt-chain">Cobalt</a> · <a href="../nickel-chain/nickel-chain">Nickel</a> · <a href="../graphite-chain/graphite-chain">Graphite</a></p>
 </article>
 </main>
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">A research layer of the Critical Materials Atlas — each chain shows its own sources and confidence tags.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
-<script>window.CHAIN_DATA='out/battery_chain.json';window.CHAIN_TRADE='out/battery_trade.json';</script>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Research based on public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../chokepoint-map">Chokepoint Map</a></div><div class="fineprint">Send corrections to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/battery_trade.json';</script>
 <script src="../chain-assets/chainview.js"></script>
-</body></html>
+</body>
+</html>

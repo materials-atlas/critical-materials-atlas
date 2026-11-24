@@ -101,6 +101,10 @@
   if (staticTrade) {
     fetch(TRADE).then(function (r) { return r.ok ? r.json() : null; }).then(function (T) {
       if (hasTrade(T)) {
+        document.querySelectorAll('#trade-body tr[data-trade-code]').forEach(function (row) {
+          var product = T.codes[row.dataset.tradeCode];
+          if (product) product.boundary = row.lastElementChild.textContent;
+        });
         enableTrade(T);
         staticTrade.hidden = false;
       }

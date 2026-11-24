@@ -1,0 +1,214 @@
+{
+  "version": "2026-11-24",
+  "sources": {
+    "iea_trade": [
+      "IEA, Global EV Outlook 2026, Manufacturing and trade",
+      "https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade"
+    ],
+    "iea_batteries": [
+      "IEA, Global EV Outlook 2026, Electric vehicle batteries",
+      "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+    ],
+    "iea_potential": [
+      "IEA, Global EV Outlook 2026, Figure 7.15 and Annex C",
+      "https://www.iea.org/files/857aa690-2a43-453f-9f12-147cc8f0a1dd/GlobalEVOutlook2026.pdf#page=149"
+    ],
+    "iea_chemistry": [
+      "IEA, Global Critical Minerals Outlook 2025, Beyond NMC batteries",
+      "https://www.iea.org/reports/global-critical-minerals-outlook-2025/beyond-nmc-batteries-supply-chain-issues-for-emerging-battery-technologies"
+    ],
+    "iea_2025": [
+      "IEA, Global EV Outlook 2025, Electric vehicle batteries",
+      "https://www.iea.org/reports/global-ev-outlook-2025/electric-vehicle-batteries"
+    ],
+    "iea_2023": [
+      "IEA, Global EV Outlook 2023, Trends in batteries",
+      "https://www.iea.org/reports/global-ev-outlook-2023/trends-in-batteries"
+    ],
+    "iea_costs": [
+      "IEA, Batteries and Secure Energy Transitions, Status of battery demand and supply, 2024",
+      "https://www.iea.org/reports/batteries-and-secure-energy-transitions/status-of-battery-demand-and-supply"
+    ],
+    "recipe": [
+      "Argonne National Laboratory, Update of bill of materials and cathode chemistry in GREET 2020, EV pack Tables 1 and 4",
+      "https://greet.anl.gov/files/bom_lib_2020"
+    ],
+    "qualification": [
+      "NOVONIX, delivery of production qualification sample, SEC filing, 11 June 2026",
+      "https://www.sec.gov/Archives/edgar/data/1859795/000119312526266701/nvx-ex99_1.htm"
+    ],
+    "upstream": [
+      "Nature Communications, Electric vehicle battery chemistry affects supply chain disruption vulnerabilities, 2024, corrected 2025",
+      "https://doi.org/10.1038/s41467-024-46418-1"
+    ],
+    "policy": [
+      "Nature Energy, US industrial policy may reduce electric vehicle battery supply chain vulnerabilities and influence technology choice, 2024",
+      "https://doi.org/10.1038/s41560-024-01649-w"
+    ],
+    "prices": [
+      "Nature Communications, Electric vehicle battery materials supply disruptions can be mitigated with chemistry changes and recycling, 2026",
+      "https://doi.org/10.1038/s41467-026-79046-y"
+    ],
+    "baci": [
+      "CEPII BACI V202601, based on UN Comtrade",
+      "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    ]
+  },
+  "production_crosswalk": [
+    {
+      "step": "Lithium refining",
+      "year": 2023,
+      "share": "Almost 65%",
+      "scope": "Global lithium refining, all destinations",
+      "source": "iea_2025"
+    },
+    {
+      "step": "Cathode active material",
+      "year": 2025,
+      "share": "About 85%",
+      "scope": "Global output of cathode active material for electric car batteries",
+      "source": "iea_trade"
+    },
+    {
+      "step": "Anode active material",
+      "year": 2025,
+      "share": "More than 90%",
+      "scope": "Global output of anode active material for electric car batteries",
+      "source": "iea_trade"
+    },
+    {
+      "step": "Battery cells",
+      "year": 2025,
+      "share": "More than 80%",
+      "scope": "Global cell production by factory location",
+      "source": "iea_trade"
+    },
+    {
+      "step": "Electric cars",
+      "year": 2025,
+      "share": "70%",
+      "scope": "Global electric car production by factory location",
+      "source": "iea_trade"
+    }
+  ],
+  "chemistry_crosswalk": [
+    {
+      "family": "Nickel-based",
+      "year": 2024,
+      "cathode_material": "Less than two-thirds",
+      "cells": "About 60%",
+      "source": "iea_chemistry"
+    },
+    {
+      "family": "Lithium iron phosphate (LFP)",
+      "year": 2024,
+      "cathode_material": "More than 98%",
+      "cells": "More than 98%",
+      "source": "iea_chemistry"
+    }
+  ],
+  "market_2025": {
+    "global_ev_deployment_twh": 1.2,
+    "eu_share_of_global_ev_deployment": "Almost 15%",
+    "eu_lfp_share_of_ev_battery_demand": "More than 10%",
+    "eu_lfp_from_china": "Nearly all, including batteries in imported EVs",
+    "eu_lfp_direct_fraction_about": 0.3,
+    "eu_lfp_in_ev_fraction_about": 0.7,
+    "source": "iea_batteries"
+  },
+  "scenario_months": 8,
+  "lines": {
+    "NMC811": {
+      "monthly_cell_limit_gwh": 1,
+      "recipe": {
+        "source": "recipe",
+        "design_energy_kwh": 70.6,
+        "mass_kg": {
+          "cathode": 89.81,
+          "graphite": 64.6
+        }
+      },
+      "lanes": {
+        "cathode": {
+          "direct_exposure_fraction": 0.2,
+          "upstream_exposure_within_other_fraction": 0.375,
+          "opening_stock_months_at_full_output": 1,
+          "alternative": {
+            "qualification_lag_months": 4,
+            "nameplate_fraction_of_line_need": 0.7,
+            "operational_fraction": 0.9,
+            "uncommitted_fraction_of_operational": 0.8,
+            "specification_compatible": true,
+            "upstream_independent": true
+          }
+        },
+        "graphite": {
+          "direct_exposure_fraction": 0.5,
+          "upstream_exposure_within_other_fraction": 0.4,
+          "opening_stock_months_at_full_output": 0.5,
+          "alternative": {
+            "qualification_lag_months": 3,
+            "nameplate_fraction_of_line_need": 0.9,
+            "operational_fraction": 0.9,
+            "uncommitted_fraction_of_operational": 0.8,
+            "specification_compatible": true,
+            "upstream_independent": true
+          }
+        }
+      }
+    },
+    "LFP": {
+      "monthly_cell_limit_gwh": 1,
+      "recipe": {
+        "source": "recipe",
+        "design_energy_kwh": 70.6,
+        "mass_kg": {
+          "cathode": 145.78,
+          "graphite": 74.44
+        }
+      },
+      "lanes": {
+        "cathode": {
+          "direct_exposure_fraction": 0.8,
+          "upstream_exposure_within_other_fraction": 0.5,
+          "opening_stock_months_at_full_output": 2,
+          "alternative": {
+            "qualification_lag_months": 5,
+            "nameplate_fraction_of_line_need": 1,
+            "operational_fraction": 0.9,
+            "uncommitted_fraction_of_operational": 0.8,
+            "specification_compatible": true,
+            "upstream_independent": true
+          }
+        },
+        "graphite": {
+          "direct_exposure_fraction": 0.5,
+          "upstream_exposure_within_other_fraction": 0.4,
+          "opening_stock_months_at_full_output": 1.4,
+          "alternative": {
+            "qualification_lag_months": 3,
+            "nameplate_fraction_of_line_need": 0.9,
+            "operational_fraction": 0.9,
+            "uncommitted_fraction_of_operational": 0.8,
+            "specification_compatible": true,
+            "upstream_independent": true
+          }
+        }
+      }
+    }
+  },
+  "sensitivity": {
+    "opening_stock_multipliers": [
+      0.5,
+      2
+    ],
+    "extra_qualification_months": [
+      0,
+      3
+    ],
+    "alternative_volume_multipliers": [
+      0.5,
+      1
+    ]
+  }
+}

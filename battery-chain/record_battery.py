@@ -1,115 +1,167 @@
-"""Evidence JSON for the lithium-ion battery chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_battery.py
-"""
+"""Build the battery study and its evidence from public and explicitly modelled inputs."""
+
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "battery_chain.json")
+import json
+from html import escape
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "iea_ev_2025": {"title": "IEA, Global EV Outlook 2025 — Electric vehicle batteries", "year": 2025, "url": "https://www.iea.org/reports/global-ev-outlook-2025/electric-vehicle-batteries"},
-    "iea_ev_2026": {"title": "IEA, Global EV Outlook 2026 — Manufacturing and trade", "year": 2026, "url": "https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade"},
-    "iea_minerals_2025": {"title": "IEA, Global Critical Minerals Outlook 2025 — beyond NMC", "year": 2025, "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/beyond-nmc-batteries-supply-chain-issues-for-emerging-battery-technologies"},
-    "iea_secure_2024": {"title": "IEA, Batteries and Secure Energy Transitions", "year": 2024, "url": "https://www.iea.org/reports/batteries-and-secure-energy-transitions/status-of-battery-demand-and-supply"},
-    "iea_2023": {"title": "IEA, Global EV Outlook 2023 — Trends in batteries", "year": 2023, "url": "https://www.iea.org/reports/global-ev-outlook-2023/trends-in-batteries"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+from replacement_model import calculate
+
+HERE = Path(__file__).resolve().parent
+TITLE = "When can battery factories replace disrupted inputs?"
+DECK = ("Battery ingredients change with the chemistry. Usable stocks, approved suppliers "
+        "and access to upstream materials determine how long a factory can keep producing.")
+
+MATERIALS = {"cathode": "Cathode active material", "graphite": "Graphite for the anode"}
+CASES = {
+    "baseline": "No disruption",
+    "direct": "Direct origin only",
+    "traced": "Direct and upstream exposure",
+    "prequalified": "Alternatives qualified at the start",
+    "no_replacements": "No eligible replacement deliveries",
+}
+TRADE_NOTES = {
+    "850760": "Lithium-ion accumulators can include cells, modules and packs across applications. The archive reports values from 2017.",
+    "283691": "Lithium carbonate, all grades and uses. The export record gives no battery-grade split or mine origin.",
 }
 
-CHAIN = {
-    "title": "Lithium-ion battery chain",
-    "chokepoint": {"product": "Battery cells", "stage": "Cell + cathode", "mechanism": "capability", "physics": "Electrode coating + cell assembly at scale — capital + process capability, ~80% China", "holder": "China", "share": "~80%", "control": "—", "conf": "estimate"},
-    "published": True,
-    "related": [{"href": "../lithium-chain/lithium-chain", "label": "Lithium chain"}, {"href": "../cobalt-chain/cobalt-chain", "label": "Cobalt chain"}, {"href": "../nickel-chain/nickel-chain", "label": "Nickel chain"}, {"href": "../graphite-chain/graphite-chain", "label": "Graphite / anode chain"}],
-    "accent": "#3f7d5a",
-    "eyebrow": "Product-chain pilot · the cell in everything",
-    "h1": "The battery metals are mined all over — the battery is made in China",
-    "deck": "Lithium, cobalt and nickel come out of the ground in Australia, the DR Congo and Indonesia. But the "
-            "battery is not the mine: it is refined chemical, cathode powder and an assembled cell — and each of "
-            "those steps runs about 80–90% through China, whatever the map of the mines says.",
-    "byline": "mine (spread) ≠ battery-grade refining (China) ≠ cathode/anode ≠ the cell ≠ the pack",
-    "correction": "Securing the mines does not secure the battery. Lithium is mined mostly in Australia and Chile, "
-                  "cobalt in the DR Congo, nickel in Indonesia — but battery-grade refining, cathode and anode "
-                  "production and cell assembly are all ~80–90% China. And the recipe is shifting underneath: cobalt- "
-                  "and nickel-free LFP went from a tenth of EV batteries to about half in four years, deepening the "
-                  "midstream China leads rather than loosening it.",
-    "stats": [
-        {"v": "80–90%", "l": "China's share of cathode (~85%), anode (~90%) and cell (~80%) output", "conf": "estimate"},
-        {"v": "~65%", "l": "of lithium refining is China — regardless of where the ore is dug", "conf": "estimate"},
-        {"v": "10→49%", "l": "LFP's share of EV batteries, 2020 → 2024 — the recipe changing under the chokepoint", "conf": "estimate"},
-        {"v": "−90%", "l": "fall in average battery cost, 2010 → 2023", "conf": "measured"},
-    ],
-    "history": {
-        "title": "The recipe changed under the chokepoint: LFP share of EV batteries",
-        "conf": "estimate",
-        "note": "IEA. Lithium-iron-phosphate cells — which use no cobalt or nickel — went from about a tenth of EV "
-                "battery capacity in 2020 to nearly half by 2024. Three published anchors, not an annual series, so it "
-                "is marked as an estimate. The point: even as the chemistry moved to escape cobalt and nickel, it moved "
-                "toward a technology China leads (CATL and BYD), so the midstream chokepoint deepened rather than eased.",
-        "series": [
-            {"label": "LFP · share of EV batteries", "points": [{"y": 2020, "v": 10}, {"y": 2022, "v": 29}, {"y": 2024, "v": 49}]},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Mine", "t": "lithium (Australia, Chile), cobalt (DR Congo), nickel (Indonesia), graphite, manganese"},
-        {"n": "2 · Refine", "t": "battery-grade lithium/nickel/cobalt chemicals + spherical graphite — ~65%+ China"},
-        {"n": "3 · Cell", "t": "cathode powder + anode → electrodes, separator, electrolyte → cells (~80% China)"},
-        {"n": "4 · Pack", "t": "cells integrated with cooling, controls and structure into the battery pack"},
-    ],
-    "sections": [
-        {"h2": "1 · The mine is spread; the midstream is China", "panels": [
-            {"kind": "bars", "h3": "China's share down the battery midstream (2025)", "conf": "estimate", "max": 1.0, "note":
-                "IEA. The mine map is genuinely multi-country — lithium in Australia and Chile, cobalt in the DR Congo, "
-                "nickel in Indonesia. But everything between the ore and the finished car funnels through China: this is "
-                "where the dependence actually sits, and it is not visible on a map of mines.", "bars": [
-                {"label": "Cathode active material", "value": 0.85},
-                {"label": "Anode active material", "value": 0.90},
-                {"label": "Battery cells", "value": 0.80},
-                {"label": "Electric cars", "value": 0.70},
-            ]},
-            {"kind": "text", "h3": "Refining is the quiet chokepoint",
-             "text": "Australia mines more lithium than any other country, but ships spodumene concentrate to China to be turned "
-                     "into battery-grade lithium chemical — China refines roughly two-thirds of it. The same pattern "
-                     "holds for cobalt and for graphite. Owning the mine and owning the refinery are two different "
-                     "things, and the second is the one that gates a cell line.",
-             "flag": "the refinery, not the mine"},
-        ]},
-        {"h2": "2 · The recipe is changing under the chokepoint", "panels": [
-            {"kind": "big", "h3": "LFP's rise", "big": "10 → 49%", "conf": "estimate",
-             "text": "Lithium-iron-phosphate cells use no cobalt and no nickel, so they dodge the two most supply-"
-                     "constrained battery metals and cost less — and their share of EV batteries went from about a tenth "
-                     "in 2020 to nearly half by 2024. But LFP is a chemistry China commercialised and leads, so escaping "
-                     "cobalt and nickel meant leaning harder on the Chinese midstream, not less.",
-             "note": "IEA Global EV Outlook / Critical Minerals Outlook."},
-            {"kind": "text", "h3": "Why chemistry is a moving target",
-             "text": "NMC (nickel-manganese-cobalt) still wins where range and cold-weather performance matter; LFP "
-                     "wins on cost and cycle life; sodium-ion and other chemistries are coming. A supply analysis fixed "
-                     "to one recipe dates quickly — the demand for any single metal can halve in a product cycle, which "
-                     "is exactly why the atlas tracks the stage, not just the element.",
-             "flag": "any single-metal forecast dates fast"},
-        ]},
-        {"h2": "3 · Demand arrived faster than supply could", "panels": [
-            {"kind": "cards", "h3": "A market that reorganised in a decade", "cards": [
-                {"t": "Lithium: 15% → 60%", "d": "The share of world lithium demand going into EV batteries jumped from ~15% (2017) to ~60% (2022). Batteries now ARE the lithium market."},
-                {"t": "Cost: −90%", "d": "Average battery cost fell about 90% from 2010 to 2023 — the enabling fact behind EV, grid-storage and much else in this atlas."},
-                {"t": "Cobalt, engineered down", "d": "Makers cut cobalt per cell and moved to LFP to escape a metal ~65% mined in one country (DR Congo) — supply pressure, answered with chemistry."},
-            ]},
-        ]},
-    ],
-    "trade_intro": "BACI carries lithium carbonate/hydroxide, cobalt and nickel intermediates, and lithium-ion cells "
-                   "(HS 850760), but a traded cell's customs origin is the assembly plant, not the mine or the refinery "
-                   "behind it. Read the shares below as trading positions along a chain whose real concentration — the "
-                   "refining and cell midstream — is not separable in customs data.",
-    "method": [
-        {"stage": "Mine", "lens": "IEA mine-share by metal", "why": "spread across Australia, Chile, DR Congo, Indonesia"},
-        {"stage": "Refine", "lens": "IEA battery-grade refining share", "why": "~65%+ China — the quiet chokepoint"},
-        {"stage": "Cell", "lens": "IEA cathode/anode/cell share + LFP transition", "why": "~80–90% China; chemistry marked as a moving estimate"},
-        {"stage": "Trade", "lens": "BACI lithium chemicals + 850760 cells", "why": "assembly-point origin, not the midstream — flagged context"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— battery, mine spread but midstream ~80-90% China; LFP 10->49%")
+def load(path):
+    return json.loads((HERE / path).read_text(encoding="utf-8"))
+
+
+def pct(amount, decimals=0):
+    return f"{amount:.{decimals}%}"
+
+
+def num(amount, decimals=0):
+    return f"{amount:,.{decimals}f}"
+
+
+def row(label, *values, attributes=""):
+    cells = "".join(f"<td>{escape(str(value))}</td>" for value in values)
+    return f'<tr{attributes}><th scope="row">{escape(str(label))}</th>{cells}</tr>'
+
+
+def trade_rows(trade):
+    year = trade["years"][-1]
+    annual = trade["years_data"][str(year)]
+    for code, item in trade["codes"].items():
+        record = annual[code]
+        top = next(iter(record["exporters"]), None)
+        usd = "$" + num(record["world_usd"] / 1e9, 1) + " billion" if record["world_usd"] else "—"
+        yield row(f'{item["title"]} (HS {code})', usd,
+                  f'{top["name"]} · {pct(top["share"])}' if top else "—", TRADE_NOTES[code],
+                  attributes=f' data-trade-code="{code}"')
+
+
+def model_tables(data):
+    model = data["model"]
+    cases = model["cases"]
+    traced = cases["traced"]
+    input_rows, threshold_rows, timing_rows = [], [], []
+    for label, line in data["lines"].items():
+        for key, lane in line["lanes"].items():
+            name = f"{label} · {MATERIALS[key]}"
+            step = traced[label]["supply_schedule"][key]
+            direct = lane["direct_exposure_fraction"]
+            indirect = step["exposed_fraction"] - direct
+            first = step["first_replacement_month"]
+            actual = step["qualified_increment_tonnes_per_month"]
+            required = step["minimum_sustained_replacement_tonnes_per_month"]
+            input_rows.append(row(
+                name, num(traced[label]["tonnes_per_gwh"][key], 1), pct(direct), pct(indirect),
+                num(lane["opening_stock_months_at_full_output"], 1), first or "—", num(actual),
+            ))
+            threshold_rows.append(row(
+                name, num(step["stock_to_bridge_to_qualification_tonnes"]),
+                num(required), num(actual),
+            ))
+
+    for nmc, lfp in zip(traced["NMC811"]["months"], traced["LFP"]["months"]):
+        timing_rows.append(row(
+            nmc["month"], num(nmc["output_gwh"], 3), pct(nmc["loss_fraction"], 1),
+            ", ".join(MATERIALS[m] for m in nmc["binding_inputs"]) or "Cell limit",
+            num(lfp["output_gwh"], 3), pct(lfp["loss_fraction"], 1),
+            ", ".join(MATERIALS[m] for m in lfp["binding_inputs"]) or "Cell limit",
+        ))
+    case_rows = [
+        row(label, *(pct(cases[key][chemistry]["horizon_loss_fraction"], 2) for chemistry in data["lines"]))
+        for key, label in CASES.items()
+    ]
+    higher_stock = next(
+        case["horizon_loss_fraction"] for case in model["sensitivity_cases"]
+        if case["opening_stock_multiplier"] == 2 and case["extra_qualification_months"] == 0
+        and case["alternative_volume_multiplier"] == 1
+    )
+    return {
+        "nmc_higher_stock": pct(higher_stock["NMC811"]),
+        "lfp_higher_stock": pct(higher_stock["LFP"]),
+        "inputs": "\n".join(input_rows), "thresholds": "\n".join(threshold_rows),
+        "timing": "\n".join(timing_rows), "cases": "\n".join(case_rows),
+        "sensitivity": "\n".join(
+            row(label, " to ".join(pct(value, 1) for value in bounds))
+            for label, bounds in model["sensitivity_loss_ranges"].items()
+        ),
+        "nmc_month_one": pct(traced["NMC811"]["months"][0]["loss_fraction"]),
+        "lfp_month_one": pct(traced["LFP"]["months"][0]["loss_fraction"]),
+        "nmc_horizon_loss": pct(traced["NMC811"]["horizon_loss_fraction"], 2),
+        "lfp_horizon_loss": pct(traced["LFP"]["horizon_loss_fraction"], 0),
+    }
+
+
+def render(data, trade):
+    replacements = model_tables(data)
+    sources = data["sources"]
+    replacements.update({
+        "version": data["version"], "months": data["scenario_months"],
+        "title": escape(TITLE), "deck": escape(DECK),
+        "production": "\n".join(row(
+            item["step"], item["year"], item["share"], item["scope"]
+        ) for item in data["production_crosswalk"]),
+        "chemistry": "\n".join(row(
+            item["family"], item["year"], item["cathode_material"], item["cells"]
+        ) for item in data["chemistry_crosswalk"]),
+        "sources": "\n".join(
+            f'<li id="source-{key}"><a href="{escape(source["url"], quote=True)}">{escape(source["title"])}</a></li>'
+            for key, source in sources.items()
+        ),
+        "trade_year": trade["years"][-1], "trade_rows": "\n".join(trade_rows(trade)),
+    })
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(replacements)
+
+
+def main():
+    data = load("evidence_inputs.json")
+    trade = load("out/battery_trade.json")
+    data.update({
+        "title": "Lithium-ion battery chain",
+        "h1": TITLE,
+        "deck": DECK,
+        "published": True,
+        "sources": {k: {"title": title, "url": url} for k, (title, url) in data["sources"].items()},
+        "chokepoint": {
+            "product": "Battery cells",
+            "stage": "Cathode and anode materials",
+            "mechanism": "capability",
+            "research": True,
+            "physics": "Qualified active materials feed chemistry-specific cell lines. Supply is concentrated by production location.",
+            "holder": "China",
+            "share": "About 85% of cathode and over 90% of anode output for electric car batteries (2025)",
+            "control": "—",
+            "conf": "estimate",
+        },
+        "model": calculate(data),
+        "trade_display_boundaries": TRADE_NOTES,
+    })
+    html = render(data, trade)
+    (HERE / "out/battery_chain.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
+    (HERE / "battery-chain.html").write_text(html, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    main()

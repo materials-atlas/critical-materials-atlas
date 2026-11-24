@@ -1,31 +1,26 @@
-# Lithium-ion battery chain pilot (unpublished)
+# Battery input replacement
 
-This workspace follows the product chain:
+Evidence release dated 24 November 2026. The [study](battery-chain.html)
+presents the production evidence and monthly comparison in the initial HTML.
+The original trade extract supplies the year control and static snapshot.
 
-`minerals → battery-grade refining → cathode/anode materials → cells → packs → use/recovery`
+## Reproduce the study
 
-It is not linked from the live Atlas and does not modify the lithium, cobalt, nickel, graphite or manganese profiles.
-
-## Evidence design
-
-| Layer | Coverage | Measure |
-|---|---|---|
-| Mineral history | 1900–2022, varying | USGS world output across all end uses |
-| Battery demand shift | 2017 / 2022 | EV-battery share of mineral demand |
-| Global customs context | 2017–2024 | BACI HS17 trade value and exporters |
-| Mine versus refine | 2023 | Rounded IEA physical-production shares |
-| Chemistry | 2022 / 2024 | LFP share of EV battery deployment |
-| Cell capacity | 2024 | Nameplate capacity, output and demand |
-| Downstream production | 2025 | Cathode, anode, cells and electric cars |
-
-The page does not create a composite battery-dependency score. Chemistry and measurement boundaries change along the chain.
-
-## Rebuild and view
+From the repository root:
 
 ```text
 python battery-chain/record_battery.py
-python battery-chain/extract_baci.py
+python build_chokepoint_map.py
 python -m http.server 8765
 ```
 
-Open `http://localhost:8765/battery-chain/battery-chain.html`.
+Open [the local study](http://localhost:8765/battery-chain/battery-chain.html).
+The builder reads [evidence and assumptions](evidence_inputs.json), the
+[article template](article.html.in) and the [compiled trade data](out/battery_trade.json).
+It writes the article and [evidence and results](out/battery_chain.json). The
+repository can rebuild the checked-in customs baskets from its BACI inputs with
+`build_chain_trade.py`.
+
+The [claim register](PRODUCTION.md) records the original article and source
+audit. The [model methods](NOTES.md) explain the mass balance, what was
+verified and which operating data are still needed.
