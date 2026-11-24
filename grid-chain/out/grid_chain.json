@@ -1,196 +1,1294 @@
 {
   "title": "Electricity-grid chain",
-  "chokepoint": {
-    "product": "Electricity grid",
-    "stage": "Grain-oriented electrical steel (transformer cores)",
-    "mechanism": "capability",
-    "physics": "Transformer cores need grain-oriented silicon steel, a patented, capital-heavy mill process. The equipment stage downstream is genuinely diffuse (HHI 0.073, 182 exporters) and constrained by factory lead-time, not concentration - but the steel it is built from is the tightest node in the chain, and tightening",
-    "holder": "China · Japan",
-    "share": "53% of exports (CHN 28.8 + JPN 24.3, 2022–24 mean)",
-    "control": "—",
-    "conf": "measured"
-  },
   "published": true,
-  "related": [
-    {
-      "href": "../copper-chain/copper-chain",
-      "label": "Copper chain"
-    },
-    {
-      "href": "../aluminium-chain/aluminium-chain",
-      "label": "Aluminium chain"
-    },
-    {
-      "href": "../data-centre-chain/data-centre-chain",
-      "label": "Data-centre / AI chain"
-    }
-  ],
-  "accent": "#8a6a3a",
-  "eyebrow": "Product-chain pilot · the wires that carry it all",
-  "h1": "The ore is fine — the transformer is the bottleneck",
-  "deck": "Copper and aluminium are abundant and diversified, and the equipment queues are real: a large power transformer can take up to four years to procure, and the world must roughly double its grid by 2040. But one material inside that equipment is not diffuse at all. Grain-oriented electrical steel — the transformer core — is the most concentrated node we measure in this chain, more so than the transformers themselves.",
-  "byline": "copper & aluminium (abundant) ≠ grain-oriented electrical steel (HHI 0.164, rising) ≠ transformers & cables (years-long queues) ≠ the network",
-  "correction": "You cannot mine your way to a working grid — but nor is the material question closed. Copper and aluminium are not the binding constraint; large power transformers take up to four years to order and HVDC cables more than five, while ~1,500 GW of renewables sit in connection queues. The correction to our own earlier framing: the core steel is TIGHTER than the equipment it goes into. Grain-oriented electrical steel exports run at HHI 0.164 against 0.073 for transformers, and the gap has been widening since 2019.",
-  "stats": [
-    {
-      "v": "up to 4 yr",
-      "l": "to procure a large power transformer",
-      "conf": "measured"
-    },
-    {
-      "v": "2–3 yr",
-      "l": "cable procurement lead time (HVDC cables more than 5)",
-      "conf": "measured"
-    },
-    {
-      "v": "80M km",
-      "l": "of grid to add or refurbish by 2040 — about as much as exists today",
-      "conf": "measured"
-    },
-    {
-      "v": "~1,500 GW",
-      "l": "of renewables queued waiting for grid connection",
-      "conf": "measured"
-    },
-    {
-      "v": "HHI 0.164",
-      "l": "grain-oriented electrical steel exports — the tightest node in this chain, above the transformers it feeds (0.073)",
-      "conf": "measured"
-    }
-  ],
-  "hops": [
-    {
-      "n": "1 · Metals & steel",
-      "t": "copper and aluminium abundant and diversified — grain-oriented electrical steel is neither"
-    },
-    {
-      "n": "2 · Conductors & cores",
-      "t": "wire rod, stranded conductor, cable and transformer steel cores"
-    },
-    {
-      "n": "3 · Equipment",
-      "t": "transformers, switchgear, converters — years-long procurement queues"
-    },
-    {
-      "n": "4 · Network",
-      "t": "substations plus overhead, underground and submarine lines — the power system"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The chokepoint is the equipment — and the one steel inside it",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "The transformer queue",
-          "big": "up to 4 years",
-          "conf": "measured",
-          "text": "A large power transformer — the workhorse that steps voltage up and down across the grid — can now take up to four years to procure, with prices sharply higher. HVDC cables run even longer, more than five years. These lead times, not any raw material, are what actually delay connecting new generation and reinforcing the network.",
-          "note": "IEA, Building the Future Transmission Grid; US DOE."
-        },
-        {
-          "kind": "text",
-          "h3": "Why: electrical steel and skilled winding",
-          "conf": "measured",
-          "text": "Transformer cores need grain-oriented electrical steel, and building a transformer takes skilled winding and testing that cannot be rushed. We had asserted the steel was made by \"a small number of mills\" while the chain diagram filed it with copper and aluminium as abundant. Measured, it is neither abundant nor diffuse: <b>HHI 0.164</b>, China 28.8% and Japan 24.3% — <b>53% from two countries</b>, 61% from three. The transformers built from it score 0.073, copper wire 0.066, high-voltage cable 0.060. The core input is more than twice as concentrated as the equipment.",
-          "note": "Computed from CEPII BACI HS17, codes 722511 + 722611, exporter value shares, 3-year mean 2022–2024 — grid-chain/out/goes.json.",
-          "flag": "the tightest node in the chain is a steel, not a metal"
-        },
-        {
-          "kind": "text",
-          "h3": "And it is tightening",
-          "conf": "measured",
-          "text": "GOES export concentration has risen every year but one since 2019: 0.111, 0.127, 0.122, 0.146, 0.167, <b>0.188</b> in 2024. China went from 27.3% of exports in 2022 to 31.7% in 2024; Russia, at 8%, is sanctions-exposed supply on top. A chain whose tightest node is getting tighter is a different planning problem from one with a stable bottleneck.",
-          "note": "Same series, annual. Trade is not capacity: export shares say who SELLS, not who can MAKE. A producer consuming its own output at home is understated — China notably — so 0.164 is a FLOOR on the real concentration, and the direction of that error is known.",
-          "flag": "0.111 → 0.188 in six years"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The metals are abundant — the steel is the exception",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Copper and aluminium are not the wall here",
-          "conf": "measured",
-          "text": "Grids run on copper and aluminium, both diversified and recyclable. Aluminium even substitutes for copper in many overhead lines. Copper has its own longer-term tightness — a demand-versus-mine-timeline story told in the copper chain — but for building the grid this decade, neither metal is the binding constraint. This holds for the conductors and NOT for the core steel, which is the section above: grouping the three together was our error, and it survived because nobody had measured the third one.",
-          "note": "US DOE, Advanced Conductor Report.",
-          "flag": "see the copper chain for the metal's own clock"
-        }
-      ]
-    },
-    {
-      "h2": "3 · The scale of what's needed",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "A grid that has to double",
-          "cards": [
-            {
-              "t": "80 million km",
-              "d": "The IEA estimates the world must add or refurbish ~80 million km of grid by 2040 — roughly the length of the entire existing network, built again."
-            },
-            {
-              "t": "1,500 GW queued",
-              "d": "Around 1,500 GW of renewable projects — many times a year's additions — sit in interconnection queues, waiting on grid capacity that isn't there."
-            },
-            {
-              "t": "The silent gate",
-              "d": "Grids rarely make headlines, but they gate solar, wind, EV charging and data centres alike — the chokepoint downstream of every clean-energy chain."
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries copper wire, aluminium conductor, transformers and switchgear, but a transformer's customs origin is its assembly plant, not the electrical-steel mill or the order backlog behind it. Read the shares below as equipment-trade positions; the binding constraint — manufacturing lead time — is not visible in trade data.",
-  "method": [
-    {
-      "stage": "Metals",
-      "lens": "USGS/DOE copper & aluminium",
-      "why": "abundant and diversified — not the grid's chokepoint"
-    },
-    {
-      "stage": "Equipment",
-      "lens": "IEA/DOE transformer & cable lead times",
-      "why": "up to 4+ years — the real bottleneck"
-    },
-    {
-      "stage": "Network",
-      "lens": "IEA grid-length & queue estimates",
-      "why": "must roughly double by 2040; ~1,500 GW queued"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI wire/conductor/transformers",
-      "why": "assembly-point origin, not lead times — flagged context"
-    }
-  ],
+  "version": "2026-11-24",
+  "h1": "When does transformer procurement delay the grid?",
+  "deck": "Procurement is slow and trade in transformer core steel is concentrated. Which constraint delays a project depends on the equipment it needs and when the site is ready.",
   "sources": {
-    "iea_grids_2023": {
-      "title": "IEA, Electricity Grids and Secure Energy Transitions",
-      "year": 2023,
-      "url": "https://www.iea.org/reports/electricity-grids-and-secure-energy-transitions/executive-summary"
+    "iea": {
+      "title": "IEA, Building the Future Transmission Grid, 2025, executive summary and ch. 2",
+      "url": "https://www.iea.org/reports/building-the-future-transmission-grid/executive-summary"
     },
-    "iea_transmission_2025": {
-      "title": "IEA, Building the Future Transmission Grid",
-      "year": 2025,
-      "url": "https://www.iea.org/reports/building-the-future-transmission-grid"
+    "entso": {
+      "title": "ENTSO-E, Transmission Grid Investment and Supply Chain Assessment, 2026, pp. 15–16",
+      "url": "https://eepublicdownloads.blob.core.windows.net/public-cdn-container/clean-documents/Publications/Position%20papers%20and%20reports/2026/entso-e_report_investment_supply_chain_assessment_2026_261030.pdf"
     },
-    "doe_lpt_2024": {
-      "title": "US DOE, Large Power Transformer Resilience Report",
-      "year": 2024,
-      "url": "https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%20signed%20by%20Secretary%20Granholm%20on%207-10-24.pdf"
+    "doe": {
+      "title": "US Department of Energy, Large Power Transformer Resilience, 2024, pp. 2 and 12",
+      "url": "https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%207-10-24.pdf"
     },
-    "doe_conductors_2023": {
-      "title": "US DOE, Advanced Conductor Report",
-      "year": 2023,
-      "url": "https://www.energy.gov/sites/default/files/2024-08/Advanced%20Conductor%20Report%20December%202023.pdf"
+    "nlr": {
+      "title": "National Laboratory of the Rockies, Large Power Transformer Supply Chain Gap Analysis, 2026, Tables 3–4 and section 1.8",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96742.pdf#page=24"
+    },
+    "prodcom": {
+      "title": "Eurostat, sold production, DS-059358, October 2026 snapshot",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-059358/default/table?lang=en"
+    },
+    "comext": {
+      "title": "Eurostat, EU trade by HS and CN, DS-045409, November 2026 snapshot",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"
+    },
+    "crosswalk": {
+      "title": "Eurostat, Prodcom List 2024 with CN correspondence, published by Statistics Netherlands",
+      "url": "https://www.cbs.nl/-/media/_pdf/2025/21/prodcom-list_en_2024.pdf"
+    },
+    "prodcom_flags": {
+      "title": "Eurostat, DS-059358 quick guide, flag and rounding-base definitions, p. 2",
+      "url": "https://ec.europa.eu/eurostat/documents/120432/19597181/Quick%2Bguide%2Bon%2Baccessing%2BPRODCOM%2Bdata%2BDS-059358.pdf/30ad2839-31cd-32b0-c0f2-d43f200be35e?t=1762360585715"
     },
     "baci": {
-      "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
+      "title": "CEPII BACI, V202601, HS17 exporter series and HS02 transformer models",
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    },
+    "trade": {
+      "title": "Critical Materials Atlas, September 2026 transformer trade study",
+      "url": "../grid-trade"
     }
-  }
+  },
+  "chokepoint": {
+    "product": "Electricity grid",
+    "stage": "Transformer core steel",
+    "mechanism": "capability",
+    "conf": "measured",
+    "research": true,
+    "physics": "Specialised core steel has more concentrated gross exports than the transformer basket. Qualified capacity and project-level constraints remain unresolved.",
+    "holder": "China · Japan",
+    "share": "53% of pooled export value, 2022–24",
+    "control": "—"
+  },
+  "goes_series": {
+    "2019": {
+      "global_china_value": 0.11800000000000001,
+      "global_china_mass": 0.115,
+      "global_value_hhi": 0.111,
+      "global_mass_hhi": 0.103,
+      "value_share_with_mass": 0.9992,
+      "eu_china_value": 0.09245379525552745,
+      "eu_china_mass": 0.0794772256191014
+    },
+    "2020": {
+      "global_china_value": 0.175,
+      "global_china_mass": 0.16899999999999998,
+      "global_value_hhi": 0.127,
+      "global_mass_hhi": 0.12,
+      "value_share_with_mass": 1.0,
+      "eu_china_value": 0.1654963272470283,
+      "eu_china_mass": 0.1406114134103602
+    },
+    "2021": {
+      "global_china_value": 0.207,
+      "global_china_mass": 0.19899999999999998,
+      "global_value_hhi": 0.122,
+      "global_mass_hhi": 0.121,
+      "value_share_with_mass": 0.9999,
+      "eu_china_value": 0.26859780722552135,
+      "eu_china_mass": 0.23334381818547814
+    },
+    "2022": {
+      "global_china_value": 0.273,
+      "global_china_mass": 0.253,
+      "global_value_hhi": 0.146,
+      "global_mass_hhi": 0.133,
+      "value_share_with_mass": 1.0,
+      "eu_china_value": 0.272440996839654,
+      "eu_china_mass": 0.24594048923299552
+    },
+    "2023": {
+      "global_china_value": 0.28,
+      "global_china_mass": 0.272,
+      "global_value_hhi": 0.167,
+      "global_mass_hhi": 0.153,
+      "value_share_with_mass": 0.9988,
+      "eu_china_value": 0.3618498983527395,
+      "eu_china_mass": 0.36521660659723804
+    },
+    "2024": {
+      "global_china_value": 0.317,
+      "global_china_mass": 0.349,
+      "global_value_hhi": 0.188,
+      "global_mass_hhi": 0.195,
+      "value_share_with_mass": 1.0,
+      "eu_china_value": 0.5187441271750524,
+      "eu_china_mass": 0.5645463027740572
+    },
+    "2025": {
+      "global_china_value": null,
+      "global_china_mass": null,
+      "global_value_hhi": null,
+      "global_mass_hhi": null,
+      "value_share_with_mass": null,
+      "eu_china_value": 0.5697168002283625,
+      "eu_china_mass": 0.6367708003921901
+    }
+  },
+  "pooled_export_value_hhi": {
+    "goes": 0.164,
+    "aluminium_conductor": 0.136,
+    "copper_wire": 0.066,
+    "transformers": 0.073,
+    "hv_cable": 0.06
+  },
+  "goes_widths_2024": {
+    "722511": {
+      "value": {
+        "total_kusd": 3267679,
+        "n_exporters": 47,
+        "hhi": 0.232,
+        "top1": 35.9,
+        "top3": 72.5,
+        "top5": 85.3,
+        "top": [
+          {
+            "iso3": "CHN",
+            "pct": 35.9
+          },
+          {
+            "iso3": "JPN",
+            "pct": 29.4
+          },
+          {
+            "iso3": "DEU",
+            "pct": 7.3
+          },
+          {
+            "iso3": "RUS",
+            "pct": 6.9
+          },
+          {
+            "iso3": "KOR",
+            "pct": 5.9
+          },
+          {
+            "iso3": "POL",
+            "pct": 3.5
+          },
+          {
+            "iso3": "USA",
+            "pct": 3.2
+          },
+          {
+            "iso3": "FRA",
+            "pct": 2.4
+          }
+        ]
+      },
+      "mass": {
+        "total_tonnes": 1469561,
+        "n_exporters": 47,
+        "hhi": 0.236,
+        "top1": 38.6,
+        "top3": 75.0,
+        "top5": 87.3,
+        "top": [
+          {
+            "iso3": "CHN",
+            "pct": 38.6
+          },
+          {
+            "iso3": "JPN",
+            "pct": 25.7
+          },
+          {
+            "iso3": "RUS",
+            "pct": 10.8
+          },
+          {
+            "iso3": "DEU",
+            "pct": 6.7
+          },
+          {
+            "iso3": "KOR",
+            "pct": 5.5
+          },
+          {
+            "iso3": "POL",
+            "pct": 3.3
+          },
+          {
+            "iso3": "FRA",
+            "pct": 2.3
+          },
+          {
+            "iso3": "CZE",
+            "pct": 2.1
+          }
+        ]
+      }
+    },
+    "722611": {
+      "value": {
+        "total_kusd": 757202,
+        "n_exporters": 55,
+        "hhi": 0.082,
+        "top1": 13.7,
+        "top3": 38.5,
+        "top5": 58.4,
+        "top": [
+          {
+            "iso3": "CHN",
+            "pct": 13.7
+          },
+          {
+            "iso3": "JPN",
+            "pct": 13.2
+          },
+          {
+            "iso3": "DEU",
+            "pct": 11.7
+          },
+          {
+            "iso3": "NLD",
+            "pct": 10.4
+          },
+          {
+            "iso3": "FRA",
+            "pct": 9.5
+          },
+          {
+            "iso3": "USA",
+            "pct": 5.8
+          },
+          {
+            "iso3": "AUT",
+            "pct": 4.8
+          },
+          {
+            "iso3": "MYS",
+            "pct": 3.9
+          }
+        ]
+      },
+      "mass": {
+        "total_tonnes": 293656,
+        "n_exporters": 54,
+        "hhi": 0.085,
+        "top1": 16.3,
+        "top3": 39.7,
+        "top5": 58.3,
+        "top": [
+          {
+            "iso3": "CHN",
+            "pct": 16.3
+          },
+          {
+            "iso3": "DEU",
+            "pct": 12.1
+          },
+          {
+            "iso3": "MYS",
+            "pct": 11.3
+          },
+          {
+            "iso3": "JPN",
+            "pct": 10.2
+          },
+          {
+            "iso3": "FRA",
+            "pct": 8.4
+          },
+          {
+            "iso3": "NLD",
+            "pct": 8.4
+          },
+          {
+            "iso3": "USA",
+            "pct": 3.5
+          },
+          {
+            "iso3": "AUT",
+            "pct": 3.4
+          }
+        ]
+      }
+    }
+  },
+  "eurostat_source_dates": {
+    "trade": "2026-11-13T11:00:00+0100",
+    "sold_production": "2026-10-20T11:00:00+0200"
+  },
+  "exposure": {
+    "headline_year": 2024,
+    "components": {
+      "transformers": {
+        "label": "Liquid-dielectric transformers",
+        "recorded_2024_meur": {
+          "production_meur": 6160.0,
+          "production_missing_codes": [],
+          "imports_meur": 1576.3,
+          "imports_from_china_meur": 539.2,
+          "exports_meur": 1829.6,
+          "apparent_supply_meur": 5906.7,
+          "china_share_of_imports": 0.3421,
+          "china_share_of_supply": 0.0913,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "27114120",
+          "27114150",
+          "27114180"
+        ],
+        "cn8_2024": [
+          "85042100",
+          "85042210",
+          "85042290",
+          "85042300"
+        ],
+        "recalculated_share": 0.09128616655662214,
+        "published_share": 0.0913,
+        "share_of_imports": 0.3421,
+        "exposure_band": "Below 10%",
+        "crosscheck_value_share": 0.09130229672370098,
+        "crosscheck_import_share": 0.34210796603690746,
+        "crosscheck_delta_meur": {
+          "production": 0.0,
+          "imports": 0.13795100000015736,
+          "exports": -0.04501199999981509,
+          "imports_from_china": 0.11198099999990063
+        },
+        "production_flags": {
+          "27114120": ":R",
+          "27114150": ":R",
+          "27114180": ":R"
+        },
+        "published_production_rounding": {
+          "base_eur": 820000000,
+          "apparent_supply_eur": [
+            5086882963,
+            6726882963
+          ],
+          "share_from_production_rounding_alone": [
+            0.08017264221280312,
+            0.10602012763469196
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.0826651540006439,
+              0.10191468047706354
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.08653630921559999,
+              0.09605643671949693
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.08854353116594359,
+              0.09420413925160823
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.10142907395180238
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.06846462491746662,
+              0.09128616655662215
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.05726186684298238,
+              0.11131893949716544
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          }
+        }
+      },
+      "goes": {
+        "label": "Grain-oriented electrical steel",
+        "recorded_2024_meur": {
+          "production_meur": 796.5,
+          "production_missing_codes": [],
+          "imports_meur": 418.2,
+          "imports_from_china_meur": 216.9,
+          "exports_meur": 316.9,
+          "apparent_supply_meur": 897.7,
+          "china_share_of_imports": 0.5187,
+          "china_share_of_supply": 0.2416,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "24105310",
+          "24105410"
+        ],
+        "cn8_2024": [
+          "72251100",
+          "72261100"
+        ],
+        "recalculated_share": 0.24159055468924034,
+        "published_share": 0.2416,
+        "share_of_imports": 0.5187,
+        "exposure_band": "10% to below 25%",
+        "crosscheck_value_share": 0.24164903218702893,
+        "crosscheck_import_share": 0.5187441271750524,
+        "crosscheck_delta_meur": {
+          "production": -0.04932399999995596,
+          "imports": -0.02603399999998146,
+          "exports": 0.0372520000000236,
+          "imports_from_china": 0.025288999999986572
+        },
+        "production_flags": {
+          "24105410": ":R"
+        },
+        "published_production_rounding": {
+          "base_eur": 40000000,
+          "apparent_supply_eur": [
+            857687390,
+            937687390
+          ],
+          "share_from_production_rounding_alone": [
+            0.23134073393052668,
+            0.2529188274529721
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.22190393370504885,
+              0.26511030984538286
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.23081317524237316,
+              0.2522470136731405
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.23335377465061485,
+              0.2504300839385297
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.15732283854360038,
+              0.2684339496547115
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.1811929160169303,
+              0.24159055468924037
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.15415732119157236,
+              0.28830652435215054
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          }
+        }
+      },
+      "cables": {
+        "label": "Insulated conductors above 1,000 V",
+        "recorded_2024_meur": {
+          "production_meur": 7758.2,
+          "production_missing_codes": [],
+          "imports_meur": 1048.7,
+          "imports_from_china_meur": 187.0,
+          "exports_meur": 1795.3,
+          "apparent_supply_meur": 7011.7,
+          "china_share_of_imports": 0.1783,
+          "china_share_of_supply": 0.0267,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "27321400"
+        ],
+        "cn8_2024": [
+          "85446010",
+          "85446090"
+        ],
+        "recalculated_share": 0.02667008956586229,
+        "published_share": 0.0267,
+        "share_of_imports": 0.1783,
+        "exposure_band": "Below 10%",
+        "crosscheck_value_share": 0.026663842886978328,
+        "crosscheck_import_share": 0.17827285967498033,
+        "crosscheck_delta_meur": {
+          "production": 0.042277999999896565,
+          "imports": 0.020137999999860767,
+          "exports": -0.01773800000000847,
+          "imports_from_china": -0.04166200000000231
+        },
+        "production_flags": {
+          "27321400": ":E"
+        },
+        "published_production_rounding": {
+          "base_eur": 0,
+          "apparent_supply_eur": [
+            7011680154,
+            7011680154
+          ],
+          "share_from_production_rounding_alone": [
+            0.026663842886978328,
+            0.026663842886978328
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.02401308777489849,
+              0.029988229219119335
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.02520240660639274,
+              0.028153484163934005
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.026004258023426083,
+              0.027370913939699097
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.029633432850958097
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.020002567174396715,
+              0.026670089565862285
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.016664470585763255,
+              0.032670856223523566
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        }
+      },
+      "switchgear": {
+        "label": "Switchgear above 1,000 V",
+        "recorded_2024_meur": {
+          "production_meur": 5455.1,
+          "production_missing_codes": [],
+          "imports_meur": 744.8,
+          "imports_from_china_meur": 166.7,
+          "exports_meur": 2459.5,
+          "apparent_supply_meur": 3740.3,
+          "china_share_of_imports": 0.2239,
+          "china_share_of_supply": 0.0446,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "27121010",
+          "27121020",
+          "27121030",
+          "27121041",
+          "27121090"
+        ],
+        "cn8_2024": [
+          "85351000",
+          "85352100",
+          "85352900",
+          "85353010",
+          "85353090",
+          "85354000",
+          "85359000"
+        ],
+        "recalculated_share": 0.04456742594374932,
+        "published_share": 0.0446,
+        "share_of_imports": 0.2239,
+        "exposure_band": "Below 10%",
+        "crosscheck_value_share": 0.0445762615536095,
+        "crosscheck_import_share": 0.22385071184660463,
+        "crosscheck_delta_meur": {
+          "production": -0.04991100000006554,
+          "imports": 0.02711099999999078,
+          "exports": 0.04382100000020728,
+          "imports_from_china": 0.030079000000000633
+        },
+        "production_flags": {
+          "27121020": ":E",
+          "27121030": ":E"
+        },
+        "published_production_rounding": {
+          "base_eur": 0,
+          "apparent_supply_eur": [
+            3740333379,
+            3740333379
+          ],
+          "share_from_production_rounding_alone": [
+            0.0445762615536095,
+            0.0445762615536095
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.03889489046666868,
+              0.052177070259069945
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.041390332541847055,
+              0.047893582585544776
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.04181770291118441,
+              0.04770421668645996
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.04951936215972147
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.03342556945781199,
+              0.04456742594374932
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.02579067910379296,
+              0.06139623961843729
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        }
+      },
+      "switchboards": {
+        "label": "Switchboards above 1,000 V",
+        "recorded_2024_meur": {
+          "production_meur": 4592.9,
+          "production_missing_codes": [],
+          "imports_meur": 691.8,
+          "imports_from_china_meur": 198.0,
+          "exports_meur": 1771.1,
+          "apparent_supply_meur": 3513.6,
+          "china_share_of_imports": 0.2862,
+          "china_share_of_supply": 0.0564,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "27123203",
+          "27123205"
+        ],
+        "cn8_2024": [
+          "85372091",
+          "85372099"
+        ],
+        "recalculated_share": 0.05635245901639344,
+        "published_share": 0.0564,
+        "share_of_imports": 0.2862,
+        "exposure_band": "Below 10%",
+        "crosscheck_value_share": 0.05635351521289395,
+        "crosscheck_import_share": 0.2862005990847191,
+        "crosscheck_delta_meur": {
+          "production": -0.027494999999362335,
+          "imports": 0.0413819999999987,
+          "exports": -0.016402999999854728,
+          "imports_from_china": 0.005417999999991707
+        },
+        "production_flags": {},
+        "published_production_rounding": {
+          "base_eur": 0,
+          "apparent_supply_eur": [
+            3513630290,
+            3513630290
+          ],
+          "share_from_production_rounding_alone": [
+            0.05635351521289395,
+            0.05635351521289395
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.04983777552361128,
+              0.06482642560840256
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.05272503794605004,
+              0.060093044497468676
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.053648214029278926,
+              0.059343801420055214
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.06261384335154828
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.04226434426229509,
+              0.05635245901639345
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.0336284428332562,
+              0.07387063471717302
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        }
+      },
+      "inverters": {
+        "label": "Inverters above 7.5 kVA",
+        "recorded_2024_meur": {
+          "production_meur": 3000.0,
+          "production_missing_codes": [],
+          "imports_meur": 2323.9,
+          "imports_from_china_meur": 1911.7,
+          "exports_meur": 2706.8,
+          "apparent_supply_meur": 2617.1,
+          "china_share_of_imports": 0.8226,
+          "china_share_of_supply": 0.7305,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "27904155"
+        ],
+        "cn8_2024": [
+          "85044086"
+        ],
+        "recalculated_share": 0.730465018531963,
+        "published_share": 0.7305,
+        "share_of_imports": 0.8226,
+        "exposure_band": "50% and above",
+        "crosscheck_value_share": 0.7304611009572823,
+        "crosscheck_import_share": 0.82260605340757,
+        "crosscheck_delta_meur": {
+          "production": 0.0,
+          "imports": 0.02992499999982101,
+          "exports": 0.044879000000037195,
+          "imports_from_china": -0.021175999999968553
+        },
+        "production_flags": {
+          "27904155": ":R"
+        },
+        "published_production_rounding": {
+          "base_eur": 3000000000,
+          "apparent_supply_eur": [
+            -382914954,
+            5617085046
+          ],
+          "share_from_production_rounding_alone": [
+            0.3403328965726327,
+            null
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.6553426348085427,
+              0.8250399205903932
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.688902207495889,
+              0.7726404037021427
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.661996412469094,
+              0.8147305256518442
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.7005166872577366,
+              0.8116277983688478
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.5478487638989722,
+              0.7304650185319629
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.42653287680713076,
+              0.9967940266399704
+            ],
+            "exposure_bands": [
+              "25% to below 50%",
+              "50% and above"
+            ]
+          }
+        }
+      },
+      "meters": {
+        "label": "Electricity meters (incl. household smart meters)",
+        "recorded_2024_meur": {
+          "production_meur": 1033.4,
+          "production_missing_codes": [],
+          "imports_meur": 527.6,
+          "imports_from_china_meur": 323.4,
+          "exports_meur": 203.4,
+          "apparent_supply_meur": 1357.7,
+          "china_share_of_imports": 0.6129,
+          "china_share_of_supply": 0.2382,
+          "china_share_of_supply_upper_bound": null
+        },
+        "prodcom": [
+          "26516370"
+        ],
+        "cn8_2024": [
+          "90283011",
+          "90283019",
+          "90283090"
+        ],
+        "recalculated_share": 0.23821449616971124,
+        "published_share": 0.2382,
+        "share_of_imports": 0.6129,
+        "exposure_band": "10% to below 25%",
+        "crosscheck_value_share": 0.2381849767334322,
+        "crosscheck_import_share": 0.6129246786330819,
+        "crosscheck_delta_meur": {
+          "production": 0.02296200000000681,
+          "imports": -0.005791000000044733,
+          "exports": -0.048268000000007305,
+          "imports_from_china": -0.024488999999960015
+        },
+        "production_flags": {},
+        "published_production_rounding": {
+          "base_eur": 0,
+          "apparent_supply_eur": [
+            1357665439,
+            1357665439
+          ],
+          "share_from_production_rounding_alone": [
+            0.2381849767334322,
+            0.2381849767334322
+          ]
+        },
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.2213643270770873,
+              0.25784127692822856
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.22903853465435103,
+              0.24717391779066972
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.23469817263451237,
+              0.24183778771517875
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.1535716624107903,
+              0.2646827735219014
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.1786608721272834,
+              0.23821449616971122
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.15738672028949766,
+              0.2718489039822658
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          }
+        }
+      }
+    },
+    "goes_mass_check_2024": {
+      "production_kg": 364522320,
+      "imports_kg": 171983011.0,
+      "exports_kg": 167261319.0,
+      "imports_from_china_kg": 97092373.0,
+      "china_import_share": 0.5645463027740572,
+      "china_apparent_supply_share": 0.2629490793204793,
+      "production_flags": {
+        "24105410": ":R"
+      }
+    }
+  },
+  "us_imports_2024": {
+    "goes": {
+      "value_musd": 117.8,
+      "tonnes": 36065.0,
+      "top3_value": [
+        [
+          "KOREA, SOUTH",
+          0.4442
+        ],
+        [
+          "JAPAN",
+          0.4197
+        ],
+        [
+          "CZECH REPUBLIC",
+          0.0421
+        ]
+      ],
+      "top3_value_share": 0.906,
+      "top3_kg": [
+        [
+          "JAPAN",
+          0.4387
+        ],
+        [
+          "KOREA, SOUTH",
+          0.4204
+        ],
+        [
+          "CZECH REPUBLIC",
+          0.055
+        ]
+      ],
+      "china_value_share": 0.006,
+      "china_kg_share": 0.0107
+    },
+    "transformers": {
+      "value_musd": 5922.4,
+      "top3": [
+        [
+          "MEXICO",
+          0.3126
+        ],
+        [
+          "KOREA, SOUTH",
+          0.1992
+        ],
+        [
+          "BRAZIL",
+          0.0736
+        ]
+      ],
+      "china_share": 0.0336
+    },
+    "source": "US Census Bureau, as extracted for the September trade note, section 4.7"
+  },
+  "filed_models": {
+    "heavy_machinery": {
+      "estimate": 0.19458638006546727,
+      "interval": [
+        0.025725328608786045,
+        0.3912463499106903
+      ],
+      "p": 0.0112
+    },
+    "electrical_machinery": {
+      "estimate": 0.0999888022722381,
+      "interval": [
+        -0.0017983809715627574,
+        0.21215528211825363
+      ],
+      "p": 0.0549
+    }
+  },
+  "replication": {
+    "source": "CEPII BACI HS02 V202601",
+    "filed_calculation": "buildout-study/analysis.py",
+    "observed_years": [
+      2012,
+      2024
+    ],
+    "models": {
+      "heavy_machinery": {
+        "flow_years": 109048,
+        "post_2023_24": {
+          "beta": 0.1778,
+          "pct": 19.46,
+          "p_wild_line": 0.0112,
+          "se_wild_line": 0.078,
+          "ci95_wild_line": [
+            0.0254,
+            0.3302
+          ],
+          "mde_80": 0.2183,
+          "se_cluster_exporter": 0.0206,
+          "lines_in_bootstrap": 9
+        },
+        "matches_filed_sample_and_coefficients": true
+      },
+      "electrical_machinery": {
+        "flow_years": 139028,
+        "post_2023_24": {
+          "beta": 0.0953,
+          "pct": 10.0,
+          "p_wild_line": 0.0549,
+          "se_wild_line": 0.05,
+          "ci95_wild_line": [
+            -0.0018,
+            0.1924
+          ],
+          "mde_80": 0.1401,
+          "se_cluster_exporter": 0.0257,
+          "lines_in_bootstrap": 7
+        },
+        "matches_filed_sample_and_coefficients": true
+      }
+    },
+    "pretrend_violations": [
+      2014,
+      2015,
+      2016,
+      2017
+    ],
+    "filed_pretrend_violations": [
+      2014,
+      2015,
+      2016,
+      2017
+    ]
+  },
+  "filed_pretrend": {
+    "years_outside_0.05": [
+      2014,
+      2015,
+      2016,
+      2017
+    ],
+    "did_language_allowed": false
+  },
+  "market_evidence": [
+    {
+      "basis": "Survey benchmark",
+      "market": "International",
+      "scope": "IEA 2024 industry survey, large power transformers",
+      "months": 48,
+      "measure": "Up to 48 months",
+      "context": "Reported procurement lead time. Survey prices were about 75% higher in real terms than in 2019.",
+      "source": "iea"
+    },
+    {
+      "basis": "Operator plans",
+      "market": "Europe",
+      "scope": "ENTSO-E 2026, 245–420 kV power transformers",
+      "months": 36,
+      "measure": "Typically at least 36 months",
+      "context": "Operators report plans for 113–243 additions annually in this voltage band. Qualified factory capacity is unavailable.",
+      "source": "entso"
+    },
+    {
+      "basis": "Industry evidence",
+      "market": "United States",
+      "scope": "US DOE 2024, transformers rated at least 100 MVA",
+      "months": 36,
+      "measure": "Commonly quoted at 36 months",
+      "context": "Reported maximum up to 60 months. MVA is a power rating and kV is a voltage rating.",
+      "source": "doe"
+    },
+    {
+      "basis": "Reported average",
+      "market": "United States",
+      "scope": "National Laboratory of the Rockies 2026, citing US industry estimates",
+      "months": 30,
+      "measure": "30 months on average",
+      "context": "First half of 2025. Manufacturer interviews also report long waits for bushings and tap changers.",
+      "source": "nlr"
+    }
+  ],
+  "modelled_projects": [
+    {
+      "label": "Permits and site work finish last",
+      "permit": 28,
+      "site": 20,
+      "transformer": 36,
+      "network": 40,
+      "site_ready": 48,
+      "installation": 4,
+      "delivered_earlier_by": 6,
+      "transformer_after": 30,
+      "completion_before": 52,
+      "completion_after": 52,
+      "months_saved": 0
+    },
+    {
+      "label": "The transformer arrives last",
+      "permit": 18,
+      "site": 12,
+      "transformer": 42,
+      "network": 34,
+      "site_ready": 30,
+      "installation": 4,
+      "delivered_earlier_by": 6,
+      "transformer_after": 36,
+      "completion_before": 46,
+      "completion_after": 40,
+      "months_saved": 6
+    },
+    {
+      "label": "The site and transformer finish together",
+      "permit": 22,
+      "site": 14,
+      "transformer": 36,
+      "network": 32,
+      "site_ready": 36,
+      "installation": 4,
+      "delivered_earlier_by": 6,
+      "transformer_after": 30,
+      "completion_before": 40,
+      "completion_after": 40,
+      "months_saved": 0
+    }
+  ]
 }

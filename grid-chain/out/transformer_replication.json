@@ -1,0 +1,56 @@
+{
+  "source": "CEPII BACI HS02 V202601",
+  "filed_calculation": "buildout-study/analysis.py",
+  "observed_years": [
+    2012,
+    2024
+  ],
+  "models": {
+    "heavy_machinery": {
+      "flow_years": 109048,
+      "post_2023_24": {
+        "beta": 0.1778,
+        "pct": 19.46,
+        "p_wild_line": 0.0112,
+        "se_wild_line": 0.078,
+        "ci95_wild_line": [
+          0.0254,
+          0.3302
+        ],
+        "mde_80": 0.2183,
+        "se_cluster_exporter": 0.0206,
+        "lines_in_bootstrap": 9
+      },
+      "matches_filed_sample_and_coefficients": true
+    },
+    "electrical_machinery": {
+      "flow_years": 139028,
+      "post_2023_24": {
+        "beta": 0.0953,
+        "pct": 10.0,
+        "p_wild_line": 0.0549,
+        "se_wild_line": 0.05,
+        "ci95_wild_line": [
+          -0.0018,
+          0.1924
+        ],
+        "mde_80": 0.1401,
+        "se_cluster_exporter": 0.0257,
+        "lines_in_bootstrap": 7
+      },
+      "matches_filed_sample_and_coefficients": true
+    }
+  },
+  "pretrend_violations": [
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "filed_pretrend_violations": [
+    2014,
+    2015,
+    2016,
+    2017
+  ]
+}

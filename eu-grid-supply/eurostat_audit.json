@@ -1,0 +1,271 @@
+{
+  "published_components_source": "out/eu_grid_supply.json",
+  "trade": {
+    "dataset": "DS-045409",
+    "updated": "2026-11-13T11:00:00+0100"
+  },
+  "sold_production": {
+    "dataset": "DS-059358",
+    "updated": "2026-10-20T11:00:00+0200"
+  },
+  "boundary": "EU27_2020. Extra-EU bloc totals minus GB and XI cells where separately reported. Positive China imports are gross. An absent partner cell contributes no published flow.",
+  "components_2024": {
+    "transformers": {
+      "cn8": [
+        "85042100",
+        "85042210",
+        "85042290",
+        "85042300"
+      ],
+      "production_by_prodcom": {
+        "27114120": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 150000,
+          "PRODVAL": 1160000000,
+          "PVALBASE": 20000000,
+          "PVALFLAG": ":R",
+          "QNTUNIT": "P/ST"
+        },
+        "27114150": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 30000,
+          "PRODVAL": 1400000000,
+          "PVALBASE": 200000000,
+          "PVALFLAG": ":R",
+          "QNTUNIT": "P/ST"
+        },
+        "27114180": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 4000,
+          "PRODVAL": 3600000000,
+          "PVALBASE": 600000000,
+          "PVALFLAG": ":R",
+          "QNTUNIT": "P/ST"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 1576437951,
+      "extra_eu_exports_eur_excluding_uk": 1829554988,
+      "imports_from_china_eur": 539311981
+    },
+    "goes": {
+      "cn8": [
+        "72251100",
+        "72261100"
+      ],
+      "production_by_prodcom": {
+        "24105310": {
+          "PRODQNT": 334522320,
+          "PRODVAL": 716450676,
+          "QNTUNIT": "KG"
+        },
+        "24105410": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 30000000,
+          "PRODVAL": 80000000,
+          "PVALBASE": 40000000,
+          "PVALFLAG": ":R",
+          "QNTUNIT": "KG"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 418173966,
+      "extra_eu_exports_eur_excluding_uk": 316937252,
+      "imports_from_china_eur": 216925289,
+      "extra_eu_imports_kg_excluding_uk": 171983011.0,
+      "imports_from_china_kg": 97092373.0,
+      "extra_eu_exports_kg_excluding_uk": 167261319.0
+    },
+    "cables": {
+      "cn8": [
+        "85446010",
+        "85446090"
+      ],
+      "production_by_prodcom": {
+        "27321400": {
+          "PQNTFLAG": ":E",
+          "PRODQNT": 1243686521,
+          "PRODVAL": 7758242278,
+          "PVALFLAG": ":E",
+          "QNTUNIT": "KG"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 1048720138,
+      "extra_eu_exports_eur_excluding_uk": 1795282262,
+      "imports_from_china_eur": 186958338
+    },
+    "switchgear": {
+      "cn8": [
+        "85351000",
+        "85352100",
+        "85352900",
+        "85353010",
+        "85353090",
+        "85354000",
+        "85359000"
+      ],
+      "production_by_prodcom": {
+        "27121010": {
+          "PRODQNT": 2883964,
+          "PRODVAL": 140245793,
+          "QNTUNIT": "P/ST"
+        },
+        "27121020": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 12000000,
+          "PRODVAL": 617942429,
+          "PVALFLAG": ":E",
+          "QNTUNIT": "P/ST"
+        },
+        "27121030": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 97200000,
+          "PRODVAL": 2637548418,
+          "PVALFLAG": ":E",
+          "QNTUNIT": "P/ST"
+        },
+        "27121041": {
+          "PQNTFLAG": ":E",
+          "PRODQNT": 1708978,
+          "PRODVAL": 122646996,
+          "QNTUNIT": "P/ST"
+        },
+        "27121090": {
+          "PQNTFLAG": ":R",
+          "PRODQNT": 180000000,
+          "PRODVAL": 1936666453,
+          "QNTUNIT": "P/ST"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 744827111,
+      "extra_eu_exports_eur_excluding_uk": 2459543821,
+      "imports_from_china_eur": 166730079
+    },
+    "switchboards": {
+      "cn8": [
+        "85372091",
+        "85372099"
+      ],
+      "production_by_prodcom": {
+        "27123203": {
+          "PRODQNT": 1558651,
+          "PRODVAL": 4019705336,
+          "QNTUNIT": "P/ST"
+        },
+        "27123205": {
+          "PRODQNT": 117658,
+          "PRODVAL": 573167169,
+          "QNTUNIT": "P/ST"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 691841382,
+      "extra_eu_exports_eur_excluding_uk": 1771083597,
+      "imports_from_china_eur": 198005418
+    },
+    "inverters": {
+      "cn8": [
+        "85044086"
+      ],
+      "production_by_prodcom": {
+        "27904155": {
+          "PQNTFLAG": ":E",
+          "PRODQNT": 2267856,
+          "PRODVAL": 3000000000,
+          "PVALBASE": 3000000000,
+          "PVALFLAG": ":R",
+          "QNTUNIT": "P/ST"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 2323929925,
+      "extra_eu_exports_eur_excluding_uk": 2706844879,
+      "imports_from_china_eur": 1911678824
+    },
+    "meters": {
+      "cn8": [
+        "90283011",
+        "90283019",
+        "90283090"
+      ],
+      "production_by_prodcom": {
+        "26516370": {
+          "PRODQNT": 25564480,
+          "PRODVAL": 1033422962,
+          "QNTUNIT": "P/ST"
+        }
+      },
+      "extra_eu_imports_eur_excluding_uk": 527594209,
+      "extra_eu_exports_eur_excluding_uk": 203351732,
+      "imports_from_china_eur": 323375511
+    }
+  },
+  "goes_imports": {
+    "2019": {
+      "eur": {
+        "all": 162008525,
+        "china": 14978303
+      },
+      "hundred_kg": {
+        "all": 933624.94,
+        "china": 74201.92
+      }
+    },
+    "2020": {
+      "eur": {
+        "all": 150110014,
+        "china": 24842656
+      },
+      "hundred_kg": {
+        "all": 919173.82,
+        "china": 129246.33
+      }
+    },
+    "2021": {
+      "eur": {
+        "all": 193420894,
+        "china": 51952428
+      },
+      "hundred_kg": {
+        "all": 1015910.0499999999,
+        "china": 237056.33
+      }
+    },
+    "2022": {
+      "eur": {
+        "all": 409327015,
+        "china": 111517460
+      },
+      "hundred_kg": {
+        "all": 1343928.5699999998,
+        "china": 330526.45
+      }
+    },
+    "2023": {
+      "eur": {
+        "all": 457522414,
+        "china": 165554439
+      },
+      "hundred_kg": {
+        "all": 1326775.8399999999,
+        "china": 484560.56999999995
+      }
+    },
+    "2024": {
+      "eur": {
+        "all": 418173966,
+        "china": 216925289
+      },
+      "hundred_kg": {
+        "all": 1719830.1099999999,
+        "china": 970923.73
+      }
+    },
+    "2025": {
+      "eur": {
+        "all": 547200300,
+        "china": 311749204
+      },
+      "hundred_kg": {
+        "all": 2275080.42,
+        "china": 1448704.78
+      }
+    }
+  }
+}

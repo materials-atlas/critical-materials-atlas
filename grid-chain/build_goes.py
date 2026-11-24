@@ -19,14 +19,12 @@ HS 722511 (grain-oriented, >=600mm) and 722611 (<600mm) are clean codes. Every g
 measured identically - same source, same years, same basis - because the question is comparative:
 does GOES belong in the same bucket as copper and aluminium?
 
-Trade is not capacity. Export shares say who SELLS, not who can MAKE: a producer that consumes
-its own output at home is understated, and China is exactly that. Some listed exporters are
-distribution hubs re-selling other mills' steel. So the concentration computed here is a FLOOR on
-the real thing, and the direction of the error is known.
+Exports cover cross-border sales. Domestic sales and re-exports can change
+exporter shares in either direction relative to producers' shares.
 
 Run:  python build_goes.py
 """
-import csv, io, os, json, zipfile, collections, datetime
+import csv, os, json, collections, datetime
 import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -61,23 +59,31 @@ def iso_map():
 def build():
     iso = iso_map()
     per_year = {g: {y: collections.Counter() for y in YEARS} for g in GROUPS}
+    value_by_code = {y: {k: collections.Counter() for k in GROUPS['goes'][1]} for y in YEARS}
+    mass_by_code = {y: {k: collections.Counter() for k in GROUPS['goes'][1]} for y in YEARS}
+    value_with_mass = collections.Counter()
     for y in YEARS:
-        for row in _baci.year(y, columns=['i', 'k', 'v'], codes=ALL).itertuples(index=False):
+        for row in _baci.year(y, columns=['i', 'k', 'v', 'q'], codes=ALL, nom='HS17').itertuples(index=False):
             k = row.k
             e = iso.get(str(row.i))
             if not e:
                 continue
             v = row.v if row.v == row.v else 0.0
+            if k in value_by_code[y]:
+                value_by_code[y][k][e] += v
+                if row.q > 0:
+                    mass_by_code[y][k][e] += row.q
+                    value_with_mass[y] += v
             for g, (_, codes, _) in GROUPS.items():
                 if k in codes:
                     per_year[g][y][e] += v
 
-    def stats(counter):
+    def stats(counter, total_key='total_kusd'):
         t = sum(counter.values())
         if not t:
             return None
         sh = sorted(((c, v / t) for c, v in counter.items()), key=lambda kv: -kv[1])
-        return {'total_kusd': round(t), 'n_exporters': len(counter),
+        return {total_key: round(t), 'n_exporters': len(counter),
                 'hhi': round(sum(s * s for _, s in sh), 3),
                 'top1': round(100 * sh[0][1], 1), 'top3': round(100 * sum(s for _, s in sh[:3]), 1),
                 'top5': round(100 * sum(s for _, s in sh[:5]), 1),
@@ -87,10 +93,11 @@ def build():
            'source': 'CEPII BACI HS17 V202601 (Etalab 2.0; cite Gaulier & Zignago 2010)',
            'basis': 'exporter value shares, gross trade',
            'window': WINDOW,
-           'what_this_is_not': ('Capacity. Export shares say who sells, not who can make. A producer '
-                                'consuming its own output at home is understated - China notably - and '
-                                'some exporters listed are re-selling hubs. Read every HHI here as a '
-                                'FLOOR on the real concentration, with the error signed.'),
+           'interpretation': ('Export concentration has no general mathematical upper or lower '
+                              'bound relationship to production concentration. Domestic sales, '
+                              'trade prices and re-exports can move the two measures apart.'),
+           'correction': ('24 November 2026: the value HHI pools the 2022–2024 amounts before '
+                          'computing shares. The previous lower-bound interpretation is withdrawn.'),
            'prompted_by': ('Amoah, Brown, Simon, Bazilian & Matisek, "Mineral demand from AI data '
                            'centers: infrastructure intensity, processing bottlenecks, and supply '
                            'competition", Resources Policy 119 (2026) 105970. Reference verified via '
@@ -106,6 +113,28 @@ def build():
             'window': stats(window),
             'by_year': {str(y): stats(per_year[g][y]) for y in YEARS},
         }
+
+    goes = out['groups']['goes']
+    goes['mass_by_year'] = {}
+    goes['value_and_mass_by_code'] = {}
+    for y in YEARS:
+        mass = collections.Counter()
+        for counter in mass_by_code[y].values():
+            mass.update(counter)
+        coverage = value_with_mass[y] / sum(per_year['goes'][y].values())
+        goes['mass_by_year'][str(y)] = {
+            **stats(mass, 'total_tonnes'),
+            'share_of_value_with_positive_mass': round(coverage, 4),
+        }
+        goes['value_and_mass_by_code'][str(y)] = {
+            code: {
+                'value': stats(value_by_code[y][code]),
+                'mass': stats(mass_by_code[y][code], 'total_tonnes'),
+            } for code in sorted(value_by_code[y])
+        }
+    goes['mass_basis'] = ('Exporter shares of BACI tonnes on positive-mass flows. Coverage reports '
+                          'the share of all gross export value on those flows. BACI reconciles and '
+                          'can estimate quantities. Mass shares are approximate.')
 
     path = os.path.join(HERE, 'out', 'goes.json')
     os.makedirs(os.path.dirname(path), exist_ok=True)

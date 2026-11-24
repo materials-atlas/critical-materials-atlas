@@ -1,6 +1,6 @@
 # Electricity-grid chain — research library
 
-The ore is fine — the transformer is the bottleneck: grids run on abundant copper, aluminium and steel, but the real constraint is equipment lead time — large power transformers can take up to four years to procure. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+This August 2026 library records sources for the earlier Grid Chain. The [updated study](grid-chain.html) audits the claims and distinguishes core-steel trade, transformer procurement and project timing.
 
 ## Core references (already cited in the chain)
 - [IEA, Electricity Grids and Secure Energy Transitions](https://www.iea.org/reports/electricity-grids-and-secure-energy-transitions/executive-summary) — IEA (2023). The report that established the "80 million km by 2040" framing.

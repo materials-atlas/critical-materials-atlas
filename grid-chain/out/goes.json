@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-06",
+ "generated": "2026-11-24",
  "source": "CEPII BACI HS17 V202601 (Etalab 2.0; cite Gaulier & Zignago 2010)",
  "basis": "exporter value shares, gross trade",
  "window": [
@@ -7,7 +7,8 @@
   2023,
   2024
  ],
- "what_this_is_not": "Capacity. Export shares say who sells, not who can make. A producer consuming its own output at home is understated - China notably - and some exporters listed are re-selling hubs. Read every HHI here as a FLOOR on the real concentration, with the error signed.",
+ "interpretation": "Export concentration has no general mathematical upper or lower bound relationship to production concentration. Domestic sales, trade prices and re-exports can move the two measures apart.",
+ "correction": "24 November 2026: the value HHI pools the 2022–2024 amounts before computing shares. The previous lower-bound interpretation is withdrawn.",
  "prompted_by": "Amoah, Brown, Simon, Bazilian & Matisek, \"Mineral demand from AI data centers: infrastructure intensity, processing bottlenecks, and supply competition\", Resources Policy 119 (2026) 105970. Reference verified via Crossref; full text paywalled and NOT read, so it prompted this check and is not evidence for its result.",
  "groups": {
   "goes": {
@@ -312,7 +313,1314 @@
       }
      ]
     }
-   }
+   },
+   "mass_by_year": {
+    "2019": {
+     "total_tonnes": 1536271,
+     "n_exporters": 67,
+     "hhi": 0.103,
+     "top1": 19.8,
+     "top3": 46.3,
+     "top5": 65.5,
+     "top": [
+      {
+       "iso3": "JPN",
+       "pct": 19.8
+      },
+      {
+       "iso3": "RUS",
+       "pct": 15.0
+      },
+      {
+       "iso3": "CHN",
+       "pct": 11.5
+      },
+      {
+       "iso3": "KOR",
+       "pct": 10.4
+      },
+      {
+       "iso3": "DEU",
+       "pct": 8.8
+      },
+      {
+       "iso3": "POL",
+       "pct": 5.8
+      },
+      {
+       "iso3": "FRA",
+       "pct": 4.2
+      },
+      {
+       "iso3": "GBR",
+       "pct": 3.6
+      }
+     ],
+     "share_of_value_with_positive_mass": 0.9992
+    },
+    "2020": {
+     "total_tonnes": 1566018,
+     "n_exporters": 61,
+     "hhi": 0.12,
+     "top1": 19.1,
+     "top3": 51.3,
+     "top5": 74.1,
+     "top": [
+      {
+       "iso3": "JPN",
+       "pct": 19.1
+      },
+      {
+       "iso3": "CHN",
+       "pct": 16.9
+      },
+      {
+       "iso3": "RUS",
+       "pct": 15.3
+      },
+      {
+       "iso3": "KOR",
+       "pct": 11.4
+      },
+      {
+       "iso3": "DEU",
+       "pct": 11.4
+      },
+      {
+       "iso3": "POL",
+       "pct": 5.0
+      },
+      {
+       "iso3": "CZE",
+       "pct": 2.8
+      },
+      {
+       "iso3": "FRA",
+       "pct": 2.7
+      }
+     ],
+     "share_of_value_with_positive_mass": 1.0
+    },
+    "2021": {
+     "total_tonnes": 1655749,
+     "n_exporters": 67,
+     "hhi": 0.121,
+     "top1": 19.9,
+     "top3": 54.0,
+     "top5": 71.6,
+     "top": [
+      {
+       "iso3": "CHN",
+       "pct": 19.9
+      },
+      {
+       "iso3": "JPN",
+       "pct": 19.0
+      },
+      {
+       "iso3": "RUS",
+       "pct": 15.1
+      },
+      {
+       "iso3": "KOR",
+       "pct": 9.2
+      },
+      {
+       "iso3": "DEU",
+       "pct": 8.3
+      },
+      {
+       "iso3": "POL",
+       "pct": 4.3
+      },
+      {
+       "iso3": "MYS",
+       "pct": 4.2
+      },
+      {
+       "iso3": "FRA",
+       "pct": 3.8
+      }
+     ],
+     "share_of_value_with_positive_mass": 0.9999
+    },
+    "2022": {
+     "total_tonnes": 1729683,
+     "n_exporters": 65,
+     "hhi": 0.133,
+     "top1": 25.3,
+     "top3": 56.7,
+     "top5": 69.7,
+     "top": [
+      {
+       "iso3": "CHN",
+       "pct": 25.3
+      },
+      {
+       "iso3": "JPN",
+       "pct": 19.5
+      },
+      {
+       "iso3": "RUS",
+       "pct": 11.8
+      },
+      {
+       "iso3": "DEU",
+       "pct": 8.0
+      },
+      {
+       "iso3": "FRA",
+       "pct": 5.1
+      },
+      {
+       "iso3": "KOR",
+       "pct": 4.4
+      },
+      {
+       "iso3": "POL",
+       "pct": 4.2
+      },
+      {
+       "iso3": "USA",
+       "pct": 3.9
+      }
+     ],
+     "share_of_value_with_positive_mass": 1.0
+    },
+    "2023": {
+     "total_tonnes": 1682299,
+     "n_exporters": 69,
+     "hhi": 0.153,
+     "top1": 27.2,
+     "top3": 62.8,
+     "top5": 74.1,
+     "top": [
+      {
+       "iso3": "CHN",
+       "pct": 27.2
+      },
+      {
+       "iso3": "JPN",
+       "pct": 21.4
+      },
+      {
+       "iso3": "RUS",
+       "pct": 14.2
+      },
+      {
+       "iso3": "DEU",
+       "pct": 7.3
+      },
+      {
+       "iso3": "POL",
+       "pct": 4.0
+      },
+      {
+       "iso3": "KOR",
+       "pct": 3.5
+      },
+      {
+       "iso3": "FRA",
+       "pct": 3.4
+      },
+      {
+       "iso3": "MYS",
+       "pct": 3.0
+      }
+     ],
+     "share_of_value_with_positive_mass": 0.9988
+    },
+    "2024": {
+     "total_tonnes": 1763216,
+     "n_exporters": 59,
+     "hhi": 0.195,
+     "top1": 34.9,
+     "top3": 67.1,
+     "top5": 79.5,
+     "top": [
+      {
+       "iso3": "CHN",
+       "pct": 34.9
+      },
+      {
+       "iso3": "JPN",
+       "pct": 23.1
+      },
+      {
+       "iso3": "RUS",
+       "pct": 9.1
+      },
+      {
+       "iso3": "DEU",
+       "pct": 7.6
+      },
+      {
+       "iso3": "KOR",
+       "pct": 4.8
+      },
+      {
+       "iso3": "FRA",
+       "pct": 3.4
+      },
+      {
+       "iso3": "POL",
+       "pct": 3.3
+      },
+      {
+       "iso3": "CZE",
+       "pct": 2.1
+      }
+     ],
+     "share_of_value_with_positive_mass": 1.0
+    }
+   },
+   "value_and_mass_by_code": {
+    "2019": {
+     "722511": {
+      "value": {
+       "total_kusd": 2154267,
+       "n_exporters": 56,
+       "hhi": 0.133,
+       "top1": 25.2,
+       "top3": 54.3,
+       "top5": 73.6,
+       "top": [
+        {
+         "iso3": "JPN",
+         "pct": 25.2
+        },
+        {
+         "iso3": "RUS",
+         "pct": 14.9
+        },
+        {
+         "iso3": "CHN",
+         "pct": 14.2
+        },
+        {
+         "iso3": "KOR",
+         "pct": 12.4
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.8
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.8
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.6
+        },
+        {
+         "iso3": "FRA",
+         "pct": 3.6
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1274813,
+       "n_exporters": 56,
+       "hhi": 0.122,
+       "top1": 21.7,
+       "top3": 52.2,
+       "top5": 71.3,
+       "top": [
+        {
+         "iso3": "JPN",
+         "pct": 21.7
+        },
+        {
+         "iso3": "RUS",
+         "pct": 17.0
+        },
+        {
+         "iso3": "CHN",
+         "pct": 13.5
+        },
+        {
+         "iso3": "KOR",
+         "pct": 11.6
+        },
+        {
+         "iso3": "DEU",
+         "pct": 7.4
+        },
+        {
+         "iso3": "POL",
+         "pct": 5.6
+        },
+        {
+         "iso3": "SAU",
+         "pct": 3.7
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.6
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 514201,
+       "n_exporters": 63,
+       "hhi": 0.077,
+       "top1": 15.9,
+       "top3": 38.1,
+       "top5": 52.3,
+       "top": [
+        {
+         "iso3": "DEU",
+         "pct": 15.9
+        },
+        {
+         "iso3": "JPN",
+         "pct": 13.4
+        },
+        {
+         "iso3": "FRA",
+         "pct": 8.7
+        },
+        {
+         "iso3": "NLD",
+         "pct": 7.5
+        },
+        {
+         "iso3": "POL",
+         "pct": 6.7
+        },
+        {
+         "iso3": "USA",
+         "pct": 5.8
+        },
+        {
+         "iso3": "GBR",
+         "pct": 4.8
+        },
+        {
+         "iso3": "KOR",
+         "pct": 4.3
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 261458,
+       "n_exporters": 63,
+       "hhi": 0.068,
+       "top1": 15.2,
+       "top3": 34.7,
+       "top5": 47.1,
+       "top": [
+        {
+         "iso3": "DEU",
+         "pct": 15.2
+        },
+        {
+         "iso3": "JPN",
+         "pct": 10.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 9.3
+        },
+        {
+         "iso3": "POL",
+         "pct": 6.7
+        },
+        {
+         "iso3": "RUS",
+         "pct": 5.6
+        },
+        {
+         "iso3": "GBR",
+         "pct": 5.5
+        },
+        {
+         "iso3": "NLD",
+         "pct": 5.4
+        },
+        {
+         "iso3": "USA",
+         "pct": 5.1
+        }
+       ]
+      }
+     }
+    },
+    "2020": {
+     "722511": {
+      "value": {
+       "total_kusd": 1900050,
+       "n_exporters": 56,
+       "hhi": 0.159,
+       "top1": 25.7,
+       "top3": 60.6,
+       "top5": 82.5,
+       "top": [
+        {
+         "iso3": "JPN",
+         "pct": 25.7
+        },
+        {
+         "iso3": "CHN",
+         "pct": 20.9
+        },
+        {
+         "iso3": "RUS",
+         "pct": 14.0
+        },
+        {
+         "iso3": "KOR",
+         "pct": 13.7
+        },
+        {
+         "iso3": "DEU",
+         "pct": 8.2
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.1
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.5
+        },
+        {
+         "iso3": "FRA",
+         "pct": 2.3
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1272843,
+       "n_exporters": 56,
+       "hhi": 0.15,
+       "top1": 21.4,
+       "top3": 59.1,
+       "top5": 83.1,
+       "top": [
+        {
+         "iso3": "JPN",
+         "pct": 21.4
+        },
+        {
+         "iso3": "CHN",
+         "pct": 20.0
+        },
+        {
+         "iso3": "RUS",
+         "pct": 17.6
+        },
+        {
+         "iso3": "KOR",
+         "pct": 13.0
+        },
+        {
+         "iso3": "DEU",
+         "pct": 11.1
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.9
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.1
+        },
+        {
+         "iso3": "FRA",
+         "pct": 1.8
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 482264,
+       "n_exporters": 59,
+       "hhi": 0.067,
+       "top1": 14.1,
+       "top3": 34.4,
+       "top5": 46.9,
+       "top": [
+        {
+         "iso3": "DEU",
+         "pct": 14.1
+        },
+        {
+         "iso3": "JPN",
+         "pct": 13.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 7.1
+        },
+        {
+         "iso3": "MYS",
+         "pct": 6.5
+        },
+        {
+         "iso3": "POL",
+         "pct": 6.1
+        },
+        {
+         "iso3": "NLD",
+         "pct": 5.3
+        },
+        {
+         "iso3": "USA",
+         "pct": 4.5
+        },
+        {
+         "iso3": "AUT",
+         "pct": 4.2
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 293174,
+       "n_exporters": 59,
+       "hhi": 0.065,
+       "top1": 13.3,
+       "top3": 35.0,
+       "top5": 46.8,
+       "top": [
+        {
+         "iso3": "MYS",
+         "pct": 13.3
+        },
+        {
+         "iso3": "DEU",
+         "pct": 12.7
+        },
+        {
+         "iso3": "JPN",
+         "pct": 9.0
+        },
+        {
+         "iso3": "FRA",
+         "pct": 6.4
+        },
+        {
+         "iso3": "POL",
+         "pct": 5.3
+        },
+        {
+         "iso3": "RUS",
+         "pct": 5.2
+        },
+        {
+         "iso3": "KOR",
+         "pct": 4.6
+        },
+        {
+         "iso3": "USA",
+         "pct": 4.1
+        }
+       ]
+      }
+     }
+    },
+    "2021": {
+     "722511": {
+      "value": {
+       "total_kusd": 2571891,
+       "n_exporters": 59,
+       "hhi": 0.152,
+       "top1": 24.5,
+       "top3": 60.6,
+       "top5": 79.9,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 24.5
+        },
+        {
+         "iso3": "JPN",
+         "pct": 21.5
+        },
+        {
+         "iso3": "RUS",
+         "pct": 14.6
+        },
+        {
+         "iso3": "KOR",
+         "pct": 10.7
+        },
+        {
+         "iso3": "DEU",
+         "pct": 8.5
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.7
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.4
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.3
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1298175,
+       "n_exporters": 58,
+       "hhi": 0.157,
+       "top1": 23.7,
+       "top3": 63.2,
+       "top5": 81.8,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 23.7
+        },
+        {
+         "iso3": "JPN",
+         "pct": 21.0
+        },
+        {
+         "iso3": "RUS",
+         "pct": 18.5
+        },
+        {
+         "iso3": "KOR",
+         "pct": 11.1
+        },
+        {
+         "iso3": "DEU",
+         "pct": 7.5
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.5
+        },
+        {
+         "iso3": "CZE",
+         "pct": 3.4
+        },
+        {
+         "iso3": "FRA",
+         "pct": 2.6
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 730906,
+       "n_exporters": 57,
+       "hhi": 0.077,
+       "top1": 14.9,
+       "top3": 37.3,
+       "top5": 55.0,
+       "top": [
+        {
+         "iso3": "JPN",
+         "pct": 14.9
+        },
+        {
+         "iso3": "DEU",
+         "pct": 12.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 10.1
+        },
+        {
+         "iso3": "MYS",
+         "pct": 10.1
+        },
+        {
+         "iso3": "CHN",
+         "pct": 7.6
+        },
+        {
+         "iso3": "NLD",
+         "pct": 5.0
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.2
+        },
+        {
+         "iso3": "ITA",
+         "pct": 4.2
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 357574,
+       "n_exporters": 57,
+       "hhi": 0.084,
+       "top1": 18.8,
+       "top3": 41.9,
+       "top5": 56.2,
+       "top": [
+        {
+         "iso3": "MYS",
+         "pct": 18.8
+        },
+        {
+         "iso3": "JPN",
+         "pct": 11.9
+        },
+        {
+         "iso3": "DEU",
+         "pct": 11.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 8.4
+        },
+        {
+         "iso3": "CHN",
+         "pct": 6.0
+        },
+        {
+         "iso3": "TWN",
+         "pct": 5.1
+        },
+        {
+         "iso3": "POL",
+         "pct": 3.7
+        },
+        {
+         "iso3": "NLD",
+         "pct": 3.6
+        }
+       ]
+      }
+     }
+    },
+    "2022": {
+     "722511": {
+      "value": {
+       "total_kusd": 4201481,
+       "n_exporters": 58,
+       "hhi": 0.181,
+       "top1": 31.3,
+       "top3": 66.6,
+       "top5": 78.1,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 31.3
+        },
+        {
+         "iso3": "JPN",
+         "pct": 23.8
+        },
+        {
+         "iso3": "RUS",
+         "pct": 11.6
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.1
+        },
+        {
+         "iso3": "KOR",
+         "pct": 5.4
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.7
+        },
+        {
+         "iso3": "USA",
+         "pct": 4.7
+        },
+        {
+         "iso3": "FRA",
+         "pct": 3.8
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1365906,
+       "n_exporters": 58,
+       "hhi": 0.176,
+       "top1": 30.1,
+       "top3": 67.5,
+       "top5": 78.8,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 30.1
+        },
+        {
+         "iso3": "JPN",
+         "pct": 22.7
+        },
+        {
+         "iso3": "RUS",
+         "pct": 14.8
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.3
+        },
+        {
+         "iso3": "KOR",
+         "pct": 5.1
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.3
+        },
+        {
+         "iso3": "USA",
+         "pct": 4.0
+        },
+        {
+         "iso3": "FRA",
+         "pct": 4.0
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 959459,
+       "n_exporters": 61,
+       "hhi": 0.082,
+       "top1": 16.7,
+       "top3": 38.8,
+       "top5": 55.2,
+       "top": [
+        {
+         "iso3": "DEU",
+         "pct": 16.7
+        },
+        {
+         "iso3": "FRA",
+         "pct": 12.4
+        },
+        {
+         "iso3": "JPN",
+         "pct": 9.7
+        },
+        {
+         "iso3": "CHN",
+         "pct": 9.7
+        },
+        {
+         "iso3": "MYS",
+         "pct": 6.7
+        },
+        {
+         "iso3": "IND",
+         "pct": 5.3
+        },
+        {
+         "iso3": "NLD",
+         "pct": 5.2
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.9
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 363778,
+       "n_exporters": 61,
+       "hhi": 0.082,
+       "top1": 17.3,
+       "top3": 40.5,
+       "top5": 55.9,
+       "top": [
+        {
+         "iso3": "MYS",
+         "pct": 17.3
+        },
+        {
+         "iso3": "DEU",
+         "pct": 14.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 9.0
+        },
+        {
+         "iso3": "JPN",
+         "pct": 7.8
+        },
+        {
+         "iso3": "CHN",
+         "pct": 7.6
+        },
+        {
+         "iso3": "POL",
+         "pct": 3.8
+        },
+        {
+         "iso3": "IND",
+         "pct": 3.7
+        },
+        {
+         "iso3": "NLD",
+         "pct": 3.5
+        }
+       ]
+      }
+     }
+    },
+    "2023": {
+     "722511": {
+      "value": {
+       "total_kusd": 4118214,
+       "n_exporters": 59,
+       "hhi": 0.213,
+       "top1": 32.5,
+       "top3": 71.9,
+       "top5": 82.4,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 32.5
+        },
+        {
+         "iso3": "JPN",
+         "pct": 29.5
+        },
+        {
+         "iso3": "RUS",
+         "pct": 10.0
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.0
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.4
+        },
+        {
+         "iso3": "KOR",
+         "pct": 4.3
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.9
+        },
+        {
+         "iso3": "FRA",
+         "pct": 2.6
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1348771,
+       "n_exporters": 59,
+       "hhi": 0.198,
+       "top1": 31.6,
+       "top3": 73.2,
+       "top5": 83.7,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 31.6
+        },
+        {
+         "iso3": "JPN",
+         "pct": 24.2
+        },
+        {
+         "iso3": "RUS",
+         "pct": 17.4
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.3
+        },
+        {
+         "iso3": "POL",
+         "pct": 4.3
+        },
+        {
+         "iso3": "KOR",
+         "pct": 4.2
+        },
+        {
+         "iso3": "CZE",
+         "pct": 2.6
+        },
+        {
+         "iso3": "USA",
+         "pct": 2.6
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 991078,
+       "n_exporters": 65,
+       "hhi": 0.078,
+       "top1": 13.8,
+       "top3": 36.2,
+       "top5": 56.2,
+       "top": [
+        {
+         "iso3": "DEU",
+         "pct": 13.8
+        },
+        {
+         "iso3": "JPN",
+         "pct": 11.7
+        },
+        {
+         "iso3": "NLD",
+         "pct": 10.7
+        },
+        {
+         "iso3": "FRA",
+         "pct": 10.4
+        },
+        {
+         "iso3": "CHN",
+         "pct": 9.6
+        },
+        {
+         "iso3": "MYS",
+         "pct": 6.6
+        },
+        {
+         "iso3": "AUT",
+         "pct": 4.6
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.7
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 333528,
+       "n_exporters": 65,
+       "hhi": 0.076,
+       "top1": 15.0,
+       "top3": 36.7,
+       "top5": 54.2,
+       "top": [
+        {
+         "iso3": "MYS",
+         "pct": 15.0
+        },
+        {
+         "iso3": "DEU",
+         "pct": 11.3
+        },
+        {
+         "iso3": "JPN",
+         "pct": 10.3
+        },
+        {
+         "iso3": "CHN",
+         "pct": 9.5
+        },
+        {
+         "iso3": "FRA",
+         "pct": 8.0
+        },
+        {
+         "iso3": "NLD",
+         "pct": 7.5
+        },
+        {
+         "iso3": "TWN",
+         "pct": 4.5
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.2
+        }
+       ]
+      }
+     }
+    },
+    "2024": {
+     "722511": {
+      "value": {
+       "total_kusd": 3267679,
+       "n_exporters": 47,
+       "hhi": 0.232,
+       "top1": 35.9,
+       "top3": 72.5,
+       "top5": 85.3,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 35.9
+        },
+        {
+         "iso3": "JPN",
+         "pct": 29.4
+        },
+        {
+         "iso3": "DEU",
+         "pct": 7.3
+        },
+        {
+         "iso3": "RUS",
+         "pct": 6.9
+        },
+        {
+         "iso3": "KOR",
+         "pct": 5.9
+        },
+        {
+         "iso3": "POL",
+         "pct": 3.5
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 2.4
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 1469561,
+       "n_exporters": 47,
+       "hhi": 0.236,
+       "top1": 38.6,
+       "top3": 75.0,
+       "top5": 87.3,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 38.6
+        },
+        {
+         "iso3": "JPN",
+         "pct": 25.7
+        },
+        {
+         "iso3": "RUS",
+         "pct": 10.8
+        },
+        {
+         "iso3": "DEU",
+         "pct": 6.7
+        },
+        {
+         "iso3": "KOR",
+         "pct": 5.5
+        },
+        {
+         "iso3": "POL",
+         "pct": 3.3
+        },
+        {
+         "iso3": "FRA",
+         "pct": 2.3
+        },
+        {
+         "iso3": "CZE",
+         "pct": 2.1
+        }
+       ]
+      }
+     },
+     "722611": {
+      "value": {
+       "total_kusd": 757202,
+       "n_exporters": 55,
+       "hhi": 0.082,
+       "top1": 13.7,
+       "top3": 38.5,
+       "top5": 58.4,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 13.7
+        },
+        {
+         "iso3": "JPN",
+         "pct": 13.2
+        },
+        {
+         "iso3": "DEU",
+         "pct": 11.7
+        },
+        {
+         "iso3": "NLD",
+         "pct": 10.4
+        },
+        {
+         "iso3": "FRA",
+         "pct": 9.5
+        },
+        {
+         "iso3": "USA",
+         "pct": 5.8
+        },
+        {
+         "iso3": "AUT",
+         "pct": 4.8
+        },
+        {
+         "iso3": "MYS",
+         "pct": 3.9
+        }
+       ]
+      },
+      "mass": {
+       "total_tonnes": 293656,
+       "n_exporters": 54,
+       "hhi": 0.085,
+       "top1": 16.3,
+       "top3": 39.7,
+       "top5": 58.3,
+       "top": [
+        {
+         "iso3": "CHN",
+         "pct": 16.3
+        },
+        {
+         "iso3": "DEU",
+         "pct": 12.1
+        },
+        {
+         "iso3": "MYS",
+         "pct": 11.3
+        },
+        {
+         "iso3": "JPN",
+         "pct": 10.2
+        },
+        {
+         "iso3": "FRA",
+         "pct": 8.4
+        },
+        {
+         "iso3": "NLD",
+         "pct": 8.4
+        },
+        {
+         "iso3": "USA",
+         "pct": 3.5
+        },
+        {
+         "iso3": "AUT",
+         "pct": 3.4
+        }
+       ]
+      }
+     }
+    }
+   },
+   "mass_basis": "Exporter shares of BACI tonnes on positive-mass flows. Coverage reports the share of all gross export value on those flows. BACI reconciles and can estimate quantities. Mass shares are approximate."
   },
   "aluminium_conductor": {
    "title": "Bare aluminium stranded conductor",

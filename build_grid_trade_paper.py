@@ -17,6 +17,10 @@ import json
 import math
 import os
 from decimal import Decimal, ROUND_HALF_UP
+from runpy import run_path
+
+from add_canonicals import clean_url
+from add_head import FAVICONS, SKIPLINK, add_contact
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 REPO = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/buildout-study/'
@@ -292,7 +296,8 @@ GRID_LABEL = {'transformers': 'Liquid-dielectric transformers', 'goes': 'Grain-o
 def grid_tokens(g):
     hy = str(g['headline_year'])
     C = g['components']
-    rows, pairs = [], []
+    rows, pairs, sensitivity_rows = [], [], []
+    exposure = run_path(os.path.join(os.path.dirname(__file__), 'eu-grid-supply', 'exposure.py'))
     order = sorted(C, key=lambda k: -C[k]['headline']['import_share'])
     for k in order:
         c, r = C[k], C[k]['years'][hy]
@@ -302,7 +307,13 @@ def grid_tokens(g):
                         ' class="hl"' if k == 'inverters' else '', GRID_LABEL[k],
                         '{:,.0f}'.format(r['production_meur']), '{:,.0f}'.format(r['imports_meur']),
                         '{:,.0f}'.format(r['imports_from_china_meur']), '{:,.0f}'.format(r['exports_meur']),
-                        100 * h['import_share'], 100 * h['supply_share'], h['supply_band']))
+                        100 * h['import_share'], 100 * h['supply_share'], exposure['exposure_band'](h['supply_share'])))
+        scenarios = exposure['sensitivity'](r)
+        ranges = [' to '.join('%.1f%%' % (100 * value) for value in scenario['range'])
+                  for scenario in scenarios.values()]
+        sensitivity_rows.append('<tr><th scope="row">%s</th>%s<td>%s</td></tr>' % (
+            GRID_LABEL[k], ''.join('<td class="n">%s</td>' % value for value in ranges),
+            ', '.join(scenarios['combined_excluding_scope']['exposure_bands'])))
         pairs.append((GRID_LABEL[k], h['import_share'], h['supply_share']))
     inv = C['inverters']['years']
     ss = [v['china_share_of_supply'] for v in inv.values() if v['china_share_of_supply'] is not None]
@@ -312,7 +323,7 @@ def grid_tokens(g):
     low = [GRID_LABEL[k].lower().replace('liquid-dielectric ', '') for k in ('transformers', 'cables', 'switchgear', 'switchboards')]
     lows = [C[k]['headline']['supply_share'] for k in ('transformers', 'cables', 'switchgear', 'switchboards')]
     return {
-        'GRIDROWS': ''.join(rows), 'GRIDY': hy,
+        'GRIDROWS': ''.join(rows), 'GRIDY': hy, 'GRID_SENSITIVITY': ''.join(sensitivity_rows),
         'GRIDFIG': share_pair_chart(pairs, 'China, share of EU imports and of EU supply, by grid component, %s' % hy),
         'GLOLO': '%.0f%%' % (100 * min(lows)), 'GLOHI': '%.0f%%' % (100 * max(lows)),
         'GMET': '%.0f%%' % (100 * C['meters']['headline']['supply_share']),
@@ -669,7 +680,7 @@ def main():
     for k, v in subs.items():
         html = html.replace('@@%s@@' % k, v)
     assert '@@' not in html, [l for l in html.split('\n') if '@@' in l][:3]
-    io.open(OUT, 'w', encoding='utf-8', newline='\n').write(html)
+    io.open(OUT, 'w', encoding='utf-8', newline='\n').write(add_contact(html))
     print('wrote', OUT)
 
 
@@ -688,7 +699,7 @@ FOOT = ('<footer class="siteftr"><div class="wrap">'
         '<div class="fineprint">Independent public-data research.</div></div></footer>')
 
 TEMPLATE = """<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">@@PAGE_HEAD@@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Grid transformers rose with all electrical equipment, and their steel moved to China &mdash; Critical Materials Atlas</title>
 <meta name="description" content="A research note from a pre-registered study, world trade to 2024 and EU and US customs records to July 2026: transformer trade rose as part of a wider electrical-equipment boom, and the grain-oriented electrical steel inside transformers concentrated in China.">
@@ -727,7 +738,9 @@ tr.hl td{background:#f1f6f5}
 .fig .bar{fill:#15323a}.fig .bar.open{fill:#15323a;opacity:.45}
 .fig .val{font-weight:600;fill:#15323a}.fig .row{font-size:12px;fill:#15323a}
 </style></head><body>
+@@SKIPLINK@@
 @@NAV@@
+<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Research note &middot; from a pre-registered study &middot; 18 September 2026</div>
   <h1>Grid transformers rose with all electrical equipment, and their steel moved to China</h1>
@@ -966,7 +979,7 @@ EU from outside it, against &euro;@@EUROLL19@@bn in the twelve months to Decembe
 for US imports runs from $@@USROLL19@@bn to $@@USROLL@@bn in the twelve months to @@USROLLM@@. Both
 records are in current prices, and neither says what was installed.</p>
 
-<h3>4.6b Imports are not supply: what the EU actually uses</h3>
+<h3>4.6b Imports and estimated apparent supply</h3>
 <p>Every share above is a share of <i>imports</i>, and the EU makes much of both goods itself. A fifth
 filing, made before these production figures were read, put the obvious question to Eurostat's
 production statistics: <b>how much of what the EU uses comes from China?</b> Apparent supply is EU sold
@@ -982,15 +995,15 @@ size of the finding without changing its direction.</p>
 <p>In @@SUPY@@, China supplied @@STIMP@@ of the EU's transformer imports but <b>@@STSUP@@ of its supply</b>,
 because EU makers sold &euro;@@STPROD@@bn of transformers that year; for electrical steel the two numbers
 are @@SGIMP@@ and <b>@@SGSUP@@</b>. The filing set the rule in advance: where the supply share is less
-than half the import share, the import share is not read as dependence, and the supply share is the
-number to use. That is the case for both.</p>
+than half the import share, the apparent-supply measure indicates a much smaller share. That is
+the case for both.</p>
 <p>What the supply share does show is a steep climb from a very low base: China went from @@ST19@@ of EU
 transformer supply in 2019 to @@STSUP@@ in @@SUPY@@, and from @@SG19@@ to @@SGSUP@@ of electrical-steel
 supply. Production is valued at the factory gate and imports include freight, so the two sides of the
 sum sit on different price bases; sold production also excludes what a maker uses itself, and Eurostat
 has published no 2025 production yet, which is why these tables stop a year before the trade tables.</p>
 
-<h3>4.6c The rest of the grid: five more components</h3>
+<h3 id="supplier-exposure">4.6c Measuring supplier exposure in EU grid equipment</h3>
 <p>Transformers and their steel are two parts of a grid. A separate study, <a href="@@GRID_FILING@@">filed
 before its data were read</a> and reviewed like this note, applied the same measure to seven components.
 It aimed at lines that are high-voltage or grid-scale by their own description, so that phone chargers
@@ -998,43 +1011,56 @@ and household fuses are not counted; two of the seven fit that only loosely and 
 where the line is a size class rather than a use, and electricity meters, which include household smart
 meters.</p>
 <figure class="fig">@@GRIDFIG@@
-<figcaption><b>China's share of what the EU imports, and of what it uses.</b> @@GRIDY@@, by value. The
-gap between the two dots is EU production: where it is wide, European makers supply most of what Europe
-uses, and the import share overstates dependence on China. The gap between the two dots is what EU sold production, net of exports, does to China's share.
-* Inverters above 7.5 kVA of any use; meters including household smart meters.</figcaption></figure>
+<figcaption><b>China's share of EU imports and estimated apparent supply.</b> @@GRIDY@@, by value.
+The supply calculation adds EU sold production and subtracts exports. Both points use the same gross
+imports from China in the numerator. * Inverters above 7.5 kVA across uses and meters including household smart meters.</figcaption></figure>
 <div class="tbl"><table><thead><tr><th>Component, EU, @@GRIDY@@</th><th class="n">sold production, &euro;m</th>
 <th class="n">imports</th><th class="n">from China</th><th class="n">exports</th>
-<th class="n">China, share of imports</th><th class="n">China, share of supply</th><th>band</th></tr></thead>
+<th class="n">China, share of imports</th><th class="n">China, share of supply</th><th>Direct Chinese exposure band</th></tr></thead>
 <tbody>@@GRIDROWS@@</tbody></table></div>
 @@SRC_GRID@@
-<p><b>On this measure, for six of the seven the import share overstates dependence</b>, by a factor of
-two to seven. The filing's rule: where China's share of supply is under half its share of imports, the
-import share is not read as dependence; from 0.5 to 0.8 it partly overstates it; above 0.8 it is a fair
-guide. Supply shares are banded as low (under 10%), material (10&ndash;25%), high (25&ndash;50%) and
-critical (over 50%). Grain-oriented electrical steel, at a ratio of @@GGOESR@@, is the borderline case. EU
-makers account for most of the apparent supply of transformers, high-voltage cable, switchgear and
-switchboards;
-China's share of their supply is @@GLOLO@@ to @@GLOHI@@. Electrical steel and meters (@@GMET@@) sit at about
-a quarter.</p>
-<p><b>Large inverters are the exception, and they are not shown to be grid equipment.</b> China
-supplied @@GINVI@@ of EU imports and @@GINVS@@ of EU supply in @@GRIDY@@ (ratio @@GINVR@@: the import share
-is a fair guide), but the customs line holds every inverter above 7.5 kVA: commercial and utility solar,
+<p><b>The import share generally exceeds the apparent-supply share.</b> The filed ratio compares
+the two measures directly. The apparent-supply share is under half the import share for the typical
+component. Grain-oriented electrical steel has a ratio of @@GGOESR@@. The estimated Chinese share
+for transformers, high-voltage cable, switchgear and switchboards ranges from @@GLOLO@@ to @@GLOHI@@.
+Electrical steel and meters (@@GMET@@) sit at about a quarter.</p>
+<p class="dim"><b>Interpretation update, 24 November 2026.</b> The table uses numerical bands for
+gross-import-based direct Chinese exposure. The bands describe the size of that share. Establishing
+physical scarcity requires separate evidence on deliverable capacity and demand. See the
+<a href="grid-chain/grid-chain">transformer procurement study</a> for project-delay evidence and the
+industrial-capacity gaps.</p>
+<p><b>The large-inverter basket covers several end uses.</b> China supplied @@GINVI@@ of EU imports
+and @@GINVS@@ on the value-based apparent-supply measure in @@GRIDY@@ (ratio @@GINVR@@), but the customs line holds every inverter above 7.5 kVA: commercial and utility solar,
 battery storage and industrial drives as well as grid converters. From 2026 the EU splits inverters by
 function rather than size. In January&ndash;July 2026, at any size, @@GSOL@@ of the inverters Europe
 bought from China were solar (@@GSOLALL@@ of those it bought from all origins), and China supplied
 @@GSOLCN@@ of EU solar-inverter imports and @@GOTHCN@@ of the rest; the split does not separate sizes, so
 it does not say how much of the large-inverter line is solar. The supply share is also unsteady: China's share of
 EU inverter imports is @@GINVILO@@&ndash;@@GINVIHI@@ in every year from 2019, but its share of supply swings
-from @@GINVSLO@@ to @@GINVSHI@@, because EU production enters as round figures (&euro;2.0bn, &euro;3.0bn,
-&euro;6.0bn) that look like Eurostat estimates, and because exports are large beside it (@@GINVX@@ of production in @@GRIDY@@), which leaves supply as a
-small remainder. Read the inverter row as a dependence in a broad class of large inverters, of imprecise
-size, that is not shown to be a grid one.</p>
-<p class="dim">These are value shares on the filed apparent-supply measure: imports are gross, so some
-of what arrives from China leaves the EU again, and factory-gate production sits beside imports valued
-with freight. The production and customs lines are matched on their descriptions, most loosely for
-inverters. Components are not summed: transformers contain the steel. The first run of that study missed a customs code that changed in 2023
-and printed zero inverter trade for 2019&ndash;2022; a fact-check caught it, and the corrected series is
-the one shown (its deviation 1).</p>
+from @@GINVSLO@@ to @@GINVSHI@@. Eurostat reports rounded production values including &euro;2.0bn,
+&euro;3.0bn and &euro;6.0bn. Exports are large beside production (@@GINVX@@ in @@GRIDY@@), which leaves
+supply as a small residual. The line provides no separate share for grid converters.</p>
+<p class="dim">These shares use gross imports from China. The public tables do not trace how much
+was re-exported or retained by origin. Factory-gate production sits beside trade values that use
+different valuation rules. Sold production omits internal use. The codes follow statistical product
+definitions, and components are never summed because some contain others. The first run missed the
+inverter code in effect before 2023. The dated filing records the corrected series as deviation 1.</p>
+
+<h4 id="supplier-sensitivity">Sensitivity of the supplier-exposure estimates</h4>
+<p><b>Modelled.</b> The table varies inputs around the published @@GRIDY@@ rows. These are
+illustrative ranges. The production check varies sold production by 10%, valuation shifts customs
+values together by 5%, the exports check varies gross exports by 10%, and the re-export check
+assumes that between 75% and 100% of imports from China are retained. The scope check varies the
+origin of an excluded subset equal to 10% of apparent supply. The combined case omits scope.</p>
+<div class="tbl"><table><thead><tr><th scope="col">Component</th><th scope="col">Production</th>
+<th scope="col">Trade valuation</th><th scope="col">Exports</th><th scope="col">Product scope</th>
+<th scope="col">Re-export</th><th scope="col">Combined</th><th scope="col">Combined exposure bands</th>
+</tr></thead><tbody>@@GRID_SENSITIVITY@@</tbody></table></div>
+<p class="dim">The transformer and GOES baskets can cross an exposure-band boundary in the combined
+test. The large-inverter production flag presents a wider problem. Eurostat's 2024 value has a
+&euro;3 billion rounding base, and the low end can give a nonpositive supply denominator. The
+<a href="grid-chain/grid-chain#exposure">source audit</a> documents that check and compares GOES by value
+and mass. The table describes statistical exposure, with qualified capacity remaining a separate question.</p>
 
 <h3>4.7 US imports to July 2026</h3>
 <p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
@@ -1161,9 +1187,13 @@ was written, and records three dated deviations.</p>
 (public domain). Built by <code>build_grid_trade_paper.py</code> from <code>out/buildout_study.json</code>.
 Cite as: Critical Materials Atlas (2026). Zenodo. https://doi.org/10.5281/zenodo.21948855</p>
 </section>
+</main>
 @@FOOT@@
 </body></html>
-""".replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT)
+"""
+TEMPLATE = (TEMPLATE.replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT)
+            .replace('@@SKIPLINK@@', SKIPLINK)
+            .replace('@@PAGE_HEAD@@', FAVICONS + f'<link rel="canonical" href="{clean_url("grid-trade.html")}">'))
 
 
 if __name__ == '__main__':

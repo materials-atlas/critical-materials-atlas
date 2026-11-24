@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${title} — Critical Materials Atlas</title>
+  <meta name="description" content="${deck}">
+  <meta name="robots" content="index,follow">
+  <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+  <link rel="canonical" href="https://criticalmaterialsatlas.org/grid-chain/grid-chain">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../chain-assets/chainview.css">
+  <style>
+    :root{--acc:#795b2f}
+    .study-nav{display:flex;flex-wrap:wrap;gap:.55rem 1.2rem;margin:1rem 0}
+    .table-wrap{overflow-x:auto}
+    .table-wrap table{margin:0}
+    #static-trade[hidden]{display:none}
+    details.panel summary{cursor:pointer;font-weight:700;color:var(--navy)}
+    details.panel .table-wrap{margin-top:.8rem}
+    figure.panel{margin-inline:0}
+    figure.panel figcaption{margin-top:.8rem}
+    .branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:.7rem 0}
+    .branches .hop{min-height:0}
+    .network-join{margin:.45rem 0;padding:.55rem .7rem;background:var(--bg-soft);border-left:3px solid var(--acc)}
+    .pairs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .pair b{font-size:.85rem;color:var(--navy)}
+    .paired-value{display:grid;grid-template-columns:3.4rem minmax(1rem,1fr) 3.2rem;gap:.35rem;align-items:center;font-size:.77rem}
+    .paired-value strong{text-align:right;font-variant-numeric:tabular-nums}
+    .paired-value .track{height:8px}
+    .paired-value .imported{background:#685780}
+    .forest-line{margin:.8rem 0}
+    .forest-line p{margin:.2rem 0}
+    .forest-track{position:relative;height:1.8rem;background:var(--bg-soft);border-radius:6px}
+    .forest-track .zero{position:absolute;inset-block:0;width:2px;background:var(--mut)}
+    .forest-track .interval{position:absolute;top:50%;height:3px;background:var(--acc)}
+    .forest-track .point{position:absolute;top:calc(50% - 4px);width:10px;height:10px;border-radius:50%;background:var(--acc);transform:translateX(-50%)}
+    @media(max-width:550px){.branches,.pairs{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains <span>— a research layer of the Critical Materials Atlas · Electricity grid</span></div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Electricity grid · Research working paper</div>
+  <h1>${title}</h1>
+  <p class="deck">${deck}</p>
+  <p class="byline">Evidence release · <time datetime="${version}">24 November 2026</time></p>
+</div></section>
+<article>
+<nav class="study-nav" aria-label="On this page">
+  <a href="#manufacturing">Manufacturing network</a>
+  <a href="#trade-evidence">Trade evidence</a>
+  <a href="#procurement">Procurement</a>
+  <a href="#project">Project timing</a>
+  <a href="#methods">Methods</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<h2 id="summary">Executive summary</h2>
+<p>Large power transformers are slow to procure. The evidence points to pressure on manufacturing and on several qualified inputs, including core steel, bushings and tap changers. A global ranking of those constraints would require data on deliverable output and orders for comparable specifications. Customs evidence measures a different kind of exposure. In the EU, China’s share of imported transformers was much larger than its share on a value-based apparent-supply calculation. The transformer trade premium also depends on which equipment serves as the comparison group. These results support tracking supplier exposure, procurement pressure and project timing directly.</p>
+<p>This paper considers large power transformers used in transmission, with European and US procurement evidence. The <a href="../grid-trade#supplier-exposure">companion supplier-exposure analysis</a> compares wider customs baskets. Their ratings and end uses are broader than the transmission equipment discussed here.</p>
+
+<h2 id="manufacturing">Several input routes converge at assembly</h2>
+<figure class="panel" aria-labelledby="network-figure">
+  <h3 id="network-figure">Transformer manufacturing and delivery</h3>
+  <div class="branches">
+    <div class="hop"><div class="n">Core route</div><div class="t">Steel inputs → grain-oriented electrical steel → slitting and core production.</div></div>
+    <div class="hop"><div class="n">Winding route</div><div class="t">Copper or aluminium production and refining → conductor preparation and winding.</div></div>
+    <div class="hop"><div class="n">Other qualified inputs</div><div class="t">Bushings, tap changers, insulation, tank, oil and cooling equipment.</div></div>
+  </div>
+  <p class="network-join"><b>Factory.</b> Incoming inputs converge in core and winding integration, drying and insulation, final assembly and factory acceptance testing.</p>
+  <p class="network-join"><b>Project site.</b> Heavy transport, installation and commissioning proceed when equipment, site and network work are ready.</p>
+  <figcaption class="note">The branches supply the same assembly process. The product specification determines which designs, grades and suppliers can serve an order. <a href="#source-entso">ENTSO-E, pp. 15–16</a> and <a href="#source-nlr">National Laboratory of the Rockies, Table 3.</a></figcaption>
+</figure>
+<p>Public trade data distinguish some finished products and inputs. They leave the grade, specification, approved supplier, factory slot and input origin inside imported equipment unresolved. Copper and aluminium are both relevant to this network, with substitution depending on equipment design and qualification. A broad measure of metal production leaves their deliverability to a particular project unknown.</p>
+
+<h2 id="trade-evidence">Core-steel trade is concentrated</h2>
+<p>Grain-oriented electrical steel (GOES) is the magnetic steel used in conventional transformer cores. From 2019 to 2024, China’s share of world GOES export value rose from ${global_start} to ${global_end}. It supplied ${global_mass_end} of recorded tonnes in 2024. The 2022–2024 pooled exporter HHI was ${pooled_hhi} for GOES and ${transformer_hhi} for liquid-dielectric transformers. HHI runs from zero to one in this comparison. The global calculation uses the same source, time window and value basis for both products. <a href="#source-baci">CEPII BACI, HS17 V202601.</a></p>
+<figure class="panel" aria-labelledby="goes-figure">
+  <h3 id="goes-figure">China’s share of GOES exports and EU imports</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Year</th><th scope="col">World exports · value</th><th scope="col">World exports · tonnes</th><th scope="col">EU imports · value</th><th scope="col">EU imports · tonnes</th><th scope="col">World HHI · value</th><th scope="col">World HHI · tonnes</th></tr></thead>
+    <tbody>${trends}</tbody>
+  </table></div>
+  <figcaption class="note">World exports follow HS17 lines 722511 and 722611. EU imports use their CN8 equivalents, extra-EU27 excluding the United Kingdom. BACI flow tonnage can be estimated. Rows with positive mass account for ${mass_coverage} of 2024 export value. The world series ends with the BACI release’s 2024 data. <a href="#source-baci">CEPII</a> and <a href="#source-comext">Eurostat.</a></figcaption>
+</figure>
+<p>Both value and tonnage show rising Chinese shares. Value and mass give different rankings for some exporters because prices vary and the basket combines grades and widths. The 2024 value HHI is ${wide_hhi} for sheet at least 600 mm wide and ${narrow_hhi} for narrower strip. Customs records also combine original sale and re-export channels. Domestic sales, product mix and re-exports can push production concentration above or below export concentration.</p>
+<p class="note"><b>Correction, 24 November 2026.</b> The previous Grid Chain called its export HHI a lower bound on production concentration. The trade data support no directional bound. The 2022–2024 HHI is calculated after pooling annual export amounts. The published value uses pooled shares.</p>
+
+<h3 id="exposure">EU production changes the supplier exposure estimate</h3>
+<figure class="panel" aria-labelledby="exposure-figure">
+  <h4 id="exposure-figure">China’s share of EU imports and estimated apparent supply</h4>
+  <div class="pairs">${pairs}</div>
+  <figcaption class="note">2024, by value. Both measures use gross imports from China in the numerator. Supply adds EU sold production to extra-EU imports and subtracts extra-EU exports. The United Kingdom is excluded from the trade sums. The bands in the <a href="../grid-trade#supplier-exposure">companion analysis</a> describe the size of the share.</figcaption>
+</figure>
+<p>China supplied 34.2% of liquid-dielectric transformer imports and 9.1% on the value-based apparent-supply measure. For GOES the corresponding value shares were 51.9% and 24.2%. The independently pulled Eurostat data reproduce the rounded headline shares. Comparing the GOES baskets by mass gives ${goes_import_mass} of imports and ${goes_supply_mass} of apparent supply, with some Prodcom tonnage rounded. China’s share of EU GOES import value rose from ${eu_start} in 2019 to ${eu_end} in 2025. These aggregates leave the geography of qualified substitutes and the origin of steel in imported transformers unresolved. <a href="#source-prodcom">Eurostat Prodcom</a> and <a href="#source-comext">Comext.</a></p>
+<p>Direct US exposure to the same exporting country is much smaller. In the September study’s 2024 US customs data, China accounted for ${us_goes_china} of GOES import value and ${us_transformer_china} of liquid-dielectric transformer import value. Japan and South Korea supplied most US GOES imports. The national laboratory’s US study identifies heavy reliance on imported high-grade steel for large power transformers. A low share from China can coexist with substantial import reliance on other origins. The US customs numbers have no comparable apparent-supply denominator here. <a href="#source-trade">September trade study, section 4.7</a> and <a href="#source-nlr">National Laboratory of the Rockies, Table 4.</a></p>
+<p>The broad large-inverter basket covers several applications, including solar, storage and industrial uses. Moving the rounded EU sold-production input by 10% either way gives ${inverter_sensitivity_low} to ${inverter_sensitivity_high} on the value-based measure. The gross numerator includes imports that could later be re-exported. Public totals cannot trace their retention by origin. A high share for this basket gives no estimate of the share for transmission converters.</p>
+<p>Eurostat flags the 2024 inverter sold-production value as rounded and publishes a €${inverter_rounding_base} billion rounding base. Applying its documented rounding rule to production alone gives a lower share near ${inverter_rounding_lower_share}, with a potentially nonpositive supply denominator at the low production end. The data therefore give no useful upper share on this formula across the published rounding range. This is a separate diagnostic from the ±10% test. <a href="#source-prodcom_flags">Eurostat DS-059358 quick guide, p. 2.</a></p>
+
+<details class="panel"><summary>Product correspondence and independent Eurostat check</summary>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Component</th><th scope="col">Prodcom</th><th scope="col">CN8 in 2024</th><th scope="col">Published exposure band</th><th scope="col">Cross-check supply share</th><th scope="col">Sold-production flags</th></tr></thead>
+  <tbody>${crosswalk}</tbody>
+</table></div>
+<p class="note">The official 2024 correspondence confirms the transformer, GOES and inverter code links. The transformer lines include models rated at or below 650 kVA through above 10 MVA. The highest bin includes equipment below the DOE definition of a large power transformer, 100 MVA. The EU voltage bins are a separate dimension. The GOES lines split at 600 mm of width, with no grade or end-use breakdown. The inverter line splits at 7.5 kVA and does not identify grid use. Eurostat flags rounded production with R and estimates with E. <a href="#source-crosswalk">Prodcom List 2024.</a></p>
+</details>
+
+<details class="panel"><summary>Sensitivity of the value-based exposure shares</summary>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Component</th><th scope="col">Production ±10%</th><th scope="col">Trade valuation ±5%</th><th scope="col">Exports ±10%</th><th scope="col">Product scope</th><th scope="col">Re-export</th><th scope="col">Combined range without scope change</th><th scope="col">Bands spanned by combined range</th></tr></thead>
+  <tbody>${sensitivity}</tbody>
+</table></div>
+<p class="note"><span class="conf snapshot">Modelled</span> Illustrative ranges. Trade valuation scales all customs values equally. The scope check removes 10% of apparent supply and assigns the excluded amount either to Chinese-origin supply or to other supply, as far as the baseline totals allow. Re-export varies the retained fraction of Chinese imports from 75% to 100%. The combined range varies production, valuation, exports and retention at their stated endpoints. The assumptions describe sensitivity and carry no statistical probabilities.</p>
+</details>
+
+<h3>The trade comparison depends on the equipment selected</h3>
+<figure class="panel" aria-labelledby="unit-value-figure">
+  <h4 id="unit-value-figure">Relative transformer customs value per tonne</h4>
+  ${forest_rows}
+  <figcaption class="note">2023–2024 versus 2012–2020. Each point and its 95% interval transform the reported log coefficient to a percentage. The vertical marker shows zero. Source is the September Atlas study, BACI HS02, using flow and year effects and tariff-line clustered inference. Liquid-dielectric transformers spanning several ratings and uses are pooled in the studied transformer codes. <a href="#source-trade">September 2026 trade study.</a></figcaption>
+</figure>
+<p>The larger premium appears against the heavy-machinery basket. The interval against motors, pumps and compressors includes zero. A separate transformer-specific shock remains unresolved. Re-estimating both from the original BACI flows reproduced the September estimates and intervals. The filed pre-trend rule also fails, so the estimates remain descriptive. Changes in the type and rating of equipment traded can move value per tonne independently of contract prices. The IEA survey and customs estimates can therefore report different changes for different baskets.</p>
+
+<h2 id="procurement">Long waits are documented across markets</h2>
+<figure class="panel" aria-labelledby="lead-time-figure">
+  <h3 id="lead-time-figure">Large transformer procurement evidence</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Market</th><th scope="col">Survey or reporting scope</th><th scope="col">Lead time</th><th scope="col">Related observations</th></tr></thead>
+    <tbody>${market}</tbody>
+  </table></div>
+  <figcaption class="note">These observations use different dates, equipment definitions and summary statistics. The IEA surveyed industry stakeholders in 2024 and reported record manufacturer backlogs for that year. The published charts do not provide an item-level survey dataset. The ENTSO-E 2026 pipeline survey received data from 27 European transmission operators. The IEA identifies permitting as the primary reported source of transmission delays, especially in advanced economies.</figcaption>
+</figure>
+<p>Demand growth, existing orders and availability of qualified inputs can jointly lengthen lead times. ENTSO-E’s planned additions help define the European demand calendar and it reports limited visibility into manufacturing capacity. The US laboratory report identifies long component lead times from manufacturer interviews. Investment announcements report planned expansion. Deliverable capacity requires a dated picture of operational output, staffing, testing slots, key inputs, uncommitted orders, transport and eligible suppliers. The public benchmarks do not allocate the order delays to one stage.</p>
+
+<h2 id="project">A faster transformer helps when it changes the finish date</h2>
+<figure class="panel" aria-labelledby="project-figure">
+  <h3 id="project-figure">Completion under earlier equipment delivery</h3>
+  <p class="note"><span class="conf snapshot">Modelled</span> All times are illustrative months from project start.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Project case</th><th scope="col">Permit and site work</th><th scope="col">Transformer arrival</th><th scope="col">Network ready</th><th scope="col">Original finish</th><th scope="col">Finish with earlier transformer</th><th scope="col">Months saved</th></tr></thead>
+    <tbody>${project_rows}</tbody>
+  </table></div>
+  <figcaption class="note">Site work starts after permitting. Procurement and linked network work can proceed in parallel. Installation and commissioning take four months after all prerequisites are ready. The model moves the same qualified transformer’s arrival six months earlier and calculates the change in energization time.</figcaption>
+</figure>
+<p>Earlier equipment delivery shortens the transformer-led schedule. It leaves the permit-led schedule unchanged, and has no effect when site work shares the last completion date. Faster delivery can still reduce risk from unexpected equipment delay. An actual project schedule would need dates for the permit, transport, construction, installation and network dependencies.</p>
+
+<h2 id="methods">Evidence needed to identify a bottleneck</h2>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Question</th><th scope="col">Test</th><th scope="col">Finding here</th></tr></thead>
+<tbody>
+<tr><th scope="row">Is trade concentrated?</th><td>Compare exporter shares across the same period and basis. Recompute by value and tonnes.</td><td>Observed for GOES. Its pooled value HHI exceeds that of the transformer basket.</td></tr>
+<tr><th scope="row">Are buyers facing procurement pressure?</th><td>Check lead times, backlogs, quoted prices and buyer access using defined equipment categories.</td><td>Documented for large transformers. Some specialised inputs also have long waits.</td></tr>
+<tr><th scope="row">Is qualified output short?</th><td>For a specification, market and period, divide positive unmet demand by demand. Count only deliverable, eligible production after existing commitments and constraints.</td><td>Unresolved across the EU and US. Public data lack compatible demand and available capacity by grade, rating and time.</td></tr>
+<tr><th scope="row">Would another unit or earlier delivery speed up the project?</th><td>Relax the candidate limit with other dependencies fixed, then recalculate output or completion.</td><td>Demonstrated only in the stated model. It does not assign the frequency of transformer-led projects.</td></tr>
+</tbody>
+</table></div>
+<p>Agreement on delivery dates is the relevant test for a project. Evidence on tooling, skilled labor, acceptance testing, finished transformer inventory and qualified components is needed before attributing the industry’s waits to any single stage. For the EU exposure measure, sold production omits internal use, and the customs and factory-gate values differ. Inventories, changes in the product mix and re-exports matter. The share covers direct gross exposure and cannot identify final absorption or upstream materials embedded in equipment.</p>
+
+<h2 id="trade">Customs context for conductors and transformers</h2>
+<p>The Atlas slider covers the frozen codes for liquid-dielectric transformers above 650 and up to 10,000 kVA and copper wire above 6 mm. The dedicated GOES and transformer studies above use their separately documented baskets. The slider provides goods-trade context.</p>
+<div class="panel">
+  <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">${trade_year}</b></div>
+  <div class="table-wrap"><table>
+    <caption>Reported goods trade. Latest static snapshot is ${trade_year}.</caption>
+    <thead><tr><th scope="col">Traded good</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Boundary</th></tr></thead>
+    <tbody id="trade-body">${trade_rows}</tbody>
+  </table></div>
+</div>
+
+<h2 id="sources">Sources and downloads</h2>
+<ul class="source-list">${sources}</ul>
+<p><a href="out/grid_chain.json">Evidence and model calculations</a> · <a href="out/goes.json">GOES values and tonnes</a> · <a href="out/transformer_replication.json">Transformer model replication</a> · <a href="out/grid_trade.json">Trade JSON</a> · <a href="library">Research library</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Research based on public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../chokepoint-map">Chokepoint Map</a></div><div class="fineprint">Send corrections to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/grid_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>
