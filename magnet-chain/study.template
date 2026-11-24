@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/magnet-chain/magnet-chain">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta name="robots" content="index,follow">
+<title>$title — Critical Materials Atlas</title>
+<meta name="description" content="Where rare-earth magnet production is concentrated, what EU imports show, and how much one planned expansion could replace under a six-month disruption.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root{--acc:#76538a}
+  .table-wrap{overflow-x:auto;margin-bottom:1rem}
+  .table-wrap table{min-width:35rem}
+  #static-trade[hidden]{display:none}
+  .stages{list-style:none;grid-template-columns:repeat(5,minmax(0,1fr));padding:0}
+  .stages li{min-width:0}.stages span,.stages strong{display:block;margin-top:.35rem}
+  .stages span{color:var(--mut);font-size:.8rem}.stages strong{font-size:.75rem;color:var(--acc)}
+  .comparison,.scenario-line{display:grid;grid-template-columns:4rem 1fr;gap:.65rem;align-items:center;margin:.55rem 0}
+  .scenario-line{grid-template-columns:8rem 1fr}.bar{display:block;height:.53rem;border-radius:.18rem}
+  .baseline{background:#9aa9b9}.event{background:var(--acc);margin-top:.16rem}
+  .scenario-track{background:var(--bg-soft);padding:2px 0}.scenario-track .bar{margin:0;height:.72rem}
+  .key{display:inline-block;width:.65rem;height:.65rem;border-radius:.12rem;margin-right:.25rem;vertical-align:baseline}
+  @media(max-width:820px){.stages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media print{
+    .topbar,.draftbar,.siteftr,.skip,#static-trade{display:none}
+    .hero{background:#fff;color:#000}
+    .hero h1,.hero .deck,.hero .byline,.hero .eyebrow{color:#000}
+    h2,h3{break-after:avoid}
+    tr{break-inside:avoid}
+    .table-wrap{overflow:visible}
+    .table-wrap table{min-width:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value chains — a research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Value chains · rare-earth magnets</div>
+  <h1>$title</h1>
+  <p class="deck">China’s share of output is higher at separation and magnet production than at the mine. EU customs records show how direct imports changed around the 2025 licensing episode. A six-month stress test puts a planned European expansion in scale and identifies the evidence needed to estimate automotive deliveries.</p>
+  <p class="byline">Research briefing · revised 24 November 2026</p>
+</div></section>
+<article>
+
+<h2>Where production is concentrated</h2>
+<p>Which stage would restrict qualified magnet deliveries to EU automotive customers if Chinese supply were interrupted for six months? The International Energy Agency (IEA) has already established the concentration of downstream production and identified magnet manufacturing and metallisation as major obstacles to global diversification. This study checks the scale and timing of direct EU import exposure and asks how much a named European expansion could replace under stated assumptions. <a href="$iea">IEA, Rare Earth Elements</a>.</p>
+
+<figure class="panel">
+  <figcaption><strong>The physical route to a sintered magnet</strong> · China’s share of global output where the IEA reports a comparable estimate for 2024</figcaption>
+  <ol class="chain stages">
+$stage_map
+  </ol>
+  <p class="note">The nodes show successive production steps. The market shares use different denominators. The diagram depicts processing order rather than measured transfers between sites. <a href="$iea">IEA</a> · <a href="$doe">US Department of Energy supply-chain assessment</a>.</p>
+</figure>
+
+<p>Neodymium (Nd) and praseodymium (Pr) are the main rare-earth inputs in many neodymium–iron–boron (NdFeB) magnets. Some grades use dysprosium (Dy) or terbium (Tb) to preserve coercivity at higher temperatures. The requirement depends on design, grade and process. Manufacturers can reduce heavy rare-earth use in some grades, and changing the magnet or motor design requires the customer to validate it. <a href="$doe">US Department of Energy assessment, section 2.1 and table 2</a>.</p>
+
+<h3>How to read the mining and refining figures</h3>
+<p>The IEA’s 2024 mining estimate covers Nd, Pr, Dy and Tb. The USGS’s broader mine tally includes lanthanides and yttrium and excludes most scandium. In its 2026 summaries, USGS estimates China’s output at 270,000 tonnes of rare-earth-oxide equivalent in both years, against rounded world totals of 380,000 in 2024 and 390,000 in 2025. Those ratios are about 71% and 69%, respectively. The Atlas’s earlier BGS panel uses its own broader series and country estimates. The IEA outlook released later in 2026 reports about 85% for rare-earth refining in 2025. Keep that vintage separate from the April report’s 2024 estimate and from the Atlas validation snapshot. <a href="$usgs">USGS mine table</a> · <a href="$bgs">BGS World Mineral Statistics</a> · <a href="$outlook">IEA 2026 outlook</a> · <a href="../casestudies#magnet-audit-note">Atlas validation note</a>.</p>
+
+<h2>Direct EU imports fell midyear and recovered</h2>
+<p>Eurostat records gross EU-27 imports from outside the EU by declared origin. CN 85051110 covers metal magnets and articles for magnetisation containing neodymium, praseodymium, dysprosium or samarium. The line includes products beyond automotive sintered NdFeB, including samarium-containing magnets, and excludes magnets classified as part of imported motors or other goods. Customs origin gives the origin of the declared product. It gives no upstream provenance for the rare earths. <a href="$comext">Eurostat Comext</a>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="EU annual import evidence">
+<table>
+<caption>Reported annual imports and calculated shares · gross extra-EU flows</caption>
+<thead><tr><th scope="col">Year</th><th scope="col">China-origin tonnes</th><th scope="col">All extra-EU tonnes</th><th scope="col">China mass share</th><th scope="col">China value share</th><th scope="col">Mass HHI bounds</th></tr></thead>
+<tbody>
+$annual_rows
+</tbody></table>
+</div>
+<p>The import share uses matching net tonnes or nominal euros. The bounds on the Herfindahl–Hirschman Index (HHI) follow from China’s share <i>s</i> of import mass. China alone contributes <i>s</i>². If all other mass belonged to one origin, it would add (1 − <i>s</i>)². The interval describes possible origin concentration on a zero-to-one scale. The index measures concentration of this import basket. A disruption assessment also needs production routes and EU demand. <a href="out/comext_audit.json">Eurostat inputs · source update $comext_vintage</a>.</p>
+
+<p>China introduced licensing for specified medium and heavy rare-earth items on 4 April 2025, including covered magnets and powders. EU imports recorded under the broader basket from China fell <strong>$china_decline</strong> in April–September against the same months in 2024. Other origins also fell, by <strong>$other_decline</strong>. The decrease in China-origin arrivals was concentrated later in the window, with July at its lowest and September above its year-earlier level. Full-year China-origin mass rose <strong>$annual_gain</strong>. The comparison describes arrivals. Timing in transit, orders, demand, shifts in product mix and the scope of licensing limit causal interpretation. <a href="$licensing">April licensing notice</a> · <a href="$comext">Eurostat Comext</a> · <a href="$iea">IEA discussion of the 2025 episode</a>.</p>
+<p>The Atlas’s earlier filed study compared the same magnet product code with ferrite and found no decline of the size it set out to test. Its early event window, benchmark and origin filters differ from this comparison. The matched-month figures here provide an absolute mass benchmark, while the filed result compares two product series. <a href="../export-controls">Atlas export-controls study</a>.</p>
+
+<figure class="panel">
+<figcaption><strong>China-origin EU import mass by month</strong> · net tonnes</figcaption>
+<p class="note" aria-hidden="true"><span class="key baseline"></span>2024 &nbsp; <span class="key event"></span>2025</p>
+<div aria-hidden="true">$history_chart</div>
+<details><summary>Monthly values</summary>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Monthly import comparison">
+<table><thead><tr><th scope="col">Month</th><th scope="col">2024 tonnes</th><th scope="col">2025 tonnes</th><th scope="col">Year-on-year change</th></tr></thead><tbody>
+$month_rows
+</tbody></table>
+</div></details>
+</figure>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Six-month historical import totals">
+<table><caption>April–September observed totals · net tonnes</caption>
+<thead><tr><th scope="col">Year</th><th scope="col">China-origin</th><th scope="col">Other origins</th><th scope="col">All extra-EU</th></tr></thead><tbody>
+$window_rows
+</tbody></table>
+</div>
+
+<h2>How much could a planned expansion replace?</h2>
+<p><span class="conf estimate">Modelled</span> Use April–September 2024 as a six-month import reference. Remove all China-origin entries in the basket and hold other recorded origins fixed. The gross volume to replace is <strong>$gross_gap tonnes</strong>. This screen counts direct import mass only. The historical licensing episode covered selected products, and this scenario assumes a complete interruption of the customs basket. It assigns no credit to stocks, existing EU production, embedded magnets or new imports, and holds flows of rare-earth oxides and alloys outside the screen. <a href="out/magnet_chain.json">Scenario calculations</a> · <a href="../shock-methods">Atlas shock methods</a>.</p>
+<p>Neo’s planned Phase 1B at Narva would add about 3,000 tonnes of annual magnet block capacity, with a third allocated to EU offshore wind under the proposed project. Prorating nameplate and the wind allocation across the year leaves up to <strong>$block_ceiling tonnes of blocks</strong> for other applications. Under full effective availability and a one-for-one replacement assumption, that could offset at most <strong>$gap_offset</strong> of the historical direct-import gap. Actual replacement requires qualified grades, machining and coating yield, usable feedstocks, time to deliver and uncommitted slots. The ceiling assigns all non-wind volume to this exercise and allows that its actual contribution could be zero. Automotive demand coverage requires a verified grade-level demand denominator. <a href="$expansion">Neo, October project disclosure</a> · <a href="$blocks">November capacity basis</a>.</p>
+<figure class="panel">
+<figcaption><strong>Retained or replaced import mass as a share of the reference</strong></figcaption>
+<div aria-hidden="true">$scenario_chart</div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Six-month disruption and intervention comparison">
+<table>
+<thead><tr><th scope="col">Case</th><th scope="col">Retained or replaced tonnes</th><th scope="col">Share of reference imports</th><th scope="col">Gross gap still open, tonnes</th></tr></thead>
+<tbody>
+$model_rows
+</tbody></table>
+</div>
+<p class="note">The availability factor combines uptime, feedstock, machining yield, grade qualification and customer allocation. The half and full cases are sensitivity points. They carry no probability and make no claim about a startup date.</p>
+</figure>
+
+<h2>What determines whether a stage binds?</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Operational definitions for concentration, dependency, vulnerability and binding constraints">
+<table><thead><tr><th scope="col">Measure</th><th scope="col">How to test it</th></tr></thead>
+<tbody>
+<tr><th scope="row">Concentration</th><td>Country shares or HHI within a defined production stage or customs basket. State the denominator and year.</td></tr>
+<tr><th scope="row">Dependency</th><td>Share of the target market’s required grade sourced from a disrupted route, including embedded and upstream inputs where traceable.</td></tr>
+<tr><th scope="row">Vulnerability</th><td>Demand left unserved during a named disruption after considering accessible stocks and independent, qualified supply that can deliver in time.</td></tr>
+<tr><th scope="row">Binding constraint</th><td>A stage whose relaxation raises feasible deliveries with the rest held fixed. When stages tie or depend on each other, test a joint relaxation too.</td></tr>
+</tbody></table>
+</div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Evidence needed to compare supply options by stage">
+<table><caption>Capacity and substitution questions alongside the output shares above</caption>
+<thead><tr><th scope="col">Stage</th><th scope="col">What an alternative route must demonstrate</th></tr></thead>
+<tbody>
+$stage_rows
+</tbody></table>
+</div>
+<p>For a single qualified route, express each stage’s usable output as finished-magnet equivalents after material and yield conversions. Deliveries through that route are capped by its smallest stage limit. Grade-compatible scrap can enter later as recycled alloy if the process and customer accept it. Finished-magnet stock and qualified direct imports enter at the delivery stage. In a multi-route model, allocate each stock draw, processing slot and shipment once. Plant-level throughput and buyer allocations are needed to put numbers on those limits. <a href="$doe">US Department of Energy supply-chain assessment</a> · <a href="out/magnet_chain.json">Facility observations and scenario inputs</a>.</p>
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Intervention comparison">
+<table><caption>How investment options affect the same disruption model</caption>
+<thead><tr><th scope="col">Option</th><th scope="col">When it can reduce the gap</th><th scope="col">Cost and time evidence</th></tr></thead>
+<tbody>
+<tr><th scope="row">More separation</th><td>Raises throughput if separated feed is limiting and qualified metal, alloy and finishing slots are available.</td><td>Project-specific cost, ramp and available tonnes need verification.</td></tr>
+<tr><th scope="row">More metal or alloy</th><td>Raises throughput if conversion is limiting and compatible separated feed and downstream slots are available.</td><td>Project-specific cost, ramp and available tonnes need verification.</td></tr>
+<tr><th scope="row">More sintered-magnet capacity</th><td>Raises throughput only where compatible feed, finishing steps and customer approvals support incremental deliveries. The Narva screen gives an optimistic scale for one planned increment.</td><td>Operator gives a bundled estimate. Stand-alone cost and first qualified delivery timing are unresolved.</td></tr>
+<tr><th scope="row">Recycle production scrap</th><td>Can bridge constrained upstream stages if traceable scrap yields compatible alloy or powder and the magnet maker has usable slots.</td><td>Recoverable yield, delivered cost, qualification and time need confirmation.</td></tr>
+<tr><th scope="row">Expand linked stages</th><td>Can relieve bottlenecks that bind together. The proposed Estonian project combines separation, metallisation and magnet manufacturing.</td><td>Operator estimates about €400 million for the package and two to three years to complete, subject to investment and grant conditions. <a href="$expansion">October project disclosure</a>.</td></tr>
+</tbody></table>
+</div>
+
+<h2>Facility evidence and open questions</h2>
+<p>These plant records illustrate different milestones. A commissioning run establishes capability at a stated stage. A commercial shipment establishes qualification for an initial programme. Estimating available supply requires operating output, product-grade coverage, independent feed and uncommitted allocations for the six-month window.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Selected facility evidence">
+<table>
+<thead><tr><th scope="col">Facility</th><th scope="col">Evidence date</th><th scope="col">Product</th><th scope="col">Status</th><th scope="col">Nameplate tonnes per year</th></tr></thead>
+<tbody>
+$facility_rows
+</tbody></table>
+</div>
+<p class="note">The facility list is illustrative. The UK site is outside the EU-27. <a href="$solvay">La Rochelle</a> · <a href="$silmet">Sillamäe</a> · <a href="$lcm">Ellesmere Port</a> · <a href="$narva">Narva commercial launch</a> · <a href="$expansion">Narva expansion</a>.</p>
+<p>The direct-import gap in the scenario exceeds the nominal scale of the announced expansion. Estimating automotive deliveries requires buyer-grade demand, yields, inventories and alternative capacity by route. The 2025 import series provides a historical timing check. Plant delivery records are needed to validate the predicted shortfall or determine which stage bound first.</p>
+
+<h2>Global customs context</h2>
+<p>The BACI series tracks reconciled gross export values. The broad metal-magnet and rare-earth-metal baskets measure a different market from the EU customs screen. Products containing finished magnets can be traded under other codes. An em dash indicates an unavailable value in the extract. <a href="$baci">CEPII BACI V202601</a>.</p>
+<div id="static-trade" class="control" hidden><label for="trade-slider" class="note">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Global customs trade">
+<table><caption>World trade by product in <b id="trade-year" aria-live="polite">$trade_year</b></caption>
+<thead><tr><th scope="col">Traded good</th><th scope="col">World export value</th><th scope="col">Leading exporter</th><th scope="col">Product boundary</th></tr></thead>
+<tbody id="trade-body">
+$trade_rows
+</tbody></table>
+</div>
+
+<aside class="panel" aria-labelledby="revision"><h2 id="revision">Revision note · 24 November 2026</h2>
+<p>The earlier overview treated separation as a universal bottleneck and applied conclusions to unmeasured stages. This revision gives separation, metal and alloy production, and magnet-making separate roles. It also documents limits on what direct imports and plant nameplates can establish.</p></aside>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+<div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div>
+<div><h4>Study data</h4><a href="out/magnet_chain.json">Evidence and calculations</a><br><a href="out/comext_audit.json">Eurostat cells and queries</a><br><a href="out/magnet_trade.json">Global trade JSON</a></div>
+<div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../ev-chain/ev-chain">Electric-vehicle chain</a><br><a href="../wind-chain/wind-chain">Wind-turbine chain</a></div>
+<div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
+</div></footer>
+<script>window.CHAIN_TRADE='out/magnet_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

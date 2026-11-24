@@ -7047,13 +7047,19 @@
    "code_sha": "3914f0d714f62500"
   },
   "magnet-chain/record_magnet.py": {
-   "reads": [],
+   "reads": [
+    "magnet-chain/out/comext_audit.json",
+    "magnet-chain/out/magnet_pilot_evidence.json",
+    "magnet-chain/out/magnet_trade.json",
+    "magnet-chain/study.template"
+   ],
    "writes": [
+    "magnet-chain/magnet-chain.html",
     "magnet-chain/out/magnet_chain.json"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "738fd0dfab79060f"
+   "secs": 0.2,
+   "code_sha": "9d6da0b01e79a1c9"
   },
   "magnet-chain/record_magnets.py": {
    "reads": [

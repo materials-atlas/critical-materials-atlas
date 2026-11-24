@@ -65,7 +65,8 @@ CASES = [
      'ext_refine': 'China ~85–92% separation, ~90–95% of NdFeB magnets (IEA/industry)',
      'choke': 'Midstream separation + magnet fabrication — China; heavy REE (Dy, Tb) tighter still',
      'misread': 'Mine shares look diversified; separated and magnet-grade material is far more concentrated',
-     'note': 'Atlas: mine China 69% / refine 90% / export 64%, all China-led; Myanmar (11%) is included and flagged as the worst-governance producer (g 0.84). Captured well.'},
+     'note': 'Atlas: mine China 69% / refine 90% / export 64%, all China-led; Myanmar (11%) is included and flagged as the worst-governance producer (g 0.84). Captured well.',
+     'audit_note': {'date': '2026-11-24', 'text': 'The table uses the Atlas data snapshot, with China at 71% of 2024 broad rare-earth mining and 84% in its refining field. The earlier verdict’s 69% and 90% are retained as historical prose. The underlying vintages for those two verdict figures could not be established from the case builder. The USGS’s broader mine series independently gives about 69% for 2025. The IEA’s April 2026 report gives 60% for mining of magnet rare earths and 91% for their refining in 2024. The Atlas refining field cites IEA 2026 without an exact table or product denominator in the snapshot.', 'study': 'magnet-chain/magnet-chain'}},
 ]
 
 VCOL = {'agree': '#3f9b46', 'nuance': '#b35e16', 'diverge': '#c0392b'}
@@ -94,6 +95,13 @@ motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden=
 cards = []
 for c in rows_out:
     vc = VCOL[c['verdict']]
+    audit_note = c.get('audit_note')
+    amendment = ''
+    if audit_note:
+        date = e(audit_note['date'])
+        study = e(audit_note['study'])
+        amendment = (f'\n  <p class="note" id="magnet-audit-note"><b>Audit note · <time datetime="{date}">24 November 2026</time></b>. '
+                     f'{e(audit_note["text"])} <a href="{study}">Revised magnet study and sources</a>.</p>')
     cards.append(f'''<div class="card" style="border-left:4px solid {vc};margin:1.1rem 0">
   <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
     <h3 style="margin:0">{e(c['name'])}</h3>
@@ -107,7 +115,7 @@ for c in rows_out:
   </div>
   <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
     <b>Commonly misread as:</b> {e(c['misread'])}<br>
-    <b>Verdict:</b> {c['note']}</div>
+    <b>Verdict:</b> {c['note']}</div>{amendment}
 </div>''')
 
 out = f'''<!doctype html>

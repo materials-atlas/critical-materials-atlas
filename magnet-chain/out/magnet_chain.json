@@ -1,205 +1,616 @@
 {
-  "title": "Rare-earth magnet chain",
-  "chokepoint": {
-    "product": "Permanent magnets",
-    "stage": "RE separation",
-    "mechanism": "capability",
-    "physics": "Solvent-extraction separation of chemically-alike elements — an industrial base, ~91% China",
-    "holder": "China",
-    "share": "~91%",
-    "control": "Apr 2025",
-    "conf": "estimate"
-  },
+  "title": "Where rare-earth magnet supply can run short",
+  "revision": "2026-11-24",
   "published": true,
-  "related": [
-    {
-      "href": "../wind-chain/wind-chain",
-      "label": "Wind-turbine chain"
-    },
-    {
-      "href": "../ev-chain/ev-chain",
-      "label": "Electric-vehicle chain"
-    },
-    {
-      "href": "../defence-chain/defence-chain",
-      "label": "Defence chain"
-    }
-  ],
-  "accent": "#7a5a8a",
-  "eyebrow": "Product-chain pilot · the motors that move everything",
-  "h1": "The mine is the least of it — China's grip tightens downstream",
-  "deck": "Rare-earth permanent magnets turn EV motors, wind generators and guided weapons. Everyone points at the mine, where China holds ~60%. But the real chokepoint is the separation plant — and China's share does not fall along the chain, it climbs: ~91% of separation, ~94% of the finished magnets.",
-  "byline": "mine (~60%) ≠ separation & refining (~91%) ≠ sintered NdFeB magnet (~94%) ≠ the motor",
-  "correction": "Opening a rare-earth mine in Australia or the United States does little on its own, because the ore still has to be chemically separated — and separation is ~91% China, magnet-making ~94% China. The chokepoint is not the deposit; it is the refinery and the magnet plant downstream of it, and China's hold gets stronger at each step rather than weaker.",
-  "stats": [
-    {
-      "v": "60→91→94%",
-      "l": "China's share rises at each step: mine → separation → sintered magnet",
-      "conf": "estimate"
-    },
-    {
-      "v": "~91%",
-      "l": "of rare-earth separation & refining is China — the real chokepoint",
-      "conf": "estimate"
-    },
-    {
-      "v": "~50→94%",
-      "l": "China's share of sintered NdFeB magnet output, 2005 → 2024",
-      "conf": "estimate"
-    },
-    {
-      "v": "Nd·Pr·Dy·Tb",
-      "l": "the four magnet rare earths; Dy and Tb are the scarce, China-gated heavies",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "The chokepoint deepened: China's magnet share, 2005 → 2024",
+  "chokepoint": {
+    "product": "Rare-earth permanent magnets",
+    "stage": "Separation, metals and sintered magnets",
+    "mechanism": "capability",
+    "physics": "Separated products, metals, alloys and magnets each need industrial capability. The binding stage depends on the grade, available routes and the shock.",
+    "holder": "China (output)",
+    "share": "—",
+    "control": "Apr 2025",
     "conf": "estimate",
-    "note": "IEA. Two published anchors — China made roughly half the world's sintered permanent magnets around 2005 and about 94% by 2024 — not an annual interpolated series, so it is marked as an estimate. The line the atlas keeps finding is here in its starkest form: as capability moved downstream, the concentration did not dilute, it intensified.",
-    "series": [
-      {
-        "label": "China · sintered magnets",
-        "points": [
-          {
-            "y": 2005,
-            "v": 50
-          },
-          {
-            "y": 2024,
-            "v": 94
-          }
-        ]
-      }
-    ]
+    "research": true
   },
-  "hops": [
-    {
-      "n": "1 · Mine",
-      "t": "ore carrying many rare-earth elements — China ~60%, plus the US, Myanmar, Australia"
-    },
-    {
-      "n": "2 · Separate & refine",
-      "t": "solvent-extraction splits 15+ chemically-alike elements into oxides — ~91% China"
-    },
-    {
-      "n": "3 · Metal & alloy",
-      "t": "reduce to metal, cast NdFeB alloy strip"
-    },
-    {
-      "n": "4 · Sintered magnet",
-      "t": "press, sinter, machine, coat, magnetise — ~94% China"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The chokepoint moves downstream — and deepens",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "China's share along the magnet chain (2024)",
-          "conf": "estimate",
-          "max": 1.0,
-          "note": "IEA, magnet-specific physical stages. The single most important shape in this chain: the bars go UP, not down. Most supply worries fixate on the mine, where China is 'only' ~60%. Every step after it is more concentrated, not less.",
-          "bars": [
-            {
-              "label": "Mining",
-              "value": 0.6
-            },
-            {
-              "label": "Separation & refining",
-              "value": 0.91
-            },
-            {
-              "label": "Sintered magnets",
-              "value": 0.94
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Why separation is the hard step",
-          "text": "Rare earths are not rare in the ground; they are rare as separated, high-purity oxides. The elements are chemically almost identical, so pulling them apart takes long cascades of solvent-extraction stages, large reagent flows and the environmental permitting that comes with them. That industrial base — not the ore body — is what sits ~91% in China, and it is what a new mine elsewhere does not replace.",
-          "flag": "the refinery, not the pit"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The heavies are the real scarcity",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "The four magnet elements",
-          "big": "Nd·Pr·Dy·Tb",
-          "conf": "measured",
-          "text": "Neodymium and praseodymium give NdFeB magnets their strength; dysprosium and terbium — the 'heavy' rare earths — let them keep that strength hot, in a traction motor or a missile fin. The heavies are geologically scarcer and their separation is even more concentrated in China than the lights, so the part of the magnet that matters most for high-temperature and defence use is the part with the thinnest alternative supply.",
-          "note": "IEA / USGS: Dy and Tb are the binding heavy-rare-earth constraint."
-        },
-        {
-          "kind": "text",
-          "h3": "Substitution is partial, not a way out",
-          "text": "Ferrite and other magnet chemistries exist and are used where performance allows, and engineers trim dysprosium with grain-boundary diffusion. But for the power-dense motors that electrification and defence actually want, NdFeB with some heavies remains the material — so the dependence persists even as the hedges are researched.",
-          "flag": "hedged, not replaced"
-        }
-      ]
-    },
-    {
-      "h2": "3 · The lever has already been pulled",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "From technology ban to export licensing",
-          "conf": "measured",
-          "text": "China banned the export of its rare-earth extraction, separation and magnet-making technology in December 2023, then in April 2025 placed several medium and heavy rare earths and their magnets under export licensing — briefly throttling shipments to Western automakers and defence suppliers. It is the same playbook the atlas documents for gallium, germanium and antimony: a downstream chokepoint, turned into a policy instrument.",
-          "note": "USGS MCS 2026; public policy record.",
-          "flag": "the same export-control playbook (see the defence chain)"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries rare-earth compounds and permanent magnets (HS 850511), but customs origin is the last shipment point, not where the ore was separated — magnets assembled into a motor cross as the motor. Read the export shares below as trading positions, not the separation map, which is the real chokepoint and is not visible in trade.",
-  "method": [
-    {
-      "stage": "Mine",
-      "lens": "BGS/USGS rare-earth mine share",
-      "why": "~60% China — the least concentrated step"
-    },
-    {
-      "stage": "Separate & refine",
-      "lens": "IEA magnet-stage share",
-      "why": "~91% China — the actual chokepoint"
-    },
-    {
-      "stage": "Magnet",
-      "lens": "IEA sintered-magnet share + 2005/2024 anchors",
-      "why": "~94% China; concentration deepened downstream"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI 850511 magnets",
-      "why": "trading position, not the separation map — flagged context"
-    }
-  ],
   "sources": {
-    "iea_ree": {
-      "title": "IEA, Global Critical Minerals Outlook 2025 — rare earths & magnets",
-      "year": 2025,
-      "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"
+    "iea": {
+      "title": "IEA, Rare Earth Elements (April 2026)",
+      "url": "https://www.iea.org/reports/rare-earth-elements/executive-summary"
     },
-    "bgs_wms": {
-      "title": "BGS, World Mineral Statistics — rare-earth mine production",
-      "year": 2024,
+    "outlook": {
+      "title": "IEA, Global Critical Minerals Outlook 2026 release",
+      "url": "https://www.iea.org/news/supply-concentration-export-restrictions-and-declining-investment-put-critical-mineral-security-at-risk"
+    },
+    "doe": {
+      "title": "US Department of Energy, Rare Earth Permanent Magnets Supply Chain Assessment",
+      "url": "https://www.energy.gov/sites/default/files/2024-12/Neodymium%2520Magnets%2520Supply%2520Chain%2520Report%2520-%2520Final%5B1%5D.pdf"
+    },
+    "comext": {
+      "title": "Eurostat Comext DS-045409",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"
+    },
+    "usgs": {
+      "title": "USGS Mineral Commodity Summaries 2026, World Mine Production and Reserves",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths_ver.1.2.pdf"
+    },
+    "history": {
+      "title": "USGS Data Series 140, rare earths, World production column",
+      "url": "https://www.usgs.gov/media/files/rare-earths-historical-statistics-data-series-140"
+    },
+    "bgs": {
+      "title": "BGS World Mineral Statistics, rare earth oxides",
       "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"
-    },
-    "usgs_ree": {
-      "title": "USGS Mineral Commodity Summaries 2026 — Rare Earths",
-      "year": 2026,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    },
+    "licensing": {
+      "title": "MOFCOM and customs, Announcement No. 18 of 2025",
+      "url": "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html"
+    },
+    "narva": {
+      "title": "Neo, first commercial automotive shipments from Narva, 14 September 2026",
+      "url": "https://www.neomaterials.com/neo-advances-commercial-production-magnet-facility/"
+    },
+    "expansion": {
+      "title": "Neo, European Integrated Magnet Project, 19 October 2026",
+      "url": "https://www.neomaterials.com/neos-european-integrated-magnet-project-selected-for-e126-million-grant-under-eu-innovation-fund/"
+    },
+    "blocks": {
+      "title": "Neo, Q3 2026 earnings transcript, project scope and block capacity",
+      "url": "https://www.neomaterials.com/wp-content/uploads/2026/11/NPM-Q3-2026-Earnings-Transcript.pdf"
+    },
+    "silmet": {
+      "title": "Neo, small-scale separation commissioning, 10 April 2026",
+      "url": "https://www.neomaterials.com/neo-successfully-commissions-heavy-rare-earth-separation-small-scale-production-line-in-europe/"
+    },
+    "solvay": {
+      "title": "Solvay, Q3 2025 earnings transcript, La Rochelle",
+      "url": "https://www.solvay.com/sites/solvay_solvay/files/2025-11/2025Q3%20Transcript%20with%20Q%26A%20for%20Webpage.pdf"
+    },
+    "lcm": {
+      "title": "Less Common Metals, strategic report for 2024",
+      "url": "https://find-and-update.company-information.service.gov.uk/company/02690088/filing-history/MzQ4MjgzMjE0NWFkaXF6a2N4/document"
+    }
+  },
+  "physical_stages": [
+    {
+      "stage": "Mine and concentrate",
+      "denominator": "Magnet rare earths in mined output",
+      "china_share": 0.6,
+      "measure": "World physical output",
+      "year": 2024,
+      "source": "iea",
+      "status": "IEA estimate"
+    },
+    {
+      "stage": "Separate and refine",
+      "denominator": "Refined magnet rare earths",
+      "china_share": 0.91,
+      "measure": "World physical output",
+      "year": 2024,
+      "source": "iea",
+      "status": "IEA estimate"
+    },
+    {
+      "stage": "Make metal",
+      "denominator": "Rare-earth metals or metal intermediates",
+      "china_share": null,
+      "measure": "World physical output",
+      "year": 2024,
+      "source": "iea",
+      "status": "Comparable share unavailable"
+    },
+    {
+      "stage": "Make alloy",
+      "denominator": "Magnet-grade alloy",
+      "china_share": null,
+      "measure": "World physical output",
+      "year": 2024,
+      "source": "iea",
+      "status": "Comparable share unavailable"
+    },
+    {
+      "stage": "Make and finish magnets",
+      "denominator": "Sintered permanent magnets",
+      "china_share": 0.94,
+      "measure": "World physical output",
+      "year": 2024,
+      "source": "iea",
+      "status": "IEA estimate"
+    }
+  ],
+  "other_production_measures": {
+    "usgs_all_rare_earth_mine_reo_tonnes": {
+      "2024": {
+        "china": 270000,
+        "world_rounded": 380000
+      },
+      "2025": {
+        "china": 270000,
+        "world_rounded": 390000
+      },
+      "source": "usgs"
+    },
+    "bgs_all_rare_earth_mine_reo_tonnes_2024": {
+      "china_tonnes_reo": 270000,
+      "world_tonnes_reo": 360714,
+      "china_share": 0.7485,
+      "source": "bgs"
+    },
+    "iea_refining_china_2025": {
+      "share": 0.85,
+      "source": "outlook",
+      "measure": "Top-country share of rare-earth refinery output"
+    },
+    "usgs_historical_world_reo_tonnes": {
+      "1900": 1040,
+      "2020": 243000,
+      "source": "history"
+    },
+    "iea_sintered_magnet_share_anchors": {
+      "2005": 0.5,
+      "2024": 0.94,
+      "source": "iea"
+    }
+  },
+  "facilities": [
+    {
+      "place": "La Rochelle, France",
+      "stage": "Separate and refine",
+      "operator": "Solvay",
+      "date": "2025-04",
+      "status": "Operator-reported NdPr oxide production",
+      "product": "NdPr oxides for magnet applications",
+      "nameplate_tonnes_per_year": null,
+      "qualified_available_tonnes": null,
+      "source": "solvay"
+    },
+    {
+      "place": "Sillamäe, Estonia",
+      "stage": "Separate and refine",
+      "operator": "Neo Performance Materials",
+      "date": "2026-04-10",
+      "status": "Small-scale commissioning and first separated process solutions",
+      "product": "Dy and Tb process solutions",
+      "nameplate_tonnes_per_year": null,
+      "qualified_available_tonnes": null,
+      "source": "silmet"
+    },
+    {
+      "place": "Ellesmere Port, United Kingdom",
+      "stage": "Make metal and alloy",
+      "operator": "Less Common Metals",
+      "date": "2024",
+      "status": "Operator reported manufacturing and alloy sales during 2024",
+      "product": "Light rare-earth metals and NdFeB alloys",
+      "nameplate_tonnes_per_year": null,
+      "qualified_available_tonnes": null,
+      "source": "lcm"
+    },
+    {
+      "place": "Narva, Estonia",
+      "stage": "Make and finish magnets",
+      "operator": "Neo Performance Materials",
+      "date": "2026-09-14",
+      "status": "Commercial production and first deliveries for an automotive programme",
+      "product": "Sintered NdFeB magnets",
+      "nameplate_tonnes_per_year": 2000,
+      "qualified_available_tonnes": null,
+      "source": "narva"
+    },
+    {
+      "place": "Narva, Estonia (Phase 1B)",
+      "stage": "Make and finish magnets",
+      "operator": "Neo Performance Materials",
+      "date": "2026-10-19",
+      "status": "Announced expansion subject to investment and grant conditions",
+      "product": "Incremental sintered magnet block capacity across end uses",
+      "nameplate_tonnes_per_year": 3000,
+      "qualified_available_tonnes": null,
+      "source": "expansion"
+    }
+  ],
+  "expansion_package": {
+    "status": "Operator estimate, conditional on investment and grant agreement",
+    "scope": "Separation, metallisation, Phase 1B magnet expansion and digital infrastructure",
+    "estimated_package_eur": 400000000,
+    "estimated_completion_years": [
+      2,
+      3
+    ],
+    "source": "expansion"
+  },
+  "imports": {
+    "scope": "EU-27 gross extra-EU imports of CN 85051110 by declared origin",
+    "units": {
+      "tonnes": "net mass",
+      "euros": "nominal customs value"
+    },
+    "snapshot": "comext_audit.json"
+  },
+  "annual_imports": {
+    "2023": {
+      "china": {
+        "tonnes": 17661.307999999997,
+        "euros": 843420148
+      },
+      "extra_eu": {
+        "tonnes": 19281.851000000002,
+        "euros": 910264726
+      },
+      "other_origin_tonnes": 1620.5430000000051,
+      "china_mass_share": 0.9159550086762933,
+      "china_value_share": 0.9265657823590101,
+      "mass_hhi_bounds": [
+        0.8389735779191886,
+        0.8460371384857905
+      ]
+    },
+    "2024": {
+      "china": {
+        "tonnes": 18246.441,
+        "euros": 727662254
+      },
+      "extra_eu": {
+        "tonnes": 20028.179,
+        "euros": 784810312
+      },
+      "other_origin_tonnes": 1781.7380000000012,
+      "china_mass_share": 0.9110384423865994,
+      "china_value_share": 0.92718233039731,
+      "mass_hhi_bounds": [
+        0.8299910435062011,
+        0.8379052022392035
+      ]
+    },
+    "2025": {
+      "china": {
+        "tonnes": 19567.676,
+        "euros": 712471278
+      },
+      "extra_eu": {
+        "tonnes": 20887.720999999998,
+        "euros": 769259849
+      },
+      "other_origin_tonnes": 1320.0449999999983,
+      "china_mass_share": 0.9368028230557083,
+      "china_value_share": 0.926177648458031,
+      "mass_hhi_bounds": [
+        0.8775995292851446,
+        0.8815934124588727
+      ]
+    }
+  },
+  "monthly_imports": {
+    "2024-01": {
+      "china": {
+        "tonnes": 1354.267,
+        "euros": 61518058
+      },
+      "extra_eu": {
+        "tonnes": 1472.1870000000001,
+        "euros": 66101826
+      }
+    },
+    "2024-02": {
+      "china": {
+        "tonnes": 1751.075,
+        "euros": 76058732
+      },
+      "extra_eu": {
+        "tonnes": 1899.643,
+        "euros": 81758894
+      }
+    },
+    "2024-03": {
+      "china": {
+        "tonnes": 1539.51,
+        "euros": 66522354
+      },
+      "extra_eu": {
+        "tonnes": 1655.8759999999997,
+        "euros": 70808252
+      }
+    },
+    "2024-04": {
+      "china": {
+        "tonnes": 1360.8700000000001,
+        "euros": 57567633
+      },
+      "extra_eu": {
+        "tonnes": 1645.864,
+        "euros": 66790172
+      }
+    },
+    "2024-05": {
+      "china": {
+        "tonnes": 1352.542,
+        "euros": 56506293
+      },
+      "extra_eu": {
+        "tonnes": 1451.149,
+        "euros": 60278409
+      }
+    },
+    "2024-06": {
+      "china": {
+        "tonnes": 1377.846,
+        "euros": 52552444
+      },
+      "extra_eu": {
+        "tonnes": 1535.224,
+        "euros": 57038208
+      }
+    },
+    "2024-07": {
+      "china": {
+        "tonnes": 1630.351,
+        "euros": 58994145
+      },
+      "extra_eu": {
+        "tonnes": 1731.4779999999998,
+        "euros": 62284661
+      }
+    },
+    "2024-08": {
+      "china": {
+        "tonnes": 1729.181,
+        "euros": 64676169
+      },
+      "extra_eu": {
+        "tonnes": 1892.6599999999999,
+        "euros": 69121364
+      }
+    },
+    "2024-09": {
+      "china": {
+        "tonnes": 1596.602,
+        "euros": 57781151
+      },
+      "extra_eu": {
+        "tonnes": 1888.596,
+        "euros": 64911948
+      }
+    },
+    "2024-10": {
+      "china": {
+        "tonnes": 1827.797,
+        "euros": 72066135
+      },
+      "extra_eu": {
+        "tonnes": 1955.6799999999998,
+        "euros": 76359854
+      }
+    },
+    "2024-11": {
+      "china": {
+        "tonnes": 1755.5049999999999,
+        "euros": 67350607
+      },
+      "extra_eu": {
+        "tonnes": 1861.123,
+        "euros": 70663043
+      }
+    },
+    "2024-12": {
+      "china": {
+        "tonnes": 970.8950000000001,
+        "euros": 36068532
+      },
+      "extra_eu": {
+        "tonnes": 1038.699,
+        "euros": 38693671
+      }
+    },
+    "2025-01": {
+      "china": {
+        "tonnes": 1804.4569999999999,
+        "euros": 66410155
+      },
+      "extra_eu": {
+        "tonnes": 1905.016,
+        "euros": 69223199
+      }
+    },
+    "2025-02": {
+      "china": {
+        "tonnes": 1737.5880000000002,
+        "euros": 65061229
+      },
+      "extra_eu": {
+        "tonnes": 1844.827,
+        "euros": 68481801
+      }
+    },
+    "2025-03": {
+      "china": {
+        "tonnes": 1866.227,
+        "euros": 65815025
+      },
+      "extra_eu": {
+        "tonnes": 1958.8990000000001,
+        "euros": 69774511
+      }
+    },
+    "2025-04": {
+      "china": {
+        "tonnes": 1591.412,
+        "euros": 60185454
+      },
+      "extra_eu": {
+        "tonnes": 1707.25,
+        "euros": 64869294
+      }
+    },
+    "2025-05": {
+      "china": {
+        "tonnes": 1386.175,
+        "euros": 46701722
+      },
+      "extra_eu": {
+        "tonnes": 1474.816,
+        "euros": 51135814
+      }
+    },
+    "2025-06": {
+      "china": {
+        "tonnes": 1179.346,
+        "euros": 43026160
+      },
+      "extra_eu": {
+        "tonnes": 1297.361,
+        "euros": 48138988
+      }
+    },
+    "2025-07": {
+      "china": {
+        "tonnes": 1084.875,
+        "euros": 44337279
+      },
+      "extra_eu": {
+        "tonnes": 1179.375,
+        "euros": 48455891
+      }
+    },
+    "2025-08": {
+      "china": {
+        "tonnes": 1241.669,
+        "euros": 49292437
+      },
+      "extra_eu": {
+        "tonnes": 1368.522,
+        "euros": 54246153
+      }
+    },
+    "2025-09": {
+      "china": {
+        "tonnes": 1864.975,
+        "euros": 65618739
+      },
+      "extra_eu": {
+        "tonnes": 1994.284,
+        "euros": 71431451
+      }
+    },
+    "2025-10": {
+      "china": {
+        "tonnes": 2221.448,
+        "euros": 79857169
+      },
+      "extra_eu": {
+        "tonnes": 2319.297,
+        "euros": 84938866
+      }
+    },
+    "2025-11": {
+      "china": {
+        "tonnes": 1761.0700000000002,
+        "euros": 63813397
+      },
+      "extra_eu": {
+        "tonnes": 1899.2490000000003,
+        "euros": 70969773
+      }
+    },
+    "2025-12": {
+      "china": {
+        "tonnes": 1828.434,
+        "euros": 62352516
+      },
+      "extra_eu": {
+        "tonnes": 1938.825,
+        "euros": 67594118
+      }
+    }
+  },
+  "historical_windows": {
+    "2024": {
+      "china": {
+        "tonnes": 9047.392000000002,
+        "euros": 348077835
+      },
+      "extra_eu": {
+        "tonnes": 10144.971,
+        "euros": 380424762
+      },
+      "other_origin_tonnes": 1097.578999999998,
+      "china_mass_share": 0.891810533514586,
+      "china_value_share": 0.914971552246118,
+      "mass_hhi_bounds": [
+        0.7953260276875704,
+        0.807030988345969
+      ]
+    },
+    "2025": {
+      "china": {
+        "tonnes": 8348.452,
+        "euros": 309161791
+      },
+      "extra_eu": {
+        "tonnes": 9021.608,
+        "euros": 338277591
+      },
+      "other_origin_tonnes": 673.1560000000009,
+      "china_mass_share": 0.9253840335337115,
+      "china_value_share": 0.9139292676351122,
+      "mass_hhi_bounds": [
+        0.8563356095191212,
+        0.8619031519708196
+      ]
+    }
+  },
+  "six_month_bound": {
+    "evidence": "modelled direct import mass bound",
+    "reference": "April–September 2024 gross direct extra-EU imports of CN 85051110",
+    "duration_months": 6,
+    "china_direct_import_cut_fraction": 1,
+    "direct_import_reference_tonnes": 10144.971,
+    "stocks_existing_eu_output_and_new_imports_credited_tonnes": 0,
+    "retained_other_origin_tonnes": 1097.578999999998,
+    "announced_incremental_blocks_tonnes_per_year": 3000,
+    "offshore_wind_allocation_fraction": 0.3333333333333333,
+    "allocation_timing": "Annual nameplate and wind allocation prorated evenly across the year",
+    "other_applications_block_ceiling_tonnes": 1000.0,
+    "effective_availability": "Joint fraction of ceiling convertible to compatible, qualified, timely, uncommitted magnet deliveries",
+    "cases": [
+      {
+        "case": "Reference imports",
+        "mass_tonnes": 10144.971,
+        "gross_unreplaced_tonnes": 0,
+        "share_of_reference_import_mass": 1.0
+      },
+      {
+        "case": "Complete interruption",
+        "mass_tonnes": 1097.578999999998,
+        "gross_unreplaced_tonnes": 9047.392000000002,
+        "share_of_reference_import_mass": 0.1081894664854141
+      },
+      {
+        "case": "Interruption plus expansion at 50% effective availability",
+        "availability": 0.5,
+        "credited_tonnes": 500.0,
+        "mass_tonnes": 1597.578999999998,
+        "gross_unreplaced_tonnes": 8547.392000000002,
+        "share_of_reference_import_mass": 0.1574749696179514
+      },
+      {
+        "case": "Interruption plus expansion at 100% effective availability",
+        "availability": 1.0,
+        "credited_tonnes": 1000.0,
+        "mass_tonnes": 2097.578999999998,
+        "gross_unreplaced_tonnes": 8047.392000000002,
+        "share_of_reference_import_mass": 0.2067604727504887
+      }
+    ]
+  },
+  "global_customs": {
+    "snapshot": "magnet_trade.json",
+    "boundaries": {
+      "850511": "Metal permanent magnets and articles for magnetisation, including products that contain no rare earths. Embedded magnets are in other customs lines.",
+      "280530": "Rare-earth metals, scandium and yttrium, whether or not intermixed or interalloyed. The code cannot isolate NdPr or Dy/Tb supply or identify where material was separated."
     }
   }
 }

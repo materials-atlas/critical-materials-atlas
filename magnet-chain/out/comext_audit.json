@@ -1,0 +1,617 @@
+{
+  "dataset": "Eurostat Comext DS-045409",
+  "reporter": "EU27_2020",
+  "product": "85051110",
+  "product_label": "Permanent magnets of metal and articles intended to become permanent magnets after magnetization, containing neodymium, praseodymium, dysprosium or samarium (excl. chucks, clamps and similar holding devices)",
+  "flow": "1 (imports)",
+  "units": {
+    "QUANTITY_IN_100KG": "100 kg net mass",
+    "VALUE_IN_EUROS": "nominal euros"
+  },
+  "annual": {
+    "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=A&reporter=EU27_2020&flow=1&product=85051110&partner=CN&partner=EXT_EU27_2020&indicators=QUANTITY_IN_100KG&indicators=VALUE_IN_EUROS&time=2023&time=2024&time=2025",
+    "updated": "2026-11-13T11:00:00+0100",
+    "rows": {
+      "2023": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 176613.08,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 843420148,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 192818.51,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 910264726,
+            "status": null
+          }
+        }
+      },
+      "2024": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 182464.41,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 727662254,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 200281.79,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 784810312,
+            "status": null
+          }
+        }
+      },
+      "2025": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 195676.76,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 712471278,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 208877.21,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 769259849,
+            "status": null
+          }
+        }
+      }
+    }
+  },
+  "monthly": {
+    "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=M&reporter=EU27_2020&flow=1&product=85051110&partner=CN&partner=EXT_EU27_2020&indicators=QUANTITY_IN_100KG&indicators=VALUE_IN_EUROS&time=2024-01&time=2024-02&time=2024-03&time=2024-04&time=2024-05&time=2024-06&time=2024-07&time=2024-08&time=2024-09&time=2024-10&time=2024-11&time=2024-12&time=2025-01&time=2025-02&time=2025-03&time=2025-04&time=2025-05&time=2025-06&time=2025-07&time=2025-08&time=2025-09&time=2025-10&time=2025-11&time=2025-12",
+    "updated": "2026-11-13T11:00:00+0100",
+    "rows": {
+      "2024-01": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 13542.67,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 61518058,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 14721.87,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 66101826,
+            "status": null
+          }
+        }
+      },
+      "2024-02": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 17510.75,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 76058732,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18996.43,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 81758894,
+            "status": null
+          }
+        }
+      },
+      "2024-03": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 15395.1,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 66522354,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 16558.76,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 70808252,
+            "status": null
+          }
+        }
+      },
+      "2024-04": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 13608.7,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 57567633,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 16458.64,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 66790172,
+            "status": null
+          }
+        }
+      },
+      "2024-05": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 13525.42,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 56506293,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 14511.49,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 60278409,
+            "status": null
+          }
+        }
+      },
+      "2024-06": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 13778.46,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 52552444,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 15352.24,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 57038208,
+            "status": null
+          }
+        }
+      },
+      "2024-07": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 16303.51,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 58994145,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 17314.78,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 62284661,
+            "status": null
+          }
+        }
+      },
+      "2024-08": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 17291.81,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 64676169,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18926.6,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 69121364,
+            "status": null
+          }
+        }
+      },
+      "2024-09": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 15966.02,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 57781151,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18885.96,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 64911948,
+            "status": null
+          }
+        }
+      },
+      "2024-10": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 18277.97,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 72066135,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 19556.8,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 76359854,
+            "status": null
+          }
+        }
+      },
+      "2024-11": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 17555.05,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 67350607,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18611.23,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 70663043,
+            "status": null
+          }
+        }
+      },
+      "2024-12": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 9708.95,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 36068532,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 10386.99,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 38693671,
+            "status": null
+          }
+        }
+      },
+      "2025-01": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 18044.57,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 66410155,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 19050.16,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 69223199,
+            "status": null
+          }
+        }
+      },
+      "2025-02": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 17375.88,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 65061229,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18448.27,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 68481801,
+            "status": null
+          }
+        }
+      },
+      "2025-03": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 18662.27,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 65815025,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 19588.99,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 69774511,
+            "status": null
+          }
+        }
+      },
+      "2025-04": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 15914.12,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 60185454,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 17072.5,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 64869294,
+            "status": null
+          }
+        }
+      },
+      "2025-05": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 13861.75,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 46701722,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 14748.16,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 51135814,
+            "status": null
+          }
+        }
+      },
+      "2025-06": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 11793.46,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 43026160,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 12973.61,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 48138988,
+            "status": null
+          }
+        }
+      },
+      "2025-07": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 10848.75,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 44337279,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 11793.75,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 48455891,
+            "status": null
+          }
+        }
+      },
+      "2025-08": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 12416.69,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 49292437,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 13685.22,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 54246153,
+            "status": null
+          }
+        }
+      },
+      "2025-09": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 18649.75,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 65618739,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 19942.84,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 71431451,
+            "status": null
+          }
+        }
+      },
+      "2025-10": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 22214.48,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 79857169,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 23192.97,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 84938866,
+            "status": null
+          }
+        }
+      },
+      "2025-11": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 17610.7,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 63813397,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 18992.49,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 70969773,
+            "status": null
+          }
+        }
+      },
+      "2025-12": {
+        "CN": {
+          "QUANTITY_IN_100KG": {
+            "value": 18284.34,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 62352516,
+            "status": null
+          }
+        },
+        "EXT_EU27_2020": {
+          "QUANTITY_IN_100KG": {
+            "value": 19388.25,
+            "status": null
+          },
+          "VALUE_IN_EUROS": {
+            "value": 67594118,
+            "status": null
+          }
+        }
+      }
+    }
+  }
+}
