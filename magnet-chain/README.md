@@ -75,3 +75,31 @@ and matched byte for byte. Fixes:
   the ledger is an input of the BGS builders, which download and would rebuild 122 pages. Apply it with the next deliberate
   BGS refresh.
 - Chokepoint map: China's share restored as "91% of magnet rare-earth refining, 94% of sintered magnets (2024)".
+
+## Import-exposure addendum · 24 November 2026
+
+The briefing quantifies direct-import exposure and the nominal mass comparison
+with future Phase 1B blocks. The 2025 episode is historical context and a
+plausibility check for shipment timing and scale. The observed product basket
+cannot identify effective automotive capacity, unfilled end-use demand or a
+causal effect of licensing.
+
+The added `out/comext_origins.json` pins Comext annual observations for each
+reported non-EU origin, including territories, and separately identifies
+entries with no named origin. The fetcher saves reported net mass as integer
+kilograms and retains observation flags. It checks that named and unnamed
+rows reconcile exactly to the official extra-EU aggregate. The builder also
+cross-checks the total and China cell against the original dated audit.
+
+For named masses `m_i`, sum the squares of `m_i / sum(m_i)` for the named-origin
+HHI. For the all-import range use the official extra-EU total `T` instead.
+The lower limit is `sum(m_i²) / T²` and allows the unnamed mass `U` to be
+dispersed. The upper limit assigns it all to the largest named origin and
+adds `(2 × max(m_i) × U + U²) / T²` to the lower limit. These refinements leave
+the older China-share-only bounds in place.
+
+Build the article from the pinned inputs with
+`python magnet-chain/record_magnet.py`. To refresh the detailed origins,
+run `python magnet-chain/fetch_comext_origins.py`. If Eurostat revises the
+annual China or extra-EU mass, refresh and reconcile both snapshots before
+updating the dated figures.

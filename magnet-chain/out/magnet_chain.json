@@ -612,5 +612,43 @@
       "850511": "Metal permanent magnets and articles for magnetisation, including products that contain no rare earths. Embedded magnets are in other customs lines.",
       "280530": "Rare-earth metals, scandium and yttrium, whether or not intermixed or interalloyed. The code cannot isolate NdPr or Dy/Tb supply or identify where material was separated."
     }
+  },
+  "review_addendum": {
+    "date": "2026-11-24",
+    "origin_mass_snapshot": "comext_origins.json",
+    "origin_hhi": {
+      "2023": {
+        "extra_eu_kg": 19281851,
+        "named_origin_kg": 19281804,
+        "unnamed_origin_kg": 47,
+        "named_origin_hhi": 0.8415963154474603,
+        "all_import_hhi_bounds": [
+          0.8415922126278069,
+          0.841596677960797
+        ]
+      },
+      "2024": {
+        "extra_eu_kg": 20028179,
+        "named_origin_kg": 20024015,
+        "unnamed_origin_kg": 4164,
+        "named_origin_hhi": 0.8319858071456525,
+        "all_import_hhi_bounds": [
+          0.8316398916467463,
+          0.8320187575373115
+        ]
+      },
+      "2025": {
+        "extra_eu_kg": 20887721,
+        "named_origin_kg": 20882501,
+        "unnamed_origin_kg": 5220,
+        "named_origin_hhi": 0.8787438794519861,
+        "all_import_hhi_bounds": [
+          0.8783047248039224,
+          0.8787730155279472
+        ]
+      }
+    },
+    "scenario_scope": "Future Phase 1B nominal magnet block mass against April–September 2024 gross import mass",
+    "historical_comparison_scope": "Shipment context and plausibility check"
   }
 }

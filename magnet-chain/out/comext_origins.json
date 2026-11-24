@@ -1,0 +1,783 @@
+{
+  "dataset": "Eurostat Comext DS-045409",
+  "updated": "2026-11-13T11:00:00+0100",
+  "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=A&reporter=EU27_2020&flow=1&product=85051110&indicators=QUANTITY_IN_100KG&time=2023&time=2024&time=2025",
+  "reporter": "EU27_2020",
+  "product": "85051110",
+  "unit": "kg net mass",
+  "source_unit": "100 kg net mass",
+  "classification": "2026 Eurostat Geonomenclature",
+  "partners": {
+    "AE": "United Arab Emirates",
+    "AF": "Afghanistan",
+    "AL": "Albania",
+    "AR": "Argentina",
+    "AU": "Australia",
+    "BA": "Bosnia and Herzegovina",
+    "BD": "Bangladesh",
+    "BO": "Bolivia, Plurinational State of",
+    "BR": "Brazil",
+    "BY": "Belarus (Belorussia)",
+    "CA": "Canada",
+    "CH": "Switzerland (incl. Liechtenstein 'LI' -> 1994)",
+    "CL": "Chile",
+    "CM": "Cameroon",
+    "CN": "China",
+    "CO": "Colombia",
+    "CR": "Costa Rica",
+    "CU": "Cuba",
+    "CV": "Cabo Verde",
+    "CW": "Curaçao",
+    "DO": "Dominican Republic",
+    "EG": "Egypt",
+    "EXT_EU27_2020": "Extra-EU27 (from 2020)",
+    "FO": "Faroe Islands",
+    "GA": "Gabon",
+    "GB": "United Kingdom",
+    "GH": "Ghana",
+    "GL": "Greenland",
+    "GQ": "Equatorial Guinea",
+    "GU": "Guam",
+    "HK": "Hong Kong",
+    "ID": "Indonesia (incl. East Timor 'TP' from 1977 -> 2000)",
+    "IL": "Israel (incl. West Bank and Gaza Strip 'XP' -> 1994)",
+    "IN": "India",
+    "IS": "Iceland",
+    "JP": "Japan",
+    "KR": "Korea, Republic of (South Korea)",
+    "KW": "Kuwait",
+    "LB": "Lebanon",
+    "LI": "Liechtenstein",
+    "MA": "Morocco",
+    "MG": "Madagascar",
+    "MK": "North Macedonia",
+    "MU": "Mauritius",
+    "MV": "Maldives",
+    "MX": "Mexico",
+    "MY": "Malaysia",
+    "NA": "Namibia",
+    "NG": "Nigeria",
+    "NO": "Norway (incl. Svalbard and Jan Mayen 'SJ' -> 1994 and again from 1997)",
+    "NZ": "New Zealand",
+    "OM": "Oman",
+    "PA": "Panama (incl. Panama Canal Zone 'PZ' from 1981)",
+    "PE": "Peru",
+    "PH": "Philippines",
+    "PK": "Pakistan",
+    "QA": "Qatar",
+    "QP": "High seas",
+    "QW": "Countries and territories not specified within the framework of extra-Union trade",
+    "RU": "Russian Federation (Russia)",
+    "SA": "Saudi Arabia",
+    "SG": "Singapore",
+    "SN": "Senegal",
+    "SV": "El Salvador",
+    "SX": "Sint Maarten (Dutch part)",
+    "TH": "Thailand",
+    "TN": "Tunisia",
+    "TR": "Türkiye",
+    "TW": "Taiwan",
+    "UA": "Ukraine",
+    "UG": "Uganda",
+    "US": "United States (incl. Navassa Island (part of 'UM') from 1995 -> 2000)",
+    "UY": "Uruguay",
+    "UZ": "Uzbekistan",
+    "VN": "Viet Nam (incl. North Viet Nam 'VD' from 1977)",
+    "XK": "Kosovo",
+    "XL": "Melilla",
+    "XS": "Serbia",
+    "ZA": "South Africa (incl. Namibia 'NA' -> 1989)"
+  },
+  "years": {
+    "2023": {
+      "total": {
+        "kg": 19281851,
+        "status": null
+      },
+      "named": {
+        "AE": {
+          "kg": 13,
+          "status": null
+        },
+        "AR": {
+          "kg": 20,
+          "status": null
+        },
+        "AU": {
+          "kg": 1323,
+          "status": null
+        },
+        "BO": {
+          "kg": 1,
+          "status": null
+        },
+        "BR": {
+          "kg": 171,
+          "status": null
+        },
+        "BY": {
+          "kg": 322,
+          "status": null
+        },
+        "CA": {
+          "kg": 318,
+          "status": null
+        },
+        "CH": {
+          "kg": 53548,
+          "status": null
+        },
+        "CL": {
+          "kg": 30,
+          "status": null
+        },
+        "CM": {
+          "kg": 838,
+          "status": null
+        },
+        "CN": {
+          "kg": 17661308,
+          "status": null
+        },
+        "CO": {
+          "kg": 391,
+          "status": null
+        },
+        "EG": {
+          "kg": 3,
+          "status": null
+        },
+        "GB": {
+          "kg": 218302,
+          "status": null
+        },
+        "HK": {
+          "kg": 11158,
+          "status": null
+        },
+        "ID": {
+          "kg": 379,
+          "status": null
+        },
+        "IL": {
+          "kg": 6196,
+          "status": null
+        },
+        "IN": {
+          "kg": 15717,
+          "status": null
+        },
+        "IS": {
+          "kg": 1,
+          "status": null
+        },
+        "JP": {
+          "kg": 110075,
+          "status": null
+        },
+        "KR": {
+          "kg": 2707,
+          "status": null
+        },
+        "LI": {
+          "kg": 45,
+          "status": null
+        },
+        "MA": {
+          "kg": 35,
+          "status": null
+        },
+        "MG": {
+          "kg": 5,
+          "status": null
+        },
+        "MU": {
+          "kg": 0,
+          "status": null
+        },
+        "MV": {
+          "kg": 8,
+          "status": null
+        },
+        "MX": {
+          "kg": 615,
+          "status": null
+        },
+        "MY": {
+          "kg": 19005,
+          "status": null
+        },
+        "NA": {
+          "kg": 80,
+          "status": null
+        },
+        "NO": {
+          "kg": 1005,
+          "status": null
+        },
+        "NZ": {
+          "kg": 1,
+          "status": null
+        },
+        "OM": {
+          "kg": 7,
+          "status": null
+        },
+        "PE": {
+          "kg": 180,
+          "status": null
+        },
+        "PH": {
+          "kg": 940321,
+          "status": null
+        },
+        "RU": {
+          "kg": 1,
+          "status": null
+        },
+        "SA": {
+          "kg": 20,
+          "status": null
+        },
+        "SG": {
+          "kg": 253,
+          "status": null
+        },
+        "SV": {
+          "kg": 32,
+          "status": null
+        },
+        "TH": {
+          "kg": 16515,
+          "status": null
+        },
+        "TN": {
+          "kg": 1018,
+          "status": null
+        },
+        "TR": {
+          "kg": 11213,
+          "status": null
+        },
+        "TW": {
+          "kg": 29363,
+          "status": null
+        },
+        "UA": {
+          "kg": 785,
+          "status": null
+        },
+        "US": {
+          "kg": 22331,
+          "status": null
+        },
+        "VN": {
+          "kg": 155545,
+          "status": null
+        },
+        "XK": {
+          "kg": 0,
+          "status": null
+        },
+        "XS": {
+          "kg": 146,
+          "status": null
+        },
+        "ZA": {
+          "kg": 454,
+          "status": null
+        }
+      },
+      "unnamed": {
+        "QW": {
+          "kg": 47,
+          "status": null
+        }
+      }
+    },
+    "2024": {
+      "total": {
+        "kg": 20028179,
+        "status": null
+      },
+      "named": {
+        "AE": {
+          "kg": 239,
+          "status": null
+        },
+        "AF": {
+          "kg": 60,
+          "status": null
+        },
+        "AL": {
+          "kg": 6,
+          "status": null
+        },
+        "AR": {
+          "kg": 67,
+          "status": null
+        },
+        "AU": {
+          "kg": 1065,
+          "status": null
+        },
+        "BA": {
+          "kg": 5,
+          "status": null
+        },
+        "BD": {
+          "kg": 2,
+          "status": null
+        },
+        "BR": {
+          "kg": 25,
+          "status": null
+        },
+        "CA": {
+          "kg": 1430,
+          "status": null
+        },
+        "CH": {
+          "kg": 108065,
+          "status": null
+        },
+        "CL": {
+          "kg": 1,
+          "status": null
+        },
+        "CM": {
+          "kg": 326,
+          "status": null
+        },
+        "CN": {
+          "kg": 18246441,
+          "status": null
+        },
+        "CR": {
+          "kg": 3,
+          "status": null
+        },
+        "CU": {
+          "kg": 2,
+          "status": null
+        },
+        "CV": {
+          "kg": 0,
+          "status": null
+        },
+        "EG": {
+          "kg": 3,
+          "status": null
+        },
+        "GA": {
+          "kg": 0,
+          "status": null
+        },
+        "GB": {
+          "kg": 256090,
+          "status": null
+        },
+        "GL": {
+          "kg": 49,
+          "status": null
+        },
+        "GQ": {
+          "kg": 1,
+          "status": null
+        },
+        "GU": {
+          "kg": 0,
+          "status": null
+        },
+        "HK": {
+          "kg": 12963,
+          "status": null
+        },
+        "ID": {
+          "kg": 767,
+          "status": null
+        },
+        "IL": {
+          "kg": 976,
+          "status": null
+        },
+        "IN": {
+          "kg": 30332,
+          "status": null
+        },
+        "JP": {
+          "kg": 229709,
+          "status": null
+        },
+        "KR": {
+          "kg": 6302,
+          "status": null
+        },
+        "LB": {
+          "kg": 1,
+          "status": null
+        },
+        "LI": {
+          "kg": 10,
+          "status": null
+        },
+        "MA": {
+          "kg": 302,
+          "status": null
+        },
+        "MG": {
+          "kg": 0,
+          "status": null
+        },
+        "MK": {
+          "kg": 8,
+          "status": null
+        },
+        "MU": {
+          "kg": 0,
+          "status": null
+        },
+        "MV": {
+          "kg": 0,
+          "status": null
+        },
+        "MX": {
+          "kg": 1472,
+          "status": null
+        },
+        "MY": {
+          "kg": 16654,
+          "status": null
+        },
+        "NO": {
+          "kg": 347,
+          "status": null
+        },
+        "NZ": {
+          "kg": 178,
+          "status": null
+        },
+        "PA": {
+          "kg": 10,
+          "status": null
+        },
+        "PE": {
+          "kg": 70,
+          "status": null
+        },
+        "PH": {
+          "kg": 681022,
+          "status": null
+        },
+        "PK": {
+          "kg": 23,
+          "status": null
+        },
+        "RU": {
+          "kg": 1,
+          "status": null
+        },
+        "SA": {
+          "kg": 4,
+          "status": null
+        },
+        "SG": {
+          "kg": 1242,
+          "status": null
+        },
+        "TH": {
+          "kg": 16683,
+          "status": null
+        },
+        "TR": {
+          "kg": 8361,
+          "status": null
+        },
+        "TW": {
+          "kg": 25379,
+          "status": null
+        },
+        "UA": {
+          "kg": 123640,
+          "status": null
+        },
+        "UG": {
+          "kg": 14,
+          "status": null
+        },
+        "US": {
+          "kg": 29668,
+          "status": null
+        },
+        "UZ": {
+          "kg": 0,
+          "status": null
+        },
+        "VN": {
+          "kg": 221368,
+          "status": null
+        },
+        "XL": {
+          "kg": 30,
+          "status": null
+        },
+        "XS": {
+          "kg": 514,
+          "status": null
+        },
+        "ZA": {
+          "kg": 2085,
+          "status": null
+        }
+      },
+      "unnamed": {
+        "QW": {
+          "kg": 4164,
+          "status": null
+        }
+      }
+    },
+    "2025": {
+      "total": {
+        "kg": 20887721,
+        "status": null
+      },
+      "named": {
+        "AE": {
+          "kg": 33,
+          "status": null
+        },
+        "AR": {
+          "kg": 81,
+          "status": null
+        },
+        "AU": {
+          "kg": 133,
+          "status": null
+        },
+        "BA": {
+          "kg": 5,
+          "status": null
+        },
+        "BO": {
+          "kg": 0,
+          "status": null
+        },
+        "BR": {
+          "kg": 69,
+          "status": null
+        },
+        "CA": {
+          "kg": 109,
+          "status": null
+        },
+        "CH": {
+          "kg": 154324,
+          "status": null
+        },
+        "CL": {
+          "kg": 62,
+          "status": null
+        },
+        "CM": {
+          "kg": 317,
+          "status": null
+        },
+        "CN": {
+          "kg": 19567676,
+          "status": null
+        },
+        "CO": {
+          "kg": 215,
+          "status": null
+        },
+        "CW": {
+          "kg": 22,
+          "status": null
+        },
+        "DO": {
+          "kg": 1,
+          "status": null
+        },
+        "EG": {
+          "kg": 2,
+          "status": null
+        },
+        "FO": {
+          "kg": 23,
+          "status": null
+        },
+        "GB": {
+          "kg": 269841,
+          "status": null
+        },
+        "GH": {
+          "kg": 1673,
+          "status": null
+        },
+        "HK": {
+          "kg": 4158,
+          "status": null
+        },
+        "ID": {
+          "kg": 2101,
+          "status": null
+        },
+        "IL": {
+          "kg": 64,
+          "status": null
+        },
+        "IN": {
+          "kg": 9225,
+          "status": null
+        },
+        "IS": {
+          "kg": 1,
+          "status": null
+        },
+        "JP": {
+          "kg": 59172,
+          "status": null
+        },
+        "KR": {
+          "kg": 5666,
+          "status": null
+        },
+        "KW": {
+          "kg": 1,
+          "status": null
+        },
+        "LI": {
+          "kg": 4,
+          "status": null
+        },
+        "MA": {
+          "kg": 85,
+          "status": null
+        },
+        "MG": {
+          "kg": 27,
+          "status": null
+        },
+        "MK": {
+          "kg": 0,
+          "status": null
+        },
+        "MU": {
+          "kg": 0,
+          "status": null
+        },
+        "MX": {
+          "kg": 1082,
+          "status": null
+        },
+        "MY": {
+          "kg": 42447,
+          "status": null
+        },
+        "NG": {
+          "kg": 168,
+          "status": null
+        },
+        "NO": {
+          "kg": 1045,
+          "status": null
+        },
+        "NZ": {
+          "kg": 9,
+          "status": null
+        },
+        "PE": {
+          "kg": 0,
+          "status": null
+        },
+        "PH": {
+          "kg": 334076,
+          "status": null
+        },
+        "PK": {
+          "kg": 0,
+          "status": null
+        },
+        "QA": {
+          "kg": 2,
+          "status": null
+        },
+        "RU": {
+          "kg": 7,
+          "status": null
+        },
+        "SA": {
+          "kg": 0,
+          "status": null
+        },
+        "SG": {
+          "kg": 2209,
+          "status": null
+        },
+        "SN": {
+          "kg": 7,
+          "status": null
+        },
+        "SX": {
+          "kg": 20,
+          "status": null
+        },
+        "TH": {
+          "kg": 19049,
+          "status": null
+        },
+        "TN": {
+          "kg": 102,
+          "status": null
+        },
+        "TR": {
+          "kg": 7349,
+          "status": null
+        },
+        "TW": {
+          "kg": 19564,
+          "status": null
+        },
+        "UA": {
+          "kg": 59172,
+          "status": null
+        },
+        "US": {
+          "kg": 20506,
+          "status": null
+        },
+        "UY": {
+          "kg": 20,
+          "status": null
+        },
+        "VN": {
+          "kg": 298768,
+          "status": null
+        },
+        "XK": {
+          "kg": 0,
+          "status": null
+        },
+        "XS": {
+          "kg": 1228,
+          "status": null
+        },
+        "ZA": {
+          "kg": 581,
+          "status": null
+        }
+      },
+      "unnamed": {
+        "QP": {
+          "kg": 1,
+          "status": null
+        },
+        "QW": {
+          "kg": 5219,
+          "status": null
+        }
+      }
+    }
+  }
+}

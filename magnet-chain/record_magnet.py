@@ -115,6 +115,38 @@ def screen_trade(snapshot):
     return annual, monthly, windows
 
 
+def origin_concentration(snapshot, annual):
+    """Calculate mass HHI for named origins and bound the full recorded basket."""
+    if snapshot["years"].keys() != annual.keys():
+        raise ValueError("Year coverage differs between the Comext extracts")
+    results = {}
+    for year, data in snapshot["years"].items():
+        total = data["total"]["kg"]
+        masses = [row["kg"] for row in data["named"].values()]
+        named = sum(masses)
+        unnamed = sum(row["kg"] for row in data["unnamed"].values())
+        if total != named + unnamed:
+            raise ValueError(f"Origin masses do not sum to the reported total in {year}")
+        audit = annual[year]
+        if (total != round(audit["extra_eu"]["tonnes"] * 1_000)
+                or data["named"]["CN"]["kg"] != round(audit["china"]["tonnes"] * 1_000)):
+            raise ValueError(f"Extra-EU or China mass differs from the dated audit in {year}")
+        squares = sum(kg**2 for kg in masses)
+        # The lower limit assigns no concentration to the unnamed portion.
+        # Its maximum effect comes from adding all of it to the largest origin.
+        results[year] = {
+            "extra_eu_kg": total,
+            "named_origin_kg": named,
+            "unnamed_origin_kg": unnamed,
+            "named_origin_hhi": squares / named**2,
+            "all_import_hhi_bounds": [
+                squares / total**2,
+                (squares + 2 * max(masses) * unnamed + unnamed**2) / total**2,
+            ],
+        }
+    return results
+
+
 def calculate_bound(baseline):
     """Screen direct import mass and the additional blocks available under stated assumptions."""
     target = baseline["extra_eu"]["tonnes"]
@@ -190,6 +222,12 @@ def render(record, trade, snapshot):
                          pct(row["china_mass_share"]), pct(row["china_value_share"]),
                          "–".join(f"{v:.3f}" for v in row["mass_hhi_bounds"]))
                    for year, row in annual.items()]
+    origin_rows = [
+        cells(year, f'{row["unnamed_origin_kg"] / 1_000:,.3f}',
+              f'{row["named_origin_hhi"]:.5f}',
+              "–".join(f"{v:.5f}" for v in row["all_import_hhi_bounds"]))
+        for year, row in record["review_addendum"]["origin_hhi"].items()
+    ]
     window_rows = [cells(year, tonnes(row["china"]["tonnes"]), tonnes(row["other_origin_tonnes"]),
                          tonnes(row["extra_eu"]["tonnes"])) for year, row in windows.items()]
     monthly = record["monthly_imports"]
@@ -226,6 +264,8 @@ def render(record, trade, snapshot):
     return template.substitute(
         title=escape(TITLE), stage_map="\n".join(stage_map), stage_rows="\n".join(stage_rows),
         annual_rows="\n".join(annual_rows), window_rows="\n".join(window_rows),
+        origin_rows="\n".join(origin_rows),
+        other_origin_drop=tonnes(first["other_origin_tonnes"] - event["other_origin_tonnes"]),
         month_rows="\n".join(month_rows), model_rows="\n".join(model_rows),
         facility_rows="\n".join(facility_rows), history_chart=history_chart, scenario_chart=scenario_chart,
         china_decline=pct(1 - event["china"]["tonnes"] / first["china"]["tonnes"]),
@@ -291,6 +331,14 @@ def main():
         "annual_imports": annual, "monthly_imports": monthly, "historical_windows": windows,
         "six_month_bound": calculate_bound(windows[str(BASELINE_YEAR)]),
         "global_customs": {"snapshot": "magnet_trade.json", "boundaries": TRADE_BOUNDARIES},
+    }
+    origins = read_json("comext_origins.json")
+    record["review_addendum"] = {
+        "date": REVISION,
+        "origin_mass_snapshot": "comext_origins.json",
+        "origin_hhi": origin_concentration(origins, annual),
+        "scenario_scope": "Future Phase 1B nominal magnet block mass against April–September 2024 gross import mass",
+        "historical_comparison_scope": "Shipment context and plausibility check",
     }
     page = render(record, trade, snapshot)
     (OUT / "magnet_chain.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

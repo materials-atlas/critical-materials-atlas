@@ -17,11 +17,11 @@ PARTNERS = ("CN", "EXT_EU27_2020")
 INDICATORS = ("QUANTITY_IN_100KG", "VALUE_IN_EUROS")
 
 
-def fetch(freq, periods):
+def fetch(freq, periods, *, partners=PARTNERS, indicators=INDICATORS):
     query = urlencode({
         "format": "JSON", "lang": "EN", "freq": freq,
         "reporter": "EU27_2020", "flow": "1", "product": CODE,
-        "partner": PARTNERS, "indicators": INDICATORS, "time": periods,
+        "partner": partners, "indicators": indicators, "time": periods,
     }, doseq=True)
     url = f"{API}?{query}"
     with urlopen(url, timeout=45) as response:
