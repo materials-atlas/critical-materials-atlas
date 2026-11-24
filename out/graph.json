@@ -3873,13 +3873,23 @@
    "code_sha": "9a3de992099afb07"
   },
   "battery-chain/record_battery.py": {
-   "reads": [],
+   "reads": [
+    "battery-chain/",
+    "battery-chain/__pycache__/replacement_model.cpython-311.pyc",
+    "battery-chain/__pycache__/replacement_model.cpython-311.pyc.1957865572800",
+    "battery-chain/article.html.in",
+    "battery-chain/evidence_inputs.json",
+    "battery-chain/out/battery_trade.json",
+    "battery-chain/replacement_model.py"
+   ],
    "writes": [
+    "battery-chain/battery-chain.html",
     "battery-chain/out/battery_chain.json"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "c0d7bd1ed3a251b2"
+   "code_sha": "342369617b85acf7",
+   "restored": 2
   },
   "beryllium-chain/record_beryllium.py": {
    "reads": [

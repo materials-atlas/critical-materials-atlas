@@ -46,3 +46,14 @@ independent specialist review of the material specifications and
 input-loss assumptions. Actual plant sourcing, alternate approvals,
 pre-existing orders and usable inventories are necessary to validate
 disruption losses for the EU.
+
+## Review corrections, 24 November 2026
+
+A second reading of every cited source before publication supported all claims and tightened five:
+
+- Argonne GREET 2020: the kilogram masses (cathode 89.81 / 145.78 kg, graphite 64.60 / 74.44 kg) are in Appendix Table 8; Table 1 gives the 70.6 kWh pack. The citation now reads Tables 1 and 8 (the audit row above still says 1 and 4).
+- IEA Critical Minerals Outlook 2025: nickel-based cells are "60%", not "about 60%".
+- LFP history: the three points have different scopes. Under 10% of the electric car market in 2020 (Critical Minerals Outlook 2025), just under 30% of light-duty EV battery capacity in 2022 (Global EV Outlook 2023), nearly half of the EV battery market by capacity in 2024 (Global EV Outlook 2025). The page now says so, instead of calling them one series by energy capacity.
+- IEA Global EV Outlook 2026: LFP imports were 30% direct (not "roughly"), nearly 70% embedded in EVs.
+- NOVONIX (Form 6-K, 11 June 2026): a "mass production qualification sample" of synthetic graphite anode material delivered to Panasonic Energy, with validation subject to the customer's assessment over the coming months.
+- The 2024 Nature Energy paper also carries a 2025 correction; the source list now says so.
