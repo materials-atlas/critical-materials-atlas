@@ -40,3 +40,10 @@ python nuclear-chain/record_nuclear.py
 The first command verifies the inventory balance, the early-gap decision
 rule and the arithmetic of the 2025 capacity screen. The second generates
 the article and the `scenario_addendum` section of the evidence JSON.
+
+## Review of the follow-up, 25 November 2026
+
+Scenario arithmetic re-done (stock draws, replacement rates; 6.019 million SWU = 24.4% of the 24.7 million SWU that ESA
+Table 8 lists for Urenco 17,200 and Orano 7,500 tSW - the sum is ours). Sources checked: ESA 2025 Table 4 (ConverDyn
+2,825 / 2,898 tU), section 1.5; Orano Annual Activity Report 2025 p.39 (first production 2028, full commissioning 2030).
+Fix: the NEA Figures 5.2-5.3 link pointed to PDF page 45 (Figure 5.1); now #page=46. Model tests pass (5).

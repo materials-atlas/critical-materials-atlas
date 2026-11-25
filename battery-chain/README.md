@@ -47,3 +47,8 @@ The test regenerates both sets of model results from the input JSON. It
 checks balances, carryover, eligibility gates, recovery timing and reported
 losses. The dated supplement is in the `review_addendum` section of the
 evidence JSON.
+
+## Review of the follow-up, 25 November 2026
+
+Arithmetic re-done and, where the follow-up added Eurostat extracts, the extracts re-downloaded by the main review and
+matched byte for byte. Outside claims checked against their sources; none wrong. Model tests pass where present.

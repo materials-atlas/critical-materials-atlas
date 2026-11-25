@@ -103,3 +103,8 @@ Build the article from the pinned inputs with
 run `python magnet-chain/fetch_comext_origins.py`. If Eurostat revises the
 annual China or extra-EU mass, refresh and reconcile both snapshots before
 updating the dated figures.
+
+## Review of the follow-up, 25 November 2026
+
+Arithmetic re-done and, where the follow-up added Eurostat extracts, the extracts re-downloaded by the main review and
+matched byte for byte. Outside claims checked against their sources; none wrong. Model tests pass where present.

@@ -123,3 +123,12 @@ qualified sourcing and stock records.
   [IEA capacity comparison](https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness),
   [IEA July commentary](https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/),
   [IEA cost comparison](https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary).
+
+## Review of the follow-up, 25 November 2026
+
+All four new outside claims checked against their sources (Fraunhofer ISE p.14 "No active Ingot & Wafer production",
+last update 08/2025; Meyer Burger 16 Aug 2022 binding wafer agreement with Norwegian Crystals; IEA PVPS Annual Report
+2023 p.91, Norwegian Crystals ceased operations in 2023; Sunwafe 29 Apr 2026). Fix: Sunwafe targets "early 2029". The
+Meyer Burger release is linked through a third-party copy; the company's own page was not found. The follow-up's change
+to the chokepoint-map row (share "About 87% of global wafer capacity (2024)", mechanism "capability") was NOT applied:
+the row "87–98% (wafers)" was chosen on 24 November and stays until that choice is revisited.

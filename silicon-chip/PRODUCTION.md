@@ -81,3 +81,10 @@ SIA/BCG documents the long-run relocation of fab capacity. The OECD studies
 document the geography of production and the distinction from ownership. The
 Atlas calculations quantify the reported historical shift and the conditional
 supplier-concentration bound within their published definitions.
+
+## Review of the follow-up, 25 November 2026
+
+New claims checked: SIA p.6, six largest wafer producers 92% (SIA gives no "about"); SIA p.4, Shin-Etsu Handotai and
+SUMCO US capacity; OECD chip landscape, all 18 fab-capacity values by chip type (September 2025, million 8-inch-equivalent
+WSPM); OECD, Germany and the US lead electronic-grade polysilicon. Fix: Siltronic's 2024 milestone is "key low-spec
+qualifications", not "early customer qualifications". The tables ZIP is written with fixed timestamps (reproducible).

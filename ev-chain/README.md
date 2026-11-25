@@ -86,3 +86,8 @@ Run `python ev-chain/record_ev.py` to rebuild from the pinned files. To
 refresh the extended evidence, run `python ev-chain/fetch_ev_context.py`
 and compare the new customs totals with the original dated audit before
 publishing any new release.
+
+## Review of the follow-up, 25 November 2026
+
+Arithmetic re-done and, where the follow-up added Eurostat extracts, the extracts re-downloaded by the main review and
+matched byte for byte. Outside claims checked against their sources; none wrong. Model tests pass where present.
