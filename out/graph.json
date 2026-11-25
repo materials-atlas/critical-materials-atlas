@@ -3778,8 +3778,7 @@
    "reads": [
     "aerospace-chain/",
     "aerospace-chain/article.html.in",
-    "aerospace-chain/out/aerospace_trade.json",
-    "aerospace-chain/record_aerospace.py"
+    "aerospace-chain/out/aerospace_trade.json"
    ],
    "writes": [
     "aerospace-chain/aerospace-chain.html",
@@ -3787,8 +3786,9 @@
     "aerospace-chain/out/aerospace_supply_scenarios.csv"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "fd58f3dc4406d10a"
+   "secs": 0.1,
+   "code_sha": "846b45670b68ef27",
+   "restored": 3
   },
   "aluminium-chain/extract_baci.py": {
    "reads": [
@@ -6809,6 +6809,7 @@
    "reads": [
     "electrolyser-chain/",
     "electrolyser-chain/__pycache__/constraint_frontier.cpython-311.pyc",
+    "electrolyser-chain/__pycache__/constraint_frontier.cpython-311.pyc.2107571209840",
     "electrolyser-chain/article.html.in",
     "electrolyser-chain/constraint_frontier.py",
     "electrolyser-chain/evidence_inputs.json",
@@ -6824,8 +6825,9 @@
     "electrolyser-chain/out/illustrative_thresholds.csv"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "fe44249f7296641f"
+   "secs": 0.1,
+   "code_sha": "6cdf76053a65569d",
+   "restored": 7
   },
   "ev-chain/record_ev.py": {
    "reads": [
@@ -7018,6 +7020,7 @@
    "reads": [
     "heat-pump-chain/",
     "heat-pump-chain/__pycache__/compressor_supply.cpython-311.pyc",
+    "heat-pump-chain/__pycache__/compressor_supply.cpython-311.pyc.2301686106416",
     "heat-pump-chain/article.html.in",
     "heat-pump-chain/compressor_supply.py",
     "heat-pump-chain/evidence_inputs.json",
@@ -7029,7 +7032,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "41310c7691dbd31d"
+   "code_sha": "b41db045811d7484",
+   "restored": 2
   },
   "helium-chain/record_helium.py": {
    "reads": [],
