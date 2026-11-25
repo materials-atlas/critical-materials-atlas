@@ -38,3 +38,12 @@ manufacturing and recycling data, and access to supply by buyer and year.
 - [ ] Review whether AEM belongs in the main comparison as commercial evidence matures.
 - [ ] Remove `noindex` and link from the live Atlas only after editorial approval.
 
+## Review corrections, 25 November 2026
+
+A second reading of the cited sources before publication found nothing wrong. Arithmetic re-done (2.25 t / 0.2 kg per MW =
+11.25 GW). Two points tightened:
+
+- The 0.2 kg Ir per MW reference loading is a scenario choice below the 0.34-2.0 range the 2026 Journal of Industrial Ecology
+  review reports for 2024 (section 2.3). The page now says the reference case is optimistic about loading.
+- The US DOE table gives 2022 status and 2026 targets; the source title no longer says "2026 edition".
+- The page's statement that the IEA capacity figures are rated electrical input was not found on the IEA page.

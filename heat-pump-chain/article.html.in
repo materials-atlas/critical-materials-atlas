@@ -37,7 +37,7 @@
       </tbody>
     </table>
   </div>
-  <p>The JRC inventory identifies copper and, in some designs, neodymium in compressor motors. It describes generally limited material-related vulnerabilities and identifies risks from component disruptions and metal prices. Establishing a particular raw-material constraint would require material demand and available supply by grade and application. $jrc.</p>
+  <p>The JRC inventory identifies copper and, in some designs, neodymium in the brushless DC motors that some heat pumps use. It describes generally limited material-related vulnerabilities and identifies risks from component disruptions and metal prices. Establishing a particular raw-material constraint would require material demand and available supply by grade and application. $jrc.</p>
   <p>The Kigali Amendment phases down HFCs globally. EU Regulation 2024/573 sets separate rules for placing equipment on the EU market. For example, Annex IV limits fluorinated gases with a global warming potential of 150 or higher in split air-to-water units up to 12 kW from January 2027, subject to safety exceptions and specific derogations. Different refrigerants can require different compressors, controls and safety provisions. Trained technicians are a deployment constraint documented separately by the IEA. $kigali. $regulation. $derogation. $monitor.</p>
 
   <h2>Capacity depends on the product and the year</h2>
@@ -48,7 +48,7 @@
 $region_rows
     </tbody>
   </table>
-  <p>The Commission’s 2025 report judged EU final assembly on track for its anticipated 2030 needs if planned expansions materialised. The 2026 industry assessment found underused hydronic assembly capacity and deficits in compressor and four-way valve manufacturing. These findings describe different periods and stages. $commission2025. $commission2026.</p>
+  <p>The Commission’s 2025 report judged EU final assembly on track for its anticipated 2030 needs if planned expansions materialised. The 2026 industry assessment found underused hydronic assembly capacity and deficits in compressor and four-way valve manufacturing. These findings describe different periods and stages, and they count capacity differently: the 2025 report puts existing EU final-assembly capacity at about 24 GW thermal in 2023, against the JRC’s 77 GW. $commission2025. $commission2026.</p>
   <p><strong>Calculated comparison.</strong> The JRC’s 2025 mixed-technology EU estimate was $nameplate_count million units per year. At its assumed $assumed_kw kW per unit, this is $eu_nameplate_gw GW of thermal nameplate output per year. Holding that estimate fixed, it covers about $flat_ratio of the rounded $flat_gw GW annual requirement in the JRC’s flat path and $growth_ratio of the $growth_gw GW requirement in 2030 on its growth path. The two deployment paths are modelled. Meeting an annual average leaves open whether capacity is sufficient in the peak year. These JRC quantities use their own technology coverage and conversion. $jrc.</p>
 
   <h2>Qualified compressors can limit assembly</h2>
@@ -89,7 +89,7 @@ $loss_grid
   <p>Calibrating the model would require the component mix by design, actual procurement by origin, opening stocks, qualified spare capacity and approval timelines. Production and unmet factory orders are the outputs. Installed heat pumps and heating delivered additionally depend on local installers, demand and building conditions.</p>
 
   <h2>Finished-equipment customs trade</h2>
-  <p>The checked-in BACI series measures nominal cross-border value in HS 841861, complete heat pumps excluding machines of heading 8415. Mixed-use compressor and air-conditioning categories require separate product evidence. This extract gives no compressor provenance or compatibility information. $baci.</p>
+  <p>The checked-in BACI series measures nominal cross-border value in HS 841861, complete heat pumps excluding machines of heading 8415. That description applies from 2017. For 2002–2016 the archive uses the HS 2002 edition, where the same code covers compression-type units whose condensers are heat exchangers, so the earlier years are not strictly comparable. Mixed-use compressor and air-conditioning categories require separate product evidence. This extract gives no compressor provenance or compatibility information. $baci.</p>
   <div class="panel">
     <div class="control" id="static-trade" hidden><label for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
     <div class="table-wrap" tabindex="0" role="region" aria-label="World exports of finished heat pumps">

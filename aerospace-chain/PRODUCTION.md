@@ -54,3 +54,12 @@ bilateral trade aggregation needs the underlying CEPII files.
 [Boeing]: https://www.sec.gov/Archives/edgar/data/12927/000001292723000007/ba-20221231.htm
 [FAA directive]: https://www.federalregister.gov/d/2024-06419
 [JetBlue]: https://www.sec.gov/Archives/edgar/data/1158463/000115846325000089/jblu-20250630.htm
+
+## Review corrections, 25 November 2026
+
+A second reading of the cited sources before publication found nothing wrong. The titanium sponge concentration was recomputed
+from JRC Figure 5 (2023 capacity): all qualities 4,396, aviation grade 3,014, lead shifting from China (63%) to Japan (41%).
+Two locators fixed:
+
+- FAA Airworthiness Directive 2024-05-11 covers PW1100G and PW1400G engines only; other variants fall under separate directives.
+- The JetBlue text is under "Recent Developments: Pratt & Whitney" in the 10-Q, not an "Operational Update" section.

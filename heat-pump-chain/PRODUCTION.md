@@ -41,3 +41,16 @@ This pilot is not ready for live publication by default.
 5. Add country installation and building-stock evidence only when definitions are comparable.
 6. Do not infer refrigerant demand from fluorspar output or installation share from equipment exports.
 7. Remove `noindex,nofollow` and link from navigation only after review.
+
+## Review corrections, 25 November 2026
+
+A second reading of the cited sources before publication found nothing wrong and tightened three points:
+
+- HS 841861 means "heat pumps other than air conditioning machines of heading 8415" only from the 2007 and 2017 editions. In the
+  HS 2002 edition, which the trade archive uses for 2002-2016, the code covers compression-type units whose condensers are heat
+  exchangers. The page and the trade table now say so; the statement above that the whole 2002-2024 series measures finished heat
+  pumps holds from 2017 only.
+- EU assembly capacity: the Commission's 2025 report gives about 24 GW thermal of existing final-assembly capacity in 2023 (its
+  "on track" wording is in the executive summary); the JRC gives 77 GW. The page now states the gap.
+- JRC names neodymium in brushless DC motors that some heat pumps use, not specifically in compressor motors.
+- Not retrievable for this check: Implementing Regulation 2026/2486 (EUR-Lex blocks automated reading; no archived copy).

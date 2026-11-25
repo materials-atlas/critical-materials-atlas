@@ -53,7 +53,7 @@ CHAINS = {
         "740811": {"title": "Copper wire, cross-section > 6 mm", "boundary": "A conductor form; the metal is abundant, so this is availability of the traded form, not a chokepoint."},
     }),
     "heat_pump": ("heat-pump-chain", "heat_pump", {
-        "841861": {"title": "Heat pumps (other than air conditioners)", "boundary": "Finished heat pumps excluding machines of heading 8415. Value of equipment exports, across technologies."},
+        "841861": {"title": "Heat pumps (other than air conditioners)", "boundary": "Finished heat pumps excluding machines of heading 8415 (from 2017; in 2002–2016 the code covers compression-type units whose condensers are heat exchangers). Value of equipment exports, across technologies."},
     }),
     "electrolyser": ("electrolyser-chain", "electrolyser", {
         "854330": {"title": "Machines for electroplating, electrolysis or electrophoresis", "boundary": "Mixed-purpose machinery. This basket gives no split by electrolyser technology."},
