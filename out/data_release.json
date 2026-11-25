@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-25",
+ "rule": "Download-only files are committed only with a matching entry here (check.py --staged).",
+ "files": {
+  "out/cube.csv.gz": {
+   "bytes": 24033890,
+   "sha256": "21b61d54d1d13e557a90be1f39550015b76c8003f56b5bd33bc0cc04552c2a8c"
+  },
+  "out/cube_manifest.json": {
+   "bytes": 19220356,
+   "sha256": "194d8d8ab2de7696278e9b3167ec54a3b6f4eda6582ac8e5838188598565f48d"
+  },
+  "out/sdmx/mineral_flows.sdmx.csv.gz": {
+   "bytes": 47678991,
+   "sha256": "18542c6285a266305b65791d4b20fe63cdc46e507dc9a440dbb7fa1d8b188ae7"
+  }
+ },
+ "counts": {
+  "cube_rows": 1529353,
+  "sdmx_observations": 3664577,
+  "manifest_identities": 63658
+ }
+}

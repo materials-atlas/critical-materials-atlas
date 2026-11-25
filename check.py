@@ -147,6 +147,30 @@ def _scrub_pattern():
 
 _BINEXT = ('png', 'jpg', 'jpeg', 'pdf', 'gpkg', 'zip', 'xlsx', 'parquet', 'gz')
 
+def check_data_release_staged():
+    """Download-only files go in only with a dated data release (release_data.py, 25 Nov 2026).
+    out/cube.csv.gz, out/cube_manifest.json and the SDMX export are read by no builder; committing them
+    on every rebuild made most of the 1 GB history. A staged copy must match out/data_release.json."""
+    import hashlib
+    staged = subprocess.run(['git', 'diff', '--cached', '--name-only'], capture_output=True, text=True,
+                            cwd=ROOT).stdout.split()
+    guarded = ['out/cube.csv.gz', 'out/cube_manifest.json', 'out/sdmx/mineral_flows.sdmx.csv.gz']
+    hit = [f for f in guarded if f in staged]
+    if not hit:
+        return
+    rec = subprocess.run(['git', 'show', ':out/data_release.json'], capture_output=True, cwd=ROOT)
+    files = json.loads(rec.stdout.decode('utf-8')).get('files', {}) if rec.returncode == 0 else {}
+    bad = []
+    for f in hit:
+        blob = subprocess.run(['git', 'show', ':' + f], capture_output=True, cwd=ROOT).stdout
+        if files.get(f, {}).get('sha256') != hashlib.sha256(blob).hexdigest():
+            bad.append(f)
+    if bad:
+        fail('data_release', 'download-only files staged outside a dated data release: %s. Either run '
+             '`python release_data.py` and stage out/data_release.json + data.html with them, or put them back: '
+             'git restore --staged %s && git checkout -- %s' % (', '.join(bad), ' '.join(bad), ' '.join(bad)))
+
+
 def check_scrub(staged=False):
     """The anonymity scrub. Leaked FOUR times, every time because the guard ran AFTER the commit -- it
     scans tracked/committed files, so it only catches a term once it is already in history (and, on push,
@@ -1802,6 +1826,7 @@ if __name__ == '__main__':
     # --staged: pre-commit mode. Scrub the STAGED blobs only (fast, and the leak-prevention that matters).
     if '--staged' in sys.argv:
         check_scrub(staged=True)
+        check_data_release_staged()
         for f in FAIL:
             print(f'  FAIL  {f}')
         sys.exit(1 if FAIL else 0)
