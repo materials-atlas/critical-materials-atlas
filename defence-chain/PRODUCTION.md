@@ -63,3 +63,35 @@ A second reading of every cited source before publication found no wrong claim. 
 - Row D09 above: "presumption of denial" fits the Chinese text of the second paragraph; the first paragraph is an outright
   prohibition for US military users and uses.
 - The chart was redrawn in the atlas's colours; its data are unchanged.
+
+## Additions, 25 November 2026: evidence by material, replacement and adjustment
+
+A second assessment asked for three things the page did not have: a table from material to military use with a stated
+confidence, evidence on what could replace Chinese supply, and resilience scenarios. The first two were added. The third
+was added only as far as the public record allows.
+
+| ID | Addition | Basis | Limit |
+| --- | --- | --- | --- |
+| D15 | A table of documented uses, sourcing law and observed supplier relationships for the five materials, with three grades each. | US statute and regulation, USGS 2026 chapters, Department of Defense and Department of War releases, GAO reports, the NATO list and the European Commission research centre study, all read on 25 November 2026. Quotations and links are in `pathway_inputs.json`. | The grades (A to D) are editorial. The scale is the one proposed in the assessment. No link is graded above B, because no source gives defence purchases by supplier. |
+| D16 | "Chinese supply inside a defence supply chain is on public record in two cases." (Antimony: the sole qualified source of one product; purchases are not documented.) | GAO-24-106959, p. 26: funding in fiscal 2020 to qualify a US company sourcing antimony trisulfide from Mexico "to replace the only qualified source located in China". GAO-25-107283, p. 18: F-35 "6-month production stoppages, in 2023 and 2024, when Chinese magnets were identified on the aircraft and had to be replaced". | The second is a defence official's statement reported by GAO, which describes a pause to identify alternative suppliers and two national security waivers. Whether the Mexican-sourced supplier was qualified is not stated. |
+| D17 | Supply outside China, and outside the four nations named in 10 U.S.C. 4872(f)(2). | USGS 2026 country rows for gallium, antimony, tungsten and rare earths (2025 estimates). | Shares use the sum of the listed rows. The statute does not cover antimony, has waivers and exceptions, and reaches mining only from 1 January 2027 (Public Law 119-60, section 848). Rare-earth mine output is not magnet output. The Mineral Commodity Summaries give no germanium tonnage by country. |
+| D18 | Substitutes, the fiscal 2025 stockpile purchase plan and announced capacity. | USGS 2026 chapters; Defense Logistics Agency Annual Materials Plan for fiscal 2025; company releases, marked as company statements. | The plan gives ceilings for purchases and sales, not quantities held. The fiscal 2026 plan was not released. Announced capacity is not operating capacity. |
+| D19 | "Modelled": the antimony purchase ceiling of 700 tonnes equals about 9 days of 2024 US apparent consumption (28,600 tonnes). | Arithmetic on two USGS figures. | A size comparison. It is not a stock-cover estimate, because the quantity held is not public. |
+| D20 | In the EU series other origins rose by more than China-origin imports fell; in the US series other origins fell too. | The two windows already on the page: later-window average less earlier-window average, China origin and all other origins. | Descriptive. The windows, baskets and caveats are those of the existing table. The US basket leaves out oxide, whose imports rose from 24,000 to an estimated 39,000 tonnes between 2024 and 2025 (USGS). |
+
+Not done, with the reason. No quantified scenario for defence production was built. GAO reports that the Department of
+Defense itself cannot trace component origins in its procurement data and had country-of-origin information for under 10%
+of the suppliers behind the F-35 parts it had mapped; a scenario would need defence consumption, qualified suppliers and
+stocks, none of which is public. No time to qualify a new supplier was found in any source read. The count of weapon
+systems using each material, and the "920 pounds of rare earth materials in an F-35" figure, were not used: the latter
+reaches the Congressional Research Service at third hand from a report of about 2012 that was not found.
+
+A second reading of the two new sections against the source documents, same day, led to these changes before publication.
+The statements about 1 January 2027 now follow the statute as amended by Public Law 119-60, section 848, and no longer the
+2024 regulation. The statute's waivers and exceptions are stated. The F-35 sentence reports what GAO describes and drops an
+inference about supply. The magnet quantity is dated and labelled as a rare-earth figure from Department of Defense
+estimates reported in 2016. The antimony row no longer says the White House table lists only civil uses: it lists four
+application areas, none of them munitions. The qualification cost is attributed as GAO gives it. Three company statements
+were reworded to match the releases, and USGS capacity for gallium and two further magnet makers were added. The date of
+the 2022 Department of Defense release is given as the year only, because the copy read prints October and its text
+points to December.

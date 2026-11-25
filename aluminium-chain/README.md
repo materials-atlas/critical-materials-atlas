@@ -25,6 +25,10 @@ It writes the page and `out/aluminium_chain.json` (inputs, results and the choke
 - Screen = a fraction of Guinea's shipments to China, divided by China's implied bauxite-to-alumina ratio, then by 1.909 tonnes of alumina per tonne of metal.
 - Power shares = each source's gigawatt-hours divided by the total, 2025.
 - Capacity use = 2024 production divided by year-end 2024 capacity.
+- Alumina supply of a smelting country = USGS alumina output plus BACI imports of HS 281820. Imports as a share of supply = imports divided by that sum. Alumina available per tonne of metal = (output plus imports less exports) divided by USGS primary metal output; a row is flagged when it is more than a tenth away from 1.909.
+- Brazil, 2018 = BACI exports of HS 281820 from Brazil, and imports of Norway and Canada by origin, in 2017 and 2018.
+- Unused capacity = year-end 2024 capacity less 2024 output, zero where negative.
+- Stock comparisons divide a stock at its own date by a 2024 flow (imports, output) and are for scale only.
 
 The builder stops if the country rows do not add to the world totals, if the power sources do not add to
 their total, or if any of the sentences that state a number in words no longer matches the data. It also

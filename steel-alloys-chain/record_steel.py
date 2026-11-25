@@ -1,127 +1,324 @@
-"""Evidence JSON for the unpublished steel / structural-alloys chain pilot. Uniform schema.
-Public sources. Run: python record_steel.py
+"""Build the static steel-alloying-metals study and its evidence JSON.
+
+Inputs: evidence_inputs.json (source tables and quotations transcribed and checked 25 Nov 2026), article.html.in,
+out/steel_exposure.json (trade by weight and each market's suppliers, written by extract_exposure.py) and
+out/steel_trade.json (trade by value, written by extract_baci.py). No network access. Run from the repository root:
+    python steel-alloys-chain/record_steel.py
 """
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "steel_chain.json")
-MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+from html import escape
+import json
+from pathlib import Path
+from string import Template
 
-def hist_points(material, country):
-    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
-    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+HERE = Path(__file__).resolve().parent
+INPUTS = HERE / "evidence_inputs.json"
+TEMPLATE = HERE / "article.html.in"
+EXPOSURE = HERE / "out" / "steel_exposure.json"
+TRADE = HERE / "out" / "steel_trade.json"
+OUT = HERE / "out" / "steel_chain.json"
+ARTICLE = HERE / "steel-alloys-chain.html"
 
-SRC = {
-    "usgs_niobium": {"title": "USGS Mineral Commodity Summaries 2026 — Niobium (Columbium)", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf"},
-    "usgs_vanadium": {"title": "USGS Mineral Commodity Summaries 2025 — Vanadium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-vanadium.pdf"},
-    "usgs_chromium": {"title": "USGS Mineral Commodity Summaries 2025 — Chromium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-chromium.pdf"},
-    "usgs_manganese": {"title": "USGS Mineral Commodity Summaries 2025 — Manganese", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-manganese.pdf"},
-    "usgs_moly": {"title": "USGS Mineral Commodity Summaries 2025 — Molybdenum", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-molybdenum.pdf"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
-}
+TITLE = "Niobium has one main source; for steel's other alloying metals, exposure depends on the buyer"
+DECK = ("Brazil mined 93% of the world's niobium in 2024 and supplied most of every large importer's ferroniobium. "
+        "Indonesia shipped 93% of traded ferronickel, almost all of it to China, and none of what the United States imported.")
+METALS = ("niobium", "vanadium", "chromium", "manganese", "nickel", "molybdenum")
+PRODUCTS = ("ferroniobium", "ferrovanadium", "ferrochromium", "ferromanganese", "ferronickel", "ferromolybdenum", "chromium_ore", "manganese_ore")
+MARKETS = ("United States", "European Union", "Japan", "South Korea", "India", "China")
+CHARTED = ("ferroniobium", "ferrochromium", "ferronickel")
+HUBS = ("Netherlands", "China", "Malaysia", "Singapore")     # countries that export ferroniobium and mine little or none
+EU_MEMBERS = ("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece",
+              "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania",
+              "Slovakia", "Slovenia", "Spain", "Sweden")
+NAVY, TEAL, INK, MUT, RULE = "#15323a", "#0e7c74", "#1a1f24", "#667179", "#e6e9e8"
+FONT = "font-family:Inter,system-ui,Segoe UI,Arial,sans-serif"
 
-CHAIN = {
-    "title": "Steel / structural-alloys chain",
-    "chokepoint": {"product": "Ferroalloys (Nb/V)", "stage": "Niobium mine", "mechanism": "geological", "physics": "Niobium is essentially one Brazilian mine (CBMM) — Brazil is ~93% of world mine production, Canada ~7%", "holder": "Brazil", "share": "~93% production", "control": "—", "conf": "measured"},
-    "published": True,
-    "related": [{"href": "../steel-chain/steel-chain", "label": "Primary / green-steel chain"}, {"href": "../tungsten-chain/tungsten-chain", "label": "Tungsten chain"}, {"href": "../wind-chain/wind-chain", "label": "Wind-turbine chain"}],
-    "accent": "#4e5a66",
-    "eyebrow": "Product-chain pilot · the built world",
-    "h1": "Steel is abundant; the metals that make it strong are not",
-    "deck": "Almost everything built — buildings, rail, ships, cars, pipelines — is steel. Iron ore and coking coal "
-            "are everywhere, so steel itself is not a chokepoint. But the small alloying additions that give steel "
-            "its strength, hardness and corrosion resistance come from a handful of concentrated sources.",
-    "byline": "iron ore (abundant) ≠ alloying metals (concentrated) ≠ steel grade ≠ what fails first",
-    "correction": "A steel-supply map looks reassuring — iron is one of the commonest elements. The risk hides in the "
-                  "additives: a few hundred grams of niobium per tonne, from essentially one Brazilian mine, decide "
-                  "whether a pipeline or a car body can be made light and strong.",
-    "stats": [
-        {"v": "~93%", "l": "of world niobium is Brazil (one company, CBMM)", "conf": "measured"},
-        {"v": "~75%", "l": "of world vanadium is China (82,000 of 110,000 t, 2025) — tied to its steel industry", "conf": "measured"},
-        {"v": "SA → CN", "l": "chromium: South Africa mines the ore, China makes the ferrochrome", "conf": "measured"},
-        {"v": "77%", "l": "of niobium goes into steel (21% into superalloys)", "conf": "measured"},
-    ],
-    "history": {
-        "title": "The alloying metals stay concentrated (top-producer share)",
-        "conf": "measured",
-        "note": "BGS/USGS mine production, from the atlas's own data. Niobium (Brazil) sits near 90% and vanadium "
-                "(China) near two-thirds for years — durable concentration, not a passing snapshot. Niobium's series "
-                "is shorter (2019–2023) because that is the comparable window in the local data.",
-        "series": [
-            {"label": "Niobium (Brazil)", "points": hist_points("niobium", "BR")},
-            {"label": "Vanadium (China)", "points": hist_points("vanadium", "CN")},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Base", "t": "iron ore + coking coal → steel — abundant, not a chokepoint"},
-        {"n": "2 · Alloying metals", "t": "niobium, chromium, vanadium, manganese, molybdenum — concentrated"},
-        {"n": "3 · Steel grades", "t": "microalloyed (Nb/V) · stainless (Cr) · tool/heat (Mo/W)"},
-        {"n": "4 · What fails first", "t": "not the steel — the additive that gives it its property"},
-    ],
-    "sections": [
-        {"h2": "1 · The base is abundant; the additives are not", "panels": [
-            {"kind": "bars", "h3": "Concentration of the key steel-alloying metals", "conf": "measured", "max": 1.0, "note":
-                "USGS. Niobium and vanadium are mine shares; chromium and manganese are more concentrated at the "
-                "ferroalloy/processing stage (China) than at the mine. Read each by the stage that binds it.", "bars": [
-                {"label": "Niobium (Brazil, mine)", "value": 0.93},
-                {"label": "Vanadium (China, mine)", "value": 0.75},
-                {"label": "Chromium (China, ferrochrome)", "value": 0.60},
-                {"label": "Molybdenum (China, mine)", "value": 0.40},
-            ]},
-            {"kind": "text", "h3": "A few hundred grams decide the grade",
-             "text": "Microalloyed (HSLA) steel gets its strength-to-weight from tiny niobium and vanadium additions — "
-                     "often well under a kilogram per tonne of steel. That is why a trace-metal chokepoint can gate an "
-                     "entire category of light, strong steel used in cars, pipelines and structures.",
-             "flag": "trace additive, whole-grade leverage"},
-        ]},
-        {"h2": "2 · Niobium — one mine for the world", "panels": [
-            {"kind": "big", "h3": "Niobium mine share", "big": "~93% Brazil", "conf": "measured",
-             "text": "one country — and largely one company, CBMM at Araxá — supplies most of the world's niobium, with "
-                     "Canada a distant second. About 77% goes into steel as ferro-niobium; Brazil's exports run ~49% to "
-                     "China. It is one of the most geographically concentrated critical materials there is.",
-             "note": "USGS MCS 2026 (Niobium)."},
-            {"kind": "text", "h3": "The partial hedge: interchangeability",
-             "text": "USGS notes that manganese, molybdenum, niobium, titanium and tungsten are to some degree "
-                     "interchangeable with vanadium as steel alloying elements. So no single one is irreplaceable — but "
-                     "substitution changes the recipe, the cost and the properties, and cannot happen overnight.",
-             "flag": "substitutable, but not instantly"},
-        ]},
-        {"h2": "3 · Chromium & vanadium — the ore is not the ferroalloy", "panels": [
-            {"kind": "text", "h3": "Chromium: mined in South Africa, alloyed in China", "conf": "measured",
-             "text": "South Africa leads chromite-ore mining, but China is the leading producer of ferrochromium and "
-                     "stainless steel — and the largest chromium consumer. As with the atlas's other materials, the "
-                     "chokepoint sits at the ferroalloy/processing stage, not the mine. Stainless steel cannot be made "
-                     "without it.",
-             "note": "USGS (Chromium)."},
-            {"kind": "text", "h3": "Vanadium: a Chinese-steel by-product",
-             "text": "China is the top vanadium producer, much of it recovered from steelmaking slag, so vanadium "
-                     "supply is coupled to the Chinese steel industry itself. Vanadium adds strength to rebar and "
-                     "aerospace alloys, and is the basis of vanadium-flow grid batteries — a second, growing demand.",
-             "note": "USGS (Vanadium).", "flag": "coupled to Chinese steel"},
-        ]},
-        {"h2": "4 · What this means for the built world", "panels": [
-            {"kind": "text", "h3": "The risk is the recipe, not the metal",
-             "text": "Steel will not run out. But the properties a modern economy depends on — high strength-to-weight, "
-                     "corrosion resistance, heat tolerance — come from alloying metals concentrated in Brazil (niobium), "
-                     "China (vanadium, ferrochrome, ferromanganese) and South Africa (chromite). A disruption would not "
-                     "stop steelmaking; it would degrade what grades of steel the world can make, and at what cost.",
-             "flag": "grade risk, not tonnage risk"},
-        ]},
-    ],
-    "trade_intro": "BACI shows the traded ferroalloys — ferro-niobium, ferro-vanadium, ferro-chromium, ferro-manganese "
-                   "— which are closer to the alloying stage than to crude steel. Read exporter shares as availability "
-                   "of the alloy addition, not of steel itself (steel is a much larger, separate trade).",
-    "method": [
-        {"stage": "Base", "lens": "context (steel is abundant)", "why": "iron/coking coal are not the chokepoint"},
-        {"stage": "Alloying metals", "lens": "USGS mine or ferroalloy share", "why": "concentration by the binding stage per metal"},
-        {"stage": "History", "lens": "BGS/USGS 2000–2024 mine series", "why": "concentration is durable, not a snapshot"},
-        {"stage": "Trade", "lens": "BACI ferroalloys", "why": "the alloy addition as traded, not steel"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— steel/alloys, niobium ~93% Brazil, vanadium ~75% China")
+def load(path):
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def pct(x, places=0):
+    return f"{100 * x:.{places}f}%"
+
+
+def row(label, cells, numeric=True):
+    cls = ' class="n"' if numeric else ""
+    return (f'<tr><th scope="row">{escape(str(label))}</th>'
+            + "".join(f"<td{cls}>{escape(str(c))}</td>" for c in cells) + "</tr>")
+
+
+def evaluate(inputs):
+    mine = {}
+    for metal in METALS:
+        table = inputs["mine_production_2024"][metal]
+        rows, world = table["rows"], table["world"]
+        if abs(sum(rows.values()) / world - 1) > 0.01:
+            raise SystemExit(f"{metal}: the country rows do not add to the published world total")
+        ranked = sorted((k for k in rows if k != "Other countries"), key=rows.get, reverse=True)
+        mine[metal] = {"unit": table["unit"], "world": world, "leader": ranked[0], "leader_share": rows[ranked[0]] / world,
+                       "second": ranked[1], "second_share": rows[ranked[1]] / world}
+
+    exposure = load(EXPOSURE)
+    year, base = str(exposure["years"][-1]), str(exposure["years"][0])
+    trade = {}
+    for key in PRODUCTS:
+        now, then = exposure["by_year"][year][key], exposure["by_year"][base][key]
+        world = now["world"]
+        markets = {}
+        for market in MARKETS:
+            rec = now["markets"][market]
+            top = rec["top"][0]
+            # a market that is, or contains, the leading exporter cannot import from it in this table
+            own = market == now["world_leader"] or (market == "European Union" and now["world_leader"] in EU_MEMBERS)
+            markets[market] = {"tonnes": rec["tonnes"], "share_of_world_trade": rec["tonnes"] / world["tonnes"],
+                               "from_world_leader": None if own else rec["share_from_world_leader"], "largest_supplier": top["name"],
+                               "largest_supplier_share": top["share"]}
+        shares = [m["from_world_leader"] for m in markets.values() if m["from_world_leader"] is not None]
+        trade[key] = {"label": exposure["products"][key]["label"], "codes": exposure["products"][key]["codes"],
+                      "world_tonnes": world["tonnes"], "export_hhi": world["hhi"], "leader": now["world_leader"],
+                      "leader_share": world["top"][0]["share"], "leader_share_base_year": then["world"]["top"][0]["share"],
+                      "leader_base_year": then["world_leader"], "markets": markets,
+                      "top_exporters": [(t["name"], t["share"]) for t in world["top"]],
+                      "markets_led_by_leader": sum(1 for m in markets.values() if m["largest_supplier"] == now["world_leader"]),
+                      "lowest_market_share": min(shares), "highest_market_share": max(shares)}
+
+    india_now, india_then = (exposure["by_year"][y]["ferroniobium"]["markets"]["India"] for y in (year, base))
+    nb_detail = {"india_tonnes": india_now["tonnes"], "india_via_hubs": sum(t["share"] for t in india_now["top"] if t["name"] in HUBS),
+                 "india_largest_base_year": india_then["top"][0]["name"], "india_largest_share_base_year": india_then["top"][0]["share"],
+                 "hub_share_of_world_exports": sum(s for n, s in trade["ferroniobium"]["top_exporters"] if n in HUBS),
+                 "hubs_listed": [n for n, _ in trade["ferroniobium"]["top_exporters"] if n in HUBS]}
+    cr = inputs["chromium"]
+    fe = cr["ferrochrome_2023_t"]
+    icda_total = sum(cr["icda_2025_kt"].values())
+    chromium = {"china_ferrochrome_share_2023": fe["China"] / fe["World"], "south_africa_ferrochrome_share_2023": fe["South Africa"] / fe["World"],
+                "china_ferrochrome_share_2025_icda": cr["icda_2025_kt"]["China"] / icda_total, "icda_total_2025_kt": icda_total,
+                "south_africa_ore_share_of_mining": mine["chromium"]["leader_share"],
+                "south_africa_ore_share_of_trade": trade["chromium_ore"]["leader_share"],
+                "china_share_of_ore_imports": trade["chromium_ore"]["markets"]["China"]["share_of_world_trade"],
+                "china_ferrochrome_imports_t": trade["ferrochromium"]["markets"]["China"]["tonnes"],
+                "south_africa_ore_exports_t": trade["chromium_ore"]["leader_share"] * trade["chromium_ore"]["world_tonnes"],
+                "south_africa_ore_output_kt": inputs["mine_production_2024"]["chromium"]["rows"]["South Africa"],
+                "icda_south_africa_ore_share_2025": cr["icda_ore_2025_kt"]["South Africa"] / sum(cr["icda_ore_2025_kt"].values()),
+                "icda_ore_total_2025_kt": sum(cr["icda_ore_2025_kt"].values())}
+    nickel = {"indonesia_mine_share": mine["nickel"]["leader_share"], "indonesia_ferronickel_trade_share": trade["ferronickel"]["leader_share"],
+              "indonesia_ferronickel_trade_share_base_year": trade["ferronickel"]["leader_share_base_year"],
+              "china_share_of_ferronickel_imports": trade["ferronickel"]["markets"]["China"]["share_of_world_trade"],
+              "world_ferronickel_tonnes": trade["ferronickel"]["world_tonnes"],
+              "world_ferronickel_tonnes_base_year": exposure["by_year"][base]["ferronickel"]["world"]["tonnes"]}
+    bi = inputs["base_inputs"]
+    ore, coal = bi["iron_ore_usable_2024_kt"], bi["met_coal_exports_2024_mt"]
+    base_inputs = {"australia_share_of_iron_ore_output": ore["Australia"] / ore["World"], "brazil_share_of_iron_ore_output": ore["Brazil"] / ore["World"],
+                   "australia_share_of_met_coal_exports": coal["Australia"] / coal["Total"],
+                   "top_two_share_of_iron_ore_exports": bi["iron_ore_trade_2025"]["exporter_shares"]["Australia"] + bi["iron_ore_trade_2025"]["exporter_shares"]["Brazil"]}
+    rv = inputs["revisions_of_2024"]
+    revisions = {"vanadium_china_share_mcs2025": rv["vanadium_china"]["mcs2025"] / rv["vanadium_china"]["world_mcs2025"],
+                 "vanadium_china_share_mcs2026": rv["vanadium_china"]["mcs2026"] / rv["vanadium_china"]["world_mcs2026"],
+                 "chromium_south_africa_share_mcs2025": rv["chromium_south_africa"]["mcs2025"] / rv["chromium_south_africa"]["world_mcs2025"],
+                 "chromium_south_africa_share_mcs2026": rv["chromium_south_africa"]["mcs2026"] / rv["chromium_south_africa"]["world_mcs2026"]}
+
+    nb, ni, fc = trade["ferroniobium"], trade["ferronickel"], trade["ferrochromium"]
+    checks = [
+        (mine["niobium"]["leader"] == "Brazil" and 0.92 < mine["niobium"]["leader_share"] < 0.94, "Brazil's share of niobium mining is no longer 93%"),
+        (nb["leader"] == "Brazil" and all(m["largest_supplier"] == "Brazil" for m in nb["markets"].values()) and nb["lowest_market_share"] > 0.5,
+         "Brazil is no longer the largest ferroniobium supplier of every market, with more than half of each"),
+        (ni["leader"] == "Indonesia" and 0.925 <= ni["leader_share"] < 0.935 and ni["markets"]["United States"]["from_world_leader"] == 0
+         and ni["markets"]["China"]["from_world_leader"] > 0.95 and ni["markets"]["China"]["share_of_world_trade"] > 0.9,
+         "the ferronickel sentences in the deck no longer match the data"),
+        (fc["leader"] == "South Africa" and fc["markets"]["Japan"]["largest_supplier"] == "Kazakhstan", "the ferrochromium reading has changed"),
+        (0.48 < chromium["china_ferrochrome_share_2023"] < 0.5, "China's 2023 ferrochromium share no longer reproduces the published 49%"),
+        (chromium["south_africa_ore_share_of_trade"] > 0.8 > 0.5 > chromium["south_africa_ore_share_of_mining"] > 0.44,
+         "South Africa's shares of chromium ore mining and trade no longer read as the page states"),
+        ([n for n, _ in trade["ferrovanadium"]["top_exporters"][:3]] == ["Austria", "China", "Czechia"] and mine["vanadium"]["leader"] == "China"
+         and mine["vanadium"]["leader_share"] > 0.7, "the vanadium contrast between mining and ferrovanadium trade has changed"),
+        (nb["markets_led_by_leader"] == 6 and fc["markets_led_by_leader"] == 5 and trade["manganese_ore"]["markets_led_by_leader"] == 5,
+         "the counts of markets whose largest supplier is the world leader have changed"),
+        (nb_detail["india_largest_base_year"] == "Singapore" and nb_detail["hubs_listed"] == list(HUBS) and 0.3 < nb_detail["india_via_hubs"] < 0.4,
+         "the re-export reading for ferroniobium has changed"),
+        (chromium["south_africa_ore_exports_t"] / 1000 > chromium["south_africa_ore_output_kt"], "South Africa's recorded ore exports no longer exceed the USGS output figure"),
+        (mine["nickel"]["leader"] == "Indonesia" and 0.6 < mine["nickel"]["leader_share"] < 0.65, "Indonesia's share of nickel mining is no longer 62%"),
+        (ni["markets"]["Japan"]["from_world_leader"] < 0.01 and ni["markets"]["India"]["largest_supplier"] == "Indonesia"
+         and ni["markets"]["South Korea"]["largest_supplier"] == "Indonesia", "the ferronickel reading for Japan, India or South Korea has changed"),
+        (mine["molybdenum"]["leader_share"] < mine["manganese"]["leader_share"] < mine["chromium"]["leader_share"] < 0.5,
+         "the order of the chromium, manganese and molybdenum mine shares has changed"),
+        (abs(sum(inputs["nickel"]["first_use_2024"].values()) - 1) < 0.005, "the nickel first-use shares do not add to 100%"),
+    ]
+    for ok, message in checks:
+        if not ok:
+            raise SystemExit("steel-alloys page text no longer matches the data: " + message)
+    return {"trade_year": int(year), "base_year": int(base), "mine_2024": mine, "trade_by_weight": trade, "ferroniobium_detail": nb_detail,
+            "chromium": chromium, "nickel": nickel,
+            "base_inputs": base_inputs, "revisions_of_2024": revisions}
+
+
+def link(sources, key, label=None):
+    s = sources[key]
+    return f'<a href="{escape(s["url"], quote=True)}">{escape(label or s["title"])}</a>.'
+
+
+def chart_exposure(trade):
+    """Share of each market's imports that comes from the world's leading exporter, for three alloys."""
+    left, plot, bar, step, head = 118, 300, 14, 19, 26
+    out, y = [], 4
+    body = []
+    for key in CHARTED:
+        t = trade[key]
+        body.append(f'<text x="4" y="{y + 14}" fill="{INK}" font-weight="600">{escape(t["label"].split(",")[0])}: share bought from {escape(t["leader"])}</text>')
+        y += head
+        for market in MARKETS:
+            v = t["markets"][market]["from_world_leader"]
+            w = max(v * plot, 1.0)
+            r = min(3, w / 2)
+            d = f"M{left} {y}h{w - r:.1f}a{r} {r} 0 0 1 {r} {r}v{bar - 2 * r:.1f}a{r} {r} 0 0 1 -{r} {r}h-{w - r:.1f}z"
+            body.append(f'<text x="{left - 8}" y="{y + 11}" fill="{INK}" text-anchor="end">{escape(market)}</text>'
+                        f'<path d="{d}" fill="{TEAL}"><title>{escape(market)}: {v:.0%} of {escape(t["label"].lower())} imports from {escape(t["leader"])}</title></path>'
+                        f'<text x="{left + w + 6:.1f}" y="{y + 11}" fill="{INK}">{v:.0%}</text>')
+            y += step
+        y += 10
+    out.append(f'<svg viewBox="0 0 520 {y}" role="img" aria-label="Share of imports from the world\'s leading exporter, by market, 2024" style="{FONT};font-size:12.5px">')
+    out.append(f'<line x1="{left}" x2="{left}" y1="24" y2="{y - 8}" stroke="{RULE}"/>')
+    out += body
+    out.append("</svg>")
+    return "".join(out)
+
+
+def render(inputs, r):
+    src = inputs["sources"]
+    mine, trade, cr, ni, bi_r, rev = r["mine_2024"], r["trade_by_weight"], r["chromium"], r["nickel"], r["base_inputs"], r["revisions_of_2024"]
+    nbi, vi, cri, nii, om, gr, bi = (inputs[k] for k in ("niobium", "vanadium", "chromium", "nickel", "other_metals", "grades", "base_inputs"))
+
+    def q(text):
+        return escape(text, quote=False)
+
+    mine_rows = [row(m.capitalize(), [f'{mine[m]["leader"]} {pct(mine[m]["leader_share"])}', f'{mine[m]["second"]} {pct(mine[m]["second_share"])}',
+                                      f'{mine[m]["world"]:,}', mine[m]["unit"]]) for m in METALS]
+
+    def cell(t, market):
+        m = t["markets"][market]
+        text = "own exporter" if m["from_world_leader"] is None else pct(m["from_world_leader"])
+        if m["largest_supplier"] != t["leader"]:
+            text += f' ({m["largest_supplier"]} {pct(m["largest_supplier_share"])})'
+        return text
+
+    exposure_rows = [row(trade[k]["label"], [f'{trade[k]["world_tonnes"] / 1000:,.0f}', f'{trade[k]["leader"]} {pct(trade[k]["leader_share"])}']
+                         + [cell(trade[k], m) for m in MARKETS]) for k in PRODUCTS]
+    fe = cri["ferrochrome_2023_t"]
+    ferrochrome_rows = [row(c, [f'{fe[c] / 1e6:.2f}', pct(fe[c] / fe["World"])]) for c in fe if c != "World"]
+    use = nii["first_use_2024"]
+    grade_rows = ["<tr>" + f'<th scope="row">{escape(g["grade"])}</th>'
+                  + "".join(f'<td class="n">{escape(g[k]) or "—"}</td>' for k in ("chromium", "nickel", "molybdenum", "vanadium", "niobium"))
+                  + f'<td>{link(src, g["source"])}</td></tr>' for g in gr["rows"]]
+    coal = bi["met_coal_exports_2024_mt"]
+    ore_t = bi["iron_ore_trade_2025"]
+
+    tr = load(TRADE)
+    tyear = tr["years"][-1]
+    trade_rows = []
+    for code, info in tr["codes"].items():
+        item = tr["years_data"][str(tyear)][code]
+        top = next(iter(item["exporters"]), None)
+        lead = f'{top["name"]} · {top["share"]:.0%}' if top else "not available"
+        cells = (f'{info["title"]} ({code})', f'USD {item["world_usd"] / 1e6:,.0f} million', lead, inputs["trade_boundaries"][code])
+        trade_rows.append(f'<tr data-trade-code="{escape(code)}">' + "".join(f"<td>{escape(c)}</td>" for c in cells) + "</tr>")
+
+    nb, fc, fn, fv, co = (trade[k] for k in ("ferroniobium", "ferrochromium", "ferronickel", "ferrovanadium", "chromium_ore"))
+    nd, coal2 = r["ferroniobium_detail"], bi["met_coal_exports_2024_mt_australian_table"]
+    fv_top = fv["top_exporters"]
+    values = {
+        "title": escape(TITLE), "deck": escape(DECK), "date": inputs["version"], "trade_year": r["trade_year"], "base_year": r["base_year"],
+        "mine_rows": "\n".join(mine_rows), "exposure_rows": "\n".join(exposure_rows), "chart_exposure": chart_exposure(trade),
+        "nb_mine": pct(mine["niobium"]["leader_share"]), "nb_trade": pct(nb["leader_share"]), "nb_trade_base": pct(nb["leader_share_base_year"]),
+        "nb_low": pct(nb["lowest_market_share"]), "nb_high": pct(nb["highest_market_share"]),
+        "nb_us": pct(nb["markets"]["United States"]["from_world_leader"]), "nb_cn": pct(nb["markets"]["China"]["from_world_leader"]),
+        "nb_cn_take": pct(nb["markets"]["China"]["share_of_world_trade"]),
+        "nb_capacity": f'{nbi["capacity_2025_t"]:,}', "nb_cap_br": pct(nbi["capacity_share_brazil"]), "nb_cap_ca": pct(nbi["capacity_share_canada"]),
+        "nb_producers": q(nbi["producers"]), "cbmm_cap": f'{nbi["cbmm_capacity_t_ferroniobium_equivalent"]:,}',
+        "cbmm_sales": f'{nbi["cbmm_sales_2025_t_ferroniobium_equivalent"]:,}', "cmoc_t": f'{nbi["cmoc_2025_t_niobium"]:,}',
+        "cbmm_quote": q(nbi["cbmm_capacity_quote"]), "nb_us_use": q(nbi["us_end_use"]), "nb_world_use": q(nbi["world_steel_share_2022"]),
+        "nb_recycling": q(nbi["recycling"]),
+        "v_mine": pct(mine["vanadium"]["leader_share"]), "v_trade_leader": fv["leader"], "v_trade": pct(fv["leader_share"]),
+        "v_coproduct": q(vi["usgs_coproduct"]), "v_slag": pct(vi["vanitec_split"]["steelmaking_slag"]), "v_primary": pct(vi["vanitec_split"]["primary_mines"]),
+        "v_secondary": pct(vi["vanitec_split"]["secondary"]), "v_us_use": q(vi["us_use"]), "v_sub": q(vi["substitution"]), "v_sub_time": q(vi["substitution_time"]),
+        "v_inter": q(vi["usgs_interchangeable"]),
+        "cr_mine": pct(mine["chromium"]["leader_share"]), "cr_ore_trade": pct(co["leader_share"]), "cr_cn_ore": pct(cr["china_share_of_ore_imports"]),
+        "cr_cn_fe": pct(cr["china_ferrochrome_share_2023"]), "cr_cn_fe_2025": pct(cr["china_ferrochrome_share_2025_icda"]),
+        "cr_cn_fe_imports": f'{cr["china_ferrochrome_imports_t"] / 1e6:.1f}', "cr_fe_trade": pct(fc["leader_share"]),
+        "cr_jp": pct(fc["markets"]["Japan"]["largest_supplier_share"]), "cr_sa_change": cri["icda_south_africa_change_2025"].replace("-", "").replace("%", ""),
+        "ferrochrome_rows": "\n".join(ferrochrome_rows), "cr_use": q(cri["oecd_use"]), "cr_exports": q(cri["oecd_exports"]),
+        "cr_sub": q(cri["usgs_substitute"]), "cr_stainless": q(cri["stainless_minimum"]), "cr_recycling": q(cri["usgs_recycling"]),
+        "ni_mine": pct(ni["indonesia_mine_share"]), "ni_trade": pct(ni["indonesia_ferronickel_trade_share"]),
+        "ni_trade_base": pct(ni["indonesia_ferronickel_trade_share_base_year"]), "ni_cn_take": pct(ni["china_share_of_ferronickel_imports"]),
+        "ni_world": f'{ni["world_ferronickel_tonnes"] / 1e6:.1f}', "ni_world_base": f'{ni["world_ferronickel_tonnes_base_year"] / 1e6:.1f}',
+        "ni_cn": pct(fn["markets"]["China"]["from_world_leader"]), "ni_in": pct(fn["markets"]["India"]["from_world_leader"]),
+        "ni_eu": pct(fn["markets"]["European Union"]["from_world_leader"]),
+        "ni_stainless": pct(use["Stainless steel"]), "ni_batteries": pct(use["Batteries"]), "ni_us_use": q(nii["us_use"]),
+        "ni_refined": q(nii["oecd_refined"]), "ni_ban": q(nii["oecd_ban"]), "ni_recycling": q(nii["us_recycling"]),
+        "mn_mine": pct(mine["manganese"]["leader_share"]), "mn_second": f'{mine["manganese"]["second"]} {pct(mine["manganese"]["second_share"])}',
+        "mn_sub": q(om["manganese_substitute"]), "mo_mine": pct(mine["molybdenum"]["leader_share"]), "mo_sub": q(om["molybdenum_substitute"]),
+        "mo_recycling": q(om["molybdenum_recycling"]), "nb_sub": q(om["niobium_substitute"]), "nb_sub_caveat": q(om["niobium_substitute_caveat"]),
+        "grade_rows": "\n".join(grade_rows), "a572_scope": q(gr["a572_scope"]), "micro_lo": f'{gr["microalloy_range_pct"][0]:g}', "micro_hi": f'{gr["microalloy_range_pct"][1]:g}',
+        "micro_g_lo": f'{gr["microalloy_range_pct"][0] * 10000:.0f}', "micro_g_hi": f'{gr["microalloy_range_pct"][1] * 10000:.0f}',
+        "grades_count": q(gr["grades_count"]),
+        "ore_au": pct(bi_r["australia_share_of_iron_ore_output"]), "ore_br": pct(bi_r["brazil_share_of_iron_ore_output"]),
+        "ore_x_au": pct(ore_t["exporter_shares"]["Australia"]), "ore_x_br": pct(ore_t["exporter_shares"]["Brazil"]), "ore_m_cn": pct(ore_t["china_import_share"]),
+        "ore_two": pct(bi_r["top_two_share_of_iron_ore_exports"]), "coal_au": pct(bi_r["australia_share_of_met_coal_exports"]),
+        "coal_au_mt": coal["Australia"], "coal_total": coal["Total"], "coal_ru": coal["Russia"], "coal_us": coal["United States"], "coal_mn": coal["Mongolia"],
+        "scrap": q(bi["scrap_restrictions"]),
+        "rev_v_old_t": f'{inputs["revisions_of_2024"]["vanadium_china"]["mcs2025"]:,}', "rev_v_new_t": f'{inputs["revisions_of_2024"]["vanadium_china"]["mcs2026"]:,}',
+        "rev_cr_old_t": f'{inputs["revisions_of_2024"]["chromium_south_africa"]["mcs2025"] / 1000:.1f}',
+        "rev_cr_new_t": f'{inputs["revisions_of_2024"]["chromium_south_africa"]["mcs2026"] / 1000:.1f}',
+        "trade_rows": "\n".join(trade_rows), "value_year": tyear,
+        "in_t": f'{nd["india_tonnes"]:,}', "in_hubs": pct(nd["india_via_hubs"]), "in_base": pct(nd["india_largest_share_base_year"]),
+        "nb_hubs": pct(nd["hub_share_of_world_exports"]), "fv_1": f"{fv_top[0][0]} ({pct(fv_top[0][1])})", "fv_2": f"{fv_top[1][0]} ({pct(fv_top[1][1])})",
+        "fv_3": f"{fv_top[2][0]} ({pct(fv_top[2][1])})", "mo_trade_leader": trade["ferromolybdenum"]["leader"], "mo_trade": pct(trade["ferromolybdenum"]["leader_share"]),
+        "cr_sa_x": f'{cr["south_africa_ore_exports_t"] / 1e6:.1f}', "cr_sa_out": f'{cr["south_africa_ore_output_kt"] / 1000:.1f}',
+        "cr_icda_sa": pct(cr["icda_south_africa_ore_share_2025"]), "cr_icda_total": f'{cr["icda_ore_total_2025_kt"] / 1000:.0f}',
+        "cr_restrictions": q(cri["oecd_restrictions"]), "cr_potential": q(cri["usgs_potential"]),
+        "nb_myb_world": f'{nbi["yearbook_2022_t_niobium"]["world"]:,}', "nb_myb_brazil": f'{nbi["yearbook_2022_t_niobium"]["brazil"]:,}',
+        "taboca_t": f'{nbi["third_brazilian_producer_2022_t_gross"]:,}',
+        "coal2_world": coal2["World"], "coal2_mn": coal2["Mongolia"], "coal2_ru": coal2["Russia"],
+        "references": "\n".join(f'    <li><a href="{escape(s["url"], quote=True)}">{escape(s["title"])}</a> · {escape(s["vintage"])}</li>' for s in src.values()),
+    }
+    labels = {"mcs_niobium": "USGS, niobium, 2026 edition", "mcs_vanadium": "USGS, vanadium, 2026 edition", "mcs_chromium": "USGS, chromium, 2026 edition",
+              "mcs_manganese": "USGS, manganese, 2026 edition", "mcs_nickel": "USGS, nickel, 2026 edition", "mcs_molybdenum": "USGS, molybdenum, 2026 edition",
+              "mcs_iron_ore": "USGS, iron ore, 2026 edition", "mcs2025_vanadium": "USGS, vanadium, 2025 edition", "mcs2025_chromium": "USGS, chromium, 2025 edition",
+              "outlook": "USGS World Minerals Outlook, November 2026", "myb_niobium": "USGS Minerals Yearbook 2022, niobium",
+              "myb_chromium": "USGS Minerals Yearbook 2023, chromium", "myb_vanadium": "USGS Minerals Yearbook 2023, vanadium",
+              "pp1802u": "USGS Professional Paper 1802-U", "cbmm": "CBMM, 2025 Sustainability Report", "cmoc": "CMOC, 2025 Annual Report",
+              "icda": "International Chromium Development Association", "vanitec": "Vanitec", "oecd_outlook": "OECD Steel Outlook 2026",
+              "nickel_institute": "Nickel Institute, 2025", "req": "Australian Government, Resources and Energy Quarterly, September 2026",
+              "nrcan": "Natural Resources Canada, Coal facts", "worldsteel_grades": "World Steel Association", "worldstainless": "worldstainless",
+              "astm_a572": "ASTM A572/A572M", "baker": "Baker (2015)", "wco_ch72": "WCO, HS 2017, Chapter 72", "wco_ch26": "WCO, HS 2017, Chapter 26",
+              "wco_ch27": "WCO, HS 2017, Chapter 27", "baci": "CEPII BACI V202601"}
+    values.update({"s_" + k: link(src, k, v) for k, v in labels.items()})
+    return Template(TEMPLATE.read_text(encoding="utf-8")).substitute(values)
+
+
+def build():
+    inputs = load(INPUTS)
+    results = evaluate(inputs)
+    m, t = results["mine_2024"], results["trade_by_weight"]
+    data = {
+        "title": "Steel alloying metals", "h1": TITLE, "deck": DECK, "published": True, "version": inputs["version"],
+        "chokepoint": {
+            "product": "Steel alloying metals", "stage": "Niobium mining", "mechanism": "geological",
+            "physics": "Two companies in Brazil and one in Canada produce nearly all niobium. Most of it goes into steel, at a few hundred grams per tonne",
+            "holder": "Brazil",
+            "share": (f'{pct(m["niobium"]["leader_share"])} of niobium mined (2024); Brazil supplied {pct(t["ferroniobium"]["lowest_market_share"])} to '
+                      f'{pct(t["ferroniobium"]["highest_market_share"])} of ferroniobium imports in six large markets'),
+            # "estimate" until the source ledger carries the quoted USGS row; the basis note gives it
+            "control": "—", "conf": "estimate",
+        },
+        "sources": inputs["sources"],
+        "inputs": {k: inputs[k] for k in inputs if k not in ("sources", "version", "note")},
+        "results": results,
+    }
+    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    ARTICLE.write_text(render(inputs, results), encoding="utf-8", newline="\n")
+    print("wrote steel_chain.json and steel-alloys-chain.html: Brazil %s of niobium mined, %s of ferroniobium trade; Indonesia %s of ferronickel trade (2024)"
+          % (pct(m["niobium"]["leader_share"]), pct(t["ferroniobium"]["leader_share"]), pct(t["ferronickel"]["leader_share"])))
+
+
+if __name__ == "__main__":
+    build()

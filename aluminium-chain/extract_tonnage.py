@@ -2,7 +2,8 @@
 
 extract_baci.py gives shares by value for the page's trade table. This script gives the same trade by
 weight, stage by stage, because the study compares tonnes traded with tonnes produced. It also follows
-Guinea's bauxite exports, China's bauxite imports and Indonesia's exports through the years.
+Guinea's bauxite exports, China's bauxite imports and Indonesia's and Brazil's exports through the years,
+and records where each smelting country's bauxite and alumina imports come from in selected years.
 
 Reads BACI only through baci.py. No network access. Run from the repository root:
     python aluminium-chain/extract_tonnage.py
@@ -26,7 +27,11 @@ STAGES = {
               "codes": ["760410", "760421", "760429", "760511", "760519", "760521", "760529", "760611", "760612",
                         "760691", "760692", "760711", "760719", "760720", "760810", "760820"]},
 }
-GUINEA, CHINA, INDONESIA = 324, 156, 360
+GUINEA, CHINA, INDONESIA, BRAZIL, EMIRATES = 324, 156, 360, 76, 784
+PARTNER_YEARS = (2017, 2018, 2019, 2024)
+# The twelve smelting countries USGS lists by name, and six more whose smelters import all their alumina.
+PARTNER_COUNTRIES = ("China", "India", "Russia", "Canada", "United Arab Emirates", "Bahrain", "Australia", "Norway", "Brazil",
+                     "Malaysia", "Iceland", "United States", "South Africa", "Mozambique", "Qatar", "Oman", "New Zealand", "Argentina")
 PLAIN = {"Russian Federation": "Russia", "USA": "United States", "Rep. of Korea": "South Korea",
          "Lao People's Dem. Rep.": "Laos", "Türkiye": "Turkey", "Viet Nam": "Vietnam"}
 
@@ -37,7 +42,10 @@ def main():
     out = {"source": "CEPII BACI V202601, based on UN Comtrade", "unit": "tonnes (customs net weight)",
            "nomenclature": {str(y): baci.nomenclature(y) for y in YEARS},
            "stages": {k: {"label": v["label"], "codes": v["codes"]} for k, v in STAGES.items()},
-           "series": {k: [] for k in STAGES}, "latest": {}}
+           "series": {k: [] for k in STAGES}, "latest": {}, "partners": {}}
+    code_of = {v: k for k, v in names.items()}
+    if names[BRAZIL] != "Brazil" or names[EMIRATES] != "United Arab Emirates":
+        raise SystemExit("country codes for Brazil or the United Arab Emirates have changed")
     for year in YEARS:
         df = baci.year(year, codes=all_codes)
         for key, stage in STAGES.items():
@@ -53,10 +61,22 @@ def main():
                 "leading_exporter": names[int(ex.index[0])], "leading_exporter_share": round(float(ex.iloc[0] / total), 4),
                 "china_exports": round(float(ex.get(CHINA, 0.0))), "china_imports": round(float(im.get(CHINA, 0.0))),
                 "guinea_exports": round(float(ex.get(GUINEA, 0.0))), "indonesia_exports": round(float(ex.get(INDONESIA, 0.0))),
+                "brazil_exports": round(float(ex.get(BRAZIL, 0.0))),
             }
             if key == "bauxite":
                 rec["guinea_to_china"] = round(float(d[(d["i"] == GUINEA) & (d["j"] == CHINA)]["q"].sum()))
+                rec["guinea_to_emirates"] = round(float(d[(d["i"] == GUINEA) & (d["j"] == EMIRATES)]["q"].sum()))
             out["series"][key].append(rec)
+            if year in PARTNER_YEARS and key in ("bauxite", "alumina"):
+                block = {}
+                for country in PARTNER_COUNTRIES:
+                    code = code_of[country]
+                    sup = d[d["j"] == code].groupby("i")["q"].sum().sort_values(ascending=False)
+                    got = float(sup.sum())
+                    block[country] = {"imports": round(got), "exports": round(float(d[d["i"] == code]["q"].sum())),
+                                      "suppliers": [{"name": names[int(k)], "tonnes": round(float(v)), "share": round(float(v / got), 4)}
+                                                    for k, v in sup.head(5).items()] if got else []}
+                out["partners"].setdefault(str(year), {})[key] = block
             if year == YEARS[-1]:
                 out["latest"][key] = {
                     "year": year,

@@ -4,7 +4,7 @@ The [research note](defence-chain.html) compares public production,
 import-origin and trade evidence. The [claim register](PRODUCTION.md) pins the
 prior release and records the audit and remaining gaps.
 
-Run `python defence-chain/record_defence.py` from the repository root.
+Run `python defence-chain/record_defence.py` from the repository root. It also reads `pathway_inputs.json`: the documented uses, sourcing law, supplier evidence, evidence grades, USGS country rows and stockpile figures for the five materials, each with its source link. The builder stops if a grade is missing, if a source key is not in the list, or if the country rows do not add to the published world total within 2%.
 The builder uses the static template, the frozen BACI extract, the Atlas BGS
 mine series, the existing export-controls series and the magnet study's
 Comext audit. It writes the article, the evidence JSON and

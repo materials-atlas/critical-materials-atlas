@@ -59,6 +59,30 @@ $history_rows
   <p><strong>EU magnet imports.</strong> For CN 85051110 in 2024, China accounted for <strong>$magnet_mass by mass</strong> ($magnet_china_kg of $magnet_total_kg kg) and <strong>$magnet_value by value</strong> of extra-EU imports. The code covers metal permanent magnets and magnet blanks containing specified rare earths, including neodymium, praseodymium, dysprosium or samarium. Its scope differs from the IEA’s sintered magnet production series. It groups several chemistries and serves many end uses. $comext <a href="../magnet-chain/magnet-chain">Atlas magnet study</a>.</p>
   <p><strong>US antimony market.</strong> USGS estimates net import reliance at $import_reliance of apparent consumption in 2025. The numerator is imports minus exports of oxide and unwrought metal or powder. This measures the market’s reliance on imports from all sources. It gives no defence procurement share. The public USGS stockpile table lists potential transactions. Estimating coverage would require data on usable inventories and the rate of consumption. $mcs_antimony</p>
 
+  <h2 id="pathways">What public sources document, material by material</h2>
+  <p class="byline">Added 25 November 2026</p>
+  <p>The production shares above say nothing about military use. This section sets out, for each material, what official sources say about three separate things: whether a military use is documented, whether Chinese supply has been observed inside a defence supply chain, and how much the defence sector uses. Each is graded on the scale below. The grades are editorial judgements made in this review. They describe the evidence and are not risk scores.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Evidence grades">
+    <table>
+      <caption>The four evidence grades used in the next table.</caption>
+      <thead><tr><th scope="col">Grade</th><th scope="col">Name</th><th scope="col">Meaning</th></tr></thead>
+      <tbody>
+$grade_rows
+      </tbody>
+    </table>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Evidence by material">
+    <table>
+      <caption>What official sources document for each material, with a grade for each of three questions. Quotations are from the linked documents.</caption>
+      <thead><tr><th scope="col">Material</th><th scope="col">Uses documented</th><th scope="col">US sourcing law and NATO list</th><th scope="col">Chinese supply seen in a defence supply chain</th><th scope="col">Grade: military use</th><th scope="col">Grade: Chinese supply observed</th><th scope="col">Grade: quantity used by defence</th></tr></thead>
+      <tbody>
+$pathway_rows
+      </tbody>
+    </table>
+  </div>
+  <p>All five materials have a documented military use. None of these links is graded above B: official sources name the uses, and none gives the defence sector's purchases by supplier. Chinese supply inside a defence supply chain is on public record in two cases. One is antimony trisulfide, where the only qualified source was in China when the US government funded the qualification of another in fiscal 2020. The other is the magnets found on the F-35. Antimony is absent from the sourcing statute and from the NATO list, though it is in the stockpile purchase plan, which gallium and germanium are not. For gallium, germanium and tungsten no supplier relationship is public. That is an absence of evidence. It does not show that those supply chains contain no Chinese material.</p>
+  <p>The same limit applies to the buyer. The US Government Accountability Office reported in July 2025 that defence officials “cannot use FPDS to determine where components of goods that DOD procures are produced”, FPDS being the federal procurement database. For the F-35 parts they had mapped, officials had country-of-origin information “on less than 10 percent of all suppliers that provide components and raw materials”. In 2024 the same office reported, of rare earths, that the department “has not yet determined how much total domestic capacity it needs to create in the long term to meet defense-related demand”. $pw_gao_suppliers $pw_gao_materials</p>
+
   <h2>What happened around the antimony controls?</h2>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Dates and scope of export controls">
     <table>
@@ -89,6 +113,33 @@ $episode_rows
   </figure>
   <p>The two windows are descriptive. EU imports from China and total US imports were already falling before the announcement. The December US-specific measures overlap the later window. The records support a fall in direct imports from China and different changes in the two observed market totals. They leave demand, stocks, the causes of the changes and military end use unresolved.</p>
   <p><strong>Price reports.</strong> USGS lists annual antimony metal benchmark averages of $price_2024 and $price_2025 per pound for 2024 and 2025, respectively, in its February 2026 edition. The November outlook gives approximate annual averages of $outlook_2024 and $outlook_2025 and an end-April 2026 spot observation of about $april_spot per pound. The annual figures come from different publications and the spot quote is a point in time. $mcs_antimony $outlook</p>
+
+  <h2 id="replacement">What could replace Chinese supply</h2>
+  <p class="byline">Added 25 November 2026</p>
+  <p>Three things bear on how fast a buyer could do without Chinese material: who else produces it, what can be used in its place, and what stock or new capacity exists. US law adds a constraint. The sourcing statute names four nations, China, Russia, North Korea and Iran. For the materials it covers, supply from the other three is barred as well, subject to waivers and to exceptions that include commercial off-the-shelf items and electronic devices. Until 2027 the bar applies to where a material is melted or produced. The table below is mine output, which the statute reaches from 1 January 2027. $pw_law $pw_pl</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Supply outside China and the other named nations">
+    <table>
+      <caption>Production by group of countries, tonnes, USGS estimates. The total is the sum of the rows USGS lists and can differ slightly from its rounded world total. “Other named nations” are Russia, North Korea and Iran.</caption>
+      <thead><tr><th scope="col">Material and stage</th><th scope="col" class="n">Total</th><th scope="col" class="n">China</th><th scope="col" class="n">Other named nations</th><th scope="col" class="n">All other countries</th><th scope="col" class="n">Their share</th><th scope="col" class="n">Largest of them</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+$supply_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Outside the four named nations, mines produced $sb_rest_share of the world's antimony in 2025, $w_rest_share of its tungsten and $re_rest_share of its rare earths, on USGS estimates. For gallium the share is under 1%. The statute does not cover antimony, but the grouping is still informative for it: $sb_outside_china tonnes were mined outside China, and $sb_ru tonnes of that in Russia. The largest remaining producer is Tajikistan, with $sb_tj tonnes. The rare-earth row is mine output and says nothing about who can make magnets, and $re_estimated tonnes of its other countries' output is estimated by USGS from China's import data. $germanium_note</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Substitutes, stockpile plan and announced capacity">
+    <table>
+      <caption>Substitutes, the US stockpile plan for fiscal 2025, and capacity outside China. Company statements are marked. The fiscal 2025 plan ended on 30 September 2025 and the plan for fiscal 2026 was not released.</caption>
+      <thead><tr><th scope="col">Material</th><th scope="col">Substitutes and recycling</th><th scope="col">Stockpile plan</th><th scope="col">Capacity outside China</th></tr></thead>
+      <tbody>
+$replace_rows
+      </tbody>
+    </table>
+  </div>
+  <p><span class="conf estimate">Modelled</span> The fiscal 2025 purchase ceiling for antimony, $sb_ceiling tonnes, equals about $sb_days days of US apparent consumption in 2024, which was $sb_cons tonnes, and about $sb_days_2025 days on the estimate of $sb_cons_2025 tonnes for 2025. The plan states a ceiling for purchases. The quantity held is not in the sources read. No source read gives the time needed to qualify a new supplier of any of the five materials. The Government Accountability Office reports that, according to officials, funding a company's qualification application costs between USD 250,000 and 3 million depending on the material. $pw_dla $pw_gao_stockpile</p>
+
+  <h3 id="adjustment">How the two antimony markets adjusted</h3>
+  <p>The import record above is the one place on this page where an adjustment can be observed. In the EU series, imports from China fell by $eu_china tonnes a month between the two windows and imports from other origins rose by $eu_other tonnes. The total rose slightly, and the unit value of the basket rose about fourfold. In the US series imports from other origins fell as well, by $us_other tonnes a month, in addition to $us_china tonnes from China. That series covers a small part of the US market. It leaves out antimony oxide, which moved the other way: USGS gives US oxide imports of $sb_ox_2024 tonnes in 2024 and an estimated $sb_ox_2025 tonnes in 2025, while imports of unwrought metal and powder went from $sb_un_2024 to $sb_un_2025 tonnes. For the metal, the record does not show whether US buyers could not obtain material, drew on stocks or used less. Neither series separates military from civil buyers. $pw_usgs_sb</p>
 
   <h2>What the evidence can support</h2>
   <p>Global shares show where production occurs. Import origins show where an importing market buys a customs category. Recovery is a separate question about usable supply, inventories and time. Public procurement data have limited coverage of material and lower-tier supplier origins, as documented by the US Government Accountability Office. The evidence supports the market findings above. Programme-specific exposure, stock coverage and production losses require separate evidence. $gao</p>

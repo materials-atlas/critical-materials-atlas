@@ -30,6 +30,84 @@ TABLE_COUNTRIES = ("China", "Guinea", "Australia", "Brazil", "India", "Russia", 
 SERIES_YEARS = (2005, 2010, 2015, 2020, 2022, 2024)
 DEFECT_YEAR = 2023
 
+NUMBER_WORDS = {5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
+RATIO_BAND = 0.10          # a row "fits" when its alumina per tonne of metal is within a tenth of the survey ratio
+CHEMICAL_MINIMUM = 101.96 / 53.96   # tonnes of alumina (Al2O3) that contain one tonne of aluminium, from atomic weights
+EXTRA_SMELTERS = ("South Africa", "Mozambique", "New Zealand", "Qatar", "Argentina", "Oman")
+NAVY, TEAL, AMBER, GREY, INK, MUT, RULE = "#15323a", "#0e7c74", "#b7791f", "#aab5ba", "#1a1f24", "#667179", "#e6e9e8"
+FONT = "font-family:Inter,system-ui,Segoe UI,Arial,sans-serif"
+
+
+def the(name):
+    return "the " + name if name.startswith("United") else name
+
+
+def listing(items):
+    items = list(items)
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
+def _bar(x, y, w, h, fill, tip, r=3):
+    """A horizontal bar with a square start on the baseline and a rounded data end."""
+    w = max(w, 1.0)
+    r = min(r, w / 2, h / 2)
+    d = f"M{x:.1f} {y:.1f}h{w - r:.1f}a{r} {r} 0 0 1 {r} {r}v{h - 2 * r:.1f}a{r} {r} 0 0 1 -{r} {r}h-{w - r:.1f}z"
+    return f'<path d="{d}" fill="{fill}"><title>{escape(tip)}</title></path>'
+
+
+def chart_concentration(prod, trade):
+    """Production and export concentration at each stage: two bars per stage, values printed at the bar ends."""
+    left, plot, bar, top, step = 84, 300, 16, 40, 56
+    scale = plot / 6000
+    out = [f'<svg viewBox="0 0 520 {top + 3 * step + 22}" role="img" aria-label="Concentration of production and of exports at each stage, 2024" style="{FONT};font-size:12.5px">',
+           f'<rect x="{left}" y="8" width="12" height="12" fill="{NAVY}"/><text x="{left + 18}" y="18" fill="{INK}">Production</text>',
+           f'<rect x="{left + 104}" y="8" width="12" height="12" fill="{TEAL}"/><text x="{left + 122}" y="18" fill="{INK}">Exports, by weight</text>']
+    for tick in (0, 2000, 4000, 6000):
+        x = left + tick * scale
+        out.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="{top - 8}" y2="{top + 3 * step - 14}" stroke="{RULE}"/>'
+                   f'<text x="{x:.1f}" y="{top + 3 * step + 4}" fill="{MUT}" text-anchor="middle" font-size="11">{tick:,}</text>')
+    for i, s in enumerate(STAGES):
+        y = top + i * step
+        name = STAGE_LABEL[s].split(" (")[0]
+        mid = sum(prod[s]["hhi"]) / 2
+        low, high = prod[s]["hhi"]
+        out.append(f'<text x="{left - 8}" y="{y + bar + 5}" fill="{INK}" text-anchor="end">{name}</text>')
+        out.append(_bar(left, y, mid * scale, bar, NAVY, f"{name}, production: {low:,} to {high:,}"))
+        out.append(f'<text x="{left + mid * scale + 6:.1f}" y="{y + 12}" fill="{INK}">{low:,} to {high:,}</text>')
+        ex = trade[s]["export_hhi"]
+        out.append(_bar(left, y + bar + 2, ex * scale, bar, TEAL, f"{name}, exports: {ex:,}"))
+        out.append(f'<text x="{left + ex * scale + 6:.1f}" y="{y + bar + 14}" fill="{INK}">{ex:,}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def chart_origin(rows):
+    """Where each smelting country's alumina comes from: one stacked bar per country, shares of home output plus imports."""
+    keys = (("home", "Refined at home", NAVY, "#fff"), ("Australia", "From Australia", TEAL, "#fff"),
+            ("Brazil", "From Brazil", AMBER, "#fff"), ("other", "Other imports", GREY, INK))
+    left, plot, bar, top, step = 132, 372, 17, 34, 25
+    rows = sorted(rows, key=lambda r: (-r["origin"]["home"], -r["origin"]["Australia"]))
+    out = [f'<svg viewBox="0 0 520 {top + len(rows) * step + 6}" role="img" aria-label="Sources of alumina for the twelve named smelting countries, 2024" style="{FONT};font-size:12.5px">']
+    x = 4
+    for _, label, fill, _ in keys:
+        out.append(f'<rect x="{x}" y="6" width="12" height="12" fill="{fill}"/><text x="{x + 17}" y="16" fill="{INK}">{label}</text>')
+        x += 17 + 7.2 * len(label) + 16
+    for i, r in enumerate(rows):
+        y = top + i * step
+        out.append(f'<text x="{left - 8}" y="{y + 13}" fill="{INK}" text-anchor="end">{escape(r["country"])}</text>')
+        at = left
+        for key, label, fill, ink in keys:
+            w = r["origin"][key] * plot
+            if w < 0.5:
+                continue
+            tip = f'{r["country"]}: {label.lower()}, {r["origin"][key]:.0%}'
+            out.append(f'<rect x="{at:.1f}" y="{y}" width="{max(w - 2, 0.5):.1f}" height="{bar}" fill="{fill}"><title>{escape(tip)}</title></rect>')
+            if w >= 34:
+                out.append(f'<text x="{at + (w - 2) / 2:.1f}" y="{y + 13}" fill="{ink}" text-anchor="middle" font-size="11.5">{r["origin"][key]:.0%}</text>')
+            at += w
+    out.append("</svg>")
+    return "".join(out)
+
 
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -150,6 +228,91 @@ def evaluate(inputs):
     al = usgs["aluminium"]
     utilisation = {k: al[k]["y2024"] / al[k]["capacity_2024"] for k in ("China", "World", "United States", "Other countries")}
 
+    survey = iai["lci_2019"]["alumina_per_aluminium"]
+    partners = tonnage["partners"]
+    now, then = partners[str(year)]["alumina"], partners["2019"]["alumina"]
+    smelters = []
+    for country, v in al.items():
+        if country in ("World", "Other countries"):
+            continue
+        home = usgs["alumina"].get(country, {}).get("y2024")
+        rec, old = now[country], then[country]
+        imports, exports = rec["imports"] / 1000, rec["exports"] / 1000
+        gross = (home or 0) + imports
+        by = {s["name"]: s["tonnes"] / 1000 for s in rec["suppliers"]}
+        origin = {"home": (home or 0) / gross, "Australia": by.get("Australia", 0) / gross, "Brazil": by.get("Brazil", 0) / gross}
+        origin["other"] = 1 - sum(origin.values())
+        smelters.append({
+            "country": country, "metal_kt": v["y2024"], "home_alumina_kt": home, "imports_kt": imports, "exports_kt": exports,
+            "available_per_tonne": (gross - exports) / v["y2024"], "import_share": imports / gross, "origin": origin,
+            "suppliers": [(s["name"], s["share"]) for s in rec["suppliers"]],
+            "suppliers_2019": [(s["name"], s["share"]) for s in old["suppliers"]]})
+    outside = [s for s in smelters if s["country"] != "China"]
+    major = [s for s in outside if s["import_share"] > 0.5]
+    outside_china_kt = al["World"]["y2024"] - al["China"]["y2024"]
+    alumina_supply = {
+        "rows": smelters, "survey_ratio": survey,
+        "import_majority": [s["country"] for s in major], "import_majority_metal_kt": sum(s["metal_kt"] for s in major),
+        "import_majority_share_of_output_outside_china": sum(s["metal_kt"] for s in major) / outside_china_kt,
+        "no_alumina_output_listed": [s["country"] for s in outside if s["home_alumina_kt"] is None],
+        "single_supplier": [(s["country"], s["suppliers"][0][0], s["suppliers"][0][1]) for s in major if s["suppliers"][0][1] >= 0.7],
+        "ratio_out_of_line": sorted(s["country"] for s in smelters if abs(s["available_per_tonne"] / survey - 1) > RATIO_BAND),
+        "below_chemical_minimum": [(s["country"], s["available_per_tonne"]) for s in smelters if s["available_per_tonne"] < CHEMICAL_MINIMUM],
+        "chemical_minimum": CHEMICAL_MINIMUM,
+        "australia_share_of_imports": {c: next((x["share"] for x in now[c]["suppliers"] if x["name"] == "Australia"), 0.0) for c in EXTRA_SMELTERS},
+    }
+    emirates = {"guinea_to_emirates_mt": {str(y): series["bauxite"][y]["guinea_to_emirates"] / 1e6 for y in (2022, 2023, year)},
+                "bauxite_imports_mt": partners[str(year)]["bauxite"]["United Arab Emirates"]["imports"] / 1e6,
+                "bauxite_needed_at_usgs_rule_mt": usgs["rule_of_thumb"]["bauxite_per_alumina"] * usgs["alumina"]["United Arab Emirates"]["y2024"] / 1000}
+
+    ev, p17, p18 = inputs["brazil_2018"], partners["2017"]["alumina"], partners["2018"]["alumina"]
+
+    def brazil(block, country):
+        return next((x["tonnes"] for x in block[country]["suppliers"] if x["name"] == "Brazil"), 0) / 1e6
+
+    def importer(country):
+        a, b_, c, d = p17[country]["imports"] / 1e6, p18[country]["imports"] / 1e6, brazil(p17, country), brazil(p18, country)
+        return {"imports_2017_mt": a, "imports_2018_mt": b_, "from_brazil_2017_mt": c, "from_brazil_2018_mt": d,
+                "from_others_2017_mt": a - c, "from_others_2018_mt": b_ - d}
+
+    bx_al = ev["usgs_alumina_kt"]
+    interruption = {"brazil_exports_mt": {str(y): series["alumina"][y]["brazil_exports"] / 1e6 for y in (2017, 2018, 2019, 2020)},
+                    "output_fall_kt": bx_al["brazil_2017"] - bx_al["brazil_2018"],
+                    "output_fall_share_of_world": (bx_al["brazil_2017"] - bx_al["brazil_2018"]) / bx_al["world_2017"],
+                    "norway": importer("Norway"), "canada": importer("Canada"),
+                    "brazil_metal_fall": 1 - ev["usgs_primary_aluminium_kt"]["brazil_2018"] / ev["usgs_primary_aluminium_kt"]["brazil_2017"]}
+    interruption["export_fall_share"] = 1 - interruption["brazil_exports_mt"]["2018"] / interruption["brazil_exports_mt"]["2017"]
+
+    st, gr = inputs["stocks"], inputs["grades"]
+    stocks = {
+        "china_bauxite_ports_months_of_2024_imports": st["china_bauxite_ports"]["mt"] / (b["china_imports"] / 1e6) * 12,
+        "china_bauxite_ports_over_quarter_cut": st["china_bauxite_ports"]["mt"] * 1000 / screen[0]["bauxite_kt"],
+        "china_alumina_days_of_2024_output": st["china_alumina_total"]["mt"] * 1000 / usgs["alumina"]["China"]["y2024"] * 365,
+        "exchange_aluminium_t": st["shfe_aluminium"]["t"] + st["lme_aluminium"]["t"],
+        "exchange_aluminium_days_of_2024_world_output": (st["shfe_aluminium"]["t"] + st["lme_aluminium"]["t"]) / 1000 / al["World"]["y2024"] * 365,
+    }
+    available = [g for g in gr["rows"] if g["basis"] == "available" and g["source"] == "alcoa_10k_2025"]   # one company, one basis
+    grades = {"lowest": min(gr["rows"], key=lambda g: g["al2o3_pct"]), "highest": max(gr["rows"], key=lambda g: g["al2o3_pct"]),
+              "available_low": min(available, key=lambda g: g["al2o3_pct"]), "available_high": max(available, key=lambda g: g["al2o3_pct"])}
+    grades["available_low_over_high"] = grades["available_low"]["al2o3_pct"] / grades["available_high"]["al2o3_pct"]
+    gq = gr["guinea_exports_q1_2025"]
+    if abs(sum(gq["moisture_pct"].values()) / len(gq["moisture_pct"]) - gq["moisture_average_printed_pct"]) > 0.02:
+        raise SystemExit("the Guinean moisture rows do not reproduce the printed average")
+    grades["guinea_exports"] = {"alumina_low": min(gq["alumina_pct"].values()), "alumina_high": max(gq["alumina_pct"].values()),
+                                "companies_with_alumina": len(gq["alumina_pct"]), "moisture_low": min(gq["moisture_pct"].values()),
+                                "moisture_high": max(gq["moisture_pct"].values()), "moisture_average": gq["moisture_average_printed_pct"],
+                                "usgs_wet_dry_gap": 1 - inputs["guinea"]["usgs_yearbook_2024_dry_tonnes"] / 1000 / inputs["guinea"]["usgs_yearbook_2024_wet_kt"]}
+    gq1 = st["guinea_exports_q1_t"]
+    stocks["guinea_q1_2025_exports_mt"] = gq1["2025"] / 1e6
+    stocks["guinea_q1_2024_exports_mt"] = gq1["2024"] / 1e6
+    china_room = {"ceiling_mt": inputs["restarts"]["china_ceiling_mt"], "capacity_2025_kt": al["China"]["capacity_2025"], "output_2025_kt": al["China"]["y2025"]}
+    capacity = [{"country": k, "output_kt": v["y2024"], "capacity_kt": v["capacity_2024"],
+                 "unused_kt": max(v["capacity_2024"] - v["y2024"], 0), "use": v["y2024"] / v["capacity_2024"]} for k, v in al.items()]
+    unused = {c["country"]: c["unused_kt"] for c in capacity}
+    spare = {"rows": capacity, "world_kt": unused["World"], "china_kt": unused["China"], "outside_china_kt": unused["World"] - unused["China"],
+             "outside_china_share_of_output": (unused["World"] - unused["China"]) / outside_china_kt,
+             "unnamed_countries_kt": unused["Other countries"], "united_states_kt": unused["United States"]}
+
     old = inputs["usgs_mcs2025_estimates_for_2024"]["bauxite"]
     revision = {"guinea_share_2025_edition": old["Guinea"] / old["World"],
                 "guinea_share_2026_edition": production["bauxite"]["shares"]["Guinea"],
@@ -191,6 +354,34 @@ def evaluate(inputs):
         (max(v for k, v in production["alumina"]["shares"].items() if k not in ("China", "Other countries")) < 0.13
          and max(v for k, v in production["aluminium"]["shares"].items() if k not in ("China", "Other countries")) < 0.06,
          "another country now reaches 13% of alumina or 6% of primary aluminium"),
+        (len(major) in NUMBER_WORDS and len(outside) == 11, "the count of import-dependent smelting countries has no word, or the list is no longer eleven"),
+        ([n for n, _ in next(s for s in smelters if s["country"] == "Russia")["suppliers_2019"][:2]] == ["Ukraine", "Australia"]
+         and not {"Ukraine", "Australia"} & {n for n, _ in next(s for s in smelters if s["country"] == "Russia")["suppliers"]}
+         and [n for n, _ in next(s for s in smelters if s["country"] == "Russia")["suppliers"][:2]] == ["China", "Indonesia"],
+         "Russia's alumina suppliers no longer read as the page states"),
+        (all(next(s for s in smelters if s["country"] == c)["suppliers_2019"][0][0] == "Australia"
+             and next(s for s in smelters if s["country"] == c)["suppliers"][0][0] == "Indonesia" for c in ("India", "Malaysia")),
+         "India's or Malaysia's largest alumina supplier no longer changed from Australia to Indonesia"),
+        (alumina_supply["ratio_out_of_line"] == ["Brazil", "Iceland", "United States"], "the list of rows that do not fit the survey ratio has changed"),
+        (("Bahrain", "Australia") in [(a, b_) for a, b_, _ in alumina_supply["single_supplier"]]
+         and ("Norway", "Brazil") in [(a, b_) for a, b_, _ in alumina_supply["single_supplier"]],
+         "Bahrain or Norway no longer takes at least 70% of its alumina imports from one country"),
+        (emirates["guinea_to_emirates_mt"][str(year)] == 0 and emirates["guinea_to_emirates_mt"]["2023"] > 5
+         and emirates["bauxite_imports_mt"] < 0.2 * emirates["bauxite_needed_at_usgs_rule_mt"],
+         "the bauxite record for the United Arab Emirates has changed: review the note on it"),
+        (abs(interruption["norway"]["imports_2018_mt"] / interruption["norway"]["imports_2017_mt"] - 1) < 0.03
+         and interruption["norway"]["from_brazil_2017_mt"] - interruption["norway"]["from_brazil_2018_mt"] > 0.3
+         and interruption["brazil_exports_mt"]["2020"] > 0.9 * interruption["brazil_exports_mt"]["2017"],
+         "the 2018 Brazilian interruption no longer reads as the page states"),
+        (spare["unnamed_countries_kt"] > 0.5 * spare["outside_china_kt"], "most unused capacity outside China is no longer in the unnamed countries"),
+        (0.8 < stocks["china_bauxite_ports_over_quarter_cut"] < 1.5 and screen[0]["fraction"] == 0.25,
+         "Chinese port stocks of bauxite are no longer of the same order as the ore removed in the first row of the screen"),
+        ([c for c, _ in alumina_supply["below_chemical_minimum"]] == ["Bahrain", "Malaysia"], "the rows below the chemical minimum have changed"),
+        (grades["available_low"]["deposit"] == "Darling Range" and grades["available_high"]["deposit"] == "Juruti", "the two grades compared are no longer the same pair"),
+        (abs(china_room["capacity_2025_kt"] / 1000 - china_room["ceiling_mt"]) < 0.5 and china_room["output_2025_kt"] >= 0.98 * china_room["capacity_2025_kt"],
+         "China's capacity or output is no longer at the reported ceiling"),
+        (grades["available_low"]["country"] == "Australia" and grades["available_high"]["country"] == "Brazil" and 0.5 < grades["available_low_over_high"] < 0.7,
+         "the ore grades no longer read as the page states"),
     ]
     for ok, message in checks:
         if not ok:
@@ -199,7 +390,8 @@ def evaluate(inputs):
     return {"trade_year": year, "production_2024": production, "trade_2024": trade, "semis_2024": semis, "china_bauxite_2024": china_bauxite,
             "bauxite_series": bx_series, "ratios_2024": ratios, "guinea_screen": screen, "energy_2025": energy,
             "capacity_utilisation_2024": utilisation, "revisions": revision, "recycled_share_of_metal_2024": recycled_share,
-            "cross_checks_2024": cross, "bauxite_2023_record": defect}
+            "cross_checks_2024": cross, "bauxite_2023_record": defect, "alumina_supply": alumina_supply, "emirates_bauxite": emirates,
+            "brazil_2018": interruption, "unused_capacity_2024": spare, "stocks": stocks, "ore_grades": grades, "china_capacity_limit": china_room}
 
 
 def link(sources, key, label=None):
@@ -286,6 +478,64 @@ def render(inputs, r):
     chk = inputs["trade_checks"]["australia_to_china"]
     g, indo = inputs["guinea"], inputs["indonesia"]
     ex = {s: {e["name"]: e["share"] for e in trade[s]["exporters"]} for s in STAGES}
+    al_t = usgs["aluminium"]
+
+    supply, emi, cut, spare = r["alumina_supply"], r["emirates_bauxite"], r["brazil_2018"], r["unused_capacity_2024"]
+    ev = inputs["brazil_2018"]
+
+    def lead(pairs, share):
+        return f"{pairs[0][0]} {pct(pairs[0][1])}" if share >= 0.1 else "—"
+
+    smelter_rows = [row(s["country"], [
+        f'{s["metal_kt"] / 1000:.2f}', "not listed" if s["home_alumina_kt"] is None else f'{s["home_alumina_kt"] / 1000:.2f}',
+        f'{s["imports_kt"] / 1000:.2f}', f'{s["exports_kt"] / 1000:.2f}', f'{s["available_per_tonne"]:.2f}', pct(s["import_share"]),
+        lead(s["suppliers"], s["import_share"]), lead(s["suppliers_2019"], s["import_share"])]) for s in supply["rows"]]
+    russia = next(s for s in supply["rows"] if s["country"] == "Russia")
+    united_states = next(s for s in supply["rows"] if s["country"] == "United States")
+    extra = sorted(supply["australia_share_of_imports"].items(), key=lambda kv: -kv[1])
+    capacity_rows = [row({"Other countries": "Countries not listed by name"}.get(c["country"], c["country"]), [
+        f'{c["output_kt"] / 1000:.2f}', f'{c["capacity_kt"] / 1000:.2f}', f'{c["unused_kt"] / 1000:.2f}', pct(c["use"])]) for c in spare["rows"]]
+    no, ca, kt = cut["norway"], cut["canada"], ev["usgs_primary_aluminium_kt"]
+    more = {
+        "chart_hhi": chart_concentration(prod, trade), "chart_origin": chart_origin(supply["rows"]),
+        "q_bx_prod": "{:,} to {:,}".format(*prod["bauxite"]["hhi"]), "q_al_prod": "{:,} to {:,}".format(*prod["aluminium"]["hhi"]),
+        "q_bx_ex": f'{trade["bauxite"]["export_hhi"]:,}', "q_al_ex": f'{trade["aluminium"]["export_hhi"]:,}',
+        "n_major": NUMBER_WORDS[len(supply["import_majority"])], "n_major_cap": NUMBER_WORDS[len(supply["import_majority"])].capitalize(),
+        "major_list": listing(the(c) for c in supply["import_majority"]),
+        "major_mt": mt(supply["import_majority_metal_kt"]), "major_share": pct(supply["import_majority_share_of_output_outside_china"]),
+        "no_home_list": listing(supply["no_alumina_output_listed"]),
+        "single_list": listing(f"{the(c)} ({s} {pct(v)})" for c, s, v in supply["single_supplier"]),
+        "extra_list": ("at least 99% of the alumina imported by " + listing(the(c) for c, v in extra if v >= 0.99) + ", "
+                       + listing(f"{pct(v)} of that imported by {the(c)}" for c, v in extra if v < 0.99)),
+        "survey_ratio": f'{supply["survey_ratio"]:.2f}', "smelter_rows": "\n".join(smelter_rows),
+        "ru_a": pct(russia["suppliers_2019"][0][1]), "ru_b": pct(russia["suppliers_2019"][1][1]),
+        "ru_c": pct(russia["suppliers"][0][1]), "ru_d": pct(russia["suppliers"][1][1]),
+        "off_list": listing(the(c) for c in supply["ratio_out_of_line"]), "us_ratio": f'{united_states["available_per_tonne"]:.1f}',
+        "us_to_smelters": pct(usgs["us_2025"]["alumina_share_to_smelters"]),
+        "ae_bx": f'{emi["bauxite_imports_mt"]:.1f}', "ae_gn_2023": f'{emi["guinea_to_emirates_mt"]["2023"]:.1f}',
+        "ae_gn_2022": f'{emi["guinea_to_emirates_mt"]["2022"]:.1f}', "ae_al2o3": mt(usgs["alumina"]["United Arab Emirates"]["y2024"]),
+        "ae_need": f'{emi["bauxite_needed_at_usgs_rule_mt"]:.1f}',
+        "br_cap": ev["refinery_capacity_mt"], "br_out17": mt(ev["usgs_alumina_kt"]["brazil_2017"]), "br_out18": mt(ev["usgs_alumina_kt"]["brazil_2018"]),
+        "br_fall_world": pct(cut["output_fall_share_of_world"]), "br_x17": f'{cut["brazil_exports_mt"]["2017"]:.1f}',
+        "br_x18": f'{cut["brazil_exports_mt"]["2018"]:.1f}', "br_x20": f'{cut["brazil_exports_mt"]["2020"]:.1f}', "br_x_fall": pct(cut["export_fall_share"]),
+        "no_m17": f'{no["imports_2017_mt"]:.2f}', "no_m18": f'{no["imports_2018_mt"]:.2f}',
+        "no_br_fall": f'{no["from_brazil_2017_mt"] - no["from_brazil_2018_mt"]:.2f}', "no_other_rise": f'{no["from_others_2018_mt"] - no["from_others_2017_mt"]:.2f}',
+        "no_al17": f'{kt["norway_2017"] / 1000:.2f}', "no_al18": f'{kt["norway_2018"] / 1000:.2f}',
+        "br_al17": f'{kt["brazil_2017"] / 1000:.2f}', "br_al18": f'{kt["brazil_2018"] / 1000:.2f}', "br_al_fall": pct(cut["brazil_metal_fall"]),
+        "low_list": listing(f"{c} ({v:.2f})" for c, v in supply["below_chemical_minimum"]), "chem_min": f'{supply["chemical_minimum"]:.2f}',
+        "us_usgs_imports": mt(usgs["us_2025"]["alumina_imports_2024_kt"], 2),
+        "us_baci_imports": f'{united_states["imports_kt"] / 1000:.2f}',
+        "ca_br_fall": f'{ca["from_brazil_2017_mt"] - ca["from_brazil_2018_mt"]:.2f}', "ca_fall": f'{ca["imports_2017_mt"] - ca["imports_2018_mt"]:.2f}',
+        "ca_al17": f'{kt["canada_2017"] / 1000:.2f}', "ca_al18": f'{kt["canada_2018"] / 1000:.2f}',
+        "capacity_rows": "\n".join(capacity_rows), "w_out": mt(al_t["World"]["y2024"]), "w_cap": mt(al_t["World"]["capacity_2024"]),
+        "w_unused": mt(spare["world_kt"]), "cn_unused": mt(spare["china_kt"]), "out_unused": mt(spare["outside_china_kt"]),
+        "out_unused_share": pct(spare["outside_china_share_of_output"]), "other_unused": mt(spare["unnamed_countries_kt"]),
+        "us_unused": mt(spare["united_states_kt"]),
+        "mcs19_bx": link(src, "mcs2019_bauxite", "USGS, bauxite and alumina, 2019 edition"),
+        "mcs20_bx": link(src, "mcs2020_bauxite", "USGS, bauxite and alumina, 2020 edition"),
+        "mcs19_al": link(src, "mcs2019_aluminum", "USGS, aluminum, 2019 edition"),
+        "mcs20_al": link(src, "mcs2020_aluminum", "USGS, aluminum, 2020 edition"),
+    }
     im = {s: {e["name"]: e["share"] for e in trade[s]["importers"]} for s in STAGES}
 
     values = {
@@ -370,6 +620,57 @@ def render(inputs, r):
         "references": "\n".join(f'    <li><a href="{escape(s["url"], quote=True)}">{escape(s["title"])}</a> · {escape(s["vintage"])}</li>'
                                 for s in src.values()),
     }
+    rs, st, gr, sk, gd = inputs["restarts"], inputs["stocks"], inputs["grades"], r["stocks"], r["ore_grades"]
+
+    def src_links(keys):
+        return " ".join(f'<a href="{escape(src[k]["url"], quote=True)}">{escape(src[k]["title"])}</a>.' for k in keys)
+
+    restart_rows = ["<tr>" + f'<th scope="row">{escape(x["plant"])}, {escape(x["country"])}</th>'
+                    + f'<td class="n">{escape(x.get("capacity_note") or format(x["capacity_t"], ","))}</td>'
+                    + "".join(f"<td>{escape(x[k])}</td>" for k in ("announced", "planned", "cost", "later"))
+                    + f"<td>{src_links(x['sources'])}</td></tr>" for x in rs["rows"]]
+    stock_rows = [
+        ("Bauxite at major Chinese ports", f'{st["china_bauxite_ports"]["mt"]:.1f} million tonnes', st["china_bauxite_ports"]["date"], "Trade-press survey",
+         f'About {sk["china_bauxite_ports_months_of_2024_imports"]:.1f} months of China’s 2024 bauxite imports', "mysteel_bauxite"),
+        ("Alumina in China: ports, refiners, smelters and in transit", f'{st["china_alumina_total"]["mt"]:.2f} million tonnes', st["china_alumina_total"]["date"], "Trade-press survey",
+         f'About {sk["china_alumina_days_of_2024_output"]:.0f} days of China’s 2024 alumina output', "mysteel_alumina"),
+        ("Aluminium in Shanghai Futures Exchange warehouses", f'{st["shfe_aluminium"]["t"]:,} tonnes', st["shfe_aluminium"]["date"], "Exchange report", "", "shfe"),
+        ("Aluminium in London Metal Exchange warehouses", f'{st["lme_aluminium"]["t"]:,} tonnes', st["lme_aluminium"]["date"], "Exchange figure as republished by a metal trader",
+         f'The two exchanges together: about {sk["exchange_aluminium_days_of_2024_world_output"]:.1f} days of 2024 world primary output', "westmetall"),
+        ("Aluminium held by producers in the United States and Canada: ingot, mill products and scrap", f'{st["us_industry_aluminium"]["kt"] / 1000:.1f} million tonnes', st["us_industry_aluminium"]["date"], "USGS, from an industry association", "", "mcs2026_aluminum"),
+    ]
+    stock_html = ["<tr>" + f'<th scope="row">{escape(a)}</th><td class="n">{escape(q)}</td><td>{escape(d)}</td><td>{escape(k)}</td><td>{escape(c)}</td><td>{src_links([s])}</td></tr>'
+                  for a, q, d, k, c, s in stock_rows]
+    grade_rows = ["<tr>" + f'<th scope="row">{escape(g["deposit"])}, {escape(g["country"])}</th><td class="n">{g["reserves_mt"]:,.0f}</td>'
+                  + f'<td class="n">{g["al2o3_pct"]:.1f}%</td><td>{escape(g["basis"].capitalize())} alumina</td><td>{src_links([g["source"]])}</td></tr>' for g in gr["rows"]]
+    more.update({
+        "restart_rows": "\n".join(restart_rows), "stock_rows": "\n".join(stock_html), "grade_rows": "\n".join(grade_rows),
+        "us_shutdowns": escape(rs["us_shutdowns"], quote=False), "eu_curtailed": escape(rs["eu_curtailed"], quote=False),
+        "cn_plan_translation": escape(rs["china_plan_translation"]), "cn_ceiling": rs["china_ceiling_mt"],
+        "cn_cap_2025": mt(al_t["China"]["capacity_2025"]), "cn_out_2025": mt(al_t["China"]["y2025"], 0),
+        "st_bx": f'{st["china_bauxite_ports"]["mt"]:.0f}', "st_cut": mt(r["guinea_screen"][0]["bauxite_kt"]),
+        "st_ended": st["producer_series_ended"]["date"],
+        "gn_q1_25": f'{sk["guinea_q1_2025_exports_mt"]:.1f}', "gn_q1_24": f'{sk["guinea_q1_2024_exports_mt"]:.1f}',
+        "lista_line": f'{rs["lista"]["potline_t"]:,}', "lista_share": pct(rs["lista"]["site_share_end_2025"]),
+        "src_10k": link(src, "alcoa_10k_2025", "Alcoa, 2025 annual report"), "src_century": link(src, "century_q3_2026", "Century Aluminum, third-quarter 2026 results"),
+        "src_myb_al": link(src, "myb2022_aluminum", "USGS Minerals Yearbook 2022, aluminum"),
+        "src_myb_bx": link(src, "myb2022_bauxite", "USGS Minerals Yearbook 2022, bauxite and alumina"),
+        "gr_low": f'{gd["lowest"]["al2o3_pct"]:.0f}%', "gr_high": f'{gd["highest"]["al2o3_pct"]:.0f}%',
+        "gr_av_low": f'{gd["available_low"]["al2o3_pct"]:.1f}%', "gr_av_low_name": escape(gd["available_low"]["deposit"]),
+        "gr_av_high": f'{gd["available_high"]["al2o3_pct"]:.1f}%', "gr_av_high_name": escape(gd["available_high"]["deposit"]),
+        "gr_ratio": pct(gd["available_low_over_high"]), "gr_india": escape(gr["india"]["quote"], quote=False),
+        "src_ec": link(src, "ec_metals_plan", "European Commission, Steel and Metals Action Plan, March 2025"),
+        "src_miit": link(src, "miit_plan", "China, aluminium industry plan for 2025 to 2027"),
+        "src_xinhua": link(src, "xinhua_2026", "Xinhua, 9 May 2026"),
+        "src_reuters15": link(src, "reuters_2015", "Reuters column, 3 February 2015"),
+        "src_ibm": link(src, "ibm_2022", "Indian Minerals Yearbook 2022, Bauxite"),
+        "src_gn": link(src, "gn_bulletin", "Guinea, Ministry of Mines and Geology, statistics bulletin no. 27"),
+        "gn_al_low": f'{gd["guinea_exports"]["alumina_low"]:.2f}%', "gn_al_high": f'{gd["guinea_exports"]["alumina_high"]:.2f}%',
+        "gn_n": NUMBER_WORDS.get(gd["guinea_exports"]["companies_with_alumina"], gd["guinea_exports"]["companies_with_alumina"]),
+        "gn_m_low": f'{gd["guinea_exports"]["moisture_low"]:.2f}%', "gn_m_high": f'{gd["guinea_exports"]["moisture_high"]:.2f}%',
+        "gn_m_avg": f'{gd["guinea_exports"]["moisture_average"]:.2f}%', "gn_gap": f'{gd["guinea_exports"]["usgs_wet_dry_gap"]:.1%}',
+    })
+    values.update(more)
     return Template(TEMPLATE.read_text(encoding="utf-8")).substitute(values)
 
 
@@ -391,7 +692,7 @@ def build():
         },
         "sources": inputs["sources"],
         "inputs": {k: inputs[k] for k in ("usgs_mcs2026", "usgs_mcs2025_estimates_for_2024", "iai", "oecd2019", "guinea", "indonesia",
-                                         "smm_china_imports_2024", "trade_checks", "scenarios")},
+                                         "smm_china_imports_2024", "trade_checks", "scenarios", "brazil_2018", "emirates", "restarts", "stocks", "grades")},
         "results": results,
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

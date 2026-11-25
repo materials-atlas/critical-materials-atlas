@@ -3839,8 +3839,8 @@
     "aluminium-chain/out/aluminium_chain.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "d887c26a8d8e7508",
+   "secs": 0.1,
+   "code_sha": "9fd1c9ff986477e4",
    "restored": 2
   },
   "ammonia-chain/record_ammonia.py": {
@@ -6762,6 +6762,7 @@
     "defence-chain/",
     "defence-chain/article.html.in",
     "defence-chain/out/defence_trade.json",
+    "defence-chain/pathway_inputs.json",
     "magnet-chain/out/comext_audit.json",
     "out/export_controls.json",
     "out/mined_years.json"
@@ -6773,7 +6774,7 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "fdeb49f4dac1684b",
+   "code_sha": "f2b778e4bdf80699",
    "restored": 3
   },
   "displays-indium-chain/extract_baci.py": {
@@ -8104,14 +8105,20 @@
   },
   "steel-alloys-chain/record_steel.py": {
    "reads": [
-    "out/mined_years.json"
+    "steel-alloys-chain/",
+    "steel-alloys-chain/article.html.in",
+    "steel-alloys-chain/evidence_inputs.json",
+    "steel-alloys-chain/out/steel_exposure.json",
+    "steel-alloys-chain/out/steel_trade.json"
    ],
    "writes": [
-    "steel-alloys-chain/out/steel_chain.json"
+    "steel-alloys-chain/out/steel_chain.json",
+    "steel-alloys-chain/steel-alloys-chain.html"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "b709e712b4a14fbe"
+   "code_sha": "37be3102297fa46b",
+   "restored": 2
   },
   "steel-chain/record_steel.py": {
    "reads": [],
@@ -16036,8 +16043,8 @@
     "aluminium-chain/out/aluminium_tonnage.json"
    ],
    "exit": 0,
-   "secs": 26.4,
-   "code_sha": "7f8ad17c06671295",
+   "secs": 23.1,
+   "code_sha": "a45bdf8bd0a3ed6f",
    "restored": 1
   },
   "eu-grid-supply/build_paper.py": {
@@ -16058,6 +16065,24 @@
    "secs": 0.1,
    "code_sha": "a2855bbef1472688",
    "restored": 2
+  },
+  "steel-alloys-chain/extract_exposure.py": {
+   "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
+    "raw/baci/country_codes_V202601.csv",
+    "steel-alloys-chain/"
+   ],
+   "writes": [
+    "steel-alloys-chain/out/steel_exposure.json"
+   ],
+   "exit": 0,
+   "secs": 6.7,
+   "code_sha": "976f3736d3f2016c",
+   "restored": 1
   }
  }
 }

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/steel-alloys-chain/steel-alloys-chain">
+<title>$title — Critical Materials Atlas</title><meta name="description" content="$deck">
+<meta property="og:title" content="$title"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #15323a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+  figure.plot { margin: 1.2rem 0; }
+  .plot-wrap { overflow-x: auto; }
+  .plot-wrap svg { display: block; width: 100%; min-width: 26rem; max-width: 40rem; height: auto; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Steel alloying metals · Research note</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$date">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p>Steel is iron with a little carbon and additions of other metals. Chromium makes it stainless, nickel and molybdenum improve its resistance to corrosion and heat, and manganese, niobium and vanadium add strength. This note sets out where six of these metals are mined, where the alloys are made, and where six large importing markets buy them. It then reports what the sources say about how much is used, what can replace it, and how concentrated the main inputs of steel itself are.</p>
+  <p><strong>Finding.</strong> A world share does not tell an importer its own exposure. In $trade_year Indonesia shipped $ni_trade of traded ferronickel. China took $ni_cn_take of that trade, and Indonesia supplied $ni_cn of China's imports, $ni_eu of the EU's, none of the United States' and almost none of Japan's. Niobium is the clearest case of a single source among the six metals. Brazil mined $nb_mine of it in 2024, and in that year it was the largest supplier of ferroniobium to each of the six markets, with between $nb_low and $nb_high of their imports. $s_mcs_niobium $s_baci</p>
+
+  <h2>Where each metal is mined</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Mine production of six alloying metals, 2024">
+    <table>
+      <caption>Mine production in 2024: the two largest producers and the world total. USGS, 2026 edition. Units differ by metal and are given in the last column.</caption>
+      <thead><tr><th scope="col">Metal</th><th scope="col" class="n">Largest producer</th><th scope="col" class="n">Second</th><th scope="col" class="n">World</th><th scope="col" class="n">Unit</th></tr></thead>
+      <tbody>
+$mine_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Niobium is the most concentrated at the mine, followed by vanadium. For chromium, manganese and molybdenum the largest producer has between $mo_mine and $cr_mine of output. These are mine shares. For chromium the alloy is mostly made in a different country from the mine. For vanadium, manganese and molybdenum the leading exporters of the alloy are not the leading miners, though export shares do not show where an alloy is made. For nickel, Indonesia leads at both stages. $s_mcs_niobium $s_mcs_vanadium $s_mcs_chromium $s_mcs_manganese $s_mcs_nickel $s_mcs_molybdenum</p>
+  <p class="note">The figures are estimates and are revised. For 2024, USGS first estimated China's vanadium output at $rev_v_old_t tonnes and a year later at $rev_v_new_t tonnes. For South Africa's chromium ore the two editions give $rev_cr_old_t and $rev_cr_new_t million tonnes. $s_mcs2025_vanadium $s_mcs2025_chromium</p>
+
+  <h2>Where each market buys its alloys</h2>
+  <p>The table sets the leading exporter's share of world trade beside the share that each of six markets bought from that exporter. Trade is by weight. The EU is treated as one market and trade between member states is left out. Where a market's largest supplier is a different country, it is named in brackets.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Share of imports from the leading world exporter, by market">
+    <table>
+      <caption>World trade in $trade_year, thousand tonnes, the leading exporter and its share, and the share of each market's imports that came from that exporter. A different largest supplier is shown in brackets. “Own exporter” marks a market that is, or contains, the leading exporter. BACI, customs net weight.</caption>
+      <thead><tr><th scope="col">Product</th><th scope="col" class="n">World trade</th><th scope="col" class="n">Leading exporter</th><th scope="col" class="n">United States</th><th scope="col" class="n">European Union</th><th scope="col" class="n">Japan</th><th scope="col" class="n">South Korea</th><th scope="col" class="n">India</th><th scope="col" class="n">China</th></tr></thead>
+      <tbody>
+$exposure_rows
+      </tbody>
+    </table>
+  </div>
+  <figure class="plot">
+    <div class="plot-wrap">$chart_exposure</div>
+    <figcaption class="note">Share of each market's imports, by weight, that came from the leading world exporter of three alloys in $trade_year. CEPII BACI.</figcaption>
+  </figure>
+  <p>Three patterns appear. Ferroniobium has one pattern for everyone: Brazil was the largest supplier of all six markets in $trade_year. South Africa comes close for two other products, as the largest supplier of five of the six markets for both ferrochromium and manganese ore. Ferronickel has the highest world share in the table and the widest spread between buyers, from none to $ni_cn. For ferrovanadium and ferromolybdenum the leading exporter has $v_trade and $mo_trade of trade. $s_baci</p>
+  <p class="note">Trade shares include re-exports. The Netherlands, China, Malaysia and Singapore, which mine little or no niobium, together appear with $nb_hubs of recorded ferroniobium exports, and that tonnage is counted a second time in the world total. India shows the effect: its imports were $in_t tonnes in $trade_year, $in_hubs of them through Singapore and Malaysia, and in $base_year Singapore was its largest recorded supplier with $in_base.</p>
+
+  <h2>Niobium: two companies in Brazil and one in Canada</h2>
+  <p>USGS puts Brazil's share of 2024 mine output at $nb_mine. In its November 2026 outlook it writes: “$nb_producers” It estimates world mine capacity in 2025 at $nb_capacity tonnes a year, $nb_cap_br of it in Brazil and $nb_cap_ca in Canada. So the old description of niobium as one mine was not accurate: there are two main producing companies in Brazil, and USGS records a third that made $taboca_t tonnes of niobium and tantalum alloys in 2022. One of the two is much the larger. It reports sales of $cbmm_sales tonnes of ferroniobium equivalent in 2025 and a capacity of $cbmm_cap tonnes a year in the same unit, and writes that “$cbmm_quote”. The other reports $cmoc_t tonnes of niobium in 2025. Ferroniobium is about 65% niobium, so the company figures and the USGS figures, which are in tonnes of niobium, are in different units, and no source read gives the companies' shares on one basis. The level of world output is also less firm than the share: the USGS yearbook for 2022 gives $nb_myb_world tonnes of niobium worldwide and $nb_myb_brazil in Brazil, well below its annual summaries. Both series put Brazil at about nine-tenths. $s_outlook $s_myb_niobium $s_cbmm $s_cmoc</p>
+  <p>Brazil's share of recorded ferroniobium trade, $nb_trade in $trade_year and $nb_trade_base in $base_year, is lower than its share of mining. One reason is the re-exports described above. China took $nb_cn_take of recorded ferroniobium trade in $trade_year and bought $nb_cn of it from Brazil. The United States bought $nb_us from Brazil and the rest almost wholly from Canada. $s_baci</p>
+
+  <h2>Chromium: the ore is mined in one place and the alloy made in another</h2>
+  <p>South Africa mined $cr_mine of the world's chromium ore in 2024 and shipped $cr_ore_trade of the ore that was traded. China took $cr_cn_ore of traded ore and smelts it into ferrochromium. USGS estimates that China made $cr_cn_fe of the world's ferrochromium in 2023.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Ferrochromium production, 2023">
+    <table>
+      <caption>Ferrochromium production in 2023, million tonnes gross weight, and share of the world total of 15.7 million tonnes. USGS estimates.</caption>
+      <thead><tr><th scope="col">Country</th><th scope="col" class="n">Production</th><th scope="col" class="n">Share</th></tr></thead>
+      <tbody>
+$ferrochrome_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The industry association's regional figures for 2025, added up here, put China at about $cr_cn_fe_2025 and show output in South Africa and Zimbabwe falling by $cr_sa_change% in the year. The association publishes no world total, so that share is this note's own sum and is less firm than the USGS figure. China also imported $cr_cn_fe_imports million tonnes of ferrochromium in $trade_year. South Africa is the largest exporter of ferrochromium as well, with $cr_fe_trade of trade, and Kazakhstan is the largest supplier of Japan ($cr_jp). $s_myb_chromium $s_icda $s_baci</p>
+  <p>The sources do not agree on every figure. South Africa's ore exports in the trade record for $trade_year, $cr_sa_x million tonnes, are larger than the USGS figure for its mine output, $cr_sa_out million. The industry association's regional figures for 2025 put South Africa at $cr_icda_sa of about $cr_icda_total million tonnes of ore, a higher share than the USGS one. On policy, the OECD writes that “$cr_restrictions” and that “$cr_exports” USGS, in February 2026, speaks of “$cr_potential” The OECD also writes: “$cr_use”. USGS writes: “$cr_sub” Stainless steel is defined by its chromium: “$cr_stainless” $s_oecd_outlook $s_mcs_chromium $s_worldstainless</p>
+
+  <h2>Vanadium: a co-product of steelmaking</h2>
+  <p>China produced $v_mine of the world's vanadium in 2024 on the USGS figures, which leave out secondary supply. Most vanadium is not mined for itself. USGS writes: “$v_coproduct” The industry association puts steelmaking slag at about $v_slag of world vanadium supply, mines worked for vanadium at about $v_primary and secondary sources at about $v_secondary. Supply therefore follows the output of particular steelworks. In ferrovanadium trade $fv_1 and $fv_3, which mine no vanadium, are first and third, and $fv_2 is second. In the United States, “$v_us_use” No world figure for the share of vanadium used in steel was found. $s_mcs_vanadium $s_vanitec</p>
+
+  <h2>Nickel: Indonesia's alloy goes to China</h2>
+  <p>Indonesia mined $ni_mine of the world's nickel in 2024. The OECD writes that “$ni_ban” and that “$ni_refined”, citing a newspaper for the second figure. The trade record shows what followed. World trade under the ferronickel code rose from $ni_world_base million tonnes in $base_year to $ni_world million in $trade_year, by weight of alloy. Indonesia's share of it went from $ni_trade_base to $ni_trade, and China took $ni_cn_take of the total. The other five markets bought much smaller tonnages. India and South Korea also bought mainly from Indonesia, the EU bought $ni_eu of its imports there, and the United States and Japan almost nothing. $s_mcs_nickel $s_oecd_outlook $s_baci</p>
+  <p>Stainless steel took $ni_stainless of nickel in first use in 2024 and batteries $ni_batteries, on the industry association's figures. USGS gives a figure for the United States only: “$ni_us_use” $s_nickel_institute $s_mcs_nickel</p>
+
+  <h2>How much is used, and what can replace it</h2>
+  <p>World and US figures differ. For niobium, USGS gives the US split: “$nb_us_use” For the world it reports, from market consultancies, that “$nb_world_use” in 2022. The previous version of this page gave the US figure as if it were the world's. $s_mcs_niobium $s_myb_niobium</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Alloy content of four steel grades">
+    <table>
+      <caption>Content of five alloying metals in common steel grades, per cent by weight. Limits from producer data sheets, an alloy database and, for A572, the standard's own page as shown for its 2012 edition. A dash means no limit for that metal was read in the source. Manganese, not shown, is limited to 2% or less in the first three grades.</caption>
+      <thead><tr><th scope="col">Grade</th><th scope="col" class="n">Chromium</th><th scope="col" class="n">Nickel</th><th scope="col" class="n">Molybdenum</th><th scope="col" class="n">Vanadium</th><th scope="col" class="n">Niobium</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+$grade_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The quantities differ by a factor of several hundred. Stainless steel is at least a tenth chromium. Niobium in structural steel is measured in hundredths of a per cent: a review of microalloyed steels gives $micro_lo% to $micro_hi% as the usual range, or $micro_g_lo to $micro_g_hi grams per tonne of steel. The world steel association counts the grades: “$grades_count” $s_baker $s_worldsteel_grades</p>
+  <p>Substitution is possible for some metals and not for others. For chromium in stainless steel and for manganese USGS states that there is none: “$mn_sub” For molybdenum: “$mo_sub” Niobium and vanadium can partly replace each other. USGS lists “$nb_sub” among substitutes for niobium and warns that “$nb_sub_caveat”. The standard for one common structural steel leaves the choice to the steelmaker: “$a572_scope” The change is not quick. A USGS paper on vanadium says: “$v_sub” It adds that “$v_sub_time”. $s_mcs_manganese $s_mcs_molybdenum $s_mcs_niobium $s_astm_a572 $s_pp1802u</p>
+  <p>USGS gives recycling shares for the United States only. In 2025 recycled chromium was 21% of apparent consumption there and nickel from scrap about 60%. Of the niobium recycled, USGS writes that “$nb_recycling”, and of molybdenum that the amount “$mo_recycling”. These metals are recovered inside steel scrap and not as separate metals. $s_mcs_chromium $s_mcs_nickel $s_mcs_niobium $s_mcs_molybdenum</p>
+
+  <h2>The main inputs of steel are concentrated in trade as well</h2>
+  <p>The previous version of this page said that iron ore and coking coal “are everywhere”. Iron ore is mined in many countries: Australia had $ore_au of 2024 output and Brazil $ore_br. Trade is narrower. In 2025 Australia shipped $ore_x_au of the iron ore that crossed a border and Brazil $ore_x_br, together $ore_two, and China took $ore_m_cn of imports. For coking coal, Canadian government figures give Australia $coal_au_mt of the $coal_total million tonnes exported in 2024, or $coal_au, followed by Russia ($coal_ru), the United States ($coal_us) and Mongolia ($coal_mn). The Australian government's own table for the same year differs: a world total of $coal2_world million tonnes, with Mongolia second at $coal2_mn and Russia fourth at $coal2_ru. For scrap, the OECD reports that “$scrap”. $s_mcs_iron_ore $s_req $s_nrcan $s_oecd_outlook</p>
+
+  <h2>What the customs records cover</h2>
+  <p>Customs records ferroalloys by gross weight, and their metal content varies. Ferroniobium is about 65% niobium. Ferrovanadium is sold in grades from about 40% to 80% vanadium. The ferronickel code is headed “Ferro-nickel”. Under the chapter's definition an iron alloy with more than 10% of alloying elements is a ferro-alloy, so nickel pig iron above that grade is recorded there and lower grades count as pig iron. The tonnage under the code is therefore far larger than the nickel it carries. Two things cannot be separated at this level of the classification: ores of niobium, tantalum and vanadium share one code, and coking coal shares a code with other bituminous coal. The table below shows trade by value for four codes. $s_wco_ch72 $s_wco_ch26 $s_wco_ch27</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">$value_year</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>World exports by customs code, by value. The latest year in the extract is $value_year. Values are nominal US dollars.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>What remains open</h2>
+  <p>Mine shares and trade shares are measured. Several things are not. The share of each company in niobium supply is not published on one basis. No world figure was found for the share of vanadium, manganese or molybdenum that goes into steel. One figure quoted in an earlier review, China at 51% of ferrochromium in 2024, could not be checked because the document would not open, and it is not used here. Stocks of ferroalloys held by steelmakers and traders are not published, so this note says nothing about how long an interruption could be absorbed. It makes no estimate of the effect of an interruption on steel output.</p>
+
+  <h2>Revision note · 25 November 2026</h2>
+  <p>The previous overview was headed “Steel is abundant; the metals that make it strong are not”. It described niobium as coming from essentially one Brazilian mine and one company, gave 77% as the share of niobium used in steel, which is the US figure, showed China at 60% of ferrochromium without a source, left out nickel, and said iron ore and coking coal were everywhere. This revision uses the published tables for six metals, adds trade by weight for six importing markets, and separates world figures from US ones. The <a href="PRODUCTION.md">claim register</a> lists each change.</p>
+
+  <h2>Sources and downloads</h2>
+  <ul>
+$references
+  </ul>
+  <p>The <a href="PRODUCTION.md">claim register</a> records the audit of the previous page. The <a href="README.md">methods and rebuild commands</a>, the <a href="evidence_inputs.json">transcribed source tables</a>, the <a href="out/steel_chain.json">evidence and calculations</a>, the <a href="out/steel_exposure.json">trade by weight and by market</a> and the <a href="out/steel_trade.json">frozen trade extract by value</a> give the underlying data. The earlier <a href="library">source library</a> is kept as a dated record.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../chromium-chain/chromium-chain">Chromium chain</a><br><a href="../vanadium-chain/vanadium-chain">Vanadium chain</a><br><a href="../steel-chain/steel-chain">Steel chain</a></div><div><h4>Evidence</h4><a href="out/steel_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/steel_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

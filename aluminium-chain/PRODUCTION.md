@@ -61,7 +61,41 @@ or a half of Guinea's shipments to China, converts the ore to alumina at China's
 to metal at the industry survey ratio, and holds everything else fixed. It has no stocks, no substitution
 and no probability.
 
-## Not done
+## Additions after a second assessment · 25 November 2026
+
+A second assessment asked for a stated research question, a comparison of production and export concentration, balances
+for more countries than China, the dependence of smelting countries on imported alumina, electricity and capacity limits,
+stocks, ore quality, and a historical test. The comparison of concentration was already on the page. The rest was added
+as far as public sources allow.
+
+| Addition | Basis | Limit |
+| --- | --- | --- |
+| Three questions with their answers, and a chart of the two concentration indices. | The production and export indices already in the stage table. | The production bar is drawn at the middle of the published range. |
+| Alumina made, imported and exported by each of the twelve smelting countries USGS lists by name; the largest supplier in 2024 and in 2019; a chart of origins. | USGS 2026 tables for metal and alumina output; BACI tonnage for HS 281820 by partner (`extract_tonnage.py`, block `partners`). | HS 281820 mixes smelter-grade and other alumina. "Not listed" means USGS groups the country with others. Three rows are more than a tenth away from the survey ratio of 1.91 and are named. Only the five largest suppliers are kept, so a smaller supplier counts as "other". |
+| "Eight of the eleven named smelting countries outside China import more than half of their alumina", 53% of primary output outside China. | The table above. | Imports as a share of output plus imports; exports are not netted out of the share. |
+| The United Arab Emirates bauxite record is incomplete in 2024. | BACI: 0.4 Mt of bauxite imports in 2024 and none from Guinea, against 10.7 Mt from Guinea in 2023; USGS alumina output of 2.5 Mt. | The record is left unchanged. It may account for part of the gap between Guinea's export figure and BACI; the size is not known. |
+| A recorded interruption: Brazil, 2018. | USGS 2019 and 2020 editions (the order of February 2018, the lifting in May 2019, output of 10.9 and 8.1 Mt); BACI alumina exports of Brazil and imports of Norway and Canada by origin, 2017 and 2018. | USGS does not name the refinery. 2018 figures are the final ones of the Minerals Yearbook 2022 (Brazil alumina 8,258 kt; metal: Brazil 659, Norway 1,295, Canada 2,923 kt). Brazil's own metal output fell 18%. Prices are not examined. The Canadian figures are reported without a causal reading. |
+| Unused capacity by country, 2024. | USGS 2026 edition, output and year-end capacity. | Year-end capacity against annual output; an upper limit on what could return. |
+| Restarts, the EU and US statements, and the Chinese capacity limit. | Company releases and filings, the European Commission action plan of March 2025, USGS, the Chinese plan for 2025 to 2027, Xinhua. | Company statements. Alumar's 268,000 t is one owner's share of a 447,000 t plant. Hawesville has been sold (Century Aluminum, third-quarter 2026 results). The Chinese plan states no figure for the ceiling; 45 Mt comes from the state news agency, which cites no document. |
+| Stocks. | Mysteel surveys for China (trade press), the Shanghai exchange report, London Metal Exchange stock as republished by a metal trader, USGS. | The Chinese figures are surveys with unstated coverage; dates differ from the 2024 flows they are set beside. The North American figure covers ingot, mill products and scrap held by producers. |
+| Ore grade. | Reserve statements of three mining companies; the Indian mines bureau; the Guinean ministry's export-quality table for the first quarter of 2025. | Reserve grades, on two bases, are not shipment averages. The one ratio stated on the page compares two deposits within one company's statement. The Guinean table does not state its basis. Nothing was found for Chinese ore or Indonesia. |
+
+A second reading of the additions against the source documents, same day, led to these changes before publication. The
+San Ciprián row now carries its later status (about 65% at the end of 2025, after a pause). The sentence that idle capacity
+returns "over years and not months" was replaced, because a single line at Lista returned within a year. The 2018 case no
+longer says the loss was absorbed: Norway's imports were made up, and Brazil's own metal output fell. Port stocks are
+described as of the same order as the ore removed in the screen, not as more than it. The grade comparison now uses two
+deposits reported by one company. Two rows of the supply table are flagged as below the chemical minimum of alumina per
+tonne of metal. The section heading says "smelting countries" and not "smelters".
+
+Looked for and not found: a USGS table of smelters with their status; EU curtailed or restarted tonnage; refinery stocks of
+bauxite in China; the alumina content of Chinese domestic ore as a percentage; bauxite per tonne of alumina by refinery;
+moisture by origin other than Guinea.
+
+Not done: a physically reconciled country-to-country flow model; plant-level capacity and power-cost modelling; a
+disruption model with substitution; an expert review. The page's interruption screen remains a first-order calculation.
+
+## Not done at the first review
 
 - No aluminium content of bauxite by origin.
 - No stocks of bauxite or alumina.

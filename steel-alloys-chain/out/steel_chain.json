@@ -1,289 +1,1291 @@
 {
-  "title": "Steel / structural-alloys chain",
-  "chokepoint": {
-    "product": "Ferroalloys (Nb/V)",
-    "stage": "Niobium mine",
-    "mechanism": "geological",
-    "physics": "Niobium is essentially one Brazilian mine (CBMM) — Brazil is ~93% of world mine production, Canada ~7%",
-    "holder": "Brazil",
-    "share": "~93% production",
-    "control": "—",
-    "conf": "measured"
-  },
+  "title": "Steel alloying metals",
+  "h1": "Niobium has one main source; for steel's other alloying metals, exposure depends on the buyer",
+  "deck": "Brazil mined 93% of the world's niobium in 2024 and supplied most of every large importer's ferroniobium. Indonesia shipped 93% of traded ferronickel, almost all of it to China, and none of what the United States imported.",
   "published": true,
-  "related": [
-    {
-      "href": "../steel-chain/steel-chain",
-      "label": "Primary / green-steel chain"
-    },
-    {
-      "href": "../tungsten-chain/tungsten-chain",
-      "label": "Tungsten chain"
-    },
-    {
-      "href": "../wind-chain/wind-chain",
-      "label": "Wind-turbine chain"
-    }
-  ],
-  "accent": "#4e5a66",
-  "eyebrow": "Product-chain pilot · the built world",
-  "h1": "Steel is abundant; the metals that make it strong are not",
-  "deck": "Almost everything built — buildings, rail, ships, cars, pipelines — is steel. Iron ore and coking coal are everywhere, so steel itself is not a chokepoint. But the small alloying additions that give steel its strength, hardness and corrosion resistance come from a handful of concentrated sources.",
-  "byline": "iron ore (abundant) ≠ alloying metals (concentrated) ≠ steel grade ≠ what fails first",
-  "correction": "A steel-supply map looks reassuring — iron is one of the commonest elements. The risk hides in the additives: a few hundred grams of niobium per tonne, from essentially one Brazilian mine, decide whether a pipeline or a car body can be made light and strong.",
-  "stats": [
-    {
-      "v": "~93%",
-      "l": "of world niobium is Brazil (one company, CBMM)",
-      "conf": "measured"
-    },
-    {
-      "v": "~75%",
-      "l": "of world vanadium is China (82,000 of 110,000 t, 2025) — tied to its steel industry",
-      "conf": "measured"
-    },
-    {
-      "v": "SA → CN",
-      "l": "chromium: South Africa mines the ore, China makes the ferrochrome",
-      "conf": "measured"
-    },
-    {
-      "v": "77%",
-      "l": "of niobium goes into steel (21% into superalloys)",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "The alloying metals stay concentrated (top-producer share)",
-    "conf": "measured",
-    "note": "BGS/USGS mine production, from the atlas's own data. Niobium (Brazil) sits near 90% and vanadium (China) near two-thirds for years — durable concentration, not a passing snapshot. Niobium's series is shorter (2019–2023) because that is the comparable window in the local data.",
-    "series": [
-      {
-        "label": "Niobium (Brazil)",
-        "points": [
-          {
-            "y": 2019,
-            "v": 90
-          },
-          {
-            "y": 2020,
-            "v": 92
-          },
-          {
-            "y": 2021,
-            "v": 90
-          },
-          {
-            "y": 2022,
-            "v": 90
-          },
-          {
-            "y": 2023,
-            "v": 90
-          }
-        ]
-      },
-      {
-        "label": "Vanadium (China)",
-        "points": [
-          {
-            "y": 2000,
-            "v": 37
-          },
-          {
-            "y": 2005,
-            "v": 26
-          },
-          {
-            "y": 2010,
-            "v": 47
-          },
-          {
-            "y": 2015,
-            "v": 57
-          },
-          {
-            "y": 2020,
-            "v": 63
-          },
-          {
-            "y": 2021,
-            "v": 63
-          },
-          {
-            "y": 2022,
-            "v": 62
-          },
-          {
-            "y": 2023,
-            "v": 63
-          },
-          {
-            "y": 2024,
-            "v": 64
-          }
-        ]
-      }
-    ]
+  "version": "2026-11-25",
+  "chokepoint": {
+    "product": "Steel alloying metals",
+    "stage": "Niobium mining",
+    "mechanism": "geological",
+    "physics": "Two companies in Brazil and one in Canada produce nearly all niobium. Most of it goes into steel, at a few hundred grams per tonne",
+    "holder": "Brazil",
+    "share": "93% of niobium mined (2024); Brazil supplied 54% to 98% of ferroniobium imports in six large markets",
+    "control": "—",
+    "conf": "estimate"
   },
-  "hops": [
-    {
-      "n": "1 · Base",
-      "t": "iron ore + coking coal → steel — abundant, not a chokepoint"
-    },
-    {
-      "n": "2 · Alloying metals",
-      "t": "niobium, chromium, vanadium, manganese, molybdenum — concentrated"
-    },
-    {
-      "n": "3 · Steel grades",
-      "t": "microalloyed (Nb/V) · stainless (Cr) · tool/heat (Mo/W)"
-    },
-    {
-      "n": "4 · What fails first",
-      "t": "not the steel — the additive that gives it its property"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The base is abundant; the additives are not",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "Concentration of the key steel-alloying metals",
-          "conf": "measured",
-          "max": 1.0,
-          "note": "USGS. Niobium and vanadium are mine shares; chromium and manganese are more concentrated at the ferroalloy/processing stage (China) than at the mine. Read each by the stage that binds it.",
-          "bars": [
-            {
-              "label": "Niobium (Brazil, mine)",
-              "value": 0.93
-            },
-            {
-              "label": "Vanadium (China, mine)",
-              "value": 0.75
-            },
-            {
-              "label": "Chromium (China, ferrochrome)",
-              "value": 0.6
-            },
-            {
-              "label": "Molybdenum (China, mine)",
-              "value": 0.4
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "A few hundred grams decide the grade",
-          "text": "Microalloyed (HSLA) steel gets its strength-to-weight from tiny niobium and vanadium additions — often well under a kilogram per tonne of steel. That is why a trace-metal chokepoint can gate an entire category of light, strong steel used in cars, pipelines and structures.",
-          "flag": "trace additive, whole-grade leverage"
-        }
-      ]
-    },
-    {
-      "h2": "2 · Niobium — one mine for the world",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Niobium mine share",
-          "big": "~93% Brazil",
-          "conf": "measured",
-          "text": "one country — and largely one company, CBMM at Araxá — supplies most of the world's niobium, with Canada a distant second. About 77% goes into steel as ferro-niobium; Brazil's exports run ~49% to China. It is one of the most geographically concentrated critical materials there is.",
-          "note": "USGS MCS 2026 (Niobium)."
-        },
-        {
-          "kind": "text",
-          "h3": "The partial hedge: interchangeability",
-          "text": "USGS notes that manganese, molybdenum, niobium, titanium and tungsten are to some degree interchangeable with vanadium as steel alloying elements. So no single one is irreplaceable — but substitution changes the recipe, the cost and the properties, and cannot happen overnight.",
-          "flag": "substitutable, but not instantly"
-        }
-      ]
-    },
-    {
-      "h2": "3 · Chromium & vanadium — the ore is not the ferroalloy",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Chromium: mined in South Africa, alloyed in China",
-          "conf": "measured",
-          "text": "South Africa leads chromite-ore mining, but China is the leading producer of ferrochromium and stainless steel — and the largest chromium consumer. As with the atlas's other materials, the chokepoint sits at the ferroalloy/processing stage, not the mine. Stainless steel cannot be made without it.",
-          "note": "USGS (Chromium)."
-        },
-        {
-          "kind": "text",
-          "h3": "Vanadium: a Chinese-steel by-product",
-          "text": "China is the top vanadium producer, much of it recovered from steelmaking slag, so vanadium supply is coupled to the Chinese steel industry itself. Vanadium adds strength to rebar and aerospace alloys, and is the basis of vanadium-flow grid batteries — a second, growing demand.",
-          "note": "USGS (Vanadium).",
-          "flag": "coupled to Chinese steel"
-        }
-      ]
-    },
-    {
-      "h2": "4 · What this means for the built world",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "The risk is the recipe, not the metal",
-          "text": "Steel will not run out. But the properties a modern economy depends on — high strength-to-weight, corrosion resistance, heat tolerance — come from alloying metals concentrated in Brazil (niobium), China (vanadium, ferrochrome, ferromanganese) and South Africa (chromite). A disruption would not stop steelmaking; it would degrade what grades of steel the world can make, and at what cost.",
-          "flag": "grade risk, not tonnage risk"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI shows the traded ferroalloys — ferro-niobium, ferro-vanadium, ferro-chromium, ferro-manganese — which are closer to the alloying stage than to crude steel. Read exporter shares as availability of the alloy addition, not of steel itself (steel is a much larger, separate trade).",
-  "method": [
-    {
-      "stage": "Base",
-      "lens": "context (steel is abundant)",
-      "why": "iron/coking coal are not the chokepoint"
-    },
-    {
-      "stage": "Alloying metals",
-      "lens": "USGS mine or ferroalloy share",
-      "why": "concentration by the binding stage per metal"
-    },
-    {
-      "stage": "History",
-      "lens": "BGS/USGS 2000–2024 mine series",
-      "why": "concentration is durable, not a snapshot"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI ferroalloys",
-      "why": "the alloy addition as traded, not steel"
-    }
-  ],
   "sources": {
-    "usgs_niobium": {
-      "title": "USGS Mineral Commodity Summaries 2026 — Niobium (Columbium)",
-      "year": 2026,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf"
+    "mcs_niobium": {
+      "title": "USGS Mineral Commodity Summaries 2026, Niobium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_vanadium": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Vanadium",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-vanadium.pdf"
+    "mcs_vanadium": {
+      "title": "USGS Mineral Commodity Summaries 2026, Vanadium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_chromium": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Chromium",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-chromium.pdf"
+    "mcs_chromium": {
+      "title": "USGS Mineral Commodity Summaries 2026, Chromium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_manganese": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Manganese",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-manganese.pdf"
+    "mcs_manganese": {
+      "title": "USGS Mineral Commodity Summaries 2026, Manganese",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-manganese.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_moly": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Molybdenum",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-molybdenum.pdf"
+    "mcs_nickel": {
+      "title": "USGS Mineral Commodity Summaries 2026, Nickel",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+      "vintage": "February 2026"
+    },
+    "mcs_molybdenum": {
+      "title": "USGS Mineral Commodity Summaries 2026, Molybdenum",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-molybdenum.pdf",
+      "vintage": "February 2026"
+    },
+    "mcs_iron_ore": {
+      "title": "USGS Mineral Commodity Summaries 2026, Iron Ore",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iron-ore.pdf",
+      "vintage": "February 2026"
+    },
+    "mcs2025_vanadium": {
+      "title": "USGS Mineral Commodity Summaries 2025, Vanadium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-vanadium.pdf",
+      "vintage": "January 2025"
+    },
+    "mcs2025_chromium": {
+      "title": "USGS Mineral Commodity Summaries 2025, Chromium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-chromium.pdf",
+      "vintage": "January 2025"
+    },
+    "outlook": {
+      "title": "USGS Scientific Investigations Report 2026-5081, World Minerals Outlook, Niobium",
+      "url": "https://pubs.usgs.gov/sir/2026/5081/sir20265081.pdf",
+      "vintage": "November 2026"
+    },
+    "myb_niobium": {
+      "title": "USGS Minerals Yearbook 2022, Niobium",
+      "url": "https://pubs.usgs.gov/myb/vol1/2022/myb1-2022-niobium.pdf",
+      "vintage": "advance release, March 2026"
+    },
+    "myb_chromium": {
+      "title": "USGS Minerals Yearbook 2023, Chromium",
+      "url": "https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-chromium.pdf",
+      "vintage": "advance release, January 2026"
+    },
+    "myb_vanadium": {
+      "title": "USGS Minerals Yearbook 2023, Vanadium",
+      "url": "https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-vanadium.pdf",
+      "vintage": "advance release, January 2026"
+    },
+    "pp1802u": {
+      "title": "USGS Professional Paper 1802-U (2017), Vanadium",
+      "url": "https://doi.org/10.3133/pp1802U",
+      "vintage": "2017"
+    },
+    "cbmm": {
+      "title": "CBMM, 2025 Sustainability Report",
+      "url": "https://cbmm.com/relatorio-sustentabilidade/pdf/CBMM_RS25_ENG_D01-4.pdf",
+      "vintage": "2026"
+    },
+    "cmoc": {
+      "title": "CMOC Group, 2025 Annual Report",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0401/2026040101682.pdf",
+      "vintage": "April 2026"
+    },
+    "icda": {
+      "title": "International Chromium Development Association, market insights",
+      "url": "https://www.icdacr.com/market-insights/",
+      "vintage": "read 25 November 2026"
+    },
+    "vanitec": {
+      "title": "Vanitec, Making vanadium",
+      "url": "https://vanitec.org/vanadium/making-vanadium",
+      "vintage": "read 25 November 2026"
+    },
+    "oecd_outlook": {
+      "title": "OECD Steel Outlook 2026",
+      "url": "https://doi.org/10.1787/99ab9b0c-en",
+      "vintage": "May 2026"
+    },
+    "nickel_institute": {
+      "title": "Nickel Institute, Nickel magazine, vol. 40 no. 2, 2025",
+      "url": "https://www.cedinox.es/export/sites/cedinox/.galleries/publicaciones-tecnicas/nickelvol40no2_summer_2025_eng_fb.pdf",
+      "vintage": "2025"
+    },
+    "req": {
+      "title": "Australian Government, Resources and Energy Quarterly, September 2026",
+      "url": "http://web.archive.org/web/20261012153449/https://www.industry.gov.au/sites/default/files/2026-10/resources-and-energy-quarterly-september-2026.pdf",
+      "vintage": "September 2026, archived copy"
+    },
+    "nrcan": {
+      "title": "Natural Resources Canada, Coal facts",
+      "url": "http://web.archive.org/web/20260831111824/https://natural-resources.canada.ca/minerals-mining/mining-data-statistics-analysis/minerals-metals-facts/coal-facts",
+      "vintage": "modified 13 February 2026, archived copy"
+    },
+    "worldsteel_grades": {
+      "title": "World Steel Association, About steel",
+      "url": "https://worldsteel.org/about-steel/about-steel/",
+      "vintage": "read 25 November 2026"
+    },
+    "worldstainless": {
+      "title": "worldstainless, Introduction to stainless steels",
+      "url": "https://worldstainless.org/about-stainless/what-are-stainless-steels/introduction-to-stainless-steels/",
+      "vintage": "read 25 November 2026"
+    },
+    "cliffs_316": {
+      "title": "Cleveland-Cliffs, 316/316L stainless steel product data bulletin",
+      "url": "https://d1io3yog0oux5.cloudfront.net/_464c1f648dd1e0c96c45d68cdce1cf31/clevelandcliffs/db/1190/10513/file/CLF_ProductData_316-316LSS_052021.pdf",
+      "vintage": "May 2021"
+    },
+    "cliffs_430": {
+      "title": "Cleveland-Cliffs, Type 430 stainless steel product data bulletin",
+      "url": "https://d1io3yog0oux5.cloudfront.net/_7ce4388076d69ceb6f2abfab43f52263/clevelandcliffs/db/1190/10520/file/CLF_ProductData_430+Ultra+Form_032022.pdf",
+      "vintage": "March 2022"
+    },
+    "cindas_h13": {
+      "title": "CINDAS High Performance Alloys Database, H-13",
+      "url": "https://cindasdata.com/products/docs/hpad/hpad-example-h13.pdf",
+      "vintage": "2008"
+    },
+    "astm_a572": {
+      "title": "ASTM A572/A572M, High-Strength Low-Alloy Columbium-Vanadium Structural Steel",
+      "url": "https://store.astm.org/a0572_a0572m-25.html",
+      "vintage": "scope from the 2025 edition; alloy limits as shown on the page for the 2012a edition"
+    },
+    "baker": {
+      "title": "Baker (2015), Microalloyed steels, Ironmaking and Steelmaking, author manuscript",
+      "url": "https://strathprints.strath.ac.uk/54405/1/Baker_TN_Ironmaking_and_Steelmaking_2015_Microalloyed_Steels.pdf",
+      "vintage": "2015"
+    },
+    "wco_ch72": {
+      "title": "WCO, HS 2017, Chapter 72",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1572_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch26": {
+      "title": "WCO, HS 2017, Chapter 26",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0526_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch27": {
+      "title": "WCO, HS 2017, Chapter 27",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0527_2017e.pdf",
+      "vintage": "HS 2017"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+      "vintage": "January 2026 release, trade to 2024"
+    }
+  },
+  "inputs": {
+    "mine_production_2024": {
+      "note": "USGS Mineral Commodity Summaries 2026, 2024 column. Each row keeps the unit of its chapter.",
+      "niobium": {
+        "unit": "tonnes of niobium content",
+        "world": 112000,
+        "rows": {
+          "Brazil": 104000,
+          "Canada": 6900,
+          "Congo (Kinshasa)": 930,
+          "Russia": 300,
+          "Rwanda": 210,
+          "Other countries": 160,
+          "China": 44
+        },
+        "source": "mcs_niobium"
+      },
+      "vanadium": {
+        "unit": "tonnes of vanadium content",
+        "world": 118000,
+        "rows": {
+          "China": 84000,
+          "Russia": 21000,
+          "South Africa": 8050,
+          "Brazil": 5190
+        },
+        "source": "mcs_vanadium"
+      },
+      "chromium": {
+        "unit": "thousand tonnes of ore, gross weight",
+        "world": 49600,
+        "rows": {
+          "South Africa": 22900,
+          "Turkey": 9300,
+          "Kazakhstan": 6100,
+          "India": 3370,
+          "Other countries": 3000,
+          "Finland": 1940,
+          "Zimbabwe": 1600,
+          "Brazil": 1400
+        },
+        "source": "mcs_chromium"
+      },
+      "manganese": {
+        "unit": "thousand tonnes of manganese content",
+        "world": 18700,
+        "rows": {
+          "South Africa": 7490,
+          "Gabon": 4640,
+          "Australia": 1600,
+          "Ghana": 1280,
+          "Other countries": 1240,
+          "India": 731,
+          "Brazil": 705,
+          "China": 690,
+          "Cote d'Ivoire": 340
+        },
+        "source": "mcs_manganese"
+      },
+      "nickel": {
+        "unit": "tonnes of nickel content",
+        "world": 3710000,
+        "rows": {
+          "Indonesia": 2310000,
+          "Philippines": 354000,
+          "Other countries": 308000,
+          "Russia": 205000,
+          "Canada": 125000,
+          "New Caledonia": 116000,
+          "China": 115000,
+          "Australia": 98000,
+          "Brazil": 67500,
+          "United States": 7490
+        },
+        "source": "mcs_nickel"
+      },
+      "molybdenum": {
+        "unit": "tonnes of molybdenum content",
+        "world": 256000,
+        "rows": {
+          "China": 100000,
+          "Peru": 41900,
+          "Chile": 38500,
+          "United States": 34000,
+          "Mexico": 16200,
+          "Armenia": 8200,
+          "Kazakhstan": 4080,
+          "Mongolia": 3110,
+          "Iran": 2900,
+          "Uzbekistan": 2100,
+          "Canada": 1540,
+          "Russia": 1500,
+          "North Korea": 800,
+          "Australia": 600,
+          "South Korea": 340
+        },
+        "source": "mcs_molybdenum"
+      }
+    },
+    "revisions_of_2024": {
+      "note": "What the January 2025 edition estimated for 2024, against the February 2026 edition.",
+      "vanadium_china": {
+        "mcs2025": 70000,
+        "mcs2026": 84000,
+        "world_mcs2025": 100000,
+        "world_mcs2026": 118000
+      },
+      "chromium_south_africa": {
+        "mcs2025": 21000,
+        "mcs2026": 22900,
+        "world_mcs2025": 47000,
+        "world_mcs2026": 49600
+      }
+    },
+    "niobium": {
+      "usgs_text": "Brazil continued to be the world's leading niobium producer, accounting for approximately 93% of global production, followed by Canada with 5%.",
+      "brazil_exports_text": "Most of Brazil's exports went to China (49%), followed by the Netherlands (17%), Singapore (9%), and the Republic of Korea and the United States (8% each).",
+      "us_end_use": "Major end-use distribution of domestic niobium consumption was estimated as follows: steels, about 77%, and superalloys, about 23%.",
+      "world_steel_share_2022": "Steel, primarily HSLA steel used in structural, automotive, and aerospace applications, accounted for approximately 89% of global niobium consumption",
+      "producers": "Two companies produce these materials in Brazil, and one company produces them in Canada.",
+      "capacity_2025_t": 126000,
+      "capacity_share_brazil": 0.92,
+      "capacity_share_canada": 0.06,
+      "producers_named": "In Brazil, the leading producers of niobium were Companhia Brasileira de Metalurgia e Mineracao (CBMM) and Niobras Mineracao Ltda. [a subsidiary of China Molybdenum Co., Ltd. (China)]. In Canada, the leading producer was Niobec Inc.",
+      "cbmm_capacity_t_ferroniobium_equivalent": 150000,
+      "cbmm_sales_2025_t_ferroniobium_equivalent": 100173,
+      "cbmm_capacity_quote": "we maintain a production capacity (150,000 tonnes/ year) that exceeds global consumption",
+      "cmoc_2025_t_niobium": 10348,
+      "yearbook_2022_t_niobium": {
+        "world": 83700,
+        "brazil": 75600,
+        "note": "Minerals Yearbook 2022, table 4, mineral concentrates, niobium content; the Brazilian figure is an estimate."
+      },
+      "third_brazilian_producer_2022_t_gross": 4008,
+      "third_brazilian_producer_note": "Mineracao Taboca, niobium and tantalum ferroalloys, gross weight, 2022, as reported by USGS.",
+      "us_import_reliance_pct": 100,
+      "us_ferroniobium_sources": "Ferroniobium and niobium metal: Brazil, 65%; Canada, 31%; and other, 4%.",
+      "recycling": "it may have been as much as 20% of apparent consumption",
+      "ferroniobium_content": "65% niobium content in ferroniobium"
+    },
+    "chromium": {
+      "ferrochrome_2023_t": {
+        "China": 7750000,
+        "South Africa": 3200000,
+        "India": 1400000,
+        "Kazakhstan": 1400000,
+        "Zimbabwe": 400000,
+        "Finland": 390000,
+        "World": 15700000
+      },
+      "ferrochrome_text": "China was the leading producer of ferrochromium, with an estimated 49% of global production (table 8).",
+      "chromite_text_2023": "South Africa was the leading producer of chromite ore, with an estimated 44% of global production.",
+      "icda_2025_kt": {
+        "China": 9907,
+        "South Africa and Zimbabwe": 2091,
+        "CIS and Middle East": 1776,
+        "India": 1304,
+        "Americas and rest of Asia": 1257,
+        "Europe including Albania and Turkey": 609
+      },
+      "icda_south_africa_change_2025": "-48%",
+      "oecd_use": "Around 90% to 95% of mined chrome ore is converted into ferrochrome, and the stainless-steel sector accounts for 80% to 90% of global ferrochrome use",
+      "oecd_exports": "These two countries together account for about 88% of global chromium ore exports.",
+      "oecd_restrictions": "chromium ore exports from both South Africa and Zimbabwe are affected by some form of export restrictions",
+      "usgs_potential": "Potential export controls and tariffs on chromite ore from South Africa may also affect ferrochromium production in China.",
+      "icda_ore_2025_kt": {
+        "South Africa": 25195,
+        "CIS and Middle East": 4875,
+        "Rest of Africa and Americas": 3255,
+        "India": 3083,
+        "Europe including Albania and Turkey": 2935,
+        "Rest of Asia and Australasia": 689
+      },
+      "usgs_substitute": "Chromium has no substitute in stainless steel, the leading end use, or in superalloys, the major strategic end use.",
+      "usgs_recycling": "recycled chromium (contained in reported stainless-steel scrap receipts) accounted for 21% of apparent consumption",
+      "stainless_minimum": "Stainless steels are corrosion resistant steels with a minimum of 10.5 per cent of chromium (Cr)."
+    },
+    "vanadium": {
+      "usgs_coproduct": "In 2025, China continued to be the world's top vanadium producer, with most of its production originating as a coproduct from vanadiferous titanomagnetite ores processed during steelmaking.",
+      "usgs_byproduct_note": "Because vanadium is typically recovered as a byproduct or coproduct, demonstrated world resources of the element are not fully indicative of available supplies.",
+      "vanitec_split": {
+        "primary_mines": 0.26,
+        "steelmaking_slag": 0.59,
+        "secondary": 0.15
+      },
+      "vanitec_text": "Coproduct steelmaking slag resulting from the processing of titaniferous magnetite ore supports about 59% of global vanadium.",
+      "us_use": "Metallurgical use, primarily as an alloying agent for iron and steel, accounted for more than 90% of domestic reported vanadium consumption in 2025.",
+      "substitution": "Replacement of vanadium with other mineral commodities requires significant technical adjustments to the steel production process to ensure that product specifications and quality are not compromised.",
+      "substitution_time": "substitution for vanadium is normally not considered for short-term changes in market conditions because of the considerable effort involved in implementing the change",
+      "usgs_interchangeable": "Certain metals, such as manganese, molybdenum, niobium (columbium), titanium, and tungsten, are to some degree interchangeable with vanadium as alloying elements in steel."
+    },
+    "nickel": {
+      "first_use_2024": {
+        "Stainless steel": 0.66,
+        "Batteries": 0.16,
+        "Nickel-base alloys": 0.06,
+        "Plating": 0.05,
+        "Alloy steels": 0.03,
+        "Foundries": 0.02,
+        "Other": 0.02
+      },
+      "us_use": "Stainless and alloy steel and nickel-containing alloys typically account for more than 85% of domestic consumption.",
+      "us_recycling": "nickel recovered from scrap accounted for approximately 60% of apparent consumption",
+      "oecd_refined": "Indonesia's share of global refined nickel output rose from 6% in 2015 to 61% in 2024",
+      "oecd_ban": "since 2020, Indonesia has imposed a full ban on nickel ore exports"
+    },
+    "other_metals": {
+      "manganese_substitute": "Manganese has no satisfactory substitute in its major applications.",
+      "molybdenum_substitute": "There is little substitution for molybdenum in its major application in steels and cast irons.",
+      "niobium_substitute": "molybdenum and vanadium as alloying elements in high-strength low-alloy steels",
+      "niobium_substitute_caveat": "a performance loss or higher cost may ensue",
+      "molybdenum_recycling": "may be as much as 30% of the apparent supply of molybdenum",
+      "molybdenum_us_reliance": "net exporter"
+    },
+    "grades": {
+      "note": "Composition limits in per cent by weight, from producer data sheets that name the covering standard, and from the standard's own page for A572.",
+      "rows": [
+        {
+          "grade": "Type 316L stainless",
+          "chromium": "16.0 to 18.0",
+          "nickel": "10.0 to 14.0",
+          "molybdenum": "2.0 to 3.0",
+          "vanadium": "",
+          "niobium": "",
+          "source": "cliffs_316"
+        },
+        {
+          "grade": "Type 430 stainless",
+          "chromium": "16.0 to 18.0",
+          "nickel": "0.75 at most",
+          "molybdenum": "",
+          "vanadium": "",
+          "niobium": "",
+          "source": "cliffs_430"
+        },
+        {
+          "grade": "H13 tool steel",
+          "chromium": "4.75 to 5.50",
+          "nickel": "0.30 at most",
+          "molybdenum": "1.10 to 1.75",
+          "vanadium": "0.80 to 1.20",
+          "niobium": "",
+          "source": "cindas_h13"
+        },
+        {
+          "grade": "A572 structural steel, type 1",
+          "chromium": "",
+          "nickel": "",
+          "molybdenum": "",
+          "vanadium": "",
+          "niobium": "0.005 to 0.05",
+          "source": "astm_a572"
+        },
+        {
+          "grade": "A572 structural steel, type 2",
+          "chromium": "",
+          "nickel": "",
+          "molybdenum": "",
+          "vanadium": "0.01 to 0.15",
+          "niobium": "",
+          "source": "astm_a572"
+        }
+      ],
+      "a572_scope": "The use of columbium (niobium), vanadium, titanium, nitrogen, or combinations thereof, within the limitations noted in Section 5, is required; the selection of type (1, 2, 3, or 5) is at the option of the producer, unless otherwise specified by the purchaser.",
+      "microalloy_range_pct": [
+        0.02,
+        0.06
+      ],
+      "microalloy_share_of_world_steel_2014": "~12%, equal to some 200 million tonnes",
+      "grades_count": "There are more than 3,500 different grades of steel with many different physical, chemical, and environmental properties."
+    },
+    "base_inputs": {
+      "iron_ore_usable_2024_kt": {
+        "Australia": 982000,
+        "Brazil": 428000,
+        "China": 293000,
+        "India": 282000,
+        "World": 2600000
+      },
+      "iron_ore_trade_2025": {
+        "exporter_shares": {
+          "Australia": 0.53,
+          "Brazil": 0.24,
+          "Canada": 0.04,
+          "South Africa": 0.04,
+          "Ukraine": 0.02
+        },
+        "china_import_share": 0.75,
+        "world_trade_mt": 1744,
+        "australia_mt": 923,
+        "brazil_mt": 413,
+        "source": "req"
+      },
+      "met_coal_exports_2024_mt": {
+        "Australia": 151,
+        "Russia": 56,
+        "United States": 52,
+        "Mongolia": 48,
+        "Canada": 29,
+        "Other countries": 27,
+        "Total": 363
+      },
+      "met_coal_note": "Preliminary. Source for world exports: International Energy Agency.",
+      "met_coal_exports_2024_mt_australian_table": {
+        "Australia": 153,
+        "Mongolia": 57,
+        "United States": 51,
+        "Russia": 37,
+        "Canada": 29,
+        "World": 350
+      },
+      "scrap_restrictions": "only about 15.2% of global scrap trade was actually subject to restrictions",
+      "coal_code_note": "Subheading 2701.12 covers bituminous coal with no split between coking and other coal."
+    },
+    "trade_boundaries": {
+      "720293": "Ferro-niobium. The alloy in which most niobium is traded; about 65% niobium by weight.",
+      "720292": "Ferro-vanadium. Sold in grades from about 40% to 80% vanadium, so tonnage is not vanadium content.",
+      "720241": "Ferro-chromium with more than 4% carbon. The grade used for most stainless steel.",
+      "720211": "Ferro-manganese with more than 2% carbon. Ferro-silico-manganese is a separate code."
+    }
+  },
+  "results": {
+    "trade_year": 2024,
+    "base_year": 2019,
+    "mine_2024": {
+      "niobium": {
+        "unit": "tonnes of niobium content",
+        "world": 112000,
+        "leader": "Brazil",
+        "leader_share": 0.9285714285714286,
+        "second": "Canada",
+        "second_share": 0.06160714285714286
+      },
+      "vanadium": {
+        "unit": "tonnes of vanadium content",
+        "world": 118000,
+        "leader": "China",
+        "leader_share": 0.711864406779661,
+        "second": "Russia",
+        "second_share": 0.17796610169491525
+      },
+      "chromium": {
+        "unit": "thousand tonnes of ore, gross weight",
+        "world": 49600,
+        "leader": "South Africa",
+        "leader_share": 0.46169354838709675,
+        "second": "Turkey",
+        "second_share": 0.1875
+      },
+      "manganese": {
+        "unit": "thousand tonnes of manganese content",
+        "world": 18700,
+        "leader": "South Africa",
+        "leader_share": 0.40053475935828875,
+        "second": "Gabon",
+        "second_share": 0.24812834224598931
+      },
+      "nickel": {
+        "unit": "tonnes of nickel content",
+        "world": 3710000,
+        "leader": "Indonesia",
+        "leader_share": 0.6226415094339622,
+        "second": "Philippines",
+        "second_share": 0.0954177897574124
+      },
+      "molybdenum": {
+        "unit": "tonnes of molybdenum content",
+        "world": 256000,
+        "leader": "China",
+        "leader_share": 0.390625,
+        "second": "Peru",
+        "second_share": 0.163671875
+      }
+    },
+    "trade_by_weight": {
+      "ferroniobium": {
+        "label": "Ferroniobium",
+        "codes": [
+          "720293"
+        ],
+        "world_tonnes": 140754,
+        "export_hhi": 5285,
+        "leader": "Brazil",
+        "leader_share": 0.7179,
+        "leader_share_base_year": 0.7885,
+        "leader_base_year": "Brazil",
+        "markets": {
+          "United States": {
+            "tonnes": 10309,
+            "share_of_world_trade": 0.07324125779729172,
+            "from_world_leader": 0.6226,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.6226
+          },
+          "European Union": {
+            "tonnes": 25159,
+            "share_of_world_trade": 0.1787444761782969,
+            "from_world_leader": 0.8639,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.8639
+          },
+          "Japan": {
+            "tonnes": 5935,
+            "share_of_world_trade": 0.04216576438325021,
+            "from_world_leader": 0.978,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.978
+          },
+          "South Korea": {
+            "tonnes": 8341,
+            "share_of_world_trade": 0.05925941713912215,
+            "from_world_leader": 0.9302,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.9302
+          },
+          "India": {
+            "tonnes": 3859,
+            "share_of_world_trade": 0.0274166275914006,
+            "from_world_leader": 0.5406,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.5406
+          },
+          "China": {
+            "tonnes": 42923,
+            "share_of_world_trade": 0.3049504809810023,
+            "from_world_leader": 0.9627,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.9627
+          }
+        },
+        "top_exporters": [
+          [
+            "Brazil",
+            0.7179
+          ],
+          [
+            "Canada",
+            0.0748
+          ],
+          [
+            "Netherlands",
+            0.0638
+          ],
+          [
+            "China",
+            0.0392
+          ],
+          [
+            "Malaysia",
+            0.0341
+          ],
+          [
+            "Singapore",
+            0.0206
+          ]
+        ],
+        "markets_led_by_leader": 6,
+        "lowest_market_share": 0.5406,
+        "highest_market_share": 0.978
+      },
+      "ferrovanadium": {
+        "label": "Ferrovanadium",
+        "codes": [
+          "720292"
+        ],
+        "world_tonnes": 34193,
+        "export_hhi": 1265,
+        "leader": "Austria",
+        "leader_share": 0.206,
+        "leader_share_base_year": 0.2466,
+        "leader_base_year": "New Zealand",
+        "markets": {
+          "United States": {
+            "tonnes": 4085,
+            "share_of_world_trade": 0.11946889714269003,
+            "from_world_leader": 0.1589,
+            "largest_supplier": "Canada",
+            "largest_supplier_share": 0.3662
+          },
+          "European Union": {
+            "tonnes": 4916,
+            "share_of_world_trade": 0.14377211709999121,
+            "from_world_leader": null,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.4121
+          },
+          "Japan": {
+            "tonnes": 2358,
+            "share_of_world_trade": 0.0689614833445442,
+            "from_world_leader": 0.0424,
+            "largest_supplier": "China",
+            "largest_supplier_share": 0.5897
+          },
+          "South Korea": {
+            "tonnes": 2372,
+            "share_of_world_trade": 0.0693709238733074,
+            "from_world_leader": 0.1855,
+            "largest_supplier": "China",
+            "largest_supplier_share": 0.717
+          },
+          "India": {
+            "tonnes": 1458,
+            "share_of_world_trade": 0.042640306495481534,
+            "from_world_leader": 0.0,
+            "largest_supplier": "South Korea",
+            "largest_supplier_share": 0.4194
+          },
+          "China": {
+            "tonnes": 318,
+            "share_of_world_trade": 0.009300149153335479,
+            "from_world_leader": 0.2519,
+            "largest_supplier": "Russia",
+            "largest_supplier_share": 0.6298
+          }
+        },
+        "top_exporters": [
+          [
+            "Austria",
+            0.206
+          ],
+          [
+            "China",
+            0.1966
+          ],
+          [
+            "Czechia",
+            0.1451
+          ],
+          [
+            "South Africa",
+            0.093
+          ],
+          [
+            "South Korea",
+            0.0893
+          ],
+          [
+            "Netherlands",
+            0.0606
+          ]
+        ],
+        "markets_led_by_leader": 0,
+        "lowest_market_share": 0.0,
+        "highest_market_share": 0.2519
+      },
+      "ferrochromium": {
+        "label": "Ferrochromium",
+        "codes": [
+          "720241",
+          "720249"
+        ],
+        "world_tonnes": 8051779,
+        "export_hhi": 3411,
+        "leader": "South Africa",
+        "leader_share": 0.5329,
+        "leader_share_base_year": 0.4917,
+        "leader_base_year": "South Africa",
+        "markets": {
+          "United States": {
+            "tonnes": 433008,
+            "share_of_world_trade": 0.05377792907629482,
+            "from_world_leader": 0.4361,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.4361
+          },
+          "European Union": {
+            "tonnes": 798934,
+            "share_of_world_trade": 0.09922453162214213,
+            "from_world_leader": 0.5628,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.5628
+          },
+          "Japan": {
+            "tonnes": 495750,
+            "share_of_world_trade": 0.061570244290112784,
+            "from_world_leader": 0.3367,
+            "largest_supplier": "Kazakhstan",
+            "largest_supplier_share": 0.4879
+          },
+          "South Korea": {
+            "tonnes": 415652,
+            "share_of_world_trade": 0.051622380594400316,
+            "from_world_leader": 0.4191,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.4191
+          },
+          "India": {
+            "tonnes": 40590,
+            "share_of_world_trade": 0.005041121968201064,
+            "from_world_leader": 0.6111,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.6111
+          },
+          "China": {
+            "tonnes": 3164004,
+            "share_of_world_trade": 0.3929571340693777,
+            "from_world_leader": 0.4815,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.4815
+          }
+        },
+        "top_exporters": [
+          [
+            "South Africa",
+            0.5329
+          ],
+          [
+            "Kazakhstan",
+            0.2166
+          ],
+          [
+            "India",
+            0.0703
+          ],
+          [
+            "Zimbabwe",
+            0.0568
+          ],
+          [
+            "Finland",
+            0.0367
+          ],
+          [
+            "Russia",
+            0.0141
+          ]
+        ],
+        "markets_led_by_leader": 5,
+        "lowest_market_share": 0.3367,
+        "highest_market_share": 0.6111
+      },
+      "ferromanganese": {
+        "label": "Ferromanganese and ferrosilicomanganese",
+        "codes": [
+          "720211",
+          "720219",
+          "720230"
+        ],
+        "world_tonnes": 5219529,
+        "export_hhi": 1653,
+        "leader": "India",
+        "leader_share": 0.3504,
+        "leader_share_base_year": 0.1502,
+        "leader_base_year": "India",
+        "markets": {
+          "United States": {
+            "tonnes": 674645,
+            "share_of_world_trade": 0.12925399973829058,
+            "from_world_leader": 0.091,
+            "largest_supplier": "Malaysia",
+            "largest_supplier_share": 0.2484
+          },
+          "European Union": {
+            "tonnes": 1141856,
+            "share_of_world_trade": 0.21876609939325942,
+            "from_world_leader": 0.2675,
+            "largest_supplier": "Norway",
+            "largest_supplier_share": 0.3644
+          },
+          "Japan": {
+            "tonnes": 294214,
+            "share_of_world_trade": 0.056367921320103785,
+            "from_world_leader": 0.4505,
+            "largest_supplier": "India",
+            "largest_supplier_share": 0.4505
+          },
+          "South Korea": {
+            "tonnes": 252002,
+            "share_of_world_trade": 0.048280601563857585,
+            "from_world_leader": 0.3156,
+            "largest_supplier": "Malaysia",
+            "largest_supplier_share": 0.4743
+          },
+          "India": {
+            "tonnes": 28621,
+            "share_of_world_trade": 0.005483444962179538,
+            "from_world_leader": null,
+            "largest_supplier": "Bhutan",
+            "largest_supplier_share": 0.6226
+          },
+          "China": {
+            "tonnes": 37733,
+            "share_of_world_trade": 0.007229196350858478,
+            "from_world_leader": 0.1229,
+            "largest_supplier": "Kazakhstan",
+            "largest_supplier_share": 0.3755
+          }
+        },
+        "top_exporters": [
+          [
+            "India",
+            0.3504
+          ],
+          [
+            "Norway",
+            0.1306
+          ],
+          [
+            "Malaysia",
+            0.1248
+          ],
+          [
+            "Georgia",
+            0.0542
+          ],
+          [
+            "South Africa",
+            0.0408
+          ],
+          [
+            "Ukraine",
+            0.0282
+          ]
+        ],
+        "markets_led_by_leader": 1,
+        "lowest_market_share": 0.091,
+        "highest_market_share": 0.4505
+      },
+      "ferronickel": {
+        "label": "Ferronickel",
+        "codes": [
+          "720260"
+        ],
+        "world_tonnes": 10030756,
+        "export_hhi": 8675,
+        "leader": "Indonesia",
+        "leader_share": 0.9309,
+        "leader_share_base_year": 0.5596,
+        "leader_base_year": "Indonesia",
+        "markets": {
+          "United States": {
+            "tonnes": 46389,
+            "share_of_world_trade": 0.00462467634543199,
+            "from_world_leader": 0.0,
+            "largest_supplier": "Brazil",
+            "largest_supplier_share": 0.6576
+          },
+          "European Union": {
+            "tonnes": 247355,
+            "share_of_world_trade": 0.024659656759669957,
+            "from_world_leader": 0.3971,
+            "largest_supplier": "Indonesia",
+            "largest_supplier_share": 0.3971
+          },
+          "Japan": {
+            "tonnes": 39625,
+            "share_of_world_trade": 0.0039503503026092944,
+            "from_world_leader": 0.0014,
+            "largest_supplier": "New Caledonia",
+            "largest_supplier_share": 0.5403
+          },
+          "South Korea": {
+            "tonnes": 167053,
+            "share_of_world_trade": 0.0166540787155026,
+            "from_world_leader": 0.8077,
+            "largest_supplier": "Indonesia",
+            "largest_supplier_share": 0.8077
+          },
+          "India": {
+            "tonnes": 189501,
+            "share_of_world_trade": 0.01889199577778584,
+            "from_world_leader": 0.9697,
+            "largest_supplier": "Indonesia",
+            "largest_supplier_share": 0.9697
+          },
+          "China": {
+            "tonnes": 9155991,
+            "share_of_world_trade": 0.9127917177927566,
+            "from_world_leader": 0.9663,
+            "largest_supplier": "Indonesia",
+            "largest_supplier_share": 0.9663
+          }
+        },
+        "top_exporters": [
+          [
+            "Indonesia",
+            0.9309
+          ],
+          [
+            "Brazil",
+            0.0175
+          ],
+          [
+            "New Caledonia",
+            0.0168
+          ],
+          [
+            "Colombia",
+            0.0155
+          ],
+          [
+            "South Korea",
+            0.0067
+          ],
+          [
+            "Netherlands",
+            0.0047
+          ]
+        ],
+        "markets_led_by_leader": 4,
+        "lowest_market_share": 0.0,
+        "highest_market_share": 0.9697
+      },
+      "ferromolybdenum": {
+        "label": "Ferromolybdenum",
+        "codes": [
+          "720270"
+        ],
+        "world_tonnes": 105002,
+        "export_hhi": 1341,
+        "leader": "South Korea",
+        "leader_share": 0.2801,
+        "leader_share_base_year": 0.2594,
+        "leader_base_year": "South Korea",
+        "markets": {
+          "United States": {
+            "tonnes": 7887,
+            "share_of_world_trade": 0.07511285499323822,
+            "from_world_leader": 0.2376,
+            "largest_supplier": "Chile",
+            "largest_supplier_share": 0.693
+          },
+          "European Union": {
+            "tonnes": 29558,
+            "share_of_world_trade": 0.28149940001142837,
+            "from_world_leader": 0.398,
+            "largest_supplier": "South Korea",
+            "largest_supplier_share": 0.398
+          },
+          "Japan": {
+            "tonnes": 881,
+            "share_of_world_trade": 0.008390316374926193,
+            "from_world_leader": 0.0643,
+            "largest_supplier": "Chile",
+            "largest_supplier_share": 0.8044
+          },
+          "South Korea": {
+            "tonnes": 165,
+            "share_of_world_trade": 0.0015713986400259043,
+            "from_world_leader": null,
+            "largest_supplier": "Japan",
+            "largest_supplier_share": 0.5859
+          },
+          "India": {
+            "tonnes": 2017,
+            "share_of_world_trade": 0.01920915792080151,
+            "from_world_leader": 0.0558,
+            "largest_supplier": "Thailand",
+            "largest_supplier_share": 0.6697
+          },
+          "China": {
+            "tonnes": 8475,
+            "share_of_world_trade": 0.08071274832860327,
+            "from_world_leader": 0.5454,
+            "largest_supplier": "South Korea",
+            "largest_supplier_share": 0.5454
+          }
+        },
+        "top_exporters": [
+          [
+            "South Korea",
+            0.2801
+          ],
+          [
+            "United Kingdom",
+            0.1175
+          ],
+          [
+            "Netherlands",
+            0.1144
+          ],
+          [
+            "Belgium",
+            0.0901
+          ],
+          [
+            "Chile",
+            0.0847
+          ],
+          [
+            "Thailand",
+            0.076
+          ]
+        ],
+        "markets_led_by_leader": 2,
+        "lowest_market_share": 0.0558,
+        "highest_market_share": 0.5454
+      },
+      "chromium_ore": {
+        "label": "Chromium ores and concentrates",
+        "codes": [
+          "261000"
+        ],
+        "world_tonnes": 29797212,
+        "export_hhi": 6993,
+        "leader": "South Africa",
+        "leader_share": 0.833,
+        "leader_share_base_year": 0.7705,
+        "leader_base_year": "South Africa",
+        "markets": {
+          "United States": {
+            "tonnes": 58696,
+            "share_of_world_trade": 0.0019698487227597,
+            "from_world_leader": 0.9696,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.9696
+          },
+          "European Union": {
+            "tonnes": 409313,
+            "share_of_world_trade": 0.013736620728140607,
+            "from_world_leader": 0.4696,
+            "largest_supplier": "Turkey",
+            "largest_supplier_share": 0.4904
+          },
+          "Japan": {
+            "tonnes": 52278,
+            "share_of_world_trade": 0.0017544594440580547,
+            "from_world_leader": 0.293,
+            "largest_supplier": "Pakistan",
+            "largest_supplier_share": 0.6091
+          },
+          "South Korea": {
+            "tonnes": 4672,
+            "share_of_world_trade": 0.0001567931925980189,
+            "from_world_leader": 0.2776,
+            "largest_supplier": "Pakistan",
+            "largest_supplier_share": 0.2882
+          },
+          "India": {
+            "tonnes": 245022,
+            "share_of_world_trade": 0.008222984083208859,
+            "from_world_leader": 0.9269,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.9269
+          },
+          "China": {
+            "tonnes": 16613731,
+            "share_of_world_trade": 0.5575599153370456,
+            "from_world_leader": 0.7934,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.7934
+          }
+        },
+        "top_exporters": [
+          [
+            "South Africa",
+            0.833
+          ],
+          [
+            "Zimbabwe",
+            0.0516
+          ],
+          [
+            "Turkey",
+            0.0466
+          ],
+          [
+            "Pakistan",
+            0.014
+          ],
+          [
+            "Albania",
+            0.0131
+          ],
+          [
+            "Kazakhstan",
+            0.0099
+          ]
+        ],
+        "markets_led_by_leader": 3,
+        "lowest_market_share": 0.2776,
+        "highest_market_share": 0.9696
+      },
+      "manganese_ore": {
+        "label": "Manganese ores and concentrates",
+        "codes": [
+          "260200"
+        ],
+        "world_tonnes": 43347600,
+        "export_hhi": 3655,
+        "leader": "South Africa",
+        "leader_share": 0.5619,
+        "leader_share_base_year": 0.4065,
+        "leader_base_year": "South Africa",
+        "markets": {
+          "United States": {
+            "tonnes": 356293,
+            "share_of_world_trade": 0.008219440061272135,
+            "from_world_leader": 0.1867,
+            "largest_supplier": "Gabon",
+            "largest_supplier_share": 0.5644
+          },
+          "European Union": {
+            "tonnes": 1119952,
+            "share_of_world_trade": 0.025836539969917596,
+            "from_world_leader": 0.6693,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.6693
+          },
+          "Japan": {
+            "tonnes": 898641,
+            "share_of_world_trade": 0.020731043933228138,
+            "from_world_leader": 0.6678,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.6678
+          },
+          "South Korea": {
+            "tonnes": 359043,
+            "share_of_world_trade": 0.008282880713119065,
+            "from_world_leader": 0.6437,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.6437
+          },
+          "India": {
+            "tonnes": 6302168,
+            "share_of_world_trade": 0.14538678035231478,
+            "from_world_leader": 0.6095,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.6095
+          },
+          "China": {
+            "tonnes": 29146870,
+            "share_of_world_trade": 0.6723987025809964,
+            "from_world_leader": 0.5425,
+            "largest_supplier": "South Africa",
+            "largest_supplier_share": 0.5425
+          }
+        },
+        "top_exporters": [
+          [
+            "South Africa",
+            0.5619
+          ],
+          [
+            "Gabon",
+            0.1824
+          ],
+          [
+            "Ghana",
+            0.11
+          ],
+          [
+            "Australia",
+            0.0585
+          ],
+          [
+            "Côte d'Ivoire",
+            0.019
+          ],
+          [
+            "Brazil",
+            0.0164
+          ]
+        ],
+        "markets_led_by_leader": 5,
+        "lowest_market_share": 0.1867,
+        "highest_market_share": 0.6693
+      }
+    },
+    "ferroniobium_detail": {
+      "india_tonnes": 3859,
+      "india_via_hubs": 0.33799999999999997,
+      "india_largest_base_year": "Singapore",
+      "india_largest_share_base_year": 0.6057,
+      "hub_share_of_world_exports": 0.1577,
+      "hubs_listed": [
+        "Netherlands",
+        "China",
+        "Malaysia",
+        "Singapore"
+      ]
+    },
+    "chromium": {
+      "china_ferrochrome_share_2023": 0.49363057324840764,
+      "south_africa_ferrochrome_share_2023": 0.20382165605095542,
+      "china_ferrochrome_share_2025_icda": 0.58469074598678,
+      "icda_total_2025_kt": 16944,
+      "south_africa_ore_share_of_mining": 0.46169354838709675,
+      "south_africa_ore_share_of_trade": 0.833,
+      "china_share_of_ore_imports": 0.5575599153370456,
+      "china_ferrochrome_imports_t": 3164004,
+      "south_africa_ore_exports_t": 24821077.595999997,
+      "south_africa_ore_output_kt": 22900,
+      "icda_south_africa_ore_share_2025": 0.6293715027977618,
+      "icda_ore_total_2025_kt": 40032
+    },
+    "nickel": {
+      "indonesia_mine_share": 0.6226415094339622,
+      "indonesia_ferronickel_trade_share": 0.9309,
+      "indonesia_ferronickel_trade_share_base_year": 0.5596,
+      "china_share_of_ferronickel_imports": 0.9127917177927566,
+      "world_ferronickel_tonnes": 10030756,
+      "world_ferronickel_tonnes_base_year": 2773150
+    },
+    "base_inputs": {
+      "australia_share_of_iron_ore_output": 0.3776923076923077,
+      "brazil_share_of_iron_ore_output": 0.1646153846153846,
+      "australia_share_of_met_coal_exports": 0.41597796143250687,
+      "top_two_share_of_iron_ore_exports": 0.77
+    },
+    "revisions_of_2024": {
+      "vanadium_china_share_mcs2025": 0.7,
+      "vanadium_china_share_mcs2026": 0.711864406779661,
+      "chromium_south_africa_share_mcs2025": 0.44680851063829785,
+      "chromium_south_africa_share_mcs2026": 0.46169354838709675
     }
   }
 }

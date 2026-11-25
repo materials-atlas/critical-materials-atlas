@@ -123,6 +123,113 @@ def mine_history():
     }
 
 
+def pathway_evidence(episode):
+    """Material-by-material evidence, supply outside the nations US law names, and the observed antimony adjustment."""
+    p = load(HERE / "pathway_inputs.json")
+    named = set(p["covered_nations"]["names"])
+    for item in p["materials"]:
+        if set(item["grades"]) != {"pathway", "supplier", "quantity"} or not set(item["grades"].values()) <= set(p["grades"]):
+            raise SystemExit(f'{item["material"]}: grades are incomplete or use an undefined letter')
+        for key in item["use_sources"] + item["law_sources"] + item["supplier_sources"] + item["replace_sources"] + item.get("quantity_sources", []):
+            if key not in p["sources"]:
+                raise SystemExit(f'{item["material"]}: source {key} is not in the source list')
+    supply = []
+    for item in p["supply_outside"]:
+        rows = item["rows"]
+        total = sum(rows.values())
+        if abs(total / item["world_published"] - 1) > 0.02:
+            raise SystemExit(f'{item["material"]}: the country rows do not add to the published world total')
+        other_named = sum(v for k, v in rows.items() if k in named and k != "China")
+        rest = total - rows["China"] - other_named
+        leader = max((k for k in rows if k not in named and not k.startswith("Other")), key=rows.get)
+        supply.append({"material": item["material"], "stage": item["stage"], "year": item["year"], "unit": item["unit"],
+                       "listed_total": total, "world_published": item["world_published"], "china": rows["China"],
+                       "other_named_nations": other_named, "all_other_countries": rest, "all_other_share": rest / total,
+                       "largest_other": leader, "largest_other_quantity": rows[leader], "note": item["note"], "source": item["source"]})
+    adjustment = {}
+    for market, case in episode.items():
+        china = case["later"]["china_t_per_month"] - case["earlier"]["china_t_per_month"]
+        total = case["later"]["total_t_per_month"] - case["earlier"]["total_t_per_month"]
+        adjustment[market] = {"china_origin_t_per_month": china, "other_origins_t_per_month": total - china, "total_t_per_month": total,
+                              "unit_value_ratio": case["later"]["unit_value_per_kg"] / case["earlier"]["unit_value_per_kg"]}
+    us = p["antimony_us"]
+    cover = {"ceiling_t": us["stockpile_purchase_ceiling_fy2025_t"], "consumption_2024_t": us["apparent_consumption_t"]["2024"],
+             "days_of_2024_consumption": us["stockpile_purchase_ceiling_fy2025_t"] / us["apparent_consumption_t"]["2024"] * 365,
+             "days_of_2025_consumption_estimate": us["stockpile_purchase_ceiling_fy2025_t"] / us["apparent_consumption_t"]["2025_estimate"] * 365}
+    by = {s["material"]: s for s in supply}
+    checks = (
+        (adjustment["EU"]["other_origins_t_per_month"] > -adjustment["EU"]["china_origin_t_per_month"] > 0
+         and 3.5 < adjustment["EU"]["unit_value_ratio"] < 4.5, "the EU antimony adjustment no longer reads as the page states"),
+        (adjustment["US"]["other_origins_t_per_month"] < 0 and adjustment["US"]["china_origin_t_per_month"] < 0,
+         "the US antimony adjustment no longer reads as the page states"),
+        (by["Gallium"]["all_other_share"] < 0.01 and by["Antimony"]["largest_other"] == "Tajikistan",
+         "the supply rows outside the named nations no longer read as the page states"),
+        ([m["material"] for m in p["materials"] if m["grades"]["supplier"] == "A"] == ["Antimony", "Rare-earth magnets"]
+         and all(m["grades"]["pathway"] == "B" for m in p["materials"]), "the grades no longer match the paragraph below the table"),
+    )
+    for ok, message in checks:
+        if not ok:
+            raise SystemExit("defence page text no longer matches the data: " + message)
+    return {"checked": p["checked"], "grades": p["grades"], "covered_nations": p["covered_nations"], "materials": p["materials"],
+            "supply_outside_china": supply, "germanium_supply_note": p["germanium_supply_note"], "antimony_adjustment": adjustment,
+            "antimony_us": us, "antimony_stock_cover_modelled": cover, "visibility": p["visibility"], "sources": p["sources"]}
+
+
+def pathway_values(pw):
+    src = pw["sources"]
+
+    def links(keys):
+        return " ".join(f'<a href="{escape(src[k]["url"], quote=True)}">{escape(src[k]["title"])}</a>.' for k in keys)
+
+    def cell(text, keys):
+        return f"<td>{escape(text, quote=False)} {links(keys)}</td>" if keys else f"<td>{escape(text, quote=False)}</td>"
+
+    grade_rows = "\n".join(f'<tr><th scope="row">{k}</th><td>{escape(v["name"])}</td><td>{escape(v["definition"])}</td></tr>'
+                           for k, v in pw["grades"].items())
+    rows, replace = [], []
+    for m in pw["materials"]:
+        use = m["use"] + (" " + m["quantity"] if m.get("quantity") else "")
+        g = m["grades"]
+        scope = f' ({m["supplier_scope"]})' if m.get("supplier_scope") else ""
+        qscope = f' ({m["quantity_scope"]})' if m.get("quantity_scope") else ""
+        rows.append(f'<tr><th scope="row">{escape(m["material"])}</th>' + cell(use, m["use_sources"] + m.get("quantity_sources", []))
+                    + cell(m["law"], m["law_sources"]) + cell(m["supplier"], m["supplier_sources"])
+                    + f'<td>{g["pathway"]}</td><td>{g["supplier"]}{escape(scope)}</td><td>{g["quantity"]}{escape(qscope)}</td></tr>')
+        replace.append(f'<tr><th scope="row">{escape(m["material"])}</th>' + cell(m["substitutes"], []) + cell(m["stockpile"], [])
+                       + cell(m["capacity"], m["replace_sources"]) + "</tr>")
+    supply_rows = []
+    for s in pw["supply_outside_china"]:
+        supply_rows.append(
+            f'<tr><th scope="row">{escape(s["material"])}: {escape(s["stage"].lower())}, {escape(s["year"])}</th>'
+            + "".join(f'<td class="n">{v}</td>' for v in (
+                f'{s["listed_total"]:,}', f'{s["china"]:,}', f'{s["other_named_nations"]:,}', f'{s["all_other_countries"]:,}',
+                f'{s["all_other_share"]:.0%}' if s["all_other_share"] >= 0.01 else "under 1%",
+                f'{escape(s["largest_other"])} {s["largest_other_quantity"]:,}'))
+            + f'<td>{links([s["source"]])}</td></tr>')
+    by = {s["material"]: s for s in pw["supply_outside_china"]}
+    adj, cover = pw["antimony_adjustment"], pw["antimony_stock_cover_modelled"]
+    antimony = next(i for i in load(HERE / "pathway_inputs.json")["supply_outside"] if i["material"] == "Antimony")
+    return {
+        "grade_rows": grade_rows, "pathway_rows": "\n".join(rows), "replace_rows": "\n".join(replace), "supply_rows": "\n".join(supply_rows),
+        "sb_rest_share": f'{by["Antimony"]["all_other_share"]:.0%}', "w_rest_share": f'{by["Tungsten"]["all_other_share"]:.0%}',
+        "re_rest_share": f'{by["Rare earths"]["all_other_share"]:.0%}',
+        "sb_outside_china": f'{by["Antimony"]["listed_total"] - by["Antimony"]["china"]:,}', "sb_ru": f'{antimony["rows"]["Russia"]:,}',
+        "sb_tj": f'{antimony["rows"]["Tajikistan"]:,}', "germanium_note": escape(pw["germanium_supply_note"], quote=False),
+        "sb_ceiling": f'{cover["ceiling_t"]:,}', "sb_days": f'{cover["days_of_2024_consumption"]:.0f}', "sb_cons": f'{cover["consumption_2024_t"]:,}',
+        "sb_days_2025": f'{cover["days_of_2025_consumption_estimate"]:.0f}', "sb_cons_2025": f'{pw["antimony_us"]["apparent_consumption_t"]["2025_estimate"]:,}',
+        "sb_ox_2024": f'{pw["antimony_us"]["imports_for_consumption_t"]["oxide"]["2024"]:,}', "sb_ox_2025": f'{pw["antimony_us"]["imports_for_consumption_t"]["oxide"]["2025_estimate"]:,}',
+        "sb_un_2024": f'{pw["antimony_us"]["imports_for_consumption_t"]["unwrought_and_powder"]["2024"]:,}',
+        "sb_un_2025": f'{pw["antimony_us"]["imports_for_consumption_t"]["unwrought_and_powder"]["2025_estimate"]:,}',
+        "re_estimated": "29,760", "pw_usgs_sb": links(["mcs_antimony"]), "pw_pl": links(["pl_119_60"]),
+        "eu_china": f'{-adj["EU"]["china_origin_t_per_month"]:,.0f}', "eu_other": f'{adj["EU"]["other_origins_t_per_month"]:,.0f}',
+        "us_china": f'{-adj["US"]["china_origin_t_per_month"]:,.0f}', "us_other": f'{-adj["US"]["other_origins_t_per_month"]:,.0f}',
+        "pw_usgs": links(["mcs_gallium", "mcs_antimony", "mcs_tungsten", "mcs_rare_earths", "mcs_germanium"]),
+        "pw_law": links(["usc_4872"]), "pw_gao_suppliers": links(["gao_suppliers"]), "pw_gao_materials": links(["gao_materials"]),
+        "pw_gao_stockpile": links(["gao_stockpile"]), "pw_dla": links(["dla_plan"]),
+        "pathway_references": "\n".join(f'    <li><a href="{escape(v["url"], quote=True)}">{escape(v["title"])}</a></li>' for v in src.values()),
+    }
+
+
 def build_evidence():
     share = MINE["2025"]["china_t"] / MINE["2025"]["world_t"]
     materials = (
@@ -146,7 +253,8 @@ def build_evidence():
         "us_antimony_net_import_reliance": {"year": 2025, "share": 0.91, "source": "mcs_antimony"},
         "magnet_imports": benchmark_magnets(),
         "policy_timeline": [dict(date=date, measure=measure, source=source) for date, measure, source in POLICIES],
-        "antimony_episode": antimony_episode(), "antimony_prices_usgs": PRICES,
+        "antimony_episode": (episode := antimony_episode()), "antimony_prices_usgs": PRICES,
+        "pathways": pathway_evidence(episode),
         "sources": {key: {"title": title, "url": url} for key, (title, url) in SOURCES.items()},
     }
 
@@ -215,6 +323,7 @@ def render(data, trade):
         "april_spot": f'USD {PRICES["april_2026_spot"]:g}',
         "trade_year": last, "trade_rows": "\n".join(trade_rows(trade, last)),
         **{key: source_link(key) for key in SOURCES},
+        **pathway_values(data["pathways"]),
     }
     return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
 
