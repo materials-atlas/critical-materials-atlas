@@ -19,7 +19,7 @@ METRICS = (
     ("china_t", "Declared China origin", "Tonnes", 600),
     ("customs_unit_value_per_kg", "Customs unit value", "{currency}/kg", None),
 )
-COLORS = ("#29658b", "#974920", "#385c56")
+COLORS = ("#15323a", "#0e7c74", "#5a6b68")   # atlas navy, teal, grey
 
 
 def main():
