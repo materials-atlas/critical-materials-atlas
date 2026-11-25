@@ -50,8 +50,8 @@ CASES = [
     ('Cement', 0.066, 'China and India are absent',
      'BGS cement has ~32 reporting countries, led by Turkey, Germany, Italy and Spain. China alone '
      'produces roughly 2.4 of the world’s ~4.2 billion tonnes, and it does not appear at all. '
-     'The panel is a Europe-weighted subset, not a world census — so its sum must never be used '
-     'as a world denominator. Nothing here is a data error; the series simply does not mean what a '
+     'The panel is a Europe-weighted subset, not a world census, so its sum must never be used '
+     'as a world denominator. Nothing here is a data error; the series does not mean what a '
      'reader would assume it means.'),
 ]
 
@@ -118,20 +118,20 @@ HTML = f"""<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · cross-source comparison</div>
   <h1>Two counts of the same world</h1>
-  <p class="deck">Every production figure the atlas publishes comes from a compilation of what countries report. So we ran the obvious check: does a <i>second</i> public compilation say the same thing? For <b>{S['agrees_within_10pct']} of {d['n_materials']}</b> materials the two track within 10%. The useful part is the ones that don&rsquo;t &mdash; because each disagreement turns out to name something specific about how the world&rsquo;s mineral statistics are actually made.</p>
+  <p class="deck">Every production figure the atlas publishes comes from a compilation of what countries report. This page checks whether a second public compilation says the same thing. For <b>{S['agrees_within_10pct']} of {d['n_materials']}</b> materials the two track within 10%. The disagreements are the useful part, because each one points to something specific about how the world&rsquo;s mineral statistics are made.</p>
 </div></section>
 
 <article>
-  <p class="lead">We compare the sum of <b>BGS World Mineral Statistics</b> national returns against the <b>USGS</b> world-production estimate for the same material, over the years both cover. <b>These are independent compilations, but not independent measurements</b> &mdash; both rest largely on the same national statistical returns, so they can agree and still both be wrong. Agreement therefore tells you we have paired the right forms and read the units correctly. It is not evidence that a number is true, and a disagreement does not make either body wrong. Most disagreement here is definitional.</p>
+  <p class="lead">The page compares the sum of BGS World Mineral Statistics national returns with the USGS world-production estimate for the same material, over the years both cover. These are independent compilations, but not independent measurements: both rest largely on the same national statistical returns, so they can agree and still both be wrong. Agreement therefore shows that the right forms have been paired and the units read correctly. It is not evidence that a number is true, and a disagreement does not make either body wrong. Most disagreement here is definitional.</p>
 
   <h2>The disagreements are the content</h2>
-  <p class="note" style="margin:.2rem 0 .4rem;max-width:80ch">One was unexplained until recently, and it turned out not to be an error in anyone&rsquo;s data. A second, cobalt, was &ldquo;explained&rdquo; here and has been withdrawn: the gap was our own double count, not the data (see below).</p>
+  <p class="note" style="margin:.2rem 0 .4rem;max-width:80ch">One was unexplained until recently, and it turned out not to be an error in anyone&rsquo;s data. A second, cobalt, was &ldquo;explained&rdquo; here and has been withdrawn: the gap was the atlas&rsquo;s own double count, not the data (see below).</p>
   {cases_html}
 
-  <div class="callout"><b>The limit that outranks the ratio.</b> A sum over a handful of reporting countries cannot be a world census, however neatly the ratio lands. <b>{n_thin} of {d['n_materials']}</b> materials here rest on fewer than eight reporting countries &mdash; including lithium and rare earths. Germanium is the clearest case: its two figures happen to sit close together, but BGS carries only three reporting countries for it, so that agreement is coincidence rather than confirmation. Those rows are marked <span style="color:#b4532b;font-weight:700">&dagger;</span> below, and the mark should be read before the number.</p></div>
+  <div class="callout"><b>The limit that outranks the ratio.</b> A sum over a handful of reporting countries cannot be a world census, however neatly the ratio lands. <b>{n_thin} of {d['n_materials']}</b> materials here rest on fewer than eight reporting countries, including lithium and rare earths. Germanium is the clearest case: its two figures happen to sit close together, but BGS carries only three reporting countries for it, so that agreement is coincidence rather than confirmation. Those rows are marked <span style="color:#b4532b;font-weight:700">&dagger;</span> below, and the mark should be read before the number.</p></div>
 
   <h2>All {d['n_materials']} materials</h2>
-  <p class="note" style="margin:.2rem 0 .6rem">Ordered by how far apart the two counts are &mdash; least comparable first, because those rows carry the information. Ratio = median (BGS national sum &divide; USGS world estimate) over the overlapping years.</p>
+  <p class="note" style="margin:.2rem 0 .6rem">Ordered by how far apart the two counts are, least comparable first, because those rows carry the most information. Ratio = median (BGS national sum &divide; USGS world estimate) over the overlapping years.</p>
   <div style="overflow-x:auto">
   <table>
     <thead><tr><th>Material</th><th>BGS form paired</th><th class="n">Ratio</th><th class="n">Reporters</th><th>Status</th><th>What the difference is</th></tr></thead>
@@ -145,13 +145,13 @@ HTML = f"""<!doctype html>
       <li>Not verification. Two compilations sharing the same national returns cannot verify each other.</li>
       <li>Not accuracy, and not ground truth. Neither body measures the ore; both collect what is reported.</li>
       <li>Agreement within 10% does not make a figure correct, and the band is wide.</li>
-      <li>A material that does not pair is <i>not</i> thereby worse &mdash; usually the two are simply counting different objects, such as gross ore against contained metal.</li>
+      <li>A material that does not pair is not thereby worse; usually the two are counting different objects, such as gross ore against contained metal.</li>
       <li>Where the two differ, this page does not declare the atlas&rsquo;s number the winner.</li>
     </ul>
   </div>
 
   @@AGENCYGAP@@
-  <div class="callout"><b>Method.</b> Pairings are <b>declared explicitly</b> in <code>build_pairing.py</code>, never inferred by matching material names: a ratio between &ldquo;manganese ore, gross weight&rdquo; and &ldquo;manganese, contained metal&rdquo; is a category error, not a disagreement. Both series are read from the atlas&rsquo;s harmonised cube, which keeps every source&rsquo;s native codes and units alongside the common labels. Data: <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/">BGS World Mineral Statistics</a> and USGS Historical Statistics &rarr; <a href="out/pairing.json">pairing.json</a>.</div>
+  <div class="callout"><b>Method.</b> Pairings are declared explicitly in <code>build_pairing.py</code>, never inferred by matching material names: a ratio between &ldquo;manganese ore, gross weight&rdquo; and &ldquo;manganese, contained metal&rdquo; is a category error, not a disagreement. Both series are read from the atlas&rsquo;s harmonised cube, which keeps every source&rsquo;s native codes and units alongside the common labels. Data: <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/">BGS World Mineral Statistics</a> and USGS Historical Statistics &rarr; <a href="out/pairing.json">pairing.json</a>.</div>
 
   <div class="ftr"><a href="concentration">Concentration over time</a> &middot; <a href="production">The three-source production cross-check</a> &middot; <a href="analysis">All analysis</a></div>
 </article>

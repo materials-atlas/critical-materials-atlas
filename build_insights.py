@@ -173,7 +173,7 @@ def main():
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Synthesis · {YEAR}</div>
   <h1>The state of critical-materials supply</h1>
-  <p class="deck">The whole atlas in one screen — the highest-risk materials, the biggest origin gaps, China's footprint across the chain, the materials with no recycling cushion, the most-exposed economies, and — with the series now reaching back to 2002 — how that concentration has intensified over two decades. Every figure links to its detail.</p>
+  <p class="deck">The whole atlas in one screen: the highest-risk materials, the biggest origin gaps, China's footprint across the chain, the materials with no recycling cushion and the most-exposed economies. With the series now reaching back to 2002, it also shows how that concentration has intensified over two decades. Every figure links to its detail.</p>
 </div></section>
 <section class="stats"><div class="wrap">
   <div class="stat"><div class="n">{len(MATS)}</div><div class="l">critical materials</div></div>
@@ -185,10 +185,10 @@ def main():
   <div class="callout hot" style="padding:1.2rem 1.4rem">
     <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#b4532b">Second finding</div>
     <h2 style="margin:.25rem 0 .5rem;border:none;padding:0">The materials with no way out</h2>
-    <p style="margin:.2rem 0 .7rem"><b>{len(nwo)}</b> materials are at once <b>hard to substitute</b>,
-    <b>essentially un-recycled</b> (&lt;5% end-of-life), and <b>supply-concentrated</b> — so a disruption bites
+    <p style="margin:.2rem 0 .7rem"><b>{len(nwo)}</b> materials are at once hard to substitute,
+    essentially un-recycled (&lt;5% end-of-life), and supply-concentrated — so a disruption bites
     (no substitute), has no secondary supply to fall back on (no recycling), and one country controls the flow.
-    For <b>{nwo_china} of the {len(nwo)}</b>, that chokepoint is China's refining. These — not the loudest headlines — are the
+    For <b>{nwo_china} of the {len(nwo)}</b>, that chokepoint is China's refining. These are the
     materials where a shock is both most damaging and least mitigable.</p>
     <table style="margin:.3rem 0 0"><thead><tr><th>Material</th><th class="n">risk</th><th>top exporter</th><th>refined in</th></tr></thead>
     <tbody>{nwo_rows}</tbody></table>
@@ -196,37 +196,37 @@ def main():
   <div class="callout" style="padding:1.2rem 1.4rem;background:#f3f7f6">
     <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0e7c74">A third cut · two decades</div>
     <h2 style="margin:.25rem 0 .5rem;border:none;padding:0">Concentration is intensifying</h2>
-    <p style="margin:.2rem 0 0">With the reconciled trade series now reaching back to <b>2002</b>, the concentration story is <i>testable</i>, not just visible. <b>{len(sig_rising)}</b> materials show a rising export-concentration trend significant on an FDR-corrected Mann–Kendall <i>screen</i> (23 annual points; exploratory), and their structural breaks <b>cluster in 2012–2016</b> ({brk_1216} of them). The trade-side <b>origin gap</b> runs wide (~{gap0:.0f}–{gap1:.0f}pp, with a step at the 2017 HS-vintage join), and China's average <b>network throughput</b> — its centrality as importer-and-hub, not just exporter — rose from {cn0:.0f}% to {cn1:.0f}%. China's export share of rare-earth magnets climbed {magn0:.0f}→{magn1:.0f}%, of tungsten {tun0:.0f}→{tun1:.0f}%. <a href="trends.html"><b>See it move →</b></a></p>
+    <p style="margin:.2rem 0 0">With the reconciled trade series now reaching back to <b>2002</b>, the rise in concentration can be tested as well as seen. <b>{len(sig_rising)}</b> materials show a rising export-concentration trend significant on an FDR-corrected Mann–Kendall <i>screen</i> (23 annual points; exploratory), and their structural breaks <b>cluster in 2012–2016</b> ({brk_1216} of them). The trade-side origin gap runs wide (~{gap0:.0f}–{gap1:.0f}pp, with a step at the 2017 HS-vintage join), and China's average network throughput (its centrality as importer and hub as well as exporter) rose from {cn0:.0f}% to {cn1:.0f}%. China's export share of rare-earth magnets climbed {magn0:.0f}→{magn1:.0f}%, of tungsten {tun0:.0f}→{tun1:.0f}%. <a href="trends.html">See it move →</a></p>
   </div>
   <div class="grid2">
     {card('Highest supply risk', f'<ul>{hr}</ul><p class="note"><a href="risk.html">full index →</a></p>')}
     {card('The refiner illusion — biggest origin gaps', f'<ul>{og}</ul><p class="note"><a href="findings.html">the finding →</a></p>')}
-    {card('No recycling cushion', f'<p style="font-size:.9rem;color:#667179;margin:.1rem 0 .5rem">High-risk and barely recycled — a disruption has no secondary supply to fall back on.</p><ul>{nc}</ul>')}
+    {card('No recycling cushion', f'<p style="font-size:.9rem;color:#667179;margin:.1rem 0 .5rem">High-risk and barely recycled: a disruption has no secondary supply to fall back on.</p><ul>{nc}</ul>')}
     {card('Most-exposed economies', f'<ul>{cc}</ul><p class="note"><a href="countries.html">all countries →</a></p>')}
   </div>
-  <div class="callout"><b>China's footprint.</b> Across the atlas's materials, China is the top <b>miner</b> in {cn_mine}, the top <b>refiner</b> in {cn_ref}, and the top <b>exporter</b> in {cn_exp}. It leads the <i>entire</i> chain — mine, refine and export — in {len(full_chain)}: {chain}. But the origin gap shows the reverse case too: many apparent dependencies on European/Japanese refiners are really upstream dependencies on African and Latin-American mines.</div>
+  <div class="callout"><b>China's footprint.</b> Across the atlas's materials, China is the top miner in {cn_mine}, the top refiner in {cn_ref}, and the top exporter in {cn_exp}. It leads the entire chain (mine, refine and export) in {len(full_chain)}: {chain}. The origin gap also shows the reverse case: many apparent dependencies on European or Japanese refiners are upstream dependencies on African and Latin-American mines.</div>
   <div style="margin:2rem 0 .3rem">
     <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0e7c74">The value chain doesn&rsquo;t end at the problem</div>
     <h2 style="border:none;padding:0;margin:.25rem 0 .35rem">So what do you do about it?</h2>
-    <p style="margin:.2rem 0 1rem;color:#667179;max-width:72ch">Everything above maps the <i>problem</i> — where supply concentrates and who is exposed. The decision layer turns it into action: who could break each chokepoint, whether the world could absorb a cut, and how exposed any one country really is. Same public trade matrix, three tools.</p>
+    <p style="margin:.2rem 0 1rem;color:#667179;max-width:72ch">Everything above maps the problem: where supply concentrates and who is exposed. The decision layer asks what can be done: who could break each chokepoint, whether the world could absorb a cut, and how exposed any one country is. All three tools use the same public trade matrix.</p>
   </div>
   <div class="grid2" style="grid-template-columns:repeat(3,1fr)">
     <a href="breakout.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
       <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Break the chokepoint</div>
       <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">{n_capability}</div>
-      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">chokepoints that are a <b>capability</b>, not an ore endowment — no export ban touches them. Who could realistically break each, and who is building alternatives.</p>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">chokepoints that are a capability, not an ore endowment — no export ban touches them. Who could realistically break each, and who is building alternatives.</p>
       <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Open the decision layer &rarr;</span>
     </a>
     <a href="ot.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
       <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Reallocation stress test</div>
       <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">4 can&rsquo;t &middot; 8 worse</div>
-      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">Cut a chokepoint and reallocate optimally: <b>4 of 31</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>8</b>, removal makes concentration <i>worse</i>. With a before/after map.</p>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">Cut a chokepoint and reallocate optimally: <b>4 of 31</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>8</b>, removal makes concentration worse. With a before/after map.</p>
       <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Run the stress test &rarr;</span>
     </a>
     <a href="leverage.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
       <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Leverage map</div>
       <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">Your country</div>
-      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">An importer &times; material heatmap: how much of each country&rsquo;s supply runs through a single source, and how single-sourced it is. The East-Asian manufacturing belt is the most locked-in.</p>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">An importer &times; material heatmap: how much of each country&rsquo;s supply runs through a single source, and how single-sourced it is. The East-Asian manufacturing belt depends most on single sources.</p>
       <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Find your exposure &rarr;</span>
     </a>
   </div>

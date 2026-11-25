@@ -20,18 +20,18 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · robustness</div>
   <h1>Do the findings survive a harder test?</h1>
-  <p class="deck">The Trends page says concentration is rising for a set of materials. That rests on a Mann-Kendall test which assumes each year is independent &mdash; but concentration series are serially correlated, which <i>overstates</i> significance. Here the same claims are re-run under an autocorrelation-robust test and split across the 2017 data-vintage join. What survives, we can stand behind; what doesn&rsquo;t, we say so.</p>
+  <p class="deck">The Trends page says concentration is rising for a set of materials. That rests on a Mann-Kendall test which assumes each year is independent, but concentration series are serially correlated, which overstates significance. This page re-runs the same claims under an autocorrelation-robust test and splits them across the 2017 data-vintage join. It reports what survives and what does not.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout">Does &ldquo;concentration is rising&rdquo; survive a tougher test? I re-run every trend two harder ways and keep only what passes both.
+  <div class="callout">This page tests whether &ldquo;concentration is rising&rdquo; survives a stricter test. Every trend is re-run in two stricter ways, and only what passes both is kept.
   <details class="howto"><summary>The two harder tests</summary>
-  <p><b>1 &middot; Autocorrelation-robust (Hamed-Rao, 1998).</b> A plain trend test assumes each year is independent; concentration series aren&rsquo;t, which flatters significance. This correction demands a <i>stronger</i> signal before a trend counts.</p>
-  <p><b>2 &middot; Across the data-vintage splice.</b> Each trend is re-estimated separately on 2002&ndash;2016 and on 2017&ndash;2024; one that keeps the same sign in both halves isn&rsquo;t an artifact of the 2017 join.</p>
+  <p><b>1 &middot; Autocorrelation-robust (Hamed-Rao, 1998).</b> A plain trend test assumes each year is independent; concentration series are not, which inflates significance. This correction requires a stronger signal before a trend counts.</p>
+  <p><b>2 &middot; Across the data-vintage splice.</b> Each trend is re-estimated separately on 2002&ndash;2016 and on 2017&ndash;2024; one that keeps the same sign in both halves is not an artifact of the 2017 join.</p>
   <p class="howto-src">Both screens control the false-discovery rate (Benjamini-Hochberg) across all the materials. Computed by <code>build_trend_autocorr.py</code>.</p>
   </details></div>
   <div id="verdict" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <h2 style="margin:1.4rem 0 .4rem">The rising-concentration materials, under the harder tests</h2>
-  <p class="muted" style="margin-top:0">Materials flagged with a significant rising export-HHI by the standard test, then re-checked. &ldquo;Var ×&rdquo; is the Hamed-Rao variance inflation from positive autocorrelation (&ge;1; this is a deliberately conservative <i>one-sided</i> correction &mdash; serial correlation may only make the test <i>harder</i>, never easier). A value of 1.00 means the series had no significant positive autocorrelation to penalise.</p>
+  <p class="muted" style="margin-top:0">Materials flagged with a significant rising export-HHI by the standard test, then re-checked. &ldquo;Var ×&rdquo; is the Hamed-Rao variance inflation from positive autocorrelation (&ge;1; this is a deliberately conservative one-sided correction: serial correlation may only make the test harder, never easier). A value of 1.00 means the series had no significant positive autocorrelation to penalise.</p>
   <table id="tab"><thead><tr><th>Material</th><th class="n">Sen slope/yr</th><th class="n">MK FDR</th><th class="n">Hamed-Rao FDR</th><th class="n">var ×</th><th>survives?</th><th>splice-consistent?</th></tr></thead><tbody></tbody></table>
   <p id="rest" class="muted" style="margin-top:.8rem"></p>
   <p class="note">Hamed &amp; Rao (1998), <i>A modified Mann-Kendall trend test for autocorrelated data</i>, J. Hydrology. Series from <a href="out/trends.json">trends.json</a> (export-HHI, 2002&ndash;2024) &rarr; <a href="out/trend_autocorr.json">trend_autocorr.json</a>. This is an exploratory screen on 23 annual points, not a confirmatory test.</p>
@@ -50,8 +50,8 @@ fetch('out/trend_autocorr.json').then(r=>r.json()).then(R=>{
     '<b>'+R.n_hr_of_std+'</b> survive the Hamed-Rao autocorrelation correction, and <b>'+R.n_splice_ok+'</b> keep the same trend sign in '+
     'both the 2002&ndash;2016 and 2017&ndash;2024 sub-periods. '+
     (R.n_hr_of_std>=Math.ceil(R.n_std*0.6)
-      ? 'The core rising-concentration finding is robust &mdash; it is not an artifact of serial correlation or the vintage splice.'
-      : 'A meaningful share of the rising-concentration flags weaken once serial correlation is accounted for &mdash; read them as exploratory.')+
+      ? 'The core rising-concentration finding is robust: it is not an artifact of serial correlation or the vintage splice.'
+      : 'A meaningful share of the rising-concentration flags weaken once serial correlation is accounted for, so read them as exploratory.')+
     ' (Autocorrelation-corrected total across all '+R.n_all+': '+R.n_hr+' significant rising.)';
   const tb=document.querySelector('#tab tbody');
   const sig=R.rows.filter(r=>r.sig_std);

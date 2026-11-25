@@ -92,21 +92,21 @@ def classify(mat, flags, lead_iso, lead_row):
     name = ISO2NAME.get(lead_iso, lead_iso)
     if 'mine_only' in flags:
         return ('mine-side endowment',
-                f'{name}’s dominance is geological — a mined commodity with no refining '
-                'wedge. Diversification is exploration and off-take agreements, not new furnaces.')
+                f'{name}’s dominance is geological: a mined commodity with no refining '
+                'wedge. Diversification means exploration and off-take agreements, not new furnaces.')
     if lead_row and lead_row.get('feed_import', 0) >= 0.4 and lead_row.get('net_down', 0) >= 0.3:
         return ('import-fed capability',
-                f'{name} IMPORTS the ore and EXPORTS the refined metal — the moat is the '
-                'furnace, not the mine. Export controls on ore cannot touch it; only building '
-                'refining capability elsewhere can.')
+                f'{name} imports the ore and exports the refined metal, so the moat is the '
+                'furnace, not the mine. Export controls on ore cannot reach it; only '
+                'refining capability built elsewhere can.')
     if 'byproduct' in flags:
         return ('by-product capability',
                 f'{name} extracts it as a by-product of a domestic host metal at a scale no one '
-                'else recovers. There is no ore stream to redirect — substitution means new '
+                'else recovers. There is no ore stream to redirect; substitution means new '
                 'by-product recovery lines on someone else’s host.')
     if lead_row and lead_row.get('basis') == 'both' and lead_row.get('ore_world_share', 0) >= 0.15:
         return ('integrated (endowment+capability)',
-                f'{name} both mines AND refines it — the one case where ore access is a real '
+                f'{name} both mines and refines it. This is the one case where ore access is a '
                 'lever, alongside the refining capability.')
     return ('refining capability',
             f'{name} leads the refining stage; the concentration is in processing capacity, '
@@ -124,8 +124,8 @@ def who_could(mat, lead_iso):
                 'mines': x.get('mines'), 'refines': x.get('refines')} for x in cand[:5]]
         if out:
             return {'method': 'capability-adjacency', 'strong': True,
-                    'desc': 'product-space density with the leader removed -- latent '
-                            'capability to stand up refining, not just present output',
+                    'desc': 'product-space density with the leader removed: latent '
+                            'capability to build refining, not only present output',
                     'candidates': out}
     u = find(mat, usgs)
     if u and u.get('by'):
@@ -134,8 +134,8 @@ def who_could(mat, lead_iso):
         out = [{'iso': k, 'name': ISO2NAME.get(k, k), 'score': round(v, 1)} for k, v in alt[:5]]
         if out:
             return {'method': 'current-share', 'strong': False,
-                    'desc': 'current alternative-supplier share (a WEAKER proxy: it shows '
-                            'who already produces, not who could scale) -- no capability-'
+                    'desc': 'current alternative-supplier share (a weaker proxy: it shows '
+                            'who already produces, not who could scale); no capability-'
                             'adjacency available for this code',
                     'candidates': out}
     s = find(mat, scen)
@@ -147,8 +147,8 @@ def who_could(mat, lead_iso):
                 'desc': 'fallback exporters from the shock model (present output, not '
                         'latent capability)', 'candidates': out}
     return {'method': None, 'strong': False,
-            'desc': 'no alternative-supplier signal in public data -- a genuine chokepoint '
-                    'OR a sourcing gap', 'candidates': []}
+            'desc': 'no alternative-supplier signal in public data: either a chokepoint '
+                    'or a sourcing gap', 'candidates': []}
 
 def who_is(mat):
     p = find(mat, pipe)
@@ -208,9 +208,9 @@ for mat, meta in cw.items():
         else: parts.append('no clear alternative surfaced')
         if build: parts.append(f'being built: {build}')
         elif is_.get('forward'): parts.append('forward capacity tracked (USGS Outlook)')
-        elif is_.get('gap_kind') == 'diffuse': parts.append('not a single-country chokepoint — buildout not the constraint')
-        elif is_.get('gap_kind') == 'endowment': parts.append('mine-side endowment — exploration/off-take, not new capacity')
-        elif is_.get('iea'): parts.append('no diversification pipeline — structural (see note)')
+        elif is_.get('gap_kind') == 'diffuse': parts.append('not a single-country chokepoint (buildout is not the constraint)')
+        elif is_.get('gap_kind') == 'endowment': parts.append('mine-side endowment (exploration/off-take, not new capacity)')
+        elif is_.get('iea'): parts.append('no diversification pipeline: structural (see note)')
         else: parts.append('no diversification project tracked (sourcing gap)')
         verdict = '; '.join(parts) + '.'
     records.append({
@@ -306,13 +306,13 @@ PAGE = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · from finding to decision</div>
   <h1>Only a few chokepoints are a mine — the rest are a plant you can build</h1>
-  <p class="deck">Knowing that <b>China refines what it doesn&rsquo;t mine</b> is only half an answer &mdash; the reader&rsquo;s next question is <i>so what do I do about it?</i> This page turns each chokepoint into a decision. For every critical material it asks three things in order: <b>what kind of moat</b> holds the chokepoint (because the moat type decides what can work) &mdash; <i>import-fed</i> capability that no ore embargo can touch, a <i>by-product</i> lock with no ore stream to redirect, or a genuine <i>endowment</i>; <b>who could realistically break it</b>, ranked by product-space capability-adjacency with the leader removed; and <b>who is actually building</b> the alternative. The gap between <i>could</i> and <i>is</i> is the vulnerability &mdash; and the to-do list.</p>
+  <p class="deck">Knowing that China refines what it does not mine is half an answer. The next step is to ask what can be done about it. This page turns each chokepoint into a decision. For every critical material it asks three things in order. First, what kind of moat holds the chokepoint, because the moat type decides what can work: import-fed capability that no ore embargo can reach, a by-product lock with no ore stream to redirect, or an endowment. Second, who could realistically break it, ranked by product-space capability-adjacency with the leader removed. Third, who is building the alternative. The gap between who could and who is building is the vulnerability, and the list of what remains to be done.</p>
 </div></section>
 <article style="max-width:1180px">
-  <div class="callout"><b>Why the moat type is the first question.</b> A chokepoint is not a chokepoint is not a chokepoint. If a leader <i>imports the ore and exports the refined metal</i> (Japan&rsquo;s titanium sponge, Indonesia&rsquo;s nickel, China&rsquo;s tungsten), the moat is the <b>furnace</b> &mdash; tariffs or export controls on ore are useless; only new refining capability elsewhere breaks it. If the leader extracts the metal as a <i>by-product</i> of a domestic host it already controls (China&rsquo;s gallium from its own alumina, germanium from zinc), there is <b>no ore stream to redirect at all</b> &mdash; substitution means standing up new by-product recovery on someone else&rsquo;s host metal. Only where a leader genuinely <i>mines and refines</i> its own resource does ore access become a real lever. Same 87% share, three completely different answers.
+  <div class="callout"><b>Why the moat type is the first question.</b> Chokepoints differ in kind. If a leader imports the ore and exports the refined metal (Japan&rsquo;s titanium sponge, Indonesia&rsquo;s nickel, China&rsquo;s tungsten), the moat is the furnace. Tariffs or export controls on ore do not help; only new refining capability elsewhere breaks it. If the leader extracts the metal as a by-product of a domestic host it already controls (China&rsquo;s gallium from its own alumina, germanium from zinc), there is no ore stream to redirect. Substitution means new by-product recovery on someone else&rsquo;s host metal. Only where a leader mines and refines its own resource does ore access become a lever. The same 87% share calls for three different answers.
   <details class="howto"><summary>How &ldquo;who could&rdquo; is measured &amp; caveats</summary>
-  <p><b>Who could break it</b> uses two signals, always labelled so they are never confused. The <b>strong</b> one (<span style="color:#0b6f66;font-weight:600">capability-adjacency</span>) is the product-space <i>density</i> of each country to the refined product <i>with the leader removed</i> &mdash; latent capability to stand the stage up, not merely present output. It exists only for the <b>8 clean ore&rarr;refined HS pairs</b>. For the rest we fall back to the <span style="color:#6b7681;font-weight:600">current alternative-supplier share</span> &mdash; a <i>weaker</i> proxy (who already produces, which is not who could scale). <b>Who is building</b> is announced public projects (Lynas, MP Materials, Iluka, Rio Tinto Rincón, Umicore…) plus USGS forward capacity to 2029; it is <i>curated, not exhaustive</i>, so a blank is a <b>sourcing gap</b> &mdash; shown blank, not read as &ldquo;no one&rdquo;. Flagship projects now carry their announced <b style="color:#0b6f66">capex + first-production year</b> where public, so scale and timeline are visible, not just the name &mdash; announced figures (2025-26), which can blur capex vs public funding vs phase cost and target vs commercial-production dates; read them as order-of-magnitude, source-dated in <code>build_pipeline_specs.py</code>.</p>
-  <p class="howto-src"><b>Caveats.</b> Refined-share leaders are <i>export-based</i>, so a giant that refines huge volumes but <b>consumes them at home</b> is understated &mdash; cobalt shows Finland, not China, for exactly this reason (China&rsquo;s refined cobalt stays in China). Where the USGS Outlook measures refining concentration directly (gallium, magnesium, titanium…) we use its share instead, which repairs the shared-code dilution (gallium reads its true ~87%, not the 811292-diluted figure). The moat <i>type</i> comes from the trade feedstock signature + the HS-code provenance flags; the <i>share</i> from USGS where available else the capability layer. Built by <code>build_breakout.py</code> from <code>capability.json</code>, <code>mine_refine.json</code>, <code>usgs_outlook.json</code>, <code>pipeline.json</code> and <code>scenario.json</code>. <b>See also</b> <a href="ot.html">the reallocation stress test</a> (can the rest actually cover a cut, in tonnage — and does removal just shift the chokepoint?), <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="refiners.html">Who actually refines</a>, <a href="product-space.html">the product-space map</a>, and <a href="scenarios.html">shock scenarios</a>.</p>
+  <p><b>Who could break it</b> uses two signals, always labelled so they are not confused. The strong one (<span style="color:#0b6f66;font-weight:600">capability-adjacency</span>) is the product-space density of each country to the refined product with the leader removed: latent capability to build the stage, not only present output. It exists only for the 8 clean ore&rarr;refined HS pairs. For the rest the page falls back to the <span style="color:#6b7681;font-weight:600">current alternative-supplier share</span>, a weaker proxy (who already produces, which is not who could scale). Who is building covers announced public projects (Lynas, MP Materials, Iluka, Rio Tinto Rincón, Umicore…) plus USGS forward capacity to 2029. It is curated, not exhaustive, so a blank is a sourcing gap: it is shown blank and should not be read as &ldquo;no one&rdquo;. Flagship projects carry their announced capex and first-production year where public, so scale and timeline are visible as well as the name. These are announced figures (2025-26), which can mix capex with public funding or phase cost, and target dates with commercial-production dates. Read them as orders of magnitude; their sources and dates are in <code>build_pipeline_specs.py</code>.</p>
+  <p class="howto-src"><b>Caveats.</b> Refined-share leaders are export-based, so a large refiner that consumes its output at home is understated. Cobalt shows Finland, not China, for this reason (China&rsquo;s refined cobalt stays in China). Where the USGS Outlook measures refining concentration directly (gallium, magnesium, titanium…), the page uses that share instead, which repairs the shared-code dilution (gallium reads ~87%, not the 811292-diluted figure). The moat type comes from the trade feedstock signature and the HS-code provenance flags; the share comes from USGS where available, otherwise from the capability layer. Built by <code>build_breakout.py</code> from <code>capability.json</code>, <code>mine_refine.json</code>, <code>usgs_outlook.json</code>, <code>pipeline.json</code> and <code>scenario.json</code>. See also <a href="ot.html">the reallocation stress test</a> (whether the rest can cover a cut in tonnage, and whether removal only shifts the chokepoint), <a href="leverage.html">the leverage map</a> (how exposed each importing country is), <a href="refiners.html">Who actually refines</a>, <a href="product-space.html">the product-space map</a>, and <a href="scenarios.html">shock scenarios</a>.</p>
   </details></div>
 
   <div class="sumstrip" id="sum"></div>
@@ -337,7 +337,7 @@ sum.innerHTML =
   `<div class="s"><b>${S.by_moat['import-fed capability']+S.by_moat['by-product capability']}</b>capability moats<br><span style="font-size:.68rem">(furnace / by-product, no ore lever)</span></div>`+
   `<div class="s"><b>${S.strong_alt}</b>with a capability-adjacent<br>alternative (product-space)</div>`+
   `<div class="s"><b>${S.has_buildout}</b>with tracked buildout<br><span style="font-size:.68rem">projects underway</span></div>`+
-  `<div class="s"><b>${S.chokepoint_gap}</b>chokepoints with no<br>tracked buildout <span style="font-size:.68rem">&mdash; the to-do</span></div>`;
+  `<div class="s"><b>${S.chokepoint_gap}</b>chokepoints with no<br>tracked buildout <span style="font-size:.68rem">(still to do)</span></div>`;
 
 // filter chips
 const active=new Set(Object.keys(MOAT));
@@ -353,9 +353,9 @@ const srch=document.createElement('input'); srch.type='search'; srch.placeholder
 srch.oninput=render; fb.appendChild(srch);
 
 function gapMsg(kind){
-  if(kind==='diffuse') return `<div class="softgap">Not a single-country chokepoint (leader &lt;30% with fallback suppliers) — buildout is not the binding constraint here.</div>`;
-  if(kind==='endowment') return `<div class="softgap">Mine-side endowment — the answer is exploration &amp; off-take agreements, not new processing capacity.</div>`;
-  return `<div class="gap">No public diversification project tracked for this concentrated stage — either a real sourcing gap, or a supplier the market hasn&rsquo;t moved to replace (e.g. a well-supplied ally).</div>`;
+  if(kind==='diffuse') return `<div class="softgap">Not a single-country chokepoint (leader &lt;30% with fallback suppliers). Buildout is not the binding constraint here.</div>`;
+  if(kind==='endowment') return `<div class="softgap">Mine-side endowment. The answer is exploration and off-take agreements, not new processing capacity.</div>`;
+  return `<div class="gap">No public diversification project tracked for this concentrated stage. Either this is a sourcing gap, or the market has not moved to replace the supplier (e.g. a well-supplied ally).</div>`;
 }
 function bar(width,color){ return `<span class="cf" style="width:${Math.max(3,Math.min(100,width))}%;background:${color}"></span>`; }
 function card(r){
@@ -373,7 +373,7 @@ function card(r){
       const val = strong ? (c.score!=null?c.score.toFixed(2):'') : (c.score!=null?c.score.toFixed(0)+'%':'');
       return `<div class="crow"><span class="cw">${nm(c.iso,c.name)}</span><span class="ct">${bar(w,strong?'#0b6f66':'#8a94a0')}</span><span class="cv">${val}</span></div>`;
     }).join('');
-  } else could = `<div class="mdesc">no alternative surfaced in public data — a hard chokepoint or a sourcing gap.</div>`;
+  } else could = `<div class="mdesc">no alternative surfaced in public data: a hard chokepoint or a sourcing gap.</div>`;
   // who is
   const wi=r.who_is; let is='';
   if(wi.projects && wi.projects.length){
@@ -405,7 +405,7 @@ function render(){
   const q=(srch.value||'').trim().toLowerCase();
   const rows=D.materials.filter(r=>active.has(r.problem.moat_type) && (!q || (r.name+' '+(r.commodity||'')+' '+r.problem.leader_name+' '+r.who_could.candidates.map(c=>c.name).join(' ')).toLowerCase().includes(q)));
   const g=document.getElementById('grid');
-  g.innerHTML = rows.length ? rows.map(card).join('') : `<div class="empty">No materials match — widen the filters or clear the search.</div>`;
+  g.innerHTML = rows.length ? rows.map(card).join('') : `<div class="empty">No materials match. Widen the filters or clear the search.</div>`;
 }
 render();
 </script>

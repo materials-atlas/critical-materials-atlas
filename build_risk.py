@@ -168,15 +168,15 @@ def main():
   <h1>Supply-risk index</h1>
   {headline('modelled')}
   <p style="margin:.55rem 0 0;font-size:.85rem;opacity:.92">A fixed ranking, kept because the material profiles quote its score. <a href="risk-index" style="color:inherit;text-decoration:underline">The adjustable risk index</a> lets you choose the weights.</p>
-  <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>
+  <p class="deck">One 0–100 score per material. It is an explicit weighted blend of four visible components, shown as a bar on every row. Readers can reweight them; the raw numbers are in the open data.</p>
   <p class="deck">Concentration is not vulnerability. The index measures how concentrated supply is and how exposed buyers are. It does not see stocks, substitutes, or how long a new supplier takes to qualify, because no public data covers them.</p>
 </div></section>
 <article style="max-width:960px">
-  <div class="callout">One 0&ndash;100 score per material, built from four visible components &mdash; never a black box.
+  <div class="callout">One 0&ndash;100 score per material, built from four visible components.
   <p style="margin:.5rem 0 0"><b>Changed 24 Nov 2026.</b> The opacity part now counts an origin gap only where the top exporter mines almost none of the material (under 5% of world output). Where the seller is itself a sizeable miner, the gap is usually a different traded form or the top miner keeping its output at home, not a hidden origin. Scores moved for twelve materials; lithium fell from fourth to thirteenth.</p>
   <details class="howto"><summary>How the score is built</summary>
-  <p>{legend}. Each component is 0–100, from public data (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin gap, counted only where the top exporter mines almost none of the material). Their weighted sum is the <i>gross</i> score, then <b>discounted for recyclability</b> — gross risk is cut by 0.4 &times; the end-of-life recycling rate (EU CRM 2023), so a highly recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw concentration implies. <b>Substitutability</b> is shown alongside but <i>not</i> folded into the score &mdash; a high-risk material that is also hard to substitute is the more strategic.</p>
-  <p class="howto-src">A transparent heuristic, <i>not</i> an official criticality assessment; it ignores price and stockpiles.</p>
+  <p>{legend}. Each component is 0–100, from public data (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin gap, counted only where the top exporter mines almost none of the material). Their weighted sum is the gross score. It is then discounted for recyclability: gross risk is cut by 0.4 &times; the end-of-life recycling rate (EU CRM 2023), so a highly recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw concentration implies. Substitutability is shown alongside but is not folded into the score. A high-risk material that is also hard to substitute is the more strategic.</p>
+  <p class="howto-src">A transparent heuristic, not an official criticality assessment; it ignores price and stockpiles.</p>
   </details></div>
   <table>
     <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th title="how hard to substitute (EU CRM) — shown, not scored">subst.</th><th>gross components (width = weighted contribution)</th></tr></thead>

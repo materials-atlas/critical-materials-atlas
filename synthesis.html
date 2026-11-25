@@ -39,20 +39,20 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Synthesis · the whole argument</div>
   <h1>The hardest cases</h1>
-  <p class="deck">Twelve layers, one conclusion. &ldquo;Critical&rdquo; is not a single score &mdash; it is a stack of independent failures: a metal you can&rsquo;t <a href="companionality" style="color:#fff;text-decoration:underline">scale</a>, can&rsquo;t diversify, can&rsquo;t <a href="recycling" style="color:#fff;text-decoration:underline">recycle</a>, whose <a href="demand" style="color:#fff;text-decoration:underline">demand</a> is surging, in a market too <a href="production" style="color:#fff;text-decoration:underline">thin</a> to have any slack. Most materials trip one or two. A few trip nearly all &mdash; and those are the ones with no way out.</p>
+  <p class="deck">Twelve layers lead to one conclusion. &ldquo;Critical&rdquo; is not a single score; it is a stack of independent failures. A metal may be impossible to <a href="companionality" style="color:#fff;text-decoration:underline">scale</a>, diversify or <a href="recycling" style="color:#fff;text-decoration:underline">recycle</a>, its <a href="demand" style="color:#fff;text-decoration:underline">demand</a> may be rising fast, and its market may be too <a href="production" style="color:#fff;text-decoration:underline">thin</a> to have any slack. Most materials trip one or two of these. A few trip nearly all, and for those there is no way out.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>The five axes, and where each comes from</summary>
   <p>Each material is scored on five independent failure axes, each drawn from an earlier layer: <b>can&rsquo;t scale</b> = by-product-dominant (<a href="companionality">companionality</a> &ge; 66); <b>can&rsquo;t diversify</b> = one country makes &ge; 60% (<a href="production">production</a> share, or trade concentration where no tonnage exists); <b>can&rsquo;t recycle</b> = &le; 10% end-of-life (<a href="recycling">recycling</a>); <b>demand surging</b> = &ge; ~2.5&times; by 2040 (<a href="demand">demand</a>); <b>no slack</b> = a world market under 50,000 t/year (<a href="production">production</a>).</p>
-  <p class="howto-src"><b>On reading it:</b> the axes are deliberately coarse thresholds, not a weighted composite &mdash; the point is <i>how many</i> independent safeguards are gone at once, not a false-precision index. Two axes (demand, thin market) are blank where the underlying data doesn&rsquo;t cover a material, shown as n/a rather than assumed. Because hard cutoffs hide metals sitting just under a line, a companion <a href="uncertainty"><b>Monte-Carlo page</b></a> propagates uncertainty through all five axes (20,000 draws) and reports P(hardest) as a gradient &mdash; it confirms gallium and germanium are robust and surfaces the borderline cases this binary view erases. Inputs: the five layer JSONs &rarr; <a href="out/synthesis.json">synthesis.json</a>.</p>
+  <p class="howto-src"><b>On reading it.</b> The axes are coarse thresholds by design, not a weighted composite. What they count is how many independent safeguards are gone at once; a finer index would give false precision. Two axes (demand, thin market) are blank where the underlying data does not cover a material, and shown as n/a rather than assumed. Hard cutoffs hide metals just under a line, so a companion <a href="uncertainty">Monte-Carlo page</a> propagates uncertainty through all five axes (20,000 draws) and reports P(hardest) as a gradient. It confirms that gallium and germanium are robust, and shows the borderline cases that this binary view hides. Inputs: the five layer JSONs &rarr; <a href="out/synthesis.json">synthesis.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.4rem 0 .3rem">The scorecard</h2>
-  <div class="lgd"><span><b style="background:#c0392b"></b>safeguard gone</span><span><b style="background:#eef3f2"></b>holds</span><span><b style="background:#f6f7f7;border:1px dashed #dfe5e3"></b>no data</span><span>&mdash; hover any cell for the number</span></div>
+  <div class="lgd"><span><b style="background:#c0392b"></b>safeguard gone</span><span><b style="background:#eef3f2"></b>holds</span><span><b style="background:#f6f7f7;border:1px dashed #dfe5e3"></b>no data</span><span>(hover any cell for the number)</span></div>
   <div style="overflow-x:auto"><table class="hm" id="hm"><thead></thead><tbody></tbody></table></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What the atlas now says, in one paragraph</h2>
@@ -68,16 +68,16 @@
 <script>
 fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
   const AX=S.axes;
-  document.getElementById('lead').innerHTML='<b>Result:</b> most of the 32 materials trip one or two of the five failure axes &mdash; a problem, but a solvable one. <b>'+S.n_hardest+'</b> trip four or five at once ('+S.hardest.join(', ')+'): by-product-locked, single-country, barely recycled, demand climbing, and a market so thin there is no supply to bring online. For these, no single lever &mdash; a mine, a supplier, a recycler, a substitute &mdash; is available; only several at once, slowly.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> most of the 32 materials trip one or two of the five failure axes. That is a problem, but a solvable one. <b>'+S.n_hardest+'</b> trip four or five at once ('+S.hardest.join(', ')+'): by-product-locked, single-country, barely recycled, demand climbing, and a market so thin there is no supply to bring online. For these, no single lever (a mine, a supplier, a recycler, a substitute) is available; only several at once, slowly.';
   const st=[
     {v:S.n_hardest,l:'materials that fail on 4 or 5 of the 5 axes — the hardest cases'},
-    {v:S.axis_totals.scale,l:'can’t scale — produced mostly as a by-product'},
-    {v:S.axis_totals.diversify,l:'can’t diversify — one country makes ≥60%'},
-    {v:S.axis_totals.thin,l:'no slack — a world market under 50,000 t/year'},
+    {v:S.axis_totals.scale,l:'can’t scale: produced mostly as a by-product'},
+    {v:S.axis_totals.diversify,l:'can’t diversify: one country makes ≥60%'},
+    {v:S.axis_totals.thin,l:'no slack: a world market under 50,000 t/year'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
   const top=S.hardest.slice(0,3).join(' and ');
-  document.getElementById('keyline').innerHTML='<b>The through-line:</b> the metals that fail on every axis &mdash; '+top+' &mdash; are exactly the ones the whole atlas kept surfacing: invisible to satellites, locked as by-products, gated by one country, unrecycled, and physically tiny. They are not &ldquo;critical&rdquo; because a list says so; they are critical because every independent escape route is closed at the same time.';
+  document.getElementById('keyline').innerHTML='<b>Across the atlas.</b> The metals that fail on every axis ('+top+') are the ones the atlas found again and again: invisible to satellites, produced as by-products, controlled by one country, unrecycled, and physically tiny. They are critical because every independent way out is closed at the same time, not because a list names them.';
   // heatmap
   const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
   thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/ \(.*\)/,'')+'</th>').join('')+'<th>fails</th></tr>';
@@ -94,7 +94,7 @@ fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
       '<td class="cnt" style="color:'+col+'">'+r.count+'</td>';
     tb.appendChild(tr);
   });
-  document.getElementById('closer').innerHTML='Concentration is where the critical-materials conversation usually starts and stops &mdash; one country, one number. This atlas set out to test that from every angle at once, and what it found is that concentration is only one of at least five ways a material gets stuck, and rarely the binding one. The genuinely hard cases &mdash; '+S.hardest.join(', ')+' &mdash; are hard because they are <i>by-products of other mines</i> you can&rsquo;t will into existence, in <i>markets of a few hundred tonnes</i> with <i>no scrap stream</i> and <i>demand climbing</i>, all at once. Policy that reaches for the usual lever &mdash; subsidise a mine &mdash; addresses one axis and leaves four standing. Naming which materials fail on which axis, from public data and cross-checked against independent sources, is the whole point of the exercise: not a longer list, but a sharper one.';
+  document.getElementById('closer').innerHTML='Discussion of critical materials usually starts and ends with concentration: one country, one number. The atlas tested that from many angles. Concentration turns out to be only one of at least five ways a material gets stuck, and rarely the binding one. The hardest cases ('+S.hardest.join(', ')+') are hard because several things hold at once. They are by-products of other mines, which cannot be opened at will; their markets are a few hundred tonnes; there is no scrap stream; and demand is climbing. A policy that uses the usual lever (subsidising a mine) addresses one axis and leaves four in place. The aim of the exercise is to name which materials fail on which axis, from public data cross-checked against independent sources. The result is a more precise list, not a longer one.';
 });
 </script>
 </body></html>

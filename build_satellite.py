@@ -172,13 +172,13 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · from orbit</div>
   <h1>Mining is visible from orbit — 145 countries, owing nothing to any statistic</h1>
-  <p class="deck">Every other page measures concentration from <i>trade</i> and <i>production statistics</i>. This one adds an independent physical lens: where mining actually scars the ground, seen from space &mdash; 44,929 mapped mine polygons across 145 countries &mdash; set beside the atlas&rsquo;s critical-material producers, with flagship mines snapped to their real satellite footprints. A companion page maps <a href="mining-expansion" style="color:#fff;text-decoration:underline">where mining is physically expanding &rarr;</a>.</p>
+  <p class="deck">The other pages measure concentration from trade and production statistics. This one adds an independent physical view: where mining marks the ground, seen from space. It uses 44,929 mapped mine polygons across 145 countries, set beside the atlas&rsquo;s critical-material producers, with flagship mines matched to their satellite footprints. A companion page maps <a href="mining-expansion" style="color:#fff;text-decoration:underline">where mining is physically expanding &rarr;</a>.</p>
 </div></section>
 <article style="max-width:1060px">
-  <div class="callout">An independent physical check on the supply map: how much mine footprint each country actually shows from orbit, set beside the producers the atlas already names. <span id="head"></span>
+  <div class="callout">An independent physical check on the supply map: how much mine footprint each country shows from orbit, set beside the producers the atlas already names. <span id="head"></span>
   <details class="howto"><summary>Source, and the all-commodity caveat</summary>
-  <p>Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and site count) per country and lay it beside the production geography the atlas already shows.</p>
-  <p class="howto-src"><b>Caveat:</b> these polygons are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view. We <a href="commodity-attribution.html">quantified exactly how far commodity labelling gets &rarr;</a>: even with the best open mine database bolted on, only ~4% of the mapped footprint can be tied to a tracked critical material.</p>
+  <p>Source: Maus et al. (2022, <i>Scientific Data</i>), a peer-reviewed dataset of mine-area polygons from Sentinel-2 imagery (~2019). The atlas aggregates physical mine footprint (km&sup2; and site count) per country and sets it beside the production geography it already shows.</p>
+  <p class="howto-src"><b>Caveat:</b> these polygons are all-commodity (coal, iron, gold and more) with no reliable per-mineral label. The country map therefore shows total mining intensity, not a critical-material measure; the flagship sites below carry the material-specific view. A separate page <a href="commodity-attribution.html">measures how far commodity labelling gets &rarr;</a>: even with the best open mine database added, only ~4% of the mapped footprint can be tied to a tracked critical material.</p>
   </details></div>
   <h2 style="margin:1.4rem 0 .4rem">Mine footprint from space &mdash; and flagship critical-material mines</h2>
   <p class="muted" style="margin-top:0">Shading = total mapped mine area per country (darker = more). Dots = curated flagship mines, sized by their nearest mapped footprint. Hover for detail.</p>
@@ -189,7 +189,7 @@ HTML = r'''<!doctype html>
   <table id="tab"><thead><tr><th>Country</th><th class="n">mine area km²</th><th class="n">sites</th><th class="n">major CM</th><th>leading critical materials</th></tr></thead><tbody></tbody></table>
   <h2 style="margin:1.6rem 0 .4rem">Flagship mines, snapped to their satellite footprint</h2>
   <table id="ftab"><thead><tr><th>Mine</th><th>Material</th><th>Country</th><th class="n">footprint km²</th></tr></thead><tbody></tbody></table>
-  <p class="note">Footprint = total mapped Maus mine area within <b>25 km</b> of each mine &mdash; a district-scale, all-commodity footprint, not just the single pit. Source: <a href="https://doi.org/10.1594/PANGAEA.942325">Maus et al. 2022, PANGAEA</a> &rarr; <a href="out/satellite.json">satellite.json</a>. Imagery ~2019.</p>
+  <p class="note">Footprint = total mapped Maus mine area within 25 km of each mine. It is a district-scale, all-commodity footprint, not only the single pit. Source: <a href="https://doi.org/10.1594/PANGAEA.942325">Maus et al. 2022, PANGAEA</a> &rarr; <a href="out/satellite.json">satellite.json</a>. Imagery ~2019.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -205,7 +205,7 @@ Promise.all([fetch('out/satellite.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js')
     .then(()=>ld('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
 ]).then(([S])=>{
-  document.getElementById('head').innerHTML=' <b>Result:</b> '+S.hub15+' of the 15 largest mine-footprint countries are major critical-material producers in the atlas &mdash; the physical map broadly corroborates the trade-and-production story. Total mapped footprint: '+S.total_area_km2.toLocaleString()+' km² across '+S.total_sites.toLocaleString()+' sites in '+S.n_countries+' countries.';
+  document.getElementById('head').innerHTML=' <b>Result:</b> '+S.hub15+' of the 15 largest mine-footprint countries are major critical-material producers in the atlas. The physical map broadly corroborates the trade-and-production story. Total mapped footprint: '+S.total_area_km2.toLocaleString()+' km² across '+S.total_sites.toLocaleString()+' sites in '+S.n_countries+' countries.';
   // choropleth values by ISO2
   const vals={}; let mx=0;
   Object.values(S.countries).forEach(c=>{if(c.iso2){vals[c.iso2]=c.area_km2; if(c.area_km2>mx)mx=c.area_km2;}});

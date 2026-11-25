@@ -61,40 +61,39 @@
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Methodology &amp; validation</div>
   <h1>Where do critical raw materials really come from?</h1>
-  <p class="sub">Tracing critical materials from mine to refinery to real trade — for any country. A method note, public data only.</p>
+  <p class="sub">Critical materials traced from mine to refinery to trade, for any country. A method note, built on public data only.</p>
 </div></section>
 
 <article>
 
-<p class="q">For each material the tool answers three questions with real data: <b>where is it mined</b>,
-<b>where is it refined</b>, and <b>who actually trades it with whom</b> — globally, in both directions.
-Pick any material and any country. The European Union is available as one option among others — an
-aggregation you can look at, with a dedicated correction built for it (below) — but the tool is not
-EU-specific.</p>
+<p class="q">For each material the tool answers three questions from published data: where it is mined,
+where it is refined, and who trades it with whom, worldwide and in both directions.
+Pick any material and any country. The European Union is available as one option among others: an
+aggregation with its own correction (below). The tool is not EU-specific.</p>
 
 <h2>The layers</h2>
 <ul>
-<li><b>Reserves / potential</b> — world reserve shares by country, from <b>USGS</b> Mineral Commodity
-Summaries (approximate): where a material <em>could</em> come from, exploited or not — it lights up
-under-developed holders such as Bolivia (lithium), Vietnam and Guinea. Conservative, though: USGS reserves
+<li><b>Reserves / potential</b>: world reserve shares by country, from USGS Mineral Commodity
+Summaries (approximate). This shows where a material could come from, exploited or not, and it picks out
+under-developed holders such as Bolivia (lithium), Vietnam and Guinea. The measure is conservative: USGS reserves
 are proven and economic, so frontier deposits still classed as "resources" (e.g. Greenland's rare earths)
 stay dim, and byproduct or abundant materials (gallium, germanium, hafnium, silicon, arsenic, and a few
 others USGS leaves blank) carry no figure.</li>
-<li><b>Mined</b> — world mine-production shares by country, from <b>USGS</b> Mineral Commodity Summaries (approximate).</li>
-<li><b>Refined / processed</b> — where the ore is turned into usable metal. Sourced <b>best-per-material</b>: for the metals it reports, <b>BGS</b> World Mineral Statistics gives annual refined/smelter production by country (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic — 2019–2024, with a year slider); otherwise the <b>IEA</b> Critical Minerals Outlook 2026, <b>EU CRM 2023</b> (JRC/SCRREEN2), or <b>USGS</b>, whichever is the strongest published figure. Each profile shows the actual source it used.</li>
-<li><b>Traded</b> — complete bilateral trade between every country pair, both directions, for each year
-<b>2018–2024</b> (selectable with the year slider): primary source <b>UN Comtrade</b>, in its reconciled,
-mirror-harmonised form <b>CEPII BACI</b>. The map, globe and flow view draw this directly; arrows are
-coloured by what is shipped — raw ore vs refined product. 2024 is the newest complete year (BACI release
-V202601, Jan 2026). The slider also offers a <b>provisional 2025</b> and a <b>directional 2026</b> built
-from our own Comtrade reconciliation for the years BACI hasn't released (see <i>Validation &amp; failure
+<li><b>Mined</b>: world mine-production shares by country, from USGS Mineral Commodity Summaries (approximate).</li>
+<li><b>Refined / processed</b>: where the ore is turned into usable metal. Each material uses its best available source. For the metals it reports, BGS World Mineral Statistics gives annual refined/smelter production by country (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic; 2019–2024, with a year slider). Otherwise the source is the IEA Critical Minerals Outlook 2026, EU CRM 2023 (JRC/SCRREEN2), or USGS, whichever is the strongest published figure. Each profile shows the source it used.</li>
+<li><b>Traded</b>: complete bilateral trade between every country pair, both directions, for each year
+2018–2024 (selectable with the year slider). The primary source is UN Comtrade, in its reconciled,
+mirror-harmonised form CEPII BACI. The map, globe and flow view draw this directly; arrows are
+coloured by what is shipped (raw ore or refined product). 2024 is the newest complete year (BACI release
+V202601, Jan 2026). The slider also offers a provisional 2025 and a directional 2026, built
+from the atlas's own Comtrade reconciliation for the years BACI has not released (see <i>Validation &amp; failure
 cases</i> below). The mine and refine layers are undated reference, not yearly.</li>
 </ul>
 
 <h2>Why the refiner is not the source</h2>
-<p>Under customs rules, <b>refining counts as "origin"</b>: when a country imports an ore, refines it and
+<p>Under customs rules, refining counts as "origin": when a country imports an ore, refines it and
 re-exports, the metal takes the refiner's nationality and the trade record stops there. One layer deeper,
-the picture changes — the apparent origin is often just the chokepoint, not the mine:</p>
+the picture changes. The apparent origin is often the refining chokepoint, not the mine:</p>
 <table>
 <thead><tr><th>Material</th><th>Refined origin (traded)</th><th>Actually mined — USGS</th></tr></thead>
 <tbody>
@@ -104,27 +103,27 @@ the picture changes — the apparent origin is often just the chokepoint, not th
 <tr><td>Lithium</td><td><b>Chile 75%</b></td><td><b>Australia 52%</b>, Chile 22%</td></tr>
 </tbody>
 </table>
-<p>So an apparent <b>China</b> dependence on cobalt is, upstream, a <b>Congo mining</b> dependence
-funnelled through a Chinese refinery — China is the chokepoint, not the source. This mine-vs-refiner gap
-is well established in IEA and USGS supply-chain work; what this tool adds is to <b>overlay all three
-layers — mine, refinery and customs trade — in one material-level interface</b>, where mainstream
-dashboards (OEC, Resource Trade Earth, Comtrade) typically expose just one. It draws the implied
-mine → refiner → buyer chain, while being explicit (see Limitations) about what is <em>measured</em>
-versus <em>referenced</em>.</p>
+<p>So an apparent China dependence on cobalt is, upstream, a dependence on mining in Congo,
+routed through a Chinese refinery. China is the chokepoint, not the source. This gap between mine and refiner
+is well established in IEA and USGS supply-chain work. What this tool adds is an overlay of all three
+layers (mine, refinery and customs trade) in one material-level interface, where mainstream
+dashboards (OEC, Resource Trade Earth, Comtrade) usually show one. It draws the implied
+mine → refiner → buyer chain, and states (see Limitations) what is measured and what is
+referenced.</p>
 
 <h2>A method note: correcting the EU's import statistics</h2>
-<p>The same materials drive a classic correction specific to the <b>European Union</b> — the analysis this
-project grew out of, documented here (the live tool itself is global and country-agnostic). For
-<b>extra-EU imports</b>, the Eurostat
-Comext <code>partner</code> field <span class="lead">is the country of origin</span>. That single fact
+<p>The same materials call for a well-known correction specific to the European Union. This
+project grew out of that analysis, documented here (the live tool itself is global and country-agnostic). For
+extra-EU imports, the Eurostat
+Comext <code>partner</code> field <span class="lead">is the country of origin</span>. That fact
 separates two views of the same data:</p>
 <ul>
-<li><b>Naive — by importing member state.</b> Ranks dependence by which EU country clears the goods.
-Distorted by the <b>Rotterdam/Antwerp effect</b>: imports are customs-cleared in NL/BE ports (or refined
-in hubs such as Umicore in Belgium) but bound elsewhere. This measures <em>logistics geography</em>, not
-dependence. It is the trap.</li>
-<li><b>Corrected — EU as one entity, by country of origin.</b> Aggregates the 27 member states into a
-single importer and ranks by true origin. This is the answer.</li>
+<li><b>Naive: by importing member state.</b> Ranks dependence by which EU country clears the goods.
+It is distorted by the Rotterdam/Antwerp effect: imports are customs-cleared in NL/BE ports (or refined
+in hubs such as Umicore in Belgium) but bound elsewhere. This view measures logistics geography, not
+dependence.</li>
+<li><b>Corrected: EU as one entity, by country of origin.</b> Aggregates the 27 member states into a
+single importer and ranks by true origin. This is the correct view.</li>
 </ul>
 
 <p>Across the thirty-two materials the naive and corrected panels disagree on the single most important
@@ -152,30 +151,30 @@ none visible in the member-state view. A sample:</p>
 <h3 style="font-size:.98rem;margin-top:1rem">Why the EU correction can't be faked from the raw download</h3>
 <div class="pitfall"><b>Bloc aggregates double-count.</b> The extract carries bloc reporters/partners
 (<code>EU</code>, <code>EA</code>, <code>EU27_2020</code>, <code>WORLD</code>) alongside the 27 member
-states. Summing without dropping them inflates origin totals <b>~4.6×</b> — yet leaves the <em>shares</em>
-unchanged, so the error is invisible to anyone who validates on percentages alone.</div>
+states. Summing without dropping them inflates origin totals ~4.6× but leaves the shares
+unchanged, so the error cannot be seen by anyone who validates on percentages alone.</div>
 <div class="pitfall"><b>The Rotterdam/Antwerp transit effect.</b> Member-state figures attribute goods to
 the point of customs clearance, not consumption. Without the origin correction the largest "dependency" is a port.</div>
 <div class="pitfall"><b>Confidential &amp; suppressed flows.</b> For low-volume strategic materials, sensitive
-trade lines are withheld or masked in Comext; they must be detected and handled, not silently summed as zero.</div>
+trade lines are withheld or masked in Comext; they must be detected and handled, not summed as zero.</div>
 <div class="pitfall"><b>CN8 code vintages.</b> Eight-digit codes split and are reclassified over time
 (rare-earth magnets <code>8505 11 10</code> exists only from 2023). Series breaks must be respected, not stitched blindly.</div>
 <div class="pitfall"><b>Origin ≠ consignment, and units.</b> The partner-as-origin identity holds only for
 extra-EU flows; quantities arrive as <code>QUANTITY_IN_100KG</code> and need conversion.</div>
 
-<p>Because some codes (gallium, germanium) carry 15 years of data, dependency is a trajectory, not a
-snapshot: gallium's China-origin share runs <b>96.8% (2022) → 85% (2023) → 68% (2024)</b> as Canada and
-Russia step in — China's July-2023 export controls visible directly in the customs record.</p>
+<p>Because some codes (gallium, germanium) carry 15 years of data, dependency can be read as a trajectory
+rather than a snapshot. Gallium's China-origin share runs 96.8% (2022) → 85% (2023) → 68% (2024) as Canada and
+Russia step in. China's July-2023 export controls show directly in the customs record.</p>
 
 <h2>Limitations — what is measured vs referenced</h2>
-<p>This is an <b>overlay of three different measures</b>, not one observed supply chain. Read each row
+<p>This is an overlay of three different measures, not one observed supply chain. Read each row
 as three lenses laid over each other, not a single flow:</p>
 <ul>
 <li><b>Three concepts, three vintages.</b> Mine production (USGS, physical, approximate), refining
 (IEA, processing, approximate) and trade (BACI, customs value, 2018–2024) measure different things; the EU
-lens uses Comext 2024. A row juxtaposes them — it does not reconcile them into one measured chain.</li>
-<li><b>HS6 resolution.</b> In the world trade file (CEPII BACI, HS 2017 nomenclature) <b>gallium, germanium
-and hafnium</b> are all read from the six-digit code <code>811292</code>, which also holds unwrought indium,
+lens uses Comext 2024. A row sets them side by side; it does not reconcile them into one measured chain.</li>
+<li><b>HS6 resolution.</b> In the world trade file (CEPII BACI, HS 2017 nomenclature) gallium, germanium
+and hafnium are all read from the six-digit code <code>811292</code>, which also holds unwrought indium,
 niobium, rhenium and vanadium. Their world trade is therefore one basket, not three results: the three
 materials show the same sellers, the same buyers and the same concentration, and no page should be read as a
 finding about one of them. That nomenclature has no line for hafnium alone. Hafnium has a series of its own in
@@ -184,82 +183,82 @@ two-sided reconciliation of reported trade (<code>811231</code>). The pages buil
 series yet. Earlier versions of this page said hafnium was a separate series; it was not.</li>
 <li><b>Re-exports.</b> Customs trade cannot separate a true refiner from a re-export hub. Hong Kong,
 Singapore, the Netherlands and Switzerland can surface as top "exporters/refiners" of a material they
-merely trans-ship. The map's role colours are <em>trade exposure</em>, not proof of physical processing.</li>
+only trans-ship. The map's role colours show trade exposure, not proof of physical processing.</li>
 <li><b>Raw vs refined HS codes.</b> A material's ore and its refined form sit under different HS codes.
 The map derives miners from the ore code where it is traded, and falls back to USGS/IEA reference shares
-where it is not — so the data source behind a role can change from one material to the next.</li>
+where it is not, so the data source behind a role can change from one material to the next.</li>
 <li><b>The flow chart's upstream links are structural.</b> mine → refiner links are drawn from reference
 shares, not observed flows; only refiner → buyer links are real trade.</li>
 <li><b>Value, not tonnage.</b> BACI is in US dollars; the top exporter by value can differ from the top
 by quantity (price and grade effects). Value-vs-tonnage divergences are shown per material in the detail panel.</li>
 <li><b>Colour intensity is sqrt(volume)</b> for visibility, so a dominant supplier reads as strong but
 not overwhelmingly so; treat the choropleth as ordinal, not a precise linear scale.</li>
-<li><b>The satellite layer names <em>where</em>, not <em>which</em>.</b> The <a href="satellite">Maus mine
-polygons</a> are all-commodity — no per-mineral label — so the footprint is a physical cross-check, never a
-material-level source. We <a href="commodity-attribution">quantified how far open data can close that gap</a>:
-overlaying a single peer-reviewed mine-facility database (Jasansky et&nbsp;al. 2023) labels only ~17% of the
-footprint and barely 4% ties to a tracked critical material — but stacking <b>thirteen</b> open registers lifts
-that to <b>63%</b>, and grouping neighbouring polygons into mining districts reaches <b>~73%</b>, matching the
-published state of the art (Maus et&nbsp;al. 2026 / Mine&nbsp;the&nbsp;Gap). What does <i>not</i> improve is the
-per-mineral resolution: even fully labelled, the open taxonomy resolves ~11 broad commodity classes and rarely
-names lithium, cobalt, rare earths or tungsten as a primary product, and a census of the unlabelled remainder
+<li><b>The satellite layer names where, not which.</b> The <a href="satellite">Maus mine
+polygons</a> cover all commodities and carry no per-mineral label, so the footprint is a physical cross-check, never a
+material-level source. The atlas <a href="commodity-attribution">measured how far open data can close that gap</a>.
+Overlaying a single peer-reviewed mine-facility database (Jasansky et&nbsp;al. 2023) labels only ~17% of the
+footprint, and barely 4% ties to a tracked critical material. Stacking thirteen open registers lifts
+that to 63%, and grouping neighbouring polygons into mining districts reaches ~73%, matching the
+published state of the art (Maus et&nbsp;al. 2026 / Mine&nbsp;the&nbsp;Gap). The
+per-mineral resolution does not improve: even fully labelled, the open taxonomy resolves ~11 broad commodity classes and rarely
+names lithium, cobalt, rare earths or tungsten as a primary product. A census of the unlabelled remainder
 shows it is ~81% coal and construction minerals, not hidden criticals. This is why material identity here comes from USGS/IEA production shares and trade, not imagery.</li>
 </ul>
 
 <h2 id="nowcast">Provisional 2025 — a self-built nowcast</h2>
-<p>BACI lags ~1.5 years, so for <b>2025</b> (labelled &ldquo;nowcast&rdquo; on the slider) the atlas does not wait
-for CEPII — it uses a nowcast built here from raw UN Comtrade. A small Python pipeline
+<p>BACI lags ~1.5 years, so for 2025 (labelled &ldquo;nowcast&rdquo; on the slider) the atlas does not wait
+for CEPII. It uses a nowcast built here from raw UN Comtrade. A small Python pipeline
 (<code>reconcile/</code>) replicates BACI's method: it pulls both mirror reports of every flow (exporter
-FOB, importer CIF), estimates CIF/FOB markups, weights each reporter by a <b>variance-components
-reliability model</b> (E[discrepancy²] = var<sub>i</sub> + var<sub>j</sub>), and reconciles by
-<b>inverse-variance averaging</b> on logs. Validated against CEPII's official 2024
+FOB, importer CIF), estimates CIF/FOB markups, weights each reporter by a variance-components
+reliability model (E[discrepancy²] = var<sub>i</sub> + var<sub>j</sub>), and reconciles by
+inverse-variance averaging on logs. Validated against CEPII's official 2024
 <b>on what this atlas shows</b> — exporter shares and concentration, not just a global correlation: the
 top exporter matches for <b>25 of 30</b> materials, exporter <b>shares are within ~3.5%</b> on average
 (median 3.2%), and the concentration ranking (HHI) correlates <b>0.92</b> (underlying flow structure:
 0.975 log-value correlation across 21.7k flows). Absolute levels
 run ~1.8× higher (current Comtrade has absorbed revisions and late filers since BACI's early-2025 snapshot), so
 2025 is calibrated to BACI's 2024 scale per material. A by-product finding: CIF/FOB rates are
-<em>not</em> identifiable on a 31-product slice (R²≈0.01) — BACI's gravity estimation needs the full
-~5,000-product universe — so we fall back to a robust per-product median markup. This agreement is a consistency check, not an independent test: BACI and the atlas both start from the same customs declarations, so an error in what a country declares passes through both.</p>
-<p><b>Caveat — partial coverage.</b> Only about half of countries have filed 2025 annual data so far, so
-2025 is genuinely provisional: stable monopolies (niobium, gallium) hold, but a material that leans on a
+not identifiable on a 31-product slice (R²≈0.01), because BACI's gravity estimation needs the full
+~5,000-product universe. The atlas therefore falls back to a robust per-product median markup. This agreement is a consistency check, not an independent test: BACI and the atlas both start from the same customs declarations, so an error in what a country declares passes through both.</p>
+<p><b>Caveat: partial coverage.</b> Only about half of countries have filed 2025 annual data so far, so
+2025 is provisional: stable monopolies (niobium, gallium) hold, but a material that leans on a
 country which has not yet reported (e.g. bauxite, whose dominant Guinea→China flow China has not filed)
 is distorted. Treat 2025 as indicative, not measured. Every earlier year (2018–2024) is reconciled CEPII
 BACI, untouched by this.</p>
-<p><b>2026 (labelled &ldquo;scenario&rdquo;) goes one step further — a directional scenario.</b> The year is barely
+<p><b>2026 (labelled &ldquo;scenario&rdquo;) goes one step further: it is a directional scenario.</b> The year is barely
 underway, so there is no annual data at all; only ~one quarter of monthly trade exists. Rather than
 invent a structure, it carries 2025's reconciled bilateral structure forward and scales each material by
-its <b>Q1-2026 vs Q1-2025 export momentum</b> (reporter-matched, from monthly Comtrade) blended with the
-<b>change in its commodity price</b> (World Bank Pink Sheet, for the ~7 base metals it covers). One
-quarter cannot credibly predict who-trades-with-whom, so <b>shares are held at 2025 and only levels
-tilt</b>: platinum rises (corroborated by a ~2× price move), antimony and graphite fall (export-control
-pressure). It is a trend signal — where each material is heading as of mid-2026 — not a measurement.</p>
+its Q1-2026 vs Q1-2025 export momentum (reporter-matched, from monthly Comtrade) blended with the
+change in its commodity price (World Bank Pink Sheet, for the ~7 base metals it covers). One
+quarter cannot credibly predict who trades with whom, so shares are held at 2025 and only levels
+move: platinum rises (corroborated by a ~2× price move), antimony and graphite fall (export-control
+pressure). It is a trend signal, showing where each material is heading as of mid-2026, not a measurement.</p>
 
 <h2>Validation &amp; failure cases</h2>
 <p>The reconciliation engine (<a href="https://github.com/materials-atlas/critical-materials-atlas">comtrade-reconcile</a>,
-open + reproducible) is validated against official CEPII BACI on <b>what this atlas shows — exporter
-shares and concentration</b>, not a global level correlation.</p>
+open + reproducible) is validated against official CEPII BACI on what this atlas shows (exporter
+shares and concentration), not on a global level correlation.</p>
 <table><thead><tr><th>Validation vs BACI</th><th class="n">top-1 exporter</th><th class="n">top-3 overlap</th><th class="n">share MAE</th><th class="n">HHI corr</th><th class="n">level ratio</th></tr></thead><tbody>
 <tr><td><b>2024</b> (newest BACI year)</td><td class="n">25/30</td><td class="n">2.57/3</td><td class="n">3.5%</td><td class="n">0.92</td><td class="n">~1.8×</td></tr>
 <tr><td><b>2022</b> (settled year)</td><td class="n">22/30</td><td class="n">2.43/3</td><td class="n">3.9%</td><td class="n">0.89</td><td class="n">~1.5×</td></tr>
 </tbody></table>
-<p>The figures above are for <b>exporters</b>; <b>importers validate similarly</b> (2024: top-1 22/30,
-share MAE 4.2%, HHI corr 0.97) — both sides of the bilateral matrix hold. The validation is reproducible
-in CI from committed data (no API key) — see the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</p>
-<p><b>Where it is weakest — surfaced, not hidden (2024):</b></p>
+<p>The figures above are for exporters. Importers validate similarly (2024: top-1 22/30,
+share MAE 4.2%, HHI corr 0.97), so both sides of the bilateral matrix hold. The validation is reproducible
+in CI from committed data (no API key); see the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</p>
+<p><b>Where it is weakest (2024):</b></p>
 <ul>
-<li><b>Top-1 exporter misses</b> (5/30): fluorspar, graphite, arsenic, phosphate, tantalum — close second-place races on diffuse codes.</li>
+<li><b>Top-1 exporter misses</b> (5/30): fluorspar, graphite, arsenic, phosphate, tantalum. Each is a close race for first place on a diffuse code.</li>
 <li><b>Largest share errors:</b> fluorspar 9%, graphite 7%, beryllium 5%.</li>
 <li><b>Concentration (HHI) misses:</b> beryllium (0.53 vs 0.80), tungsten (0.28 vs 0.40), manganese (0.44 vs 0.33).</li>
 </ul>
 <p>Full per-material 2024 result (red rows = top-1 miss):</p>
 <table><thead><tr><th>Material</th><th>Top exporter (ours vs BACI)</th><th class="n">share MAE</th><th class="n">HHI ours</th><th class="n">HHI BACI</th></tr></thead><tbody><tr style="background:#fdf2f2"><td>fluorspar</td><td><b>ZAF</b> vs MEX</td><td class="n">9.0%</td><td class="n">0.25</td><td class="n">0.25</td></tr><tr style="background:#fdf2f2"><td>graphite</td><td><b>TZA</b> vs CHN</td><td class="n">6.7%</td><td class="n">0.14</td><td class="n">0.21</td></tr><tr style="background:#fdf2f2"><td>arsenic</td><td><b>JPN</b> vs CHN</td><td class="n">4.5%</td><td class="n">0.18</td><td class="n">0.18</td></tr><tr style="background:#fdf2f2"><td>phosphate</td><td><b>MAR</b> vs JOR</td><td class="n">4.0%</td><td class="n">0.16</td><td class="n">0.15</td></tr><tr style="background:#fdf2f2"><td>tantalum</td><td><b>CHN</b> vs USA</td><td class="n">3.5%</td><td class="n">0.14</td><td class="n">0.16</td></tr><tr><td>beryllium</td><td>KAZ (same)</td><td class="n">5.5%</td><td class="n">0.53</td><td class="n">0.80</td></tr><tr><td>cobalt</td><td>COD (same)</td><td class="n">5.2%</td><td class="n">0.22</td><td class="n">0.17</td></tr><tr><td>vanadium</td><td>AUT (same)</td><td class="n">4.7%</td><td class="n">0.16</td><td class="n">0.13</td></tr><tr><td>tungsten</td><td>CHN (same)</td><td class="n">4.7%</td><td class="n">0.28</td><td class="n">0.40</td></tr><tr><td>titanium</td><td>JPN (same)</td><td class="n">4.3%</td><td class="n">0.13</td><td class="n">0.18</td></tr><tr><td>manganese</td><td>ZAF (same)</td><td class="n">4.2%</td><td class="n">0.44</td><td class="n">0.33</td></tr><tr><td>baryte</td><td>IND (same)</td><td class="n">3.8%</td><td class="n">0.09</td><td class="n">0.11</td></tr><tr><td>silicon</td><td>CHN (same)</td><td class="n">3.5%</td><td class="n">0.14</td><td class="n">0.20</td></tr><tr><td>strontium</td><td>DEU (same)</td><td class="n">3.4%</td><td class="n">0.43</td><td class="n">0.44</td></tr><tr><td>feldspar</td><td>TUR (same)</td><td class="n">3.4%</td><td class="n">0.32</td><td class="n">0.21</td></tr><tr><td>Ga/Ge/Hf</td><td>CHN (same)</td><td class="n">2.9%</td><td class="n">0.13</td><td class="n">0.14</td></tr><tr><td>boron</td><td>TUR (same)</td><td class="n">2.8%</td><td class="n">0.47</td><td class="n">0.38</td></tr><tr><td>helium</td><td>QAT (same)</td><td class="n">2.8%</td><td class="n">0.17</td><td class="n">0.16</td></tr><tr><td>antimony</td><td>TJK (same)</td><td class="n">2.7%</td><td class="n">0.19</td><td class="n">0.17</td></tr><tr><td>cokingcoal</td><td>AUS (same)</td><td class="n">2.6%</td><td class="n">0.21</td><td class="n">0.22</td></tr><tr><td>palladium</td><td>ZAF (same)</td><td class="n">2.6%</td><td class="n">0.18</td><td class="n">0.14</td></tr><tr><td>magnets</td><td>CHN (same)</td><td class="n">2.3%</td><td class="n">0.38</td><td class="n">0.41</td></tr><tr><td>nickel</td><td>NOR (same)</td><td class="n">2.3%</td><td class="n">0.11</td><td class="n">0.09</td></tr><tr><td>niobium</td><td>BRA (same)</td><td class="n">2.2%</td><td class="n">0.54</td><td class="n">0.59</td></tr><tr><td>bauxite</td><td>GIN (same)</td><td class="n">2.1%</td><td class="n">0.45</td><td class="n">0.55</td></tr><tr><td>copper</td><td>COD (same)</td><td class="n">2.0%</td><td class="n">0.08</td><td class="n">0.11</td></tr><tr><td>lithium</td><td>CHL (same)</td><td class="n">1.9%</td><td class="n">0.50</td><td class="n">0.59</td></tr><tr><td>magnesium</td><td>CHN (same)</td><td class="n">1.9%</td><td class="n">0.48</td><td class="n">0.54</td></tr><tr><td>platinum</td><td>ZAF (same)</td><td class="n">1.4%</td><td class="n">0.18</td><td class="n">0.16</td></tr><tr><td>phosphorus</td><td>VNM (same)</td><td class="n">1.1%</td><td class="n">0.37</td><td class="n">0.35</td></tr></tbody></table>
 <h2 id="status">Which findings are robust — a per-commodity status map</h2>
-<p>Three rounds of review added a lot of caveats (BACI is not truth; the engine understates some
-concentrations; thin codes swing wildly). Scattered, they bury the actual result. So we fuse them into
-<b>one status per commodity</b> (<code>build_commodity_status.py</code>, derived from the thinness screen,
-the engine-vs-BACI spread over 2002&ndash;2024, and the trend test). <b>Draw headline findings from the
-&ldquo;robust&rdquo; rows only</b>; read the rest as indicative. Of 31 tracked commodities: <b>21 robust</b>,
+<p>Three rounds of review added many caveats (BACI is not truth; the engine understates some
+concentrations; thin codes swing sharply). Spread across the page, they hide the result, so they are combined into
+one status per commodity (<code>build_commodity_status.py</code>, derived from the thinness screen,
+the engine-vs-BACI spread over 2002&ndash;2024, and the trend test). Headline findings should be drawn from the
+&ldquo;robust&rdquo; rows only; read the rest as indicative. Of 31 tracked commodities: <b>21 robust</b>,
 <b>4 spread-sensitive</b> (a real but mild engine-vs-BACI gap), <b>2 shared-code</b> (gallium/germanium
 can&rsquo;t be separated in trade), <b>3 thin-fragile</b> (graphite, beryllium, arsenic &mdash; too little trade
 to measure), and <b>1 engine-understated</b> (cobalt, where the engine misses DRC&rsquo;s real dominance).</p>
@@ -298,122 +297,122 @@ to measure), and <b>1 engine-understated</b> (cobalt, where the engine misses DR
 </tbody></table></div>
 <p class="q" style="margin-top:1rem"><b>What it is and isn't valid for.</b> <b>Valid:</b> shares, ranks and top exporters.
 <b>Concentration (HHI): reported as a spread, not a single number.</b> The atlas engine is itself a
-full reconciliation &mdash; CIF/FOB deflation plus inverse-variance <i>reliability</i> weights on the two
-mirror reports (<code>reconcile.py</code>), the same family as CEPII BACI &mdash; <b>not a plain average</b>.
-An adversarial council pressed the right point: neither reconciliation is ground truth, so it is wrong to
-&ldquo;correct toward BACI.&rdquo; We now report concentration <b>four ways</b> per commodity
+full reconciliation (CIF/FOB deflation plus inverse-variance reliability weights on the two
+mirror reports, <code>reconcile.py</code>), in the same family as CEPII BACI; it is not a plain average.
+An adversarial review made the point that neither reconciliation is ground truth, so it would be wrong to
+&ldquo;correct toward BACI.&rdquo; Concentration is therefore reported four ways per commodity
 (<code>build_recon_envelope.py</code>&nbsp;&rarr;&nbsp;<code>out/recon_envelope.json</code>): the two
-<b>raw</b> mirror reports &mdash; <b>exporter-only</b> (X/FOB) and <b>importer-only</b> (M/CIF) &mdash; and the two
-reconciliations (engine, BACI). A second review rightly rejected our first framing of this as the raw pair
-&ldquo;bracketing the truth&rdquo; with the reconciliations &ldquo;inside&rdquo;: two reports biased the same
-way (CIF vs FOB, confidentiality, re-exports) do <b>not</b> bound the truth, and because HHI is non-linear the
-aggregate need not fall between them &mdash; indeed BACI lands <b>outside</b> the raw pair for 24 of 30
-commodities and the engine for 13 of 30 (2024). So the four views are a <b>mirror-report spread</b> &mdash; a
-measure of how <i>uncertain</i> a commodity&rsquo;s concentration is &mdash; <b>not</b> a confidence interval, and
-no column is ground truth. The spread is <b>wide</b>: median <b>~0.07&ndash;0.09</b> HHI, up to <b>0.54</b>
-(manganese). The one directional thing we can say: the atlas engine tends to run <b>low</b> &mdash; often
-below <i>both</i> mirror reports (graphite 0.14 vs 0.23/0.48; beryllium 0.53 vs 0.62/0.78) &mdash; so its HHI is
-<b>likely an underestimate</b> for thin, dominated commodities. That is a direction, <b>not a proven lower
-bound</b> (an estimator can simply be wrong). Four ways, 2024 (exp / imp / engine / BACI): manganese
-<b>0.89 / 0.35 / 0.44 / 0.33</b>, graphite <b>0.23 / 0.48 / 0.14 / 0.21</b>,
-beryllium <b>0.62 / 0.78 / 0.53 / 0.80</b>. The earlier one-number &ldquo;beryllium 0.53&rarr;0.80&rdquo;
-overstated false precision: read it as a wide, unresolved spread of roughly <b>0.5&ndash;0.8</b>, the engine
-at the bottom and BACI at the top. <b>Which commodities are too thin to carry a concentration number at
-all?</b> Rather than judge that after the fact, we screen every code up front
-(<code>build_thinness_screen.py</code>): a commodity is flagged <b>thin-fragile</b> if its annual trade is
-under $100M or it has fewer than 8 active exporters. (High single-exporter leverage is <i>not</i> a flag on
-its own: in a deep market it is genuine one-country dominance &mdash; bauxite&rarr;Guinea, tungsten&rarr;China
-&mdash; a finding, not a data problem.) Only <b>3 of 31</b> are thin-fragile (graphite, beryllium, arsenic);
-their concentration is indicative, not measured. Building this ex-ante screen is also what caught our own
-cobalt error &mdash; see the status map above and the trend note below. <b>Is the understatement fixable at source?</b> We tried
-(<code>reconcile/operator_test.py</code>); simple operator substitutions do not remove it. The two-sided
-reconciliation&rsquo;s <i>geometric</i> mean was the obvious suspect, but switching it to an arithmetic
-level-space mean changes the concentration almost nothing. The other diluter is <b>importer-only flows</b>
-(imports with no matching exporter report &mdash; often re-export/entrepôt) inflating the tail; but a full
-down-weight sweep shows no middle setting helps &mdash; partial weights barely move the BACI gap while
-<i>worsening</i> the fit, and only dropping them entirely improves raw-bracket coverage, at the cost of
-<b>over-shooting</b> past BACI. We also tested the principled candidate a
-reviewer named &mdash; the <b>log-normal smearing correction</b> (multiply the geometric mean by
-exp&frac12;&sigma;&sup2; to retransform from log-median to level-mean). It <b>fails badly here</b>: with only
+raw mirror reports, exporter-only (X/FOB) and importer-only (M/CIF), and the two
+reconciliations (engine, BACI). A second review rejected the first framing of this, in which the raw pair
+&ldquo;bracketed the truth&rdquo; with the reconciliations &ldquo;inside&rdquo;. Two reports biased the same
+way (CIF vs FOB, confidentiality, re-exports) do not bound the truth, and because HHI is non-linear the
+aggregate need not fall between them: BACI lands outside the raw pair for 24 of 30
+commodities and the engine for 13 of 30 (2024). The four views are therefore a mirror-report spread, a
+measure of how uncertain a commodity&rsquo;s concentration is. They are not a confidence interval, and
+no column is ground truth. The spread is wide: median ~0.07&ndash;0.09 HHI, up to 0.54
+(manganese). One directional statement holds: the atlas engine tends to run low, often
+below both mirror reports (graphite 0.14 vs 0.23/0.48; beryllium 0.53 vs 0.62/0.78), so its HHI is
+likely an underestimate for thin, dominated commodities. That is a direction, not a proven lower
+bound (an estimator can be wrong). Four ways, 2024 (exp / imp / engine / BACI): manganese
+0.89 / 0.35 / 0.44 / 0.33, graphite 0.23 / 0.48 / 0.14 / 0.21,
+beryllium 0.62 / 0.78 / 0.53 / 0.80. The earlier single figure &ldquo;beryllium 0.53&rarr;0.80&rdquo;
+gave a false sense of precision: read it as a wide, unresolved spread of roughly 0.5&ndash;0.8, with the engine
+at the bottom and BACI at the top. <b>Thin commodities.</b> Whether a commodity is too thin to carry a concentration number
+is decided up front, not after the fact: every code is screened
+(<code>build_thinness_screen.py</code>), and a commodity is flagged thin-fragile if its annual trade is
+under $100M or it has fewer than 8 active exporters. (High single-exporter leverage is not a flag on
+its own. In a deep market it is one-country dominance, such as bauxite&rarr;Guinea or tungsten&rarr;China,
+which is a finding and not a data problem.) Only <b>3 of 31</b> are thin-fragile (graphite, beryllium, arsenic);
+their concentration is indicative, not measured. Building this ex-ante screen is also what caught the atlas&rsquo;s own
+cobalt error; see the status map above and the trend note below. <b>Fixing the understatement at source.</b> Simple operator
+substitutions do not remove it (<code>reconcile/operator_test.py</code>). The two-sided
+reconciliation&rsquo;s geometric mean was the first suspect, but switching it to an arithmetic
+level-space mean changes the concentration almost nothing. The other diluter is importer-only flows
+(imports with no matching exporter report, often re-export/entrepôt), which inflate the tail. A full
+down-weight sweep shows that no middle setting helps: partial weights barely move the BACI gap while
+worsening the fit, and only dropping them entirely improves raw-bracket coverage, at the cost of
+over-shooting past BACI. A reviewer also named a principled candidate, the log-normal smearing correction
+(multiply the geometric mean by
+exp&frac12;&sigma;&sup2; to retransform from log-median to level-mean). It fails badly here. With only
 two reports per flow the variance &sigma;&sup2; is far too noisy, and the exponential over-inflates
 high-disagreement flows (a 100&times; mirror gap becomes a ~13&times; multiplier, pushing the value above
-<i>both</i> reports), so concentration over-shoots &mdash; raw-bracket coverage collapses from 17/30 to 6/30.
-We measure all of this two truth-agnostic ways: agreement with BACI (an external reconstruction, not
-ground truth) and coverage of the raw [exporter, importer] bracket; <b>no operator we tested improves one
-without hurting the other</b>. The one lever left untried is a gravity-fitted CIF like BACI&rsquo;s, which
+both reports), so concentration over-shoots: raw-bracket coverage collapses from 17/30 to 6/30.
+All of this is measured in two truth-agnostic ways: agreement with BACI (an external reconstruction, not
+ground truth) and coverage of the raw [exporter, importer] bracket. No operator tested improves one
+without hurting the other. The one lever left untried is a gravity-fitted CIF like BACI&rsquo;s, which
 <code>reconcile.py</code> documents as statistically unidentified on this 31-code slice (R&sup2;&nbsp;&asymp;&nbsp;0.01).
-So among the operators available to us, none improves the estimate &mdash; we report the spread as-is rather
-than hand-tune the engine toward BACI, which is not a target to hit. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
-the trend&rdquo; on only two years, which was not enough &mdash; so we did the full test
-(<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>):
-recompute the export-HHI series <b>every year 2002&ndash;2024</b> on the engine reconciliation <i>and</i>
-independently on CEPII BACI, and run a Mann&ndash;Kendall trend test on each &mdash; and, because a reviewer
-noted annual HHI is serially correlated (which inflates plain-MK significance), using the
-<b>Hamed&ndash;Rao autocorrelation-corrected</b> variant. The correction barely moves the picture: it drops
+Among the available operators, none improves the estimate. The spread is reported as it is, rather
+than hand-tuning the engine toward BACI, which is not a target to hit. <b>Trend claims.</b> An earlier version asserted that &ldquo;the dilution shifts the level not
+the trend&rdquo; on the basis of only two years, which was not enough. The full test
+(<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>)
+recomputes the export-HHI series every year 2002&ndash;2024 on the engine reconciliation and
+independently on CEPII BACI, and runs a Mann&ndash;Kendall trend test on each. Because a reviewer
+noted that annual HHI is serially correlated (which inflates plain-MK significance), it uses the
+Hamed&ndash;Rao autocorrelation-corrected variant. The correction barely moves the picture: it drops
 the engine&rsquo;s significant trends from <b>21 to 20</b> of 29, so the series really are trending, not just
-persistent. A second honest point the reviewer forced: the raw &ldquo;sign+significance agree for 26 of 29&rdquo;
-headline is inflated because <b>8 of those agree only by both finding &ldquo;no trend,&rdquo;</b> which is cheap. So
-we report the quantity that actually matters: <b>among the 18 commodities where both series detect a
-significant trend, the direction agrees 18 of 18</b> &mdash; the reconciliation choice never flips a real
+persistent. A second point the reviewer raised: the raw &ldquo;sign+significance agree for 26 of 29&rdquo;
+headline is inflated because <b>8 of those agree only by both finding &ldquo;no trend,&rdquo;</b> which is cheap. The
+relevant quantity is this: <b>among the 18 commodities where both series detect a
+significant trend, the direction agrees 18 of 18</b>. The reconciliation choice never flips a real
 trend&rsquo;s sign, and all 18 survive a Benjamini&ndash;Hochberg multiple-testing correction. The three
-disagreements are all <b>significance-level</b> (one series clears the bar, the other just misses: arsenic,
-titanium), not direction reversals &mdash; except <b>cobalt</b>, the one substantive conflict (engine: a
-significant fall; BACI: a rise), which we <b>ran down &mdash; and it exposes a real engine limitation, not a
-BACI one</b>. <span style="color:#8a1c1c"><b>(Correction, 31 Aug:</b> our first pass called this a
-&ldquo;thin-code artifact&rdquo; on the strength of a buggy extraction that had dropped most exporters; cobalt&rsquo;s
-code is <i>not</i> thin, and the story is the opposite.)</span> Cobalt&rsquo;s refined code (HS&nbsp;2822.00,
-oxides/hydroxides) is a real <b>$0.8&ndash;4.9&nbsp;billion</b> market, and BACI captures a genuine event: DR&nbsp;Congo&rsquo;s
-share of those exports surged from <b>41% (2016) to ~85% (2020&ndash;2023)</b> &mdash; the battery-era
-cobalt-hydroxide boom &mdash; then fell back in 2024 on the price crash (BACI HHI 0.25&rarr;0.71&rarr;0.17). The
-<b>atlas engine missed it entirely</b>: in 2020 it reconstructs only <b>$0.7B</b> of the trade (BACI: $3.5B) and
-puts DRC at <b>15%</b>, not 84%. The reason is the engine&rsquo;s own reliability weighting: DRC is a weak
-customs reporter, so its large but under-corroborated export claims get shrunk in reconciliation &mdash; exactly
-the &ldquo;engine understates concentration&rdquo; failure mode, here on a big, real dependency rather than a thin
-one. So the honest reading reverses: <b>for cobalt, trust BACI and production (DRC ~75% of mine supply), not
-the engine&rsquo;s smoothed series</b>, whose &ldquo;falling concentration&rdquo; is an artefact of progressively
-shrinking DRC. This does not touch the 18/18 significant-trend agreement elsewhere, but it is a genuine
-scalp for the reconciliation engine, kept in view rather than buried. <b>Not valid:</b> absolute dollar levels — there is a known
+disagreements are significance-level (one series clears the bar, the other just misses: arsenic,
+titanium), not direction reversals, with one exception. Cobalt is the one substantive conflict (engine: a
+significant fall; BACI: a rise). It was investigated, and it exposes a limitation of the engine, not of
+BACI. <span style="color:#8a1c1c"><b>(Correction, 31 Aug:</b> the first pass called this a
+&ldquo;thin-code artifact&rdquo; on the strength of a faulty extraction that had dropped most exporters. Cobalt&rsquo;s
+code is not thin, and the reverse is true.)</span> Cobalt&rsquo;s refined code (HS&nbsp;2822.00,
+oxides/hydroxides) is a $0.8&ndash;4.9&nbsp;billion market, and BACI records a real event. DR&nbsp;Congo&rsquo;s
+share of those exports rose from 41% (2016) to ~85% (2020&ndash;2023) during the battery-era
+boom in cobalt hydroxide, then fell back in 2024 on the price crash (BACI HHI 0.25&rarr;0.71&rarr;0.17). The
+atlas engine missed it entirely: in 2020 it reconstructs only $0.7B of the trade (BACI: $3.5B) and
+puts DRC at 15%, not 84%. The reason is the engine&rsquo;s own reliability weighting. DRC is a weak
+customs reporter, so its large but under-corroborated export claims are shrunk in reconciliation. This is
+the &ldquo;engine understates concentration&rdquo; failure mode, here on a large, real dependency rather than a thin
+one. For cobalt the reading therefore reverses: trust BACI and production (DRC ~75% of mine supply), not
+the engine&rsquo;s smoothed series, whose &ldquo;falling concentration&rdquo; is an artefact of progressively
+shrinking DRC. This does not affect the 18/18 significant-trend agreement elsewhere, but it is a real
+failure of the reconciliation engine, and it is kept in view. <b>Not valid:</b> absolute dollar levels. There is a known
 ~1.5–1.8× offset (current Comtrade runs above BACI's published values; diagnosed above), so arc and
-Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that the offset is a clean
-<i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and
-is retracted</b>: the two-year measurement above shows the offset falls unevenly on the leader, which is
-precisely why concentration needed correcting (reproducible: <code>build_level_bias_audit.py</code>,
+Sankey widths are relative, not dollar-precise. The earlier claim that the offset is a clean
+uniform multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was too strong and
+is retracted. The two-year measurement above shows the offset falls unevenly on the leader, which is
+why concentration needed correcting (reproducible: <code>build_level_bias_audit.py</code>,
 <code>build_hhi_correction.py</code>). <b>2025</b> is provisional (partial reporting,
 level-calibrated to BACI; not independently validated until BACI 2025 is released). <b>2026</b> is a
-directional scenario (Q1 momentum, shares held at 2025) — a trend signal, not a measurement.</p>
+directional scenario (Q1 momentum, shares held at 2025): a trend signal, not a measurement.</p>
 
 <h2>Analytical layers &amp; trend analysis</h2>
-<p>On top of the mine&rarr;refine&rarr;trade&rarr;reserves core, the atlas adds several screening lenses — each documented and caveated on its own page, and, with full citations, in the <a href="technical-note">technical note</a>:</p>
+<p>On top of the mine&rarr;refine&rarr;trade&rarr;reserves core, the atlas adds several screening lenses. Each is documented and caveated on its own page and, with full citations, in the <a href="technical-note">technical note</a>:</p>
 <ul>
-<li><a href="network"><b>Trade-network chokepoints</b></a> — directed-network betweenness / PageRank plus a node-removal fragility test (read as <i>trade-routing centrality</i>, since betweenness also reflects import size).</li>
-<li><a href="criticality"><b>Governance-weighted criticality</b></a> — an EU/SCRREEN-shaped supply-risk proxy weighting concentration by World Bank governance scores, plus a Graedel-style axis; a proxy on public approximations, not the official scores.</li>
-<li><a href="geopolrisk"><b>Concentration in tonnes (GeoPolRisk)</b></a> — the atlas headlines concentration on trade <i>value</i>; this recomputes the Herfindahl on <b>physical production tonnes</b> (World Mining Data), weighted by WGI governance, aligned to the GeoPolRisk indicator (Gemechu et&nbsp;al. 2016; Cimprich/Helbig/Sonnemann 2017–2024) and EU CRM. It sets value, volume and production HHI side by side — trade value understates gallium (0.50 vs 0.97) and overstates boron (0.96 vs 0.28) — putting the concentration claim on the field&rsquo;s standard physical footing.</li>
-<li><a href="complexity"><b>Economic complexity</b></a> — Balassa revealed comparative advantage over the 32-material export matrix (specialization <i>within</i> critical materials), with ubiquity and relatedness.</li>
-<li><a href="origin"><b>Origin trace</b></a> — a first-order re-attribution of refiner-fronted imports to the dominant mine (an upper bound on single-origin concentration).</li>
-<li><a href="casestudies"><b>Case studies</b></a> — the atlas audited against five chains experts know cold (USGS / IEA).</li>
-<li><a href="uncertainty"><b>Scorecard uncertainty (Monte-Carlo)</b></a> — propagates explicit input uncertainty through the five-axis hardest-cases scorecard (20,000 draws/material) to report P(hardest) as a gradient rather than a binary cutoff; confirms gallium/germanium are robust, surfaces vanadium as borderline, and shows supply elasticity + market thinness (not concentration) drive the ranking. The five input spreads are stated as judgement calls.</li>
-<li><a href="production"><b>Production in tonnes &amp; cross-source check</b></a> — absolute mine output (World Mining Data 2026, metric tonnes) for 28 materials, used to (a) show the physical scale behind the shares and (b) independently cross-validate the USGS-derived producer geography: a second authority names the same top producer for 26 of 28 materials (mean share gap 6.4pp), with the two genuine disagreements flagged, not smoothed.</li>
-<li><a href="demand"><b>Demand &amp; the squeeze</b></a> — the demand-side arm: end-use sectors, clean-energy exposure and a demand-growth multiple to ~2040 (IEA Global Critical Minerals Outlook 2024 + USGS), crossed with companionality to separate demand-driven-but-mineable materials from the structural squeeze. Forward demand is scenario-dependent — round mid-scenario tiers, not forecasts. A companion <a href="price-squeeze"><b>price test</b></a> checks the thesis against the atlas's own implied trade-price series (2018–24): by-product-locked metals split in <i>direction</i> by their host's cycle, not a mechanical price rise — the correlation is de-duplicated for the gallium/germanium shared HS6 code. A companion <a href="price-volatility"><b>regression on real USGS price series</b></a> then asks whether by-product metals are also more <i>volatile</i>: they are, but the gap is fully accounted for by market size, not companionality — small <i>primary</i> metals swing just as hard. A further <a href="host-coupling"><b>host-coupling</b></a> test correlates each companion's price against its host on real USGS prices, with a partial correlation removing the common commodity cycle and hosts pre-specified rather than chosen on the outcome. It <b>refutes the "host decides" mechanism it was built to confirm</b>: mean coupling <b>0.03</b>, only bismuth←lead surviving, and nothing at all in the channel the theory actually names (the host's <i>output</i>, not its price). The episodes — gallium/germanium export controls, cobalt and Indonesian nickel — are real events and stand; the general law does not. Finally a <a href="bloc-demand"><b>demand-by-bloc</b></a> read uses import flows as a revealed-demand proxy to show which bloc pulls each squeezed metal and the policy behind it — with the explicit caveat that imports conflate processing with final consumption (China's share is inflated by refine-and-re-export). A follow-up <a href="net-demand"><b>net-demand</b></a> page nets that out (imports − exports), collapsing re-export hubs and revealing refiner-exporters (China is a net supplier of eight refined criticals) — a half-step toward apparent consumption, short only of absolute production tonnages. A <a href="cascade"><b>supply-shock cascade</b></a> then ties the whole arc together: a country shock is propagated through production shares, the companion web (a lost host drags its by-products down), and net trade to the exposed blocs — a structural first-and-second-order contagion map (no price feedback; echo only through tracked hosts), not a calibrated forecast.</li>
-<li><a href="gallium"><b>Gallium end-to-end (deep dive)</b></a> — one metal followed physically from bauxite through alumina refining to recovery and export, with explicit bias bounds: a mass balance showing ~94% of the gallium passing through alumina refineries is discarded (recovery ~5.6%), so supply is capped by refinery retrofits, not price — the "can't scale" claim quantified rather than asserted, with the HS-811292 trade aliasing and China's non-reporting flagged.</li>
-<li><a href="companionality"><b>Supply structure — companionality &amp; its children</b></a> — a supply-elasticity arm: whether each material is mined for itself or recovered only as a <i>by-product</i> of a host commodity (companionality, from USGS MCS 2024 + Nassar et&nbsp;al. 2015). It spawns a <a href="risk-adjusted">supply-elasticity-adjusted risk</a>, a <a href="host-shock">host-shock</a> map (the bulk commodities that gate critical supply), and a <a href="recycling">secondary-supply</a> lens (EU CRM 2023 end-of-life recycling). Companionality is a round, literature-based estimate of a fuzzy quantity — read the axis as tiers, not decimals.</li>
+<li><a href="network"><b>Trade-network chokepoints</b></a>: directed-network betweenness / PageRank plus a node-removal fragility test (read as <i>trade-routing centrality</i>, since betweenness also reflects import size).</li>
+<li><a href="criticality"><b>Governance-weighted criticality</b></a>: an EU/SCRREEN-shaped supply-risk proxy weighting concentration by World Bank governance scores, plus a Graedel-style axis; a proxy on public approximations, not the official scores.</li>
+<li><a href="geopolrisk"><b>Concentration in tonnes (GeoPolRisk)</b></a>: the atlas reports concentration on trade value in its headlines; this page recomputes the Herfindahl on physical production tonnes (World Mining Data), weighted by WGI governance, aligned to the GeoPolRisk indicator (Gemechu et&nbsp;al. 2016; Cimprich/Helbig/Sonnemann 2017–2024) and EU CRM. It sets value, volume and production HHI side by side. Trade value understates gallium (0.50 vs 0.97) and overstates boron (0.96 vs 0.28). This puts the concentration claim on the field&rsquo;s standard physical footing.</li>
+<li><a href="complexity"><b>Economic complexity</b></a>: Balassa revealed comparative advantage over the 32-material export matrix (specialization <i>within</i> critical materials), with ubiquity and relatedness.</li>
+<li><a href="origin"><b>Origin trace</b></a>: a first-order re-attribution of refiner-fronted imports to the dominant mine (an upper bound on single-origin concentration).</li>
+<li><a href="casestudies"><b>Case studies</b></a>: the atlas audited against five chains experts know cold (USGS / IEA).</li>
+<li><a href="uncertainty"><b>Scorecard uncertainty (Monte-Carlo)</b></a>: propagates explicit input uncertainty through the five-axis hardest-cases scorecard (20,000 draws/material) to report P(hardest) as a gradient rather than a binary cutoff. It confirms that gallium/germanium are robust, shows vanadium as borderline, and shows that supply elasticity and market thinness (not concentration) drive the ranking. The five input spreads are stated as judgement calls.</li>
+<li><a href="production"><b>Production in tonnes &amp; cross-source check</b></a>: absolute mine output (World Mining Data 2026, metric tonnes) for 28 materials, used to (a) show the physical scale behind the shares and (b) independently cross-validate the USGS-derived producer geography: a second authority names the same top producer for 26 of 28 materials (mean share gap 6.4pp), with the two genuine disagreements flagged, not smoothed.</li>
+<li><a href="demand"><b>Demand &amp; the squeeze</b></a>: the demand-side arm. It covers end-use sectors, clean-energy exposure and a demand-growth multiple to ~2040 (IEA Global Critical Minerals Outlook 2024 + USGS), crossed with companionality to separate materials whose demand is rising but which can still be mined in larger amounts from those whose supply is structurally constrained. Forward demand depends on the scenario; the figures are round mid-scenario tiers, not forecasts. A companion <a href="price-squeeze">price test</a> checks the thesis against the atlas's own implied trade-price series (2018–24). By-product-locked metals split in direction with their host's cycle, rather than showing a mechanical price rise; the correlation is de-duplicated for the gallium/germanium shared HS6 code. A companion <a href="price-volatility">regression on real USGS price series</a> then asks whether by-product metals are also more volatile. They are, but the gap is fully accounted for by market size, not companionality: small primary metals swing just as hard. A further <a href="host-coupling">host-coupling</a> test correlates each companion's price against its host on real USGS prices, with a partial correlation removing the common commodity cycle and hosts pre-specified rather than chosen on the outcome. It refutes the "host decides" mechanism it was built to confirm: mean coupling 0.03, with only bismuth←lead surviving, and nothing at all in the channel the theory names (the host's output, not its price). The episodes (gallium/germanium export controls, cobalt and Indonesian nickel) are real events and stand; the general law does not. Finally a <a href="bloc-demand">demand-by-bloc</a> read uses import flows as a revealed-demand proxy to show which bloc pulls each constrained metal and the policy behind it, with the caveat that imports mix processing with final consumption (China's share is inflated by refine-and-re-export). A follow-up <a href="net-demand">net-demand</a> page nets that out (imports − exports). This removes the re-export hubs and shows the refiner-exporters (China is a net supplier of eight refined criticals). It is a half-step toward apparent consumption, short only of absolute production tonnages. A <a href="cascade">supply-shock cascade</a> then links these pages: a country shock is propagated through production shares, the companion web (a lost host drags its by-products down), and net trade to the exposed blocs. It is a structural first-and-second-order contagion map (no price feedback; echo only through tracked hosts), not a calibrated forecast.</li>
+<li><a href="gallium"><b>Gallium end-to-end (deep dive)</b></a>: one metal followed physically from bauxite through alumina refining to recovery and export, with explicit bias bounds. A mass balance shows that ~94% of the gallium passing through alumina refineries is discarded (recovery ~5.6%), so supply is capped by refinery retrofits, not price. The claim that supply "can't scale" is quantified rather than asserted, and the HS-811292 trade aliasing and China's non-reporting are flagged.</li>
+<li><a href="companionality"><b>Supply structure: companionality &amp; its children</b></a>: a supply-elasticity arm. It records whether each material is mined for itself or recovered only as a by-product of a host commodity (companionality, from USGS MCS 2024 + Nassar et&nbsp;al. 2015). It leads to a <a href="risk-adjusted">supply-elasticity-adjusted risk</a>, a <a href="host-shock">host-shock</a> map (the bulk commodities that gate critical supply), and a <a href="recycling">secondary-supply</a> lens (EU CRM 2023 end-of-life recycling). Companionality is a round, literature-based estimate of a fuzzy quantity; read the axis as tiers, not decimals.</li>
 </ul>
-<p>The reconciled trade series runs <b>2002&ndash;2024</b>, and the <a href="trends"><b>Trends</b></a> view does not merely plot it: each material's export-concentration, China-share and origin-gap series is <em>tested</em> with the <b>Mann&ndash;Kendall</b> trend test, the <b>Theil&ndash;Sen</b> slope and the <b>Pettitt</b> structural-break test, Benjamini&ndash;Hochberg-corrected across the materials. <b>10</b> materials show a statistically significant rising export-concentration trend, with structural breaks clustering in <b>2012&ndash;2016</b>. The critical-minerals literature typically plots concentration; testing and dating it is the contribution. Full methods and references: <a href="technical-note">technical note</a>.</p>
+<p>The reconciled trade series runs 2002&ndash;2024. The <a href="trends"><b>Trends</b></a> view tests each material's export-concentration, China-share and origin-gap series with the Mann&ndash;Kendall trend test, the Theil&ndash;Sen slope and the Pettitt structural-break test, Benjamini&ndash;Hochberg-corrected across the materials. <b>10</b> materials show a statistically significant rising export-concentration trend, with structural breaks clustering in <b>2012&ndash;2016</b>. The critical-minerals literature usually plots concentration; this view tests it and dates the breaks. Full methods and references: <a href="technical-note">technical note</a>.</p>
 
 <h2>Data &amp; reproducibility</h2>
 <p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
 reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
-International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — releases HS02 + HS17 V202601, years
-<b>2002–2024</b> (HS02 vintage through 2016, HS17 from 2017). The year is
-selectable in the tool. <b>Does the 2016/17 vintage join manufacture a trend?</b> Tested: the mean
-year-over-year change in top-exporter share <i>at the splice</i> (4.6&nbsp;pp) is if anything
-<i>smaller</i> than a typical year (5.1&nbsp;pp average across all boundaries) &mdash; <b>&minus;0.5&nbsp;standard
-deviations</b>, well inside ordinary variation. The splice is invisible in the series, so trends across
+International Trade Database at the Product-Level</i>, CEPII WP 2010-23), releases HS02 + HS17 V202601, years
+2002–2024 (HS02 vintage through 2016, HS17 from 2017). The year is
+selectable in the tool. <b>The 2016/17 vintage join.</b> A test checks whether the join creates a trend. The mean
+year-over-year change in top-exporter share at the splice (4.6&nbsp;pp) is, if anything,
+smaller than in a typical year (5.1&nbsp;pp average across all boundaries): &minus;0.5&nbsp;standard
+deviations, well inside ordinary variation. The splice does not show in the series, so trends across
 2002&ndash;2024 are not artefacts of it (reproducible: <code>build_splice_sensitivity.py</code>).</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.
 <b>Mine production &amp; reserves:</b> USGS Mineral Commodity Summaries (annual editions 2020–2024, with a
-per-layer year slider). <b>Refining shares:</b> best-per-material — BGS World Mineral Statistics (OGC API,
-annual, for the metals it reports) else IEA Critical Minerals Outlook 2026 / EU CRM 2023 / USGS. All
+per-layer year slider). <b>Refining shares:</b> the best source per material, BGS World Mineral Statistics (OGC API,
+annual, for the metals it reports), else IEA Critical Minerals Outlook 2026 / EU CRM 2023 / USGS. All
 sources are public and free (no API key); figures are rounded.</p>
 
 </article>

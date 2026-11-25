@@ -44,7 +44,7 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Transparency · project map</div>
   <h1>How this atlas is built</h1>
-  <p class="deck">Every figure here traces back to a public source through code you can run. This is the whole machine in one view &mdash; the sources, the reconciliation engine, the data layers, the deterministic generators, and all the pages &mdash; and how they connect. Nothing is hand-typed into a page; rebuild it and it regenerates.</p>
+  <p class="deck">Every figure here traces back to a public source through code you can run. This page shows the whole system in one view: the sources, the reconciliation engine, the data layers, the deterministic generators, all the pages, and how they connect. Nothing is hand-typed into a page; rebuilding it regenerates it.</p>
 </div></section>
 
 <article style="max-width:1160px">
@@ -90,19 +90,19 @@ flowchart LR
   click SITE "map.html#stage-site" "This static site"
     </pre>
   </div>
-  <p class="muted" style="margin:.2rem 0 0">Every box above is clickable &mdash; click it to jump to its plain-English explanation below (which links onward to the code and data). Or just read them in order.</p>
+  <p class="muted" style="margin:.2rem 0 0">Every box above is clickable and jumps to its plain-English explanation below, which links onward to the code and data. The stages can also be read in order.</p>
 
   <h2>What happens at each stage</h2>
   <ol class="stages">
-    <li id="stage-sources"><b>Public data sources.</b> Everything starts from datasets anyone can download &mdash; UN Comtrade (raw trade), CEPII BACI (the reconciled reference), USGS &amp; IEA (mine and refining shares), the World Bank&rsquo;s governance indicators, and peer-reviewed satellite mine-polygon datasets. No private or paid data. <a href="methodology">Sources &amp; method &rarr;</a></li>
-    <li id="stage-engine"><b>Reconciliation engine.</b> The two sides of every trade disagree &mdash; the exporter and the importer report different numbers. The <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">engine</a> mirror-matches them into one figure per flow (a Gaulier&ndash;Zignago-style reconciliation) and validates the result against the official BACI dataset. It is open-source, runs in CI on every push, and the forecast is <a href="technical-note">pre-registered</a>.</li>
-    <li id="stage-data"><b>Data layers (<code>out/*.json</code>).</b> The reconciled trade, plus every metric computed from it, is frozen as plain <a href="data">JSON files</a> &mdash; the material data, one file per trade-year (2002&ndash;2026), and 15 analytical layers (risk, network, trends, satellite&hellip;). This is the single source of truth every page reads; you can fetch them directly, no key.</li>
-    <li id="stage-generators"><b>Generators.</b> About 20 small, deterministic Python/R scripts turn those JSON layers into each page &mdash; the charts, tables and the numbers written into the prose. The same input always produces the same site, so nothing is hand-typed and every figure is reproducible.</li>
-    <li id="stage-site"><b>This static site.</b> The 28 pages and the material &amp; country profiles you are browsing, served straight from GitHub Pages &mdash; no backend, nothing to trust but the code and the public data. <a href="./">Open the atlas &rarr;</a></li>
+    <li id="stage-sources"><b>Public data sources.</b> Everything starts from datasets anyone can download: UN Comtrade (raw trade), CEPII BACI (the reconciled reference), USGS &amp; IEA (mine and refining shares), the World Bank&rsquo;s governance indicators, and peer-reviewed satellite mine-polygon datasets. No private or paid data. <a href="methodology">Sources &amp; method &rarr;</a></li>
+    <li id="stage-engine"><b>Reconciliation engine.</b> The two sides of every trade disagree: the exporter and the importer report different numbers. The <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">engine</a> mirror-matches them into one figure per flow (a Gaulier&ndash;Zignago-style reconciliation) and validates the result against the official BACI dataset. It is open-source, runs in CI on every push, and the forecast is <a href="technical-note">pre-registered</a>.</li>
+    <li id="stage-data"><b>Data layers (<code>out/*.json</code>).</b> The reconciled trade, plus every metric computed from it, is frozen as plain <a href="data">JSON files</a>: the material data, one file per trade-year (2002&ndash;2026), and 15 analytical layers (risk, network, trends, satellite&hellip;). Every page reads from these files, and they can be fetched directly, with no key.</li>
+    <li id="stage-generators"><b>Generators.</b> About 20 small, deterministic Python/R scripts turn those JSON layers into each page: the charts, tables and the numbers written into the prose. The same input always produces the same site, so nothing is hand-typed and every figure is reproducible.</li>
+    <li id="stage-site"><b>This static site.</b> The 28 pages and the material &amp; country profiles you are browsing, served straight from GitHub Pages. There is no backend; the site rests only on the code and the public data. <a href="./">Open the atlas &rarr;</a></li>
   </ol>
 
   <h2 id="dependency-tree">The analytical dependency tree &mdash; and where the atlas corrects itself</h2>
-  <p class="muted" style="margin-top:0">The diagram above is the plumbing &mdash; how data becomes pages. This one is the <i>reasoning</i>: each analytical layer built on the one before it, from the reconciliation engine out to the final &ldquo;hardest cases&rdquo;. What makes it unusual is the <b style="color:#c0392b">three dashed red loops</b> &mdash; places where a later result reached back and <b>overturned an earlier claim of our own</b>. Every box is clickable and opens its page.</p>
+  <p class="muted" style="margin-top:0">The diagram above shows how data becomes pages. This one shows the reasoning: each analytical layer built on the one before it, from the reconciliation engine out to the final &ldquo;hardest cases&rdquo;. The <span style="color:#c0392b">three dashed red loops</span> mark places where a later result reached back and overturned an earlier claim of the atlas. Every box is clickable and opens its page.</p>
   <div class="flowbox">
     <pre class="mermaid">
 flowchart TD
@@ -180,7 +180,7 @@ flowchart TD
   click ENG "https://github.com/materials-atlas/critical-materials-atlas" _blank
     </pre>
   </div>
-  <p class="muted" style="margin:.2rem 0 0">Those red dashed edges are the atlas testing itself: the <a href="price-volatility">volatility retest</a> <b>retracted</b> the volatility claim on the <a href="price-squeeze">price page</a>; <a href="production">real tonnes</a> re-run the <a href="cascade">supply-shock cascade</a>; and <a href="geopolrisk">concentration in tonnes</a> re-bases the engine&rsquo;s dollar-based concentration. The full record of every headline that broke &mdash; and how &mdash; is the <a href="challenge">error log</a>.</p>
+  <p class="muted" style="margin:.2rem 0 0">Those red dashed edges are the atlas testing itself: the <a href="price-volatility">volatility retest</a> retracted the volatility claim on the <a href="price-squeeze">price page</a>; <a href="production">real tonnes</a> re-run the <a href="cascade">supply-shock cascade</a>; and <a href="geopolrisk">concentration in tonnes</a> re-bases the engine&rsquo;s dollar-based concentration. The full record of every headline that broke, and how, is the <a href="challenge">error log</a>.</p>
 
   <h2>Every page, grouped</h2>
   <p class="muted" style="margin-top:0">The same groups you see in the navigation. Click any to jump there.</p>
@@ -243,15 +243,15 @@ flowchart TD
     <div class="panel">
       <h3>How it reproduces</h3>
       <table class="maptab">
-        <tr><td><b>Engine</b></td><td>the <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">reconciliation engine</a> is open-source with CI that regenerates the numbers from raw Comtrade &mdash; no API key needed.</td></tr>
+        <tr><td><b>Engine</b></td><td>the <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">reconciliation engine</a> is open-source with CI that regenerates the numbers from raw Comtrade, with no API key needed.</td></tr>
         <tr><td><b>Data layers</b></td><td>41 plain <a href="data">JSON files</a> (the material data, 25 flow-years, and 15 analytical layers), fetched straight from GitHub Pages.</td></tr>
-        <tr><td><b>Generators</b></td><td>~20 deterministic builders turn the JSON into every page &mdash; the same input always gives the same site.</td></tr>
-        <tr><td><b>The bet</b></td><td>the 2025 nowcast&rsquo;s accuracy is <a href="technical-note">pre-registered</a> &mdash; scored against the next data release, pass or fail.</td></tr>
+        <tr><td><b>Generators</b></td><td>~20 deterministic builders turn the JSON into every page. The same input always gives the same site.</td></tr>
+        <tr><td><b>The bet</b></td><td>the 2025 nowcast&rsquo;s accuracy is <a href="technical-note">pre-registered</a> and will be scored against the next data release, pass or fail.</td></tr>
         <tr><td><b>What could be wrong</b></td><td>every known limitation, with its direction of bias and a falsifier, is on the <a href="limitations">limitations page</a>.</td></tr>
       </table>
     </div>
   </div>
-  <p class="note">The point of all this: you shouldn&rsquo;t have to trust the author. The code checks itself, and every claim is one click from how it was derived.</p>
+  <p class="note">The aim is that no reader has to take the figures on trust. The code checks itself, and every claim is one click from how it was derived.</p>
 </article>
 
 </main>

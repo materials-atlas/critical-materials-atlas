@@ -225,17 +225,17 @@ def main():
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · network position</div>
   <h1>The trade routes concentration misses</h1>
-  <p class="deck">Top-exporter share tells you how <i>concentrated</i> a material's trade is. It says nothing about who sits <i>on the routes</i>. Treating each material's bilateral flows as a directed network surfaces the brokers and processing hubs that the customs ledger hides — and a node-removal test shows how far the network fragments without them.</p>
+  <p class="deck">Top-exporter share tells you how <i>concentrated</i> a material's trade is. It says nothing about who sits <i>on the routes</i>. Treating each material's bilateral flows as a directed network shows the brokers and processing hubs that the customs ledger hides. A node-removal test shows how far the network fragments without them.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">A country can hold a small export share yet be the node everything routes through. This finds those brokers and processing hubs &mdash; and tests how much of the trade breaks without them.
+  <div class="callout">A country can hold a small export share yet be the node everything routes through. This page finds those brokers and processing hubs, and tests how much of the trade breaks without them.
   <details class="howto"><summary>How it&rsquo;s built, and how to read it</summary>
-  <p>I build each material&rsquo;s directed, value-weighted trade network and rank countries by <b>betweenness</b> (brokerage) and <b>PageRank</b> (recursive flow importance), then classify the top broker against the refining stage: a <span style="color:{KINDCOL['processing chokepoint']}">processing chokepoint</span> is also the top refiner (centrality coincides with refining dominance), a <span style="color:{KINDCOL['redistribution hub']}">redistribution hub</span> is a big importer that re-distributes, a <span style="color:{KINDCOL['transit hub']}">transit hub</span> is a curated entrepot (re-export, not control). The last column is a resilience test: the share of supply→demand routes that break when that single node is removed.</p>
-  <p class="howto-src"><b>Read with care:</b> betweenness on a trade network also reflects import <i>size</i> — a big buyer scores high without &ldquo;controlling&rdquo; anything — so treat this as <b>trade-routing centrality</b> (exploratory), and &ldquo;processing chokepoint&rdquo; as &ldquo;most-central <i>and</i> the top refiner&rdquo;, not proof of control. Computed by <code>build_network.py</code>.</p>
+  <p>Each material&rsquo;s trade is built as a directed, value-weighted network, and countries are ranked by <b>betweenness</b> (brokerage) and <b>PageRank</b> (recursive flow importance). The top broker is then classified against the refining stage: a <span style="color:{KINDCOL['processing chokepoint']}">processing chokepoint</span> is also the top refiner (centrality coincides with refining dominance), a <span style="color:{KINDCOL['redistribution hub']}">redistribution hub</span> is a big importer that re-distributes, a <span style="color:{KINDCOL['transit hub']}">transit hub</span> is a curated entrepot (re-export, not control). The last column is a resilience test: the share of supply→demand routes that break when that single node is removed.</p>
+  <p class="howto-src"><b>Read with care:</b> betweenness on a trade network also reflects import size (a big buyer scores high without &ldquo;controlling&rdquo; anything). Treat this as trade-routing centrality (exploratory), and &ldquo;processing chokepoint&rdquo; as &ldquo;most-central and the top refiner&rdquo;, not proof of control. Computed by <code>build_network.py</code>.</p>
   </details></div>
 
   <h2 style="margin:1.6rem 0 .5rem">Who sits on the trade routes</h2>
-  <p class="note" style="margin-top:0">Weighted tally of top-3 brokerage appearances across all {len(rows)} materials, beside how many each <i>leads as exporter</i>. The gap is the point: the most-central nodes are processing and redistribution hubs, not the resource-rich exporters.</p>
+  <p class="note" style="margin-top:0">Weighted tally of top-3 brokerage appearances across all {len(rows)} materials, beside how many each leads as exporter. The two lists differ: the most-central nodes are processing and redistribution hubs, not the resource-rich exporters.</p>
   <table style="max-width:560px">
     <thead><tr><th class="n">#</th><th>Country</th><th class="n" title="weighted top-3 brokerage appearances (3/2/1)">broker score</th><th class="n" title="materials it is the top exporter of">exports #1</th></tr></thead>
     <tbody>{sysrows}</tbody>
@@ -249,7 +249,7 @@ def main():
   <p class="note">{n_proc} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. {shared_code.NOTE} Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
 
   <h2 style="margin:2rem 0 .5rem">China's network centrality over time</h2>
-  <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
+  <p class="note" style="margin-top:0">Network centrality captures China as the processing and redistribution hub. China is an importer and a broker as well as an exporter, so its centrality rises even where it barely exports (it imports the ore). Bold = China's average throughput share across all materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
   <div style="background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem .8rem .4rem;margin:.6rem 0"><div id="cnchart" style="width:100%;height:400px"></div></div>
 </article>
 <footer class="siteftr"><div class="wrap">

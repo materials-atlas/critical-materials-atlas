@@ -146,7 +146,7 @@ out = f'''<!doctype html>
   Mineral Commodity Summaries 2025 and IEA Critical Minerals Outlook 2025.
   Atlas figures are pulled live by <code>build_casestudies.py</code>, so this page cannot drift from the data.</div>
   {''.join(cards)}
-  <p class="note">Computed from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + the layer outputs → <a href="out/casestudies.json">casestudies.json</a>. External shares are rounded public figures; mine production ≠ exports ≠ refined output — that distinction is the atlas's whole point.</p>
+  <p class="note">Computed from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + the layer outputs → <a href="out/casestudies.json">casestudies.json</a>. External shares are rounded public figures; mine production ≠ exports ≠ refined output, and that distinction is central to the atlas.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

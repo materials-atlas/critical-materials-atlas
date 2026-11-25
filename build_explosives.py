@@ -372,13 +372,13 @@ TEMPLATE = """<!doctype html>
   <div class="eyebrow">Upstream &middot; a question answered by arithmetic, not regression</div>
   <h1>Explosives don&rsquo;t travel</h1>
   <p class="deck">Blasting sits further upstream than anything else this atlas tracks, so a
-  bottleneck there would sit above <i>every</i> mined material at once. Whether trade data can see it
-  turns out to be settled by one number. <b>World trade in prepared explosives was @@WORLD3602@@
-  kilotonnes in 2024</b> &mdash; less than the consumption ceiling of <b>Chile&rsquo;s copper mines
-  alone</b>. Explosives are mixed on site from ammonium nitrate and diesel, or made at the mine
+  bottleneck there would sit above every mined material at once. Whether trade data can see it
+  is settled by one number. World trade in prepared explosives was @@WORLD3602@@
+  kilotonnes in 2024, less than the consumption ceiling of Chile&rsquo;s copper mines
+  alone. Explosives are mixed on site from ammonium nitrate and diesel, or made at the mine
   gate; what crosses a border is the feedstock, not the explosive. So the customs data cannot
   measure blasting, and the correlation this page originally reported was built on
-  <b>0.4%</b> of the relevant flow.</p>
+  0.4% of the relevant flow.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -386,36 +386,36 @@ TEMPLATE = """<!doctype html>
   <p>This is the test that should come before any regression, and it is arithmetic. The intensity is
   calibrated on the USGS survey rather than an assumed engineering constant: US metal mining of
   every kind consumed 155 kt of explosives in 2019, and US copper mine output was 1,260 kt
-  contained. Attributing <i>every kilogram</i> to copper &mdash; generous, since the same explosives
-  blasted gold and iron &mdash; gives at most <b>@@INTENSITY@@ kt of explosive per kt of contained
-  copper</b>. That makes the resulting figure a ceiling, so a country falling far below it fails
-  conclusively rather than arguably.</p>
+  contained. Attributing every kilogram to copper (generous, since the same explosives
+  blasted gold and iron) gives at most @@INTENSITY@@ kt of explosive per kt of contained
+  copper. That makes the resulting figure a ceiling, so a country falling far below it fails
+  conclusively.</p>
   <table><thead><tr><th>Country</th><th class="n">copper 2024</th>
   <th class="n">explosives ceiling</th><th class="n">prepared explosives imported</th>
   <th class="n">share of ceiling</th></tr></thead><tbody>@@COVROWS@@</tbody></table>
   <div class="corr"><b>Eight of ten import under 5% of what their mines must consume.</b> The
-  explosives are made where they are used. That is not a data problem to work around; it is the
-  physical fact that ANFO is two commodity inputs mixed in a truck at the pit.</div>
+  explosives are made where they are used. This is a physical fact, not a data problem: ANFO is
+  two commodity inputs mixed in a truck at the pit.</div>
 </section>
 
 <section class="wrap xp">
   <h2>What that does to the correlation</h2>
   <p>The original version of this page reported that detonator imports track copper output in Chile,
   and that Chile was the one country whose confidence interval excluded zero. Both statements are
-  still arithmetically true. Set beside the coverage test they invert.</p>
+  still arithmetically true. Set beside the coverage test, their meaning reverses.</p>
   <table><thead><tr><th>Country</th><th class="n">imports as share of ceiling</th>
   <th class="n">year-on-year r</th><th class="n">95% interval</th></tr></thead>
   <tbody>@@INVROWS@@</tbody></table>
   <div class="corr"><b>The country with the signal has almost no imports; the country with the
   imports has no signal.</b> Chile buys 0.4% of its prepared explosives abroad and shows r = +0.71.
-  Peru buys about a third of its requirement abroad &mdash; the one case where the proxy is
-  defensible &mdash; and shows +0.14, an interval straddling zero. A correlation computed on a 0.4%
+  Peru buys about a third of its requirement abroad, the one case where the proxy is
+  defensible, and shows +0.14, with an interval straddling zero. A correlation computed on a 0.4%
   residual is measuring import substitution, not blasting.</div>
 </section>
 
 <section class="wrap xp">
   <h2>What explosives are actually used for</h2>
-  <p>The one piece of this that stands on its own. United States, 2019, industrial explosives and
+  <p>This part of the page stands on its own. United States, 2019, industrial explosives and
   blasting agents sold for consumption, thousand metric tons. The United States is the only country
   that surveys the end-use split, which is also why it cannot be turned into a global statement.</p>
   <table><thead><tr><th>Use</th><th class="n">kt</th><th class="n">share</th><th></th></tr></thead>
@@ -424,8 +424,8 @@ TEMPLATE = """<!doctype html>
   supports the first half of the original argument. It does not license extending it: the United
   States is an unusually coal-heavy mining economy, and nothing here measures the mix anywhere else.
   The table also cannot settle the civil-military split, because military explosives are a separate
-  survey and are not in it. Detonators sold for mining and quarrying <b>fell from @@DET15M@@ to
-  @@DET19M@@ million units</b> between 2015 and 2019 while oil-and-gas detonators rose from
+  survey and are not in it. Detonators sold for mining and quarrying fell from @@DET15M@@ to
+  @@DET19M@@ million units between 2015 and 2019 while oil-and-gas detonators rose from
   @@DET15O@@ to @@DET19O@@ million.</div>
 </section>
 
@@ -435,12 +435,12 @@ TEMPLATE = """<!doctype html>
   <p>This page was published on 12 September 2026, reviewed adversarially by two independent
   language models run separately on the same brief, and rewritten twice. The first review found the
   claims below unsupported. The second was asked to improve the design rather than dismiss it, and
-  its first instruction &mdash; test whether imports could be the input before estimating anything
-  &mdash; produced the arithmetic at the top of this page, which is a better answer than the
+  its first instruction (test whether imports could be the input before estimating anything)
+  produced the arithmetic at the top of this page, which is a better answer than the
   regression it replaced.</p>
   <ul>@@CORRS@@</ul>
-  <p>The deepest error was never a statistical one. The original argument concerns explosives
-  <b>prices</b> leading a supply surge; this page measured annual import <b>tonnage</b> of one
+  <p>The main error was not statistical. The original argument concerns explosives
+  prices leading a supply surge; this page measured annual import tonnage of one
   customs code. It was not a test of that claim, and it should not have been presented as one.</p>
   </div>
 </section>
@@ -455,14 +455,14 @@ TEMPLATE = """<!doctype html>
     <li><b>Unit counts, not tonnes.</b> Customs data reports mass, and in the detonator code the
     mass is dominated by detonating cord rather than by the caps that correspond to blast holes.</li>
     <li><b>Prices.</b> Nothing here touches one. Bulk blasting agents are ammonium nitrate, so their
-    price is mostly an ammonia and gas price &mdash; a strong argument in itself against reading
+    price is mostly an ammonia and gas price. That alone argues against reading
     explosives prices as a clean mining signal.</li>
   </ul>
   <p class="howto-src"><b>Sources.</b> End use, detonator counts and the intensity calibration: USGS
   Minerals Yearbook 2019, <i>Explosives</i>, by Lori E. Apodaca, published March 2024, tables 2 and
   3; survey collected by the Institute of Makers of Explosives; PDF archived in the repository.
   Trade: CEPII BACI (Etalab Open Licence 2.0). Copper mine production: BGS World Mineral Statistics,
-  mine stage only &mdash; the cube holds three organisations' estimates of the same quantity and
+  mine stage only, because the cube holds three organisations' estimates of the same quantity and
   summing them overstates Chile by half. Built by <code>build_explosives.py</code>; every figure,
   including the withdrawn claims, is in <code>out/explosives.json</code>.</p>
 </section>
@@ -518,7 +518,7 @@ def page(doc):
         for g in gate['rows'] if g['iso'] in byiso)
 
     corrs = ''.join('<li><span class="w">Withdrawn:</span> &ldquo;' + c['withdrawn'] +
-                    '&rdquo; &mdash; ' + c['why'] + '.</li>' for c in doc['corrections'])
+                    '&rdquo;, because ' + c['why'] + '.</li>' for c in doc['corrections'])
     det = doc['us_detonators']
     html = TEMPLATE
     for token, value in (

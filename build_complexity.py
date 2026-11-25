@@ -136,12 +136,12 @@ out = f'''<!doctype html>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · economic complexity</div>
   <h1>The competitiveness lens fails exactly where it matters</h1>
-  <p class="deck">Economic-complexity analysis (Balassa revealed comparative advantage) ranks who <i>competitively exports</i> each material. The count ranges from ~8 countries (lithium, beryllium, strontium) to <b>52</b> — and that top score is the warning: <b>rare-earth magnets</b>, among the most China-refined materials on Earth, have the <b>highest</b> export-ubiquity of all, because dozens of countries re-export them. RCA counts shippers, not refiners, so it reads the most concentrated chains as the most diverse. Economic complexity is the wrong instrument for supply-chain risk — and this page shows precisely where it breaks, which is the point of running it.</p>
+  <p class="deck">Economic-complexity analysis (Balassa revealed comparative advantage) ranks which countries export each material competitively. The count ranges from ~8 countries (lithium, beryllium, strontium) to 52, and that top score is a warning. Rare-earth magnets, among the most China-refined materials in the world, have the highest export-ubiquity of all, because dozens of countries re-export them. RCA counts shippers, not refiners, so it reads the most concentrated chains as the most diverse. Economic complexity is the wrong instrument for supply-chain risk, and this page shows where it breaks, which is why it is run here.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">Some materials have many competitive exporters; a few have almost none. This measures how many countries can genuinely compete in each &mdash; a market-revealed signal of scarcity, beside the mine-concentration story.
+  <div class="callout">Some materials have many competitive exporters; a few have almost none. This page measures how many countries can compete in each: a market-revealed signal of scarcity, beside the mine-concentration picture.
   <details class="howto"><summary>How it&rsquo;s measured</summary>
-  <p>From the one complete country&times;material matrix we have (exports), I compute Balassa <b>RCA</b> (a country is a competitive exporter when its share of that material exceeds its overall export share), a robust <b>capability</b> score, and <b>relatedness</b> (do the same countries export both?). <b>Ubiquity</b> = how many countries clear RCA&ge;1: a low number means only a handful can competitively supply it.</p>
+  <p>From the one complete country&times;material matrix the atlas holds (exports), the page computes Balassa <b>RCA</b> (a country is a competitive exporter when its share of that material exceeds its overall export share), a robust <b>capability</b> score, and <b>relatedness</b> (whether the same countries export both). <b>Ubiquity</b> = how many countries clear RCA&ge;1: a low number means only a handful can competitively supply it.</p>
   <p class="howto-src"><b>Caveat:</b> RCA here is over the 32-material matrix only &mdash; specialization <i>within</i> critical materials, not economy-wide, so small and re-export economies can surface as &ldquo;competitive&rdquo;, and the threshold makes ubiquity sensitive to thin flows and HS6 pooling. Mine/refine data are top-N; mine leader shown for contrast. Computed by <code>build_complexity.py</code>.</p>
   </details></div>
 
@@ -152,7 +152,7 @@ out = f'''<!doctype html>
   </table>
 
   <h2 style="margin:2rem 0 .5rem">The most capable exporters</h2>
-  <p class="note" style="margin-top:0">Capability = the sum of 1/ubiquity over the materials a country competitively exports (RCA&ge;1) — it rewards commanding many materials that <i>few others can</i>. Leaders mix large industrial economies with smaller open / re-export economies — read this as export specialization, not industrial capability per se.</p>
+  <p class="note" style="margin-top:0">Capability = the sum of 1/ubiquity over the materials a country competitively exports (RCA&ge;1): it rewards exporting many materials that few others can. Leaders mix large industrial economies with smaller open / re-export economies; read this as export specialization, not industrial capability per se.</p>
   <table style="max-width:560px">
     <thead><tr><th class="n">#</th><th>Country</th><th class="n" title="sum of 1/ubiquity over the materials it competitively exports (rewards rare baskets)">capability</th><th class="n" title="materials it competitively exports (RCA>=1)">diversity</th></tr></thead>
     <tbody>{''.join(cr)}</tbody>

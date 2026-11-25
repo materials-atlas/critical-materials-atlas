@@ -38,8 +38,8 @@ for m in data['materials']:
 
 # editorial note on the dominant critical material in the marquee expanding hubs
 HUB_NOTE = {
- 'IDN': 'nickel — the processing boom in Sulawesi', 'ARG': 'lithium & copper — the lithium triangle',
- 'CHL': 'copper & lithium', 'PER': 'copper', 'COD': 'cobalt & copper — the Copperbelt',
+ 'IDN': 'nickel: the processing boom in Sulawesi', 'ARG': 'lithium & copper: the lithium triangle',
+ 'CHL': 'copper & lithium', 'PER': 'copper', 'COD': 'cobalt & copper: the Copperbelt',
  'MMR': 'rare earths & tin', 'GIN': 'bauxite', 'BRA': 'niobium, bauxite & iron',
  'PHL': 'nickel', 'IND': 'graphite, baryte & feldspar', 'ZAF': 'PGM, manganese & chromium',
  'GUY': 'gold & bauxite', 'NAM': 'uranium, lithium & copper',
@@ -104,13 +104,13 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · expansion from orbit</div>
   <h1>Across the tropics, the area mined grew by almost half in seven years</h1>
-  <p class="deck">Seen from orbit, the mapped mine area across the tropics grew by <b>almost half</b> from 2016 to 2023 (2024 is under-mapped in the source and is not used as the endpoint). The data cover the tropics only, so this says where tropical mining is spreading, not that mining as a whole is moving to the tropics. The trade and production layers tell you where supply <i>is</i>. This one points to where it&rsquo;s <i>going</i> &mdash; satellite-mapped mine footprint expanding across the tropics, 2016&ndash;2024. The growth lands squarely on the critical-material frontier: Indonesia&rsquo;s nickel, the lithium triangle, the Copperbelt.</p>
+  <p class="deck">Seen from orbit, the mapped mine area across the tropics grew by almost half from 2016 to 2023 (2024 is under-mapped in the source and is not used as the endpoint). The data cover the tropics only, so this says where tropical mining is spreading, not that mining as a whole is moving to the tropics. The trade and production layers show where supply is. This one shows where it is going: satellite-mapped mine footprint expanding across the tropics, 2016&ndash;2024. The growth falls on the critical-material frontier: Indonesia&rsquo;s nickel, the lithium triangle, the Copperbelt.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout">Where mining is physically <i>growing</i>, 2016&ndash;2024 &mdash; a forward-looking new-supply signal the trade and USGS layers can&rsquo;t see.
+  <div class="callout">Where mining is physically growing, 2016&ndash;2024: a forward-looking signal of new supply that the trade and USGS layers cannot see.
   <details class="howto"><summary>Source, and its hard limits</summary>
-  <p>Source: <b>Sepin, Vashold &amp; Kuschnig (2025, <i>Nature Sustainability</i>)</b> &mdash; an annual panel of machine-learning-segmented mine polygons (Sentinel-2, 87.7% validation accuracy) with a year and country on every polygon, so mapped mine area per country per year falls straight out.</p>
-  <p class="howto-src"><b>Hard limits:</b> <b>tropics only</b> (no China, Australia, Canada or temperate belt &mdash; <i>not</i> a global total); <b>all-commodity</b> (no per-mineral label, so expansion in single-commodity regions is indicative, not attributed); area is mapped surface footprint, not tonnage; and <b>2024 is under-mapped</b> (it dips below 2023), so 2023 is the robust recent endpoint. Computed by <code>build_mining_expansion.py</code>.</p>
+  <p>Source: Sepin, Vashold &amp; Kuschnig (2025, <i>Nature Sustainability</i>), an annual panel of machine-learning-segmented mine polygons (Sentinel-2, 87.7% validation accuracy) with a year and country on every polygon, so mapped mine area per country per year follows directly.</p>
+  <p class="howto-src"><b>Hard limits:</b> tropics only (no China, Australia, Canada or temperate belt; not a global total); all-commodity (no per-mineral label, so expansion in single-commodity regions is indicative, not attributed); area is mapped surface footprint, not tonnage; and 2024 is under-mapped (it dips below 2023), so 2023 is the robust recent endpoint. Computed by <code>build_mining_expansion.py</code>.</p>
   </details></div>
   <div id="head" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <div class="chartwrap">
@@ -130,12 +130,12 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value chains</a><br><a href="analysis">Research</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Sepin et al. 2025 (tropical mine polygons) · Maus et al. 2022 · USGS</div>
-  <div class="fineprint">Tropical belt only — a regional expansion signal, not a global total. All-commodity footprint, ~Sentinel-2.</div>
+  <div class="fineprint">Tropical belt only: a regional expansion signal, not a global total. All-commodity footprint, ~Sentinel-2.</div>
 </div></footer>
 <script>
 fetch('out/mining_expansion.json').then(r=>r.json()).then(E=>{
   document.getElementById('head').innerHTML='<b>The signal.</b> Across the tropics, satellite-mapped mine footprint grew <b>+'+E.global_grow_pct23+
-    '%</b> from 2016 to 2023 (+'+E.global_grow_pct+'% to the under-mapped 2024). The expansion concentrates on the critical-material frontier &mdash; '+
+    '%</b> from 2016 to 2023 (+'+E.global_grow_pct+'% to the under-mapped 2024). The expansion concentrates on the critical-material frontier: '+
     'Indonesia&rsquo;s nickel, the Argentina&ndash;Chile lithium triangle, the Peru and DR Congo copper-cobalt belts.';
   const c1=echarts.init(document.getElementById('c1'));
   c1.setOption({tooltip:{trigger:'axis',valueFormatter:v=>v.toLocaleString()+' km²'},grid:{left:60,right:20,top:20,bottom:28},

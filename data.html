@@ -25,11 +25,11 @@
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Open data · static API</div>
   <h1>The data behind the atlas</h1>
-  <p class="deck">Every figure on this site is read from a handful of plain JSON files, served straight from GitHub Pages. No key, no rate limit, no backend — fetch them directly, or download the table as CSV.</p>
+  <p class="deck">Every figure on this site is read from a handful of plain JSON files, served straight from GitHub Pages. There is no key, no rate limit and no backend. Fetch them directly, or download the table as CSV.</p>
 </div></section>
 
 <article>
-  <p>The atlas is a thin presentation layer over committed, versioned data. Those files <em>are</em> the API: stable URLs, plain JSON, CC-friendly public sources. They update when the pipeline reruns (the same files power the interactive views and the per-material profiles).</p>
+  <p>The atlas is a thin presentation layer over committed, versioned data. Those files are the API: stable URLs, plain JSON, CC-friendly public sources. They update when the pipeline reruns (the same files power the interactive views and the per-material profiles).</p>
 
   <h2>The cube &mdash; one table behind everything</h2>
   <p>Most of what the atlas publishes now comes out of a single harmonised fact table. One row is one
@@ -37,94 +37,94 @@
   source series it
   came from. <b>1,290,141 observations, 98 materials, 244 countries, 1900&ndash;2050</b>, seven public compilations
   in one place &mdash; BGS, USGS, CEPII BACI, World Mining Data and the IEA&rsquo;s observed base-year columns.
-  IEA <i>projections</i> stay out: a forecast must not sit where a query could difference it against
+  IEA projections stay out, so that no query can difference a forecast against
   measured history and call the result a trend.</p>
   <p class="note" id="data-release">Downloads below: data release of 2026-11-25. The Parquet cube is updated with every rebuild; the CSV copy, the SDMX export and the manifest are refreshed on each dated release.</p>
   <table>
     <thead><tr><th>URL</th><th>What</th></tr></thead>
     <tbody>
-      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The published cube, 1.53 million rows, 17.2&nbsp;MB &mdash; for pandas, DuckDB, R, Polars. Monthly trade comes as reporter-month totals against the world, not partner by partner</td></tr>
-      <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 24.0&nbsp;MB &mdash; opens anywhere</td></tr>
+      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The published cube, 1.53 million rows, 17.2&nbsp;MB, for pandas, DuckDB, R and Polars. Monthly trade comes as reporter-month totals against the world, not partner by partner</td></tr>
+      <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 24.0&nbsp;MB, readable by almost any tool</td></tr>
       <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules. <code>published_rows</code> is the download; <code>rows</code> counts the full store behind it</td></tr>
-      <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog &mdash; every series we hold or could reach, and whether it is ingested</td></tr>
+      <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog: every series the atlas holds or could reach, and whether it is ingested</td></tr>
       <tr><td><span class="endpoint">/out/pairing.json</span></td><td>Cross-source comparison: which figures a second compilation agrees with, and why the rest differ</td></tr>
-      <tr><td><span class="endpoint">/out/sources.json</span></td><td><b>Source metadata</b> &mdash; what each compilation measures, on what basis, and why two of them can report different numbers for the same thing without either being wrong</td></tr>
+      <tr><td><span class="endpoint">/out/sources.json</span></td><td>Source metadata: what each compilation measures, on what basis, and why two of them can report different numbers for the same thing without either being wrong</td></tr>
     </tbody>
   </table>
 
   <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">The same table as SDMX</h3>
-  <p>SDMX is the format statistical agencies exchange data in &mdash; the ECB, Eurostat, the IMF, the OECD
-  and the UN all publish it. The cube is published that way too, so it can be loaded by anything that
-  already reads SDMX without being told anything about us first.</p>
-  <p>The point of the standard is not the file format. It is that a <b>data structure definition</b> must
-  declare which fields <i>identify</i> an observation and which merely <i>describe</i> it &mdash; and then
-  nothing may be published that fails that key. Ours is
+  <p>SDMX is the format statistical agencies exchange data in; the ECB, Eurostat, the IMF, the OECD
+  and the UN all publish it. The cube is published that way too, so any tool that already reads SDMX
+  can load it without knowing anything else about the atlas.</p>
+  <p>The standard matters less for its file format than for one rule. A data structure definition must
+  declare which fields identify an observation and which only describe it, and
+  nothing may be published that fails that key. The atlas key is
   <span class="endpoint">FREQ . SOURCE . MATERIAL . MEASURE . STAGE . BASIS . NATIVE_CODE . REF_AREA</span>
   over <span class="endpoint">TIME_PERIOD</span>. Two compilations counting the same year are two
   observations, not a conflict; ore and refined metal are different series, not one series to be summed.
-  Asking whether our own data satisfied that key found <b>144 observations that did not</b> &mdash; and all
-  three causes were defects in the sources, not in our code. They are fixed and
+  A check of the atlas data against that key found 144 observations that did not satisfy it. All
+  three causes were defects in the sources, not in the atlas code. They are fixed and
   <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/bgs_country.py">documented</a>;
   today the answer is zero.</p>
   <table>
     <thead><tr><th>URL</th><th>What</th></tr></thead>
     <tbody>
-      <tr><td><span class="endpoint">/out/sdmx/structure.json</span></td><td>The structure: 10 code lists, one data structure definition, one dataflow. Read this first &mdash; it says what may be pinned</td></tr>
+      <tr><td><span class="endpoint">/out/sdmx/structure.json</span></td><td>The structure: 10 code lists, one data structure definition, one dataflow. Read this first: it says what may be pinned</td></tr>
       <tr><td><span class="endpoint">/out/sdmx/mineral_flows.sdmx.csv.gz</span></td><td>3,664,577 observations as <b>SDMX-CSV</b>, 47.7&nbsp;MB</td></tr>
-      <tr><td><span class="endpoint">/out/cube_manifest.json</span></td><td>Every one of the <b>63,658 identities</b> in the cube, with its years, country count and units &mdash; the menu to choose from before writing a filter</td></tr>
+      <tr><td><span class="endpoint">/out/cube_manifest.json</span></td><td>Every one of the <b>63,658 identities</b> in the cube, with its years, country count and units. Use it to choose series before writing a filter</td></tr>
       <tr><td><span class="endpoint">/out/sdmx.json</span></td><td>Summary: code list sizes, observation-status counts, and the licence of every source in the export</td></tr>
     </tbody>
   </table>
-  <p><b>Observation status</b> uses the SDMX cross-domain code list, not our own words:
+  <p><b>Observation status</b> uses the SDMX cross-domain code list rather than the atlas&rsquo;s own terms:
   <span class="endpoint">A</span> normal (520,685), <span class="endpoint">E</span> estimated by the source
   (1,263), <span class="endpoint">Q</span> missing because suppressed for confidentiality (1,222),
-  <span class="endpoint">N</span> not significant &mdash; a real value that rounds to zero (447). Where a
+  <span class="endpoint">N</span> not significant, a real value that rounds to zero (447). Where a
   source publishes its own status codes, as BGS does, they are carried through rather than re-derived.
-  One warning if you are mapping these yourself: USGS prints <b>W</b> for <i>withheld</i>, while SDMX&rsquo;s
-  <b>W</b> means <i>&ldquo;includes data from another category&rdquo;</i> &mdash; nearly the opposite claim.</p>
-  <p class="deck" style="font-size:.9rem">Every source in the export is redistributable with attribution
-  &mdash; BGS under the Open Government Licence, USGS as US public domain, CEPII BACI under Etalab 2.0
+  A warning for anyone mapping these by hand: USGS prints <b>W</b> for withheld, while SDMX&rsquo;s
+  <b>W</b> means &ldquo;includes data from another category&rdquo;, nearly the opposite claim.</p>
+  <p class="deck" style="font-size:.9rem">Every source in the export is redistributable with attribution:
+  BGS under the Open Government Licence, USGS as US public domain, CEPII BACI under Etalab 2.0
   (cite Gaulier &amp; Zignago 2010), World Mining Data free with attribution, and the IEA Critical Minerals
   Dataset under CC&nbsp;BY&nbsp;4.0. The exporter refuses to write a dataflow containing a source whose
   terms are not recorded.</p>
 
   <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">Why two sources report different numbers for the same thing</h3>
   <p>Each source is documented in <span class="endpoint">/out/sources.json</span>: what it measures, on what
-  basis, its known thin spots, and one line on <i>why it differs from the others</i>. Coverage in that file is
+  basis, its known thin spots, and one line on why it differs from the others. Coverage in that file is
   computed from the cube so it cannot go stale; the interpretation is written, because what a compilation
-  <i>means</i> by &ldquo;production&rdquo; is not inferable from its rows. In short:</p>
+  means by &ldquo;production&rdquo; is not inferable from its rows. In short:</p>
   <table>
     <thead><tr><th>Comparison</th><th>Where the difference comes from</th></tr></thead>
     <tbody>
-      <tr><td><b>BGS vs USGS</b></td><td>BGS sums what countries <i>report</i>; USGS <i>estimates</i> a world total. Where reporting is incomplete USGS is usually larger &mdash; a gap reads as coverage, not error</td></tr>
+      <tr><td><b>BGS vs USGS</b></td><td>BGS sums what countries report; USGS estimates a world total. Where reporting is incomplete USGS is usually larger, and a gap reads as coverage, not error</td></tr>
       <tr><td><b>BGS vs IEA</b></td><td>BGS often reports ORE at gross weight where IEA reports CONTAINED metal. Lithium is the extreme: roughly a 40&times; ratio, which is a unit difference and not a disagreement</td></tr>
-      <tr><td><b>BGS vs World Mining Data</b></td><td>Genuinely comparable &mdash; both country-level mine production. But WMD <i>estimates</i> where a country is silent and BGS leaves the cell empty</td></tr>
+      <tr><td><b>BGS vs World Mining Data</b></td><td>Comparable: both are country-level mine production. WMD estimates where a country is silent, and BGS leaves the cell empty</td></tr>
       <tr><td><b>Production vs BACI trade</b></td><td>Production is of a MATERIAL; trade is of a PRODUCT CLASS (an HS code). They can only be differenced where a crosswalk pairs the form to the code explicitly</td></tr>
     </tbody>
   </table>
 
   <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">A different definition is a different dimension, not a different table</h3>
-  <p>Sources disagree about what a word means. BGS counts <i>manganese ore at gross weight</i>; USGS counts
-  <i>contained manganese</i>. Those are not rival numbers to be reconciled into one &mdash; they are two
-  different quantities, and the cube stores both, distinguished by the columns that say so:</p>
+  <p>Sources disagree about what a word means. BGS counts manganese ore at gross weight; USGS counts
+  contained manganese. These are two different quantities, not rival numbers to be reconciled into one.
+  The cube stores both, distinguished by the columns that say so:</p>
   <table>
     <thead><tr><th>Column</th><th>Why it exists</th></tr></thead>
     <tbody>
-      <tr><td><span class="endpoint">counterpart_area</span></td><td><b>Read this before summing anything.</b> The partner, following BPM6: <span class="endpoint">W1</span> is a total against all partners, an ISO3 code is that one bilateral partner, <span class="endpoint">_Z</span> is not allocated. A total and its own components both live in this column, so <b>a sum across it double counts</b> &mdash; filter to <span class="endpoint">W1</span> for country totals, or to named partners for bilateral work, never both</td></tr>
-      <tr><td><span class="endpoint">stage</span></td><td>mine / processed &mdash; where in the chain the quantity sits</td></tr>
+      <tr><td><span class="endpoint">counterpart_area</span></td><td><b>Read this before summing anything.</b> The partner, following BPM6: <span class="endpoint">W1</span> is a total against all partners, an ISO3 code is that one bilateral partner, <span class="endpoint">_Z</span> is not allocated. A total and its own components both live in this column, so a sum across it double counts. Filter to <span class="endpoint">W1</span> for country totals, or to named partners for bilateral work, never both</td></tr>
+      <tr><td><span class="endpoint">stage</span></td><td>mine / processed: where in the chain the quantity sits</td></tr>
       <tr><td><span class="endpoint">basis</span></td><td>gross weight or contained metal. The single most common cause of two sources &ldquo;disagreeing&rdquo;</td></tr>
       <tr><td><span class="endpoint">unit</span> + <span class="endpoint">conversion_factor</span></td><td>the native unit and exactly what was applied to reach tonnes. A tonnage is never stored without them</td></tr>
-      <tr><td><span class="endpoint">code_system</span> + <span class="endpoint">native_code</span> + <span class="endpoint">native_label</span></td><td>the source&rsquo;s own identifier, kept forever. <b>Never join on <code>material</code> alone</b> &mdash; that is what turns a definition difference into a false contradiction</td></tr>
+      <tr><td><span class="endpoint">code_system</span> + <span class="endpoint">native_code</span> + <span class="endpoint">native_label</span></td><td>the source&rsquo;s own identifier, kept forever. Never join on <code>material</code> alone: that turns a definition difference into a false contradiction</td></tr>
       <tr><td><span class="endpoint">value_flag</span></td><td>nil (produced nothing), trace, withheld (confidential), estimated_by_source. A true zero is not an absence</td></tr>
       <tr><td><span class="endpoint">source</span> + <span class="endpoint">series_id</span></td><td>which compilation said it, and which of its series</td></tr>
     </tbody>
   </table>
-  <p class="note">So the answer to &ldquo;can you merge sources that use different vocabularies?&rdquo; is yes &mdash;
-  by <i>adding</i> the dimension that the vocabularies differ on, never by picking a winner. What the cube
-  refuses to do is <b>aggregate across</b> those dimensions silently: summing gross ore and contained metal
+  <p class="note">Sources that use different vocabularies can therefore be merged,
+  by adding the dimension the vocabularies differ on, never by picking a winner. What the cube
+  does not do is aggregate across those dimensions silently: summing gross ore and contained metal
   produces a number that describes nothing. Historical states (USSR, Yugoslavia, Zaire) are kept under their
-  own codes for the same reason &mdash; merging them into successors is a choice a query should make on
-  purpose, not one the table makes for you.</p>
+  own codes for the same reason. Merging them into successors is a choice a query should make on
+  purpose, not one the table makes for the user.</p>
 
   <h2>Endpoints</h2>
   <table>
@@ -174,7 +174,7 @@
 const o = {}; for (const {from,value} of f.materials.lithium) o[from]=(o[from]||0)+value;
 console.log(Object.entries(o).sort((a,b)=>b[1]-a[1])[0]);   <span class="k">// → ["CL", …]</span></pre>
 
-  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources — UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the <em>original</em> source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</div>
+  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources: UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the original source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</div>
 
   <div class="btnrow">
     <a class="btn primary" href="out/data.json">data.json →</a>

@@ -160,12 +160,12 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Time · 2002&ndash;2024</div>
   <h1>Twenty-two years, drawn</h1>
-  <p class="deck">A continuous measured trade series back to 2002 means the concentration story is no longer a snapshot. Pick a material and watch its exporters &mdash; and its concentration &mdash; evolve. Then see China&rsquo;s export share climb across the marquee chains in one picture.</p>
+  <p class="deck">A continuous measured trade series back to 2002 means the concentration picture is no longer a snapshot. Pick a material to see how its exporters and its concentration changed. A second chart shows China&rsquo;s export share rising across the main chains.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout">Each line is a country&rsquo;s share of world exports over 2002&ndash;2024; the dashed line tracks how concentrated the trade is overall.
   <details class="howto"><summary>Reading the chart</summary>
-  <p>Solid lines are each country&rsquo;s share of world exports of the material (left axis, %); the dashed line is the export-concentration Herfindahl (right axis, 0&ndash;1 &mdash; higher = more concentrated). Measured CEPII BACI, 2002&ndash;2024 (HS02 vintage through 2016, HS17 from 2017); nowcast years excluded. Shares are over the captured bilateral flows, as elsewhere in the atlas.</p>
+  <p>Solid lines are each country&rsquo;s share of world exports of the material (left axis, %); the dashed line is the export-concentration Herfindahl (right axis, 0&ndash;1; higher = more concentrated). Measured CEPII BACI, 2002&ndash;2024 (HS02 vintage through 2016, HS17 from 2017); nowcast years excluded. Shares are over the captured bilateral flows, as elsewhere in the atlas.</p>
   </details></div>
 
   <div class="chartwrap">
@@ -180,7 +180,7 @@ HTML = r'''<!doctype html>
   <div class="chartwrap">
     <div style="font-weight:600;font-size:.92rem;margin-bottom:.2rem">What drove the 2002&ndash;2024 concentration change <span id="declabel" class="muted" style="font-weight:400"></span></div>
     <div id="chart4" class="chart" style="height:300px"></div>
-    <p class="muted" style="margin:.3rem 0 0">Each country's contribution to the change in export-HHI (share&sup2;<sub>2024</sub> &minus; share&sup2;<sub>2002</sub>, &times;100). <span style="color:#c0392b">Red</span> = pushed concentration up (gained share); <span style="color:#3f9b46">green</span> = pushed it down. This is the Family-5 decomposition: it names <i>who</i> concentrated a market.</p>
+    <p class="muted" style="margin:.3rem 0 0">Each country's contribution to the change in export-HHI (share&sup2;<sub>2024</sub> &minus; share&sup2;<sub>2002</sub>, &times;100). <span style="color:#c0392b">Red</span> = pushed concentration up (gained share); <span style="color:#3f9b46">green</span> = pushed it down. This is the Family-5 decomposition: it names the country that concentrated a market.</p>
   </div>
 
   <h2 style="margin:1.8rem 0 .4rem">The rise of China, in one picture</h2>
@@ -188,12 +188,12 @@ HTML = r'''<!doctype html>
   <div class="chartwrap"><div id="chart2" class="chart"></div></div>
 
   <h2 style="margin:1.8rem 0 .4rem">The origin gap over time</h2>
-  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all materials; thin lines = the materials with the widest gap today. The dotted vertical marks the <b>2017 HS-vintage join</b>, where the level steps for nomenclature/coverage reasons, not signal — so read the level cautiously (an HS17-only run is the clean confirmation).</p>
+  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the trade map drifted from today&rsquo;s mining reality. A rising line means the gap between the refiner or hub and the mine widened. Bold = average across all materials; thin lines = the materials with the widest gap today. The dotted vertical marks the 2017 HS-vintage join, where the level steps for nomenclature/coverage reasons, not signal, so read the level cautiously (an HS17-only run is the clean confirmation).</p>
   <div class="chartwrap"><div id="chart3" class="chart"></div></div>
   <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series. Origin gap uses current USGS mine shares as a fixed reference.</p>
 
   <h2 style="margin:1.8rem 0 .4rem">Which trends are statistically real</h2>
-  <p class="muted" style="margin-top:0">The export-concentration (HHI) trend per material, <b>tested</b> rather than eyeballed: Mann&ndash;Kendall significance (Benjamini&ndash;Hochberg FDR-corrected across the 32 materials), Theil&ndash;Sen slope, the Pettitt structural-break year, and the country that drove the 2002&ndash;2024 HHI change. Sorted by slope. The standard critical-minerals literature plots concentration but rarely tests it &mdash; with T=23, read p-values as screening evidence. Computed by <code>build_trends.py</code> (scipy + statsmodels).</p>
+  <p class="muted" style="margin-top:0">The export-concentration (HHI) trend per material, <b>tested</b> rather than eyeballed: Mann&ndash;Kendall significance (Benjamini&ndash;Hochberg FDR-corrected across the 32 materials), Theil&ndash;Sen slope, the Pettitt structural-break year, and the country that drove the 2002&ndash;2024 HHI change. Sorted by slope. The standard critical-minerals literature plots concentration but rarely tests it. With T=23, read p-values as screening evidence. Computed by <code>build_trends.py</code> (scipy + statsmodels).</p>
   <table id="ttab"><thead><tr><th>Material</th><th class="n" title="Theil-Sen robust slope, HHI points per year">Sen slope /yr</th><th class="n" title="Mann-Kendall p-value, Benjamini-Hochberg FDR-corrected across the materials">MK p (FDR)</th><th class="n" title="Pettitt structural-break year">break</th><th title="country contributing most to the 2002-2024 HHI change">&Delta;HHI driver</th></tr></thead><tbody></tbody></table>
 </article>
 <footer class="siteftr"><div class="wrap">

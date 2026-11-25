@@ -80,7 +80,7 @@ OUT = os.path.join(ROOT, 'out', 'graph.json')
 # or rewrite state that another process depends on. Their edges are recorded as "not observed"
 # rather than guessed - an honest hole beats an invented edge.
 NEVER_RUN = (
-    'backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph.py', 'release_data',  # .py: 'record_graph' alone also matched graphite-chain/record_graphite.py (24 Nov 2026)
+    'backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph.py', 'release_data', 'prose_guard',  # .py: 'record_graph' alone also matched graphite-chain/record_graphite.py (24 Nov 2026)
             
     'check.py',            # the gate itself; it reads everything and would drown the graph
     'runner.py',           # reads the graph it would be recorded into, and rebuilds from it

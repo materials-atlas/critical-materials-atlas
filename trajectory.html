@@ -47,11 +47,11 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Value Chains · finding</div>
   <h1>Some chokepoints are easing, some entrenching, and the mechanism lines up with which</h1>
-  <p class="deck">Track each refining chokepoint from 2025 to 2035 in the IEA&rsquo;s projections, and the direction lines up with why it concentrates. Read it as an illustration, not a test: six minerals are few, and the mechanism labels are the atlas&rsquo;s own. In those six: <b>built-capability</b> chokepoints erode as money and years buy capacity elsewhere; <b>policy</b> and <b>thermodynamic</b> ones entrench. Naming the mechanism says where the bottleneck is, and suggests which way it may move.</p>
+  <p class="deck">Track each refining chokepoint from 2025 to 2035 in the IEA&rsquo;s projections, and the direction lines up with why it concentrates. Read it as an illustration, not a test: six minerals are few, and the mechanism labels are the atlas&rsquo;s own. In those six, built-capability chokepoints erode as money and years buy capacity elsewhere; policy and thermodynamic ones entrench. Naming the mechanism says where the bottleneck is, and suggests which way it may move.</p>
 </div></section>
 
 <article>
-  <p class="thesis">Of the six key energy minerals the IEA projects to 2035, only two refining chokepoints are <b>easing</b> — rare earths and graphite — and both are <b>built-capability</b> moats being deliberately rebuilt outside China (MP Materials, Lynas; African graphite + new anode plants). The three that are <b>entrenching</b> — nickel, copper, cobalt — are held by <b>policy</b> (Indonesia's ore-export rules), <b>thermodynamics</b> (China's smelter build-out) and <b>by-product coupling</b>. Concentration is not a fixed fact; it moves, and the mechanism suggests which way.</p>
+  <p class="thesis">Of the six key energy minerals the IEA projects to 2035, only two refining chokepoints are <b>easing</b> — rare earths and graphite — and both are <b>built-capability</b> moats being deliberately rebuilt outside China (MP Materials, Lynas; African graphite + new anode plants). The three that are <b>entrenching</b> — nickel, copper, cobalt — are held by <b>policy</b> (Indonesia's ore-export rules), <b>thermodynamics</b> (China's smelter build-out) and <b>by-product coupling</b>. Concentration changes over time, and the mechanism suggests which way.</p>
 
   <h2 class="sec">Top-refiner share, 2025 → 2035</h2>
   <div class="slopewrap" id="slope"></div>
@@ -62,9 +62,9 @@
     <tbody id="tjbody"></tbody>
   </table></div>
 
-  <div class="rule"><b>The rule the data supports:</b> a chokepoint's <b>direction of change is set by its mechanism</b>. Capability moats (rare earths, graphite, lithium's long run) erode — they can be out-built, just slowly. Policy chokepoints (Indonesian nickel) can tighten <i>or</i> loosen fast, because a rule made them. By-product and thermodynamic chokepoints (cobalt, copper smelting) barely move, because they are pinned by physics and coupling, not choice. So the taxonomy answers a question the raw shares cannot: <b>will this chokepoint relax on its own, or do you have to act?</b></div>
+  <div class="rule"><b>The rule the data supports:</b> a chokepoint's direction of change is set by its mechanism. Capability moats (rare earths, graphite, lithium's long run) erode, because they can be out-built, though slowly. Policy chokepoints (Indonesian nickel) can tighten or loosen fast, because a rule made them. By-product and thermodynamic chokepoints (cobalt, copper smelting) barely move, because physics and coupling hold them in place, not choice. The taxonomy therefore answers a question the raw shares cannot: whether a chokepoint will relax on its own, or needs action.</div>
 
-  <p class="note">Reading: China's (or the top refiner's) single-country share of refined output, 2025 vs 2035 base case, computed from the IEA's own projected tonnages. Rare earths and lithium refer to magnet-RE separation and lithium-chemical conversion; nickel is Indonesia's refined share. Near-term nuance: lithium refining actually <i>rose</i> 70%→75% into 2025 before the projected long-run decline as conversion capacity outside China ramps.</p>
+  <p class="note">Reading: China's (or the top refiner's) single-country share of refined output, 2025 vs 2035 base case, computed from the IEA's own projected tonnages. Rare earths and lithium refer to magnet-RE separation and lithium-chemical conversion; nickel is Indonesia's refined share. In the near term, lithium refining rose 70%→75% into 2025 before the projected long-run decline as conversion capacity outside China ramps.</p>
   <p class="note" style="margin-top:.8rem">Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA, Global Critical Minerals Outlook 2026</a>, annex supply tables (pp. 347-364), © IEA, CC BY 4.0. Shares computed from the country tonnages; mechanism tags are the atlas's own (see the <a href="chokepoint-map">Chokepoint Map</a>).</p>
   <div class="ftr"><a href="chokepoint-map">The Chokepoint Map</a> · <a href="controls">Export-control tracker</a> · <a href="security-premium">The security premium</a></div>
 </article>
@@ -76,9 +76,9 @@
 var MECH={byproduct:{label:"By-product",color:"#6a4a9c"},capability:{label:"Built capability",color:"#2f6fae"},thermodynamic:{label:"Thermodynamic",color:"#c0392b"},policy:{label:"Policy",color:"#2f9c9c"}};
 // single-country top-refiner share 2025 & 2035(base), computed from IEA annex tonnages
 var D=[
- {m:"Rare earths — separation",href:"rare-earths-chain/rare-earths-chain.html",who:"China",y25:84,y35:73,mechanism:"capability",why:"US (MP Materials) + Malaysia (Lynas) separation ramping — the one chain IEA flags as declining"},
+ {m:"Rare earths — separation",href:"rare-earths-chain/rare-earths-chain.html",who:"China",y25:84,y35:73,mechanism:"capability",why:"US (MP Materials) + Malaysia (Lynas) separation ramping; the one chain IEA flags as declining"},
  {m:"Lithium — chemical conversion",href:"lithium-chain/lithium-chain.html",who:"China",y25:74,y35:66,mechanism:"capability",why:"conversion capacity building in Argentina, US, Australia (near-term it rose 70→75 first)"},
- {m:"Graphite — battery-grade",href:"graphite-chain/graphite-chain.html",who:"China",y25:94,y35:90,mechanism:"capability",why:"Africa/Canada mines + a few anode plants, but qualification is slow — barely eases"},
+ {m:"Graphite — battery-grade",href:"graphite-chain/graphite-chain.html",who:"China",y25:94,y35:90,mechanism:"capability",why:"Africa/Canada mines + a few anode plants, but qualification is slow, so it barely eases"},
  {m:"Cobalt — refining",href:"cobalt-chain/cobalt-chain.html",who:"China",y25:76,y35:78,mechanism:"byproduct",why:"coupled to copper/nickel; refining stays China regardless of where it's mined"},
  {m:"Copper — refining/smelting",href:"copper-chain/copper-chain.html",who:"China",y25:47,y35:51,mechanism:"thermodynamic",why:"China's continuous-hot smelter build-out (15%→50% of capacity since 2005) keeps rising"},
  {m:"Nickel — refining",href:"nickel-chain/nickel-chain.html",who:"Indonesia",y25:45,y35:50,mechanism:"policy",why:"Indonesia's ore-export ban + RKAB quotas concentrate refining further by rule"}

@@ -39,7 +39,7 @@
 <svg id="svg"></svg>
 <div id="hd"><a id="back" href="./">&lsaquo; Critical Materials Atlas</a>
 <h1>Few countries climb from ore to refined — and the product space barely predicts who</h1>
-<p>Every dot is a product in world trade; two are linked when the same countries competitively export both. The <b>chain</b> for each critical material — <b style="color:#E69F00">ore ◆</b> in the raw periphery, <b style="color:#CC79A7">refined ●</b> pulled toward the complex core, <b style="color:#009E73">permanent magnet ■</b> (HS 850511, all types) deepest in — is drawn as a dashed line. Pick a <b>material</b> to trace it, or a <b>country</b> to see what it competitively exports.</p></div>
+<p>Every dot is a product in world trade; two are linked when the same countries competitively export both. Each critical material&rsquo;s chain is drawn as a dashed line: <b style="color:#E69F00">ore ◆</b> in the raw periphery, <b style="color:#CC79A7">refined ●</b> pulled toward the complex core, and <b style="color:#009E73">permanent magnet ■</b> (HS 850511, all types) deepest in. Pick a material to trace it, or a country to see what it competitively exports.</p></div>
 <div id="panel">
  <div class="card"><label>Trace a material's chain</label>
    <select id="msel"><option value="">— none —</option></select></div>
@@ -97,7 +97,7 @@ node.on("mousemove",(e,d)=>{
   let h=`<b>${d.name}</b><br><span class="s">HS ${d.code} · ${d.sector} · PCI ${d.pci} (top ${100-d.pcp}%)`;
   if(d.lab) h+=` · <b style="color:${OKA[d.role]}">${d.lab.toUpperCase()}</b>`;
   h+='</span>';
-  if(d.refiners&&d.refiners.length) h+=`<br><span class="s">actually refined by: ${d.refiners.map(r=>r.n+' '+r.cap.toFixed(2)).join(' · ')}</span>`;
+  if(d.refiners&&d.refiners.length) h+=`<br><span class="s">refined by: ${d.refiners.map(r=>r.n+' '+r.cap.toFixed(2)).join(' · ')}</span>`;
   tip.style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+12)+"px").html(h);
 }).on("mouseleave",()=>tip.style("opacity",0));
 
@@ -115,13 +115,13 @@ d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i 
 // A-validation card: does B's density actually predict realized downstream capability?
 if(D.aval&&D.aval.windows){
   const L=D.aval.windows.long, cap=L.by_tier.cap;
-  document.getElementById("valcard").innerHTML=`<label>Does the product space actually add anything? (a control test)</label>`+
-    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">A general appearance test on the HS2002 panel, <b>2002→2024</b>: does density at t0 rank the countries that later <b>acquired</b> a downstream product (RCA crossed 1)? It looks predictive — <b style="color:#cfeeea">AUC ${cap.auc}</b> — but that is almost entirely a <b>diversity</b> effect:`+
-    `<div style="margin:6px 0 0;padding:5px 7px;background:#20242c;border-radius:5px">density <b style="color:#cfeeea">${cap.auc}</b> ≈ raw diversity <b style="color:#cfeeea">${cap.auc_diversity}</b><br>density with diversity removed → <b style="color:#e0a24a">${cap.auc_residual}</b> <span style="color:#8a97a5">(toward the 0.5 coin-flip)</span><br>placebos — whisky/salmon/cotton — score <b style="color:#e0a24a">${L.placebo_auc}</b>, the same band.</div>`+
-    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">So the apparent &ldquo;climb&rdquo; is mostly that <b>already-diversified economies diversify further</b> — not evidence that product-space proximity forecasts critical-material capability. ROC-AUC is also optimistic at ~0.5–5% base rates (see PR-AUC in the data). Reported honestly as a <b>null-ish control</b>, not a confirmation. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
+  document.getElementById("valcard").innerHTML=`<label>Does the product space add anything? (a control test)</label>`+
+    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">A general appearance test on the HS2002 panel, <b>2002→2024</b>: does density at t0 rank the countries that later <b>acquired</b> a downstream product (RCA crossed 1)? It looks predictive (<b style="color:#cfeeea">AUC ${cap.auc}</b>), but that is almost entirely a diversity effect:`+
+    `<div style="margin:6px 0 0;padding:5px 7px;background:#20242c;border-radius:5px">density <b style="color:#cfeeea">${cap.auc}</b> ≈ raw diversity <b style="color:#cfeeea">${cap.auc_diversity}</b><br>density with diversity removed → <b style="color:#e0a24a">${cap.auc_residual}</b> <span style="color:#8a97a5">(toward the 0.5 coin-flip)</span><br>placebos (whisky/salmon/cotton) score <b style="color:#e0a24a">${L.placebo_auc}</b>, the same band.</div>`+
+    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">So the apparent &ldquo;climb&rdquo; is mostly that already-diversified economies diversify further. It is not evidence that product-space proximity forecasts critical-material capability. ROC-AUC is also optimistic at ~0.5–5% base rates (see PR-AUC in the data). Reported as a null-ish control, not a confirmation. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
   document.getElementById("valcard").style.display="block";
 }
-document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#f0b429">solid amber = OBSERVED downstream</b> (real trade, material-specific codes — bauxite→alumina→Al→sheet, copper→wire; stops where end-products go shared) · <b style="color:#2bb3a3">dashed teal = co-export neighbours</b> (raw proximity only — NOT a value chain, NOT validated) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology">methods</a> · <a href="refiners">who refines</a>`;
+document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ, to show the gap) · <b style="color:#f0b429">solid amber = OBSERVED downstream</b> (real trade, material-specific codes: bauxite→alumina→Al→sheet, copper→wire; stops where end-products go shared) · <b style="color:#2bb3a3">dashed teal = co-export neighbours</b> (raw proximity only — NOT a value chain, NOT validated) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology">methods</a> · <a href="refiners">who refines</a>`;
 
 // ---------- material (guided) mode ----------
 const msel=d3.select("#msel"), csel=d3.select("#csel"), ro=d3.select("#readout"), rocard=document.getElementById("rocard");

@@ -186,7 +186,7 @@ if os.path.exists(feed_path):
   </table>
   <details class="howto"><summary>How to read it, and what it cannot show</summary>
   <p><b>Gross tonnes, not content.</b> Tonnages are gross weights as traded, not contained metal, so they cannot be set against mine output or turned into a share of China&rsquo;s supply. Rows differ in what they count: rare earths are compounds and metals (HS 2805.30 also includes scandium and yttrium), not ore; hafnium is measured as zircon tonnage, which says nothing about hafnium content; fluorspar adds both acid and metallurgical grades.</p>
-  <p><b>Partner, not mine.</b> The partner is the country China&rsquo;s customs declarations record, which may be a miner, a processor or a transit country &mdash; for example Malaysia (rare-earth processing), Thailand (antimony ores) or Lebanon (phosphate rock) may not be where the material was mined. Several partners are sanctions-relevant: North Korea and Russia supply tungsten ores, and Myanmar appears in rare earths, antimony, tungsten and baryte; trade with North Korea rests on China&rsquo;s declarations alone.</p>
+  <p><b>Partner, not mine.</b> The partner is the country China&rsquo;s customs declarations record, which may be a miner, a processor or a transit country. For example, Malaysia (rare-earth processing), Thailand (antimony ores) or Lebanon (phosphate rock) may not be where the material was mined. Several partners are sanctions-relevant: North Korea and Russia supply tungsten ores, and Myanmar appears in rare earths, antimony, tungsten and baryte; trade with North Korea rests on China&rsquo;s declarations alone.</p>
   <p><b>Cross-check.</b> {xcheck}</p>
   <p><b>Two endpoints.</b> {y0} and {y1} are endpoints of a series that is not smooth; the full {y0}&ndash;{y1} series is in the JSON. {breaks}</p>
   <p class="howto-src">Not shown: {nocode}. Import tonnes and partner shares: China&rsquo;s own import declarations, UN Comtrade annual data (HS 2017 codes), net weight; cross-check: CEPII BACI V202601. &ldquo;China mines&rdquo; is the atlas mined list (USGS/IEA, approximate), a separate source not comparable with these tonnes. Computed by <code>build_origin_feed.py</code> &rarr; <a href="out/origin_feed.json">origin_feed.json</a>. Sorted by {y1} tonnage.</p>
@@ -210,13 +210,13 @@ out = f'''<!doctype html>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · origin tracing</div>
   <h1>What's hidden behind the refiner</h1>
-  <p class="deck">The origin gap, traced — as a first-order estimate. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to a likely mine origin, showing how much of a nation's critical-material supply is sourced <i>via a refiner</i> rather than the producer its customs data names.</p>
+  <p class="deck">The origin gap, traced as a first-order estimate. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to a likely mine origin, showing how much of a nation's critical-material supply is sourced via a refiner rather than the producer its customs data names.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">Each country&rsquo;s imports are re-attributed from the refiner or hub that shipped them back to the mine that likely produced the ore &mdash; showing how much of its supply really comes via a middleman.
+  <div class="callout">Each country&rsquo;s imports are re-attributed from the refiner or hub that shipped them back to the mine that likely produced the ore. This shows how much of its supply comes via an intermediary.
   <details class="howto"><summary>The rule, and why it&rsquo;s an upper bound</summary>
-  <p>For every import flow: if the supplier genuinely mines the material (world mine share &ge; {MINER_MIN:.0f}%) the origin stays the supplier; otherwise the supplier is treated as a refiner or hub, and the value is re-attributed to the material&rsquo;s <b>dominant mine</b>. A country&rsquo;s <b>hidden dependence</b> is the share of its imports re-attributed away from the apparent supplier.</p>
-  <p class="howto-src"><b>First-order trace — an upper bound.</b> We don&rsquo;t observe each refiner&rsquo;s ore sourcing, so all refiner-fronted flow is assigned to the single leading producer; real refiners blend ores, scrap and contracts. Read it as the <i>scale</i> of the refiner illusion, not a customs-grade origin. Computed by <code>build_origin.py</code>.</p>
+  <p>For every import flow: if the supplier mines the material (world mine share &ge; {MINER_MIN:.0f}%) the origin stays the supplier; otherwise the supplier is treated as a refiner or hub, and the value is re-attributed to the material&rsquo;s dominant mine. A country&rsquo;s <b>hidden dependence</b> is the share of its imports re-attributed away from the apparent supplier.</p>
+  <p class="howto-src"><b>First-order trace, an upper bound.</b> Each refiner&rsquo;s ore sourcing is not observed, so all refiner-fronted flow is assigned to the single leading producer; in practice refiners blend ores, scrap and contracts. Read it as the scale of the refiner illusion, not as a customs-grade origin. Computed by <code>build_origin.py</code>.</p>
   </details></div>
 
   <h2 style="margin:1.6rem 0 .5rem">Hidden dependence by importer</h2>

@@ -43,18 +43,18 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Decision layer · substitution networks</div>
   <h1>Substituting a material only helps if it moves the chokepoint</h1>
-  <p class="deck">&ldquo;Just use something else&rdquo; is the reflex answer to a supply dependency. But a substitute is only a real escape if it sits in a <b>less concentrated</b> supply chain. Some swaps genuinely exit &mdash; LFP drops cobalt for iron, ceramic capacitors replace tantalum. Others help only in <i>some</i> uses (silicon for gallium, sodium-ion for lithium), and some just move the grip to another single country &mdash; more nickel for less cobalt, niobium for tantalum. The atlas&rsquo;s own concentration numbers say which is which.</p>
+  <p class="deck">&ldquo;Just use something else&rdquo; is the usual answer to a supply dependency. A substitute only reduces exposure if it sits in a less concentrated supply chain. Some swaps leave the chokepoint behind: LFP drops cobalt for iron, and ceramic capacitors replace tantalum. Others help only in some uses (silicon for gallium, sodium-ion for lithium), and some move the dependency to another single country (more nickel for less cobalt, niobium for tantalum). The atlas&rsquo;s own concentration numbers say which is which.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>How to read this.</b> Each row is a real substitution, from a material to what can replace it in a named application. The percentages are the top producer&rsquo;s share of each material&rsquo;s <b>mine</b> supply (World Mining Data). The classification is the whole point: an <b>escape</b> lands in an abundant or diffuse material; a <b>shift</b> lands in another chokepoint. A finding that doesn&rsquo;t change what you&rsquo;d do isn&rsquo;t finished &mdash; so this page ends every dependency with the honest verdict on whether substitution is a way out or a trap. Edges curated from USGS MCS substitutes + battery/magnet/semiconductor domain knowledge; not exhaustive. Reproducible: <code>build_substitution.py</code> &rarr; <a href="out/substitution.json">substitution.json</a>.
-  <br><br><b>Two honest limits.</b> (1) The share is <i>mine</i> concentration; for materials whose real chokepoint is <b>refining or separation</b> &mdash; lithium, gallium, graphite, rare-earth magnets &mdash; the binding concentration is downstream and <i>higher</i> than the mine number here, so read those rows against the <a href="chokepoint-map">Chokepoint Map</a>. (2) An &ldquo;escape&rdquo; means the substitute is <b>geologically abundant</b> (iron, ceramics, silicon, sodium); we do <i>not</i> measure the substitute&rsquo;s own processing concentration, so it is an escape from <i>this</i> material&rsquo;s exposure, not a guarantee the new chain is unconcentrated.</div>
+  <div class="callout"><b>How to read this.</b> Each row is a real substitution, from a material to what can replace it in a named application. The percentages are the top producer&rsquo;s share of each material&rsquo;s mine supply (World Mining Data). The classification is what matters: an escape lands in an abundant or diffuse material; a shift lands in another chokepoint. This page ends every dependency with a verdict on whether substitution reduces the exposure or only moves it. Edges curated from USGS MCS substitutes + battery/magnet/semiconductor domain knowledge; not exhaustive. Reproducible: <code>build_substitution.py</code> &rarr; <a href="out/substitution.json">substitution.json</a>.
+  <br><br><b>Two limits.</b> (1) The share is mine concentration. For materials whose real chokepoint is refining or separation (lithium, gallium, graphite, rare-earth magnets), the binding concentration is downstream and higher than the mine number here, so read those rows against the <a href="chokepoint-map">Chokepoint Map</a>. (2) An &ldquo;escape&rdquo; means the substitute is geologically abundant (iron, ceramics, silicon, sodium). The substitute&rsquo;s own processing concentration is not measured, so it is an escape from this material&rsquo;s exposure, not a guarantee that the new chain is unconcentrated.</div>
 
   <div class="stat4" id="stats"></div>
 
   <div id="groups"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">The decision that falls out</h2>
-  <p>Substitution is a real lever &mdash; but only pointed the right way. The swaps worth public money and R&amp;D are the ones that <b>escape to abundance</b>: they are the only moves that actually reduce the number of chokepoints in the system, rather than trading one country&rsquo;s grip for another&rsquo;s. LFP for cobalt, ceramic capacitors for tantalum &mdash; these shrink the map. Most substitutions only help in <i>some</i> uses (silicon for gallium, sodium-ion for lithium, no-magnet motors for some drivetrains): real relief, but partial &mdash; the material stays load-bearing everywhere else. The <i>shifts</i> &mdash; more nickel for less cobalt, niobium for tantalum, palladium for platinum &mdash; feel like progress and deliver none: the dependency simply changes address. Read alongside <a href="breakout">Break the chokepoint</a> (who could build an alternative supplier) and the <a href="chokepoint-map">Chokepoint Map</a> (why each stage concentrates): substitution is the one lever that can remove a chokepoint instead of relocating it &mdash; when it escapes.</p>
+  <p>Substitution is a real lever, but only in the right direction. The swaps worth public money and R&amp;D are the ones that move to abundant materials. They are the only moves that reduce the number of chokepoints in the system, rather than trading one country&rsquo;s grip for another&rsquo;s. LFP for cobalt and ceramic capacitors for tantalum shrink the map. Most substitutions help only in some uses (silicon for gallium, sodium-ion for lithium, no-magnet motors for some drivetrains). That relief is real but partial: the material stays load-bearing everywhere else. The shifts (more nickel for less cobalt, niobium for tantalum, palladium for platinum) look like progress and deliver none: the dependency changes address. Read alongside <a href="breakout">Break the chokepoint</a> (who could build an alternative supplier) and the <a href="chokepoint-map">Chokepoint Map</a> (why each stage concentrates). Substitution is the one lever that can remove a chokepoint instead of relocating it, provided the substitute is abundant.</p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -65,18 +65,18 @@
 </div></footer>
 <script>
 const GROUPS=[
- {k:'escape', c:'#1f7a4d', t:'Escapes — the swap that exits this material’s grip', d:'The replacement is a geologically abundant material (iron, ceramics, silicon, sodium), so it exits the original chokepoint. These are the substitutions worth funding — noting we score the substitute’s abundance, not its downstream processing concentration.'},
- {k:'relieve', c:'#0e7c74', t:'Relieves — a move to a more diversified material', d:'The substitute is still a tracked material, but markedly less concentrated than the original — partial relief at the mine (watch its own downstream concentration).'},
+ {k:'escape', c:'#1f7a4d', t:'Escapes — the swap that exits this material’s grip', d:'The replacement is a geologically abundant material (iron, ceramics, silicon, sodium), so it exits the original chokepoint. These are the substitutions worth funding. The score covers the substitute’s abundance, not its downstream processing concentration.'},
+ {k:'relieve', c:'#0e7c74', t:'Relieves — a move to a more diversified material', d:'The substitute is still a tracked material, but markedly less concentrated than the original: partial relief at the mine (its own downstream concentration still needs watching).'},
  {k:'partial', c:'#b8860b', t:'Partial — helps in some uses, at a cost', d:'A pressure valve, not a full exit: works blended or only where performance allows, so the original stays load-bearing.'},
- {k:'shift', c:'#c0392b', t:'Shifts — the dependency just changes address', d:'The substitute is another concentrated chokepoint. It feels like progress and delivers none: you swap which single country holds you.'},
+ {k:'shift', c:'#c0392b', t:'Shifts — the dependency just changes address', d:'The substitute is another concentrated chokepoint. It looks like progress and delivers none: only the single country that holds the supply changes.'},
 ];
 fetch('out/substitution.json').then(r=>r.json()).then(S=>{
   const t=S.tally;
   document.getElementById('stats').innerHTML=[
-    {v:t.escape||0,l:'escape to abundance — real relief',c:'#1f7a4d'},
-    {v:t.relieve||0,l:'relieve — a more diversified material',c:'#0e7c74'},
-    {v:t.partial||0,l:'partial — a pressure valve only',c:'#b8860b'},
-    {v:t.shift||0,l:'shift — the chokepoint just moves',c:'#c0392b'},
+    {v:t.escape||0,l:'escape to abundance: real relief',c:'#1f7a4d'},
+    {v:t.relieve||0,l:'relieve: a more diversified material',c:'#0e7c74'},
+    {v:t.partial||0,l:'partial: a pressure valve only',c:'#b8860b'},
+    {v:t.shift||0,l:'shift: the chokepoint moves',c:'#c0392b'},
   ].map(s=>'<div class="stat" style="border-left-color:'+s.c+'"><div class="v" style="color:'+s.c+'">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
   const conc=(v,who)=>v!=null?('<span class="conc"> · '+Math.round(v)+'% '+who+'</span>'):'';
   const g=document.getElementById('groups');

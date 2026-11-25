@@ -24,7 +24,7 @@ CO = {r['label']: r for r in comp['rows']}
 # fixable by collection/policy). Classified from the dominant end-use, per Ciacci, Reck & Graedel "Lost by
 # Design" (ES&T 2015) and "Losses and lifetimes of metals in the economy" (Nature Sustainability 2022).
 DISSIP = {
-    'helium':    ('dissipated', 'Vents to the atmosphere in use — physically unrecoverable.'),
+    'helium':    ('dissipated', 'Vents to the atmosphere in use; physically unrecoverable.'),
     'arsenic':   ('dissipated', 'Dispersed in chemicals, glass and alloy additives; largely lost.'),
     'phosphate': ('dissipated', 'Applied as fertiliser and dispersed into soil and water.'),
     'phosphorus':('dissipated', 'Chemical and fertiliser uses disperse it irreversibly.'),
@@ -36,18 +36,18 @@ DISSIP = {
     'silicon':   ('mixed', 'Metallurgical and chemical uses dissipate; some in recoverable products.'),
     'antimony':  ('mixed', 'Lead-acid batteries recycle it; flame-retardant uses are dissipative.'),
     'graphite':  ('mixed', 'Battery-anode recycling is emerging; many uses are dissipative.'),
-    'gallium':   ('recoverable', 'Bound in ICs, LEDs and thin-film PV — recoverable from fab scrap, but end-of-life collection is near zero.'),
+    'gallium':   ('recoverable', 'Bound in ICs, LEDs and thin-film PV; recoverable from fab scrap, but end-of-life collection is near zero.'),
     'germanium': ('recoverable', 'Fibre and IR optics and electronics are recoverable; catalyst uses are dissipative.'),
-    'hafnium':   ('recoverable', 'In superalloys and nuclear parts — recoverable with the component, but volumes are tiny.'),
+    'hafnium':   ('recoverable', 'In superalloys and nuclear parts; recoverable with the component, but volumes are tiny.'),
     'vanadium':  ('recoverable', 'Most rides in steel and recycles with it; chemical/catalyst uses are lost.'),
-    'indium':    ('recoverable', 'ITO in displays — recoverable from manufacturing scrap, barely collected at end of life.'),
+    'indium':    ('recoverable', 'ITO in displays; recoverable from manufacturing scrap, barely collected at end of life.'),
     'tantalum':  ('recoverable', 'Capacitors are recyclable but dispersed and rarely collected.'),
     'cobalt':    ('recoverable', 'Batteries and superalloys are increasingly recycled.'),
     'magnets':   ('recoverable', 'NdFeB magnets are recyclable but collection is minimal.'),
     'platinum':  ('recoverable', 'Autocatalysts are highly recycled; road-wear is a dissipative loss.'),
     'palladium': ('recoverable', 'Autocatalysts and electronics are recovered efficiently.'),
     'tungsten':  ('recoverable', 'Hard-metal carbides are widely recycled.'),
-    'lithium':   ('recoverable', 'Batteries — recycling is emerging and scalable.'),
+    'lithium':   ('recoverable', 'Batteries: recycling is emerging and scalable.'),
     'titanium':  ('recoverable', 'Metal and alloys recycle; TiO2 pigment is dissipative.'),
     'copper':    ('recoverable', 'One of the best-recycled metals.'),
     'nickel':    ('recoverable', 'Stainless steel and batteries recycle it.'),
@@ -156,13 +156,13 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · secondary supply</div>
   <h1>Some metals have almost no way out</h1>
-  <p class="deck">__TRAPPED__ are mined mostly or wholly as by-products and <b>barely recycled</b>; __HARD__ are also hard to substitute. By-product metals recycle at about half the rate of primary ones (__BY__% vs __PR__%). A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
+  <p class="deck">__TRAPPED__ are mined mostly or wholly as by-products and barely recycled; __HARD__ are also hard to substitute. By-product metals recycle at about half the rate of primary ones (__BY__% vs __PR__%). A by-product metal has only one supply lever of its own: recycling. New mines cannot respond (it is a <a href="companionality" style="color:#fff;text-decoration:underline">by-product</a>), and host output is outside its control (<a href="host-shock" style="color:#fff;text-decoration:underline">host shock</a>). This page asks which materials are by-product-locked and barely recycled, with neither a new mine nor a scrap stream to turn to.</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
-  <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured &mdash; and <i>why</i> a metal is trapped</summary>
-  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality.html">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Then we split the trapped metals by <b>why</b> they aren&rsquo;t recycled: <b>dissipated</b> (used dispersively or physically lost &mdash; helium vents to air, arsenic and phosphate disperse into chemicals and soil &mdash; so <i>no</i> technology recovers them: trapped <b>forever</b>) vs <b>recoverable-but-uncollected</b> (locked in products that <i>could</i> be recycled but currently aren&rsquo;t &mdash; trapped <b>for now</b>, fixable by collection and policy).</p>
-  <p class="howto-src"><b>Sources &amp; caveats:</b> recycling metric = <b>EU CRM 2023 EOL-RIR</b>, one of several the field uses (the <a href="https://www.resourcepanel.org/reports/recycling-rates-metals" target="_blank" rel="noopener">UNEP / International Resource Panel 2011</a> status report also defines EOL-RR, recycled content and old-scrap ratio; current benchmark is the <a href="https://www.iea.org/reports/recycling-of-critical-minerals" target="_blank" rel="noopener">IEA 2024</a> recycling report). It is EU-centric and omits in-process/new scrap and future capacity &mdash; today&rsquo;s functional secondary supply, not a ceiling. The <b>dissipative vs recoverable</b> split is classified from each metal&rsquo;s dominant end-use per Ciacci, Reck &amp; Graedel, <i>&ldquo;Lost by Design&rdquo;</i> (ES&amp;T 2015) and <i>&ldquo;Losses and lifetimes of metals&rdquo;</i> (Nature Sustainability 2022) &mdash; a literature-based judgement, like companionality. Inputs: <a href="out/data.json">data.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
+  <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured, and why a metal is trapped</summary>
+  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. The page crosses it with <a href="companionality.html">companionality</a> into a trapped index = companionality &times; (1 − recycling): high only when supply can neither be mined afresh (by-product) nor recovered from scrap. The trapped metals are then split by why they are not recycled. Dissipated metals are used dispersively or physically lost (helium vents to air; arsenic and phosphate disperse into chemicals and soil), so no technology recovers them and they are trapped permanently. Recoverable-but-uncollected metals are locked in products that could be recycled but currently are not; they are trapped for now, and collection and policy can change that.</p>
+  <p class="howto-src"><b>Sources &amp; caveats:</b> recycling metric = EU CRM 2023 EOL-RIR, one of several the field uses (the <a href="https://www.resourcepanel.org/reports/recycling-rates-metals" target="_blank" rel="noopener">UNEP / International Resource Panel 2011</a> status report also defines EOL-RR, recycled content and old-scrap ratio; current benchmark is the <a href="https://www.iea.org/reports/recycling-of-critical-minerals" target="_blank" rel="noopener">IEA 2024</a> recycling report). It is EU-centric and omits in-process/new scrap and future capacity: it measures today&rsquo;s functional secondary supply, not a ceiling. The dissipative vs recoverable split is classified from each metal&rsquo;s dominant end-use per Ciacci, Reck &amp; Graedel, <i>&ldquo;Lost by Design&rdquo;</i> (ES&amp;T 2015) and <i>&ldquo;Losses and lifetimes of metals&rdquo;</i> (Nature Sustainability 2022). Like companionality, it is a literature-based judgement. Inputs: <a href="out/data.json">data.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -170,18 +170,18 @@ HTML = r'''<!doctype html>
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">The no-way-out map</h2>
-  <p class="muted" style="margin-top:0"><b>Up</b> = more of it is an unavoidable by-product (no new mine). <b>Left</b> = less is recovered from scrap (no secondary buffer). The <span style="color:#c0392b;font-weight:700">top-left</span> is the trap: no primary response and no recycling.</p>
+  <p class="muted" style="margin-top:0"><b>Up</b> = more of it is an unavoidable by-product (no new mine). <b>Left</b> = less is recovered from scrap (no secondary buffer). The <span style="color:#c0392b;font-weight:700">top-left</span> holds the metals with no primary response and no recycling.</p>
   <div id="scatter"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Every material, ranked by how trapped it is</h2>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-prod %</th><th class="n">EOL recycling</th><th>why not recycled</th><th class="n">trapped</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .4rem">Trapped forever, or trapped for now?</h2>
-  <p class="muted" style="margin-top:0">&ldquo;Barely recycled&rdquo; hides two very different fates. Some metals are <b>dissipated</b> &mdash; used dispersively or physically lost, so <i>no</i> collection scheme can recover them. Others are simply <b>uncollected</b> &mdash; sitting in products that could be recycled if anyone bothered. The first is a wall; the second is a to-do list.</p>
+  <p class="muted" style="margin-top:0">&ldquo;Barely recycled&rdquo; covers two different cases. Some metals are dissipated: used dispersively or physically lost, so no collection scheme can recover them. Others are uncollected: they sit in products that could be recycled if collection were organised. The first is a physical limit; the second is a task.</p>
   <div class="split2" id="split"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What this closes, and what it opens</h2>
-  <p>This completes the supply-structure arc that began with the <a href="commodity-attribution.html">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together they say the same thing three ways &mdash; for a handful of metals, the usual mitigations simply aren&rsquo;t available, and the only real levers are <b>host-side recovery yield, stockpiles, and substitution</b>. The open branch from here is <b>demand</b>: which technologies pull hardest on exactly these trapped metals? That is the next arm of the atlas to grow.</p>
+  <p>This page completes the supply-structure series that began with the <a href="commodity-attribution.html">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together, they show that for a handful of metals the usual mitigations are not available, and the only levers are host-side recovery yield, stockpiles and substitution. The next step is demand: measuring which technologies draw most on these trapped metals.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -193,15 +193,15 @@ HTML = r'''<!doctype html>
 function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 Promise.all([fetch('out/recycling.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
-  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals are recycled far less than primary ones ('+S.mean_recycling_byproduct+'% vs '+S.mean_recycling_primary+'% end-of-life) &mdash; exactly the metals that most need a scrap buffer have the least. <b>'+S.n_trapped+'</b> are fully trapped: by-product-locked and barely recycled. But two of those &mdash; <b>'+S.trapped_permanent.join(' and ')+'</b> &mdash; are <b>dissipated</b> (gone for good, no technology recovers them), while the other <b>'+S.trapped_recoverable.length+'</b> ('+S.trapped_recoverable.join(', ')+') are merely <b>uncollected</b> &mdash; trapped for now, not forever.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals are recycled far less than primary ones ('+S.mean_recycling_byproduct+'% vs '+S.mean_recycling_primary+'% end-of-life); the metals that most need a scrap buffer have the least. <b>'+S.n_trapped+'</b> are fully trapped: by-product-locked and barely recycled. Two of those (<b>'+S.trapped_permanent.join(' and ')+'</b>) are dissipated, and no technology recovers them. The other <b>'+S.trapped_recoverable.length+'</b> ('+S.trapped_recoverable.join(', ')+') are uncollected, so they are trapped for now rather than permanently.';
   const stats=[
-    {v:S.n_trapped,l:'trapped: by-product-locked AND ≤10% recycled — no new mine, no scrap',warn:true},
+    {v:S.n_trapped,l:'trapped: by-product-locked and ≤10% recycled (no new mine, no scrap)',warn:true},
     {v:S.mean_recycling_byproduct+'%',l:'mean end-of-life recycling of by-product metals',warn:true},
-    {v:S.mean_recycling_primary+'%',l:'mean recycling of primary metals — the buffer they have'},
+    {v:S.mean_recycling_primary+'%',l:'mean recycling of primary metals, their scrap buffer'},
     {v:S.best_recycled[0],l:'best-recycled material (most secondary resilience)'},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>The trap, stated plainly:</b> gallium and germanium are 100% by-products with essentially <b>zero</b> end-of-life recycling. You cannot mine them for themselves, you cannot command the aluminium and zinc they ride on, and there is no scrap stream to fall back on. For these metals, resilience is not a mine or a market &mdash; it is recovery yield at the smelter, a national stockpile, or a substitute.';
+  document.getElementById('keyline').innerHTML='<b>The two clearest cases:</b> gallium and germanium are 100% by-products with essentially zero end-of-life recycling. They cannot be mined for themselves, their supply depends on aluminium and zinc output, and there is no scrap stream to fall back on. For these metals, resilience comes from recovery yield at the smelter, a national stockpile or a substitute, not from a mine or a market.';
   const col={byproduct:'#c0392b',mixed:'#b07a18',primary:'#0e7c74'};
   const pts=S.rows.map(r=>({value:[r.recycling,r.companionality_pct,r.title,r['class'],r.trapped],
     itemStyle:{color:col[r['class']]+'cc'},
@@ -238,9 +238,9 @@ Promise.all([fetch('out/recycling.json').then(r=>r.json()),
   function cardList(names){return names.map(n=>{const r=byName[n]||{};return '<div style="margin:.4rem 0"><span class="mm">'+n+'</span><div class="why">'+(r.dissipation_note||'')+'</div></div>';}).join('');}
   document.getElementById('split').innerHTML=
     '<div class="card perm"><h4>Lost in use, dissipated ('+S.trapped_permanent.length+')</h4>'+cardList(S.trapped_permanent)+
-      '<div class="fix"><b>Lever:</b> none on the supply side &mdash; only <i>design out</i> the dissipative use, or substitute. Recycling policy cannot help.</div></div>'+
+      '<div class="fix"><b>Lever:</b> none on the supply side. The options are to design out the dissipative use, or to substitute. Recycling policy cannot help.</div></div>'+
     '<div class="card rec"><h4>Not yet recovered, recoverable ('+S.trapped_recoverable.length+')</h4>'+cardList(S.trapped_recoverable)+
-      '<div class="fix"><b>Lever:</b> collection + recovery from manufacturing scrap and end-products. The metal is there &mdash; the barrier is economics and infrastructure, not physics.</div></div>';
+      '<div class="fix"><b>Lever:</b> collection + recovery from manufacturing scrap and end-products. The metal is there; the barrier is economics and infrastructure, not physics.</div></div>';
 });
 </script>
 </body></html>'''

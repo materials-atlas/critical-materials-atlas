@@ -109,24 +109,24 @@ out = f'''<!doctype html>
 <main id="main">
   <div class="f"><div class="k">Finding 1 · the origin gap</div>
     <h2>The country that exports a critical material usually isn't the one that mines it</h2>
-    <p>For <span class="big">most</span> materials the top exporter is not the top miner — customs records the refiner or shipping hub, not the source, so import-origin statistics overstate how diversified supply really is. {ex}.</p></div>
+    <p>For <span class="big">most</span> materials the top exporter is not the top miner. Customs records the refiner or shipping hub, not the source, so import-origin statistics overstate how diversified supply is. {ex}.</p></div>
 
   <div class="f"><div class="k">Finding 2 · two decades</div>
     <h2>Concentration is intensifying — and it's testable</h2>
-    <p>With the reconciled series back to 2002, <span class="big">{len(sig)}</span> materials show a rising export-concentration trend that is significant on an FDR-corrected Mann–Kendall <i>screen</i> (23 annual points — exploratory, not confirmatory), and <b>{brk} of those {len(sig)}</b> break in <b>2012–2016</b>. The trade-side origin gap also runs wide (~{g0:.0f}–{g1:.0f}pp), though part of the level steps at the 2017 HS-vintage join — read it as drift, not a clean trend.</p></div>
+    <p>With the reconciled series back to 2002, <span class="big">{len(sig)}</span> materials show a rising export-concentration trend that is significant on an FDR-corrected Mann–Kendall screen (23 annual points; exploratory, not confirmatory), and <b>{brk} of those {len(sig)}</b> break in <b>2012–2016</b>. The trade-side origin gap also runs wide (~{g0:.0f}–{g1:.0f}pp), though part of the level steps at the 2017 HS-vintage join, so read it as drift, not a clean trend.</p></div>
 
   <div class="f"><div class="k">Finding 3 · the hub</div>
     <h2>China became the processing hub, not just an exporter</h2>
-    <p>China's average network throughput — its centrality as importer <i>and</i> broker — rose from <span class="big">{c0:.0f}% to {c1:.0f}%</span> ({yrs[0]}–{yrs[-1]}). Its export share of rare-earth magnets climbed {mg0}→{mg1}%, of tungsten {tu0}→{tu1}%. For bauxite, China's throughput rose {bx[0]:.0f}→{bx[-1]:.0f}% <i>while its exports fell</i> — it became the place the ore flows <i>into</i>. China is now the top refiner in {cn_ref} materials.</p></div>
+    <p>China's average network throughput (its centrality as importer and broker) rose from <span class="big">{c0:.0f}% to {c1:.0f}%</span> ({yrs[0]}–{yrs[-1]}). Its export share of rare-earth magnets climbed {mg0}→{mg1}%, of tungsten {tu0}→{tu1}%. For bauxite, China's throughput rose {bx[0]:.0f}→{bx[-1]:.0f}% while its exports fell: it became the place the ore flows into. China is now the top refiner in {cn_ref} materials.</p></div>
 
   <div class="f"><div class="k">Finding 4 · the chokepoints that matter</div>
     <h2>The materials with no way out</h2>
-    <p><span class="big">{len(nwo)}</span> materials are at once hard to substitute, essentially un-recycled (&lt;5% end-of-life) and supply-concentrated — so a disruption bites, has no secondary supply, and one country controls the flow. For <b>{nwo_cn} of the {len(nwo)}</b>, that chokepoint is China's refining. They are: {nwo_list}.</p></div>
+    <p><span class="big">{len(nwo)}</span> materials are at once hard to substitute, essentially un-recycled (&lt;5% end-of-life) and supply-concentrated: a disruption cannot be met by substitution or by secondary supply, and one country controls the flow. For <b>{nwo_cn} of the {len(nwo)}</b>, that chokepoint is China's refining. They are: {nwo_list}.</p></div>
 
-  <div class="cred"><b>How it's built — and why it holds up.</b> Bilateral trade is reconstructed from raw UN Comtrade via a Gaulier–Zignago-style mirror reconciliation and <b>validated against the official CEPII BACI</b> dataset: it recovers the top exporter in 25 of 30 materials with a 3.5pp share error. Mine/refine layers are USGS/IEA. The 2025 nowcast is <b>pre-registered</b>. Everything is <b>public data only and reproducible end-to-end with no API key</b>, and the two-decade trends are <b>statistically tested</b> (a reproducible Mann–Kendall / Theil–Sen / Pettitt screen), not just plotted — uncommon in the critical-minerals literature. Full method &amp; citations: <a href="technical-note.html">technical note</a>.</div>
+  <div class="cred"><b>How it is built.</b> Bilateral trade is reconstructed from raw UN Comtrade via a Gaulier–Zignago-style mirror reconciliation and validated against the official CEPII BACI dataset: it recovers the top exporter in 25 of 30 materials with a 3.5pp share error. Mine/refine layers are USGS/IEA. The 2025 nowcast is pre-registered. Everything is public data only and reproducible end-to-end with no API key, and the two-decade trends are statistically tested (a reproducible Mann–Kendall / Theil–Sen / Pettitt screen), not only plotted, which is uncommon in the critical-minerals literature. Full method &amp; citations: <a href="technical-note.html">technical note</a>.</div>
 </main>
 <footer>
-  Critical Materials Atlas — an independent demonstration from public data. Not affiliated with, nor representing, any institution.<br>
+  Critical Materials Atlas. An independent demonstration from public data. Not affiliated with, nor representing, any institution.<br>
   <a href="./">Interactive atlas</a> · <a href="findings.html">The origin gap</a> · <a href="trends.html">Trends</a> · <a href="technical-note.html">Technical note</a> · <a href="https://github.com/materials-atlas/critical-materials-atlas">Reconciliation engine</a>
 </footer>
 </body></html>'''

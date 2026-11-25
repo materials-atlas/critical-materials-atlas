@@ -271,13 +271,13 @@
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Research · Critical-mineral supply chains</div>
   <h1>Every material, from mine to export market</h1>
-  <p class="deck">For any material — or any country — see where it is <b>mined</b>, where it is <b>refined</b>, and the <b>real global bilateral trade</b>, both directions. The chokepoint a customs ledger shows is usually the refiner, not the source.</p>
+  <p class="deck">For any material or country, see where it is mined, where it is refined, and its bilateral trade in both directions. Customs records name the last shipper, which is often a refiner rather than the mine.</p>
   <p class="meta-links"><a href="methodology">Methods &amp; validation</a> · reconciliation engine: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">comtrade-reconcile</a> · checked against official BACI (same customs records): top-1 exporter 25/30, share error 3.5%.</p>
   <p class="byline">Independent public-data research (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
 </div></section>
 
 <div class="wrap" id="app">
-<div class="intro">Follow each material from where it&rsquo;s <b>mined</b> <span style="color:rgb(222,140,40)">●</span> to where it&rsquo;s <b>refined</b> <span style="color:rgb(142,68,173)">●</span> to who imports it. On the map and globe, the arrows are real trade — <span style="color:rgb(222,140,40)">amber</span> for raw ore, <span style="color:rgb(142,68,173)">violet</span> for refined product.<details class="howto"><summary>How to use this</summary><p>Pick a <b>material</b> and a <b>country</b> to narrow the view, then switch between Table, Flow, Map and Globe. In the selectors, “(mines)” and “(refines)” mark a country that mines or refines your material, and “(data)” marks an entry with trade data for your selection. Open any material for its full profile.</p></details></div>
+<div class="intro">Follow each material from where it&rsquo;s <b>mined</b> <span style="color:rgb(222,140,40)">●</span> to where it&rsquo;s <b>refined</b> <span style="color:rgb(142,68,173)">●</span> to who imports it. On the map and globe, the arrows are recorded trade: <span style="color:rgb(222,140,40)">amber</span> for raw ore, <span style="color:rgb(142,68,173)">violet</span> for refined product.<details class="howto"><summary>How to use this</summary><p>Pick a <b>material</b> and a <b>country</b> to narrow the view, then switch between Table, Flow, Map and Globe. In the selectors, “(mines)” and “(refines)” mark a country that mines or refines your material, and “(data)” marks an entry with trade data for your selection. Open any material for its full profile.</p></details></div>
 
 <nav class="tabs">
   <button data-view="table" class="active" aria-pressed="true">▤ Table</button>
@@ -320,12 +320,12 @@
         <span><b>(shared code)</b> shared trade code (Ga/Ge/Hf)</span>
         <span>each country keeps its <b>own colour</b> across a row</span>
       </div>
-      <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
+      <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right, from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
         <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most (the largest importer). Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
         <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
-          <li><b>Top seller is not the top miner</b> — the country that exports the most is not the country that mines the most.</li>
-          <li><b>Shared trade code</b> — gallium, germanium and hafnium are read from one customs code (811292), so their seller, buyer and concentration columns show the same basket, not three results.</li>
+          <li><b>Top seller is not the top miner</b>: the country that exports the most is not the country that mines the most.</li>
+          <li><b>Shared trade code</b>: gallium, germanium and hafnium are read from one customs code (811292), so their seller, buyer and concentration columns show the same basket, not three results.</li>
           <li><b>—</b> no distinct refining stage, or no data.</li>
         </ul>
         <p class="howto-src">Sources: USGS · IEA · UN Comtrade / CEPII&nbsp;BACI (reconciled). Sort by any column; open a row for the full profile.</p>
@@ -346,7 +346,7 @@
   <div id="view-sankey" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" aria-label="Flow: material" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" aria-label="Flow: destination country" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">Dependency report</button></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
-    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
+    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are recorded trade.</p>
   </div>
   <div id="view-ask" class="view hidden">
     <div style="max-width:760px">
@@ -355,7 +355,7 @@
         <button id="ask-go" type="button" style="font:inherit;font-weight:600;font-size:.9rem;padding:.55rem 1.1rem;border:none;border-radius:8px;background:#15323a;color:#fff;cursor:pointer">Ask</button>
       </div>
       <div id="ask-chips" style="margin:.6rem 0 .2rem;font-size:.82rem;color:#667179"></div>
-      <p style="font-size:.78rem;color:#9aa6ad;margin:.3rem 0 0">Answers are computed live from the reconciled trade + USGS/IEA layers — every figure is real, nothing is generated. Name a material and/or a country.</p>
+      <p style="font-size:.78rem;color:#9aa6ad;margin:.3rem 0 0">Answers are computed live from the reconciled trade and USGS/IEA layers. Every figure comes from the data; nothing is generated. Name a material and/or a country.</p>
       <div id="ask-out" style="margin-top:1.1rem"></div>
     </div>
   </div>

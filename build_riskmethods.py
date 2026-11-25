@@ -178,27 +178,27 @@ out = f'''<!doctype html>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · risk assessment</div>
   <h1>Three ways to score the risk — letting the data, not me, decide</h1>
-  <p class="deck">The transparent supply-risk index uses weights I chose. Here are three established alternatives from the criticality literature, each computed on the same public data: a data-driven composite (entropy-TOPSIS), a governance-weighted geopolitical indicator (GeoPolRisk), and a probabilistic supply-at-risk with tail metrics.</p>
+  <p class="deck">The transparent supply-risk index uses weights chosen by the atlas. This page computes three established alternatives from the criticality literature on the same public data: a data-driven composite (entropy-TOPSIS), a governance-weighted geopolitical indicator (GeoPolRisk), and a probabilistic supply-at-risk with tail metrics.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout">Three established ways to score supply risk &mdash; each letting the data or the criticality literature, not the weights I chose, decide.
+  <div class="callout">Three established ways to score supply risk. In each, the weighting comes from the data or the criticality literature, not from the atlas&rsquo;s own choice.
   <details class="howto"><summary>The three methods</summary>
-  <p><b>1 &middot; Entropy-weighted TOPSIS (data-driven weights).</b> Shannon entropy gives each criterion a weight by how much it varies across the materials, then TOPSIS ranks each by closeness to the worst case (Hwang &amp; Yoon 1981; Achzet &amp; Helbig 2013). The weights it produces: {wbar}. The ranking <b>diverges moderately</b> from my fixed-weight index (Spearman <b>ρ {rho_fixed}</b>) &mdash; the data load most weight on <b>China-share</b> and <b>origin-gap</b>, pushing tungsten, magnesium and magnets up.</p>
-  <p><b>2 &middot; GeoPolRisk</b> (Gemechu et al. 2016) &mdash; stage concentration &times; the governance risk of the producers, for the mine and trade stages.</p>
-  <p><b>3 &middot; Monte-Carlo supply-at-risk</b> &mdash; each producer fails with a governance-derived probability and a random severity; over 20,000 draws I report the mean loss (<b>ESaR</b>) and the 95% tail (<b>VaR/CVaR</b>) &mdash; the shock scenarios made probabilistic.</p>
-  <p class="howto-src"><b>Caveat:</b> entropy rewards <i>dispersion</i>, not importance, so it nearly zeroes near-uniform criteria like recycling &mdash; read TOPSIS as a data-driven <i>complement</i> to the fixed index, not a verdict. All on public data, deterministic (fixed seed); disruption probabilities are governance-derived assumptions, not forecasts.</p>
+  <p><b>1 &middot; Entropy-weighted TOPSIS (data-driven weights).</b> Shannon entropy gives each criterion a weight by how much it varies across the materials, then TOPSIS ranks each by closeness to the worst case (Hwang &amp; Yoon 1981; Achzet &amp; Helbig 2013). The weights it produces: {wbar}. The ranking diverges moderately from the atlas&rsquo;s fixed-weight index (Spearman ρ {rho_fixed}). The data put most weight on China-share and origin-gap, which pushes tungsten, magnesium and magnets up.</p>
+  <p><b>2 &middot; GeoPolRisk</b> (Gemechu et al. 2016): stage concentration &times; the governance risk of the producers, for the mine and trade stages.</p>
+  <p><b>3 &middot; Monte-Carlo supply-at-risk.</b> Each producer fails with a governance-derived probability and a random severity. Over 20,000 draws the page reports the mean loss (ESaR) and the 95% tail (VaR/CVaR). This is the shock-scenario approach made probabilistic.</p>
+  <p class="howto-src"><b>Caveat:</b> entropy rewards dispersion, not importance, so it gives near-uniform criteria like recycling almost no weight. Read TOPSIS as a data-driven complement to the fixed index, not a verdict. All on public data, deterministic (fixed seed); disruption probabilities are governance-derived assumptions, not forecasts.</p>
   </details></div>
   <table>
     <thead><tr><th>Material</th>
       <th class="n" title="entropy-weighted TOPSIS risk, 0-100 (data-driven weights)">TOPSIS</th>
-      <th class="n" title="my transparent fixed-weight index, for comparison">fixed</th>
+      <th class="n" title="the atlas's transparent fixed-weight index, for comparison">fixed</th>
       <th class="n" title="GeoPolRisk, mine stage (0-100)">GPR mine</th>
       <th class="n" title="GeoPolRisk, trade stage (0-100)">GPR trade</th>
       <th class="n" title="Expected Supply-at-Risk: mean % of world supply lost in a Monte-Carlo disruption">ESaR</th>
       <th class="n" title="CVaR95: average loss in the worst 5% of simulations (tail risk)">CVaR95</th></tr></thead>
     <tbody>{trows}</tbody>
   </table>
-  <p class="note">Computed by <code>build_riskmethods.py</code> from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/riskmethods.json">riskmethods.json</a>. Tail risk highest: {', '.join(e(r['title']) for r in mc_sorted[:4])}. A screening panel — the Monte-Carlo probabilities are transparent governance-based assumptions, not predictions. {shared_code.NOTE}</p>
+  <p class="note">Computed by <code>build_riskmethods.py</code> from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/riskmethods.json">riskmethods.json</a>. Tail risk highest: {', '.join(e(r['title']) for r in mc_sorted[:4])}. This is a screening panel: the Monte-Carlo probabilities are transparent governance-based assumptions, not predictions. {shared_code.NOTE}</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

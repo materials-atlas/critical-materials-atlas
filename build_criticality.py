@@ -191,21 +191,21 @@ out = f'''<!doctype html>
   <div class="eyebrow">Method · established frameworks</div>
   <h1>Concentration in risky places</h1>
   <p style="margin:.55rem 0 0;font-size:.85rem;opacity:.92">Kept as a method reference. <a href="risk-index" style="color:inherit;text-decoration:underline">The adjustable risk index</a> now has governance weighting as a switch.</p>
-  <p class="deck">The official criticality methods (EU/SCRREEN, Graedel/Yale) add the ingredient our index leaves out: <i>governance</i>. The same concentration is more dangerous in a fragile state than in a stable democracy. Weighting by World Bank governance scores reorders the risk list — and shows exactly which materials move.</p>
+  <p class="deck">The official criticality methods (EU/SCRREEN, Graedel/Yale) add the ingredient the atlas index leaves out: governance. The same concentration is more dangerous in a fragile state than in a stable democracy. Weighting by World Bank governance scores reorders the risk list and shows which materials move.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">The same supply concentration is more dangerous when the producers are badly governed. Here I re-weight every material&rsquo;s concentration by the governance of its producers &mdash; and watch the risk list reorder.
+  <div class="callout">The same supply concentration is more dangerous when the producers are badly governed. This page re-weights every material&rsquo;s concentration by the governance of its producers, and the risk list reorders.
   <details class="howto"><summary>How it&rsquo;s built</summary>
-  <p>Each producer gets a governance-risk weight <code>g = (2.5 − WGI)/5</code> from the World Bank Worldwide Governance Indicators, which feeds a governance-weighted concentration score <code>Σ shareᵢ²·gᵢ</code>. From that I build an <b>EU/SCRREEN-shaped</b> supply-risk proxy (bottleneck-stage governance-weighted concentration, discounted by recycling, scaled by substitutability) and a <b>Graedel-style</b> supply-risk axis &mdash; both set beside my own index.</p>
-  <p class="howto-src">These are proxies on public approximations, <b>not</b> the official EU or Yale scores (which use CRM-specific, stage-granular, expert-weighted inputs) &mdash; read it as a governance <i>lens</i>. Depletion-time and environmental axes are omitted (no tonnage/LCA data), and production concentration uses top-N mine shares. Computed by <code>build_criticality.py</code> from public data.</p>
+  <p>Each producer gets a governance-risk weight <code>g = (2.5 − WGI)/5</code> from the World Bank Worldwide Governance Indicators, which feeds a governance-weighted concentration score <code>Σ shareᵢ²·gᵢ</code>. From that the page builds an EU/SCRREEN-shaped supply-risk proxy (bottleneck-stage governance-weighted concentration, discounted by recycling, scaled by substitutability) and a Graedel-style supply-risk axis, both set beside the atlas&rsquo;s own index.</p>
+  <p class="howto-src">These are proxies on public approximations, not the official EU or Yale scores (which use CRM-specific, stage-granular, expert-weighted inputs); read them as a governance lens. Depletion-time and environmental axes are omitted (no tonnage/LCA data), and production concentration uses top-N mine shares. Computed by <code>build_criticality.py</code> from public data.</p>
   </details></div>
 
-  <div class="callout" style="background:#f3f7f6">The rankings sit in the same family — Spearman ρ
-  <b>{corrtxt(corr['eu_vs_ours'])}</b> (EU-shaped vs our index), <b>{corrtxt(corr['graedel_vs_ours'])}</b> (Graedel-shaped vs ours),
-  <b>{corrtxt(corr['eu_vs_graedel'])}</b> (the two proxies) — but this is partly <i>mechanical</i>: all three share inputs
-  (concentration, recycling, substitutability), so read it as "same family", not independent validation. What the
-  <b>governance weighting changes</b>: it pushes <b>up</b> materials with a high-governance-risk producer in the mix —
-  {namelist(promoted, 'worst')} — and <b>down</b> those mined in well-governed countries — {namelist(demoted, 'top')}.</div>
+  <div class="callout" style="background:#f3f7f6">The rankings sit in the same family. Spearman ρ is
+  <b>{corrtxt(corr['eu_vs_ours'])}</b> for the EU-shaped proxy against the atlas index, <b>{corrtxt(corr['graedel_vs_ours'])}</b> for the Graedel-shaped proxy against the atlas index,
+  and <b>{corrtxt(corr['eu_vs_graedel'])}</b> between the two proxies. This is partly mechanical: all three share inputs
+  (concentration, recycling, substitutability), so read it as "same family", not independent validation.
+  Governance weighting pushes up the materials with a high-governance-risk producer in the mix:
+  {namelist(promoted, 'worst')}. It pushes down those mined in well-governed countries: {namelist(demoted, 'top')}.</div>
 
   <table>
     <thead><tr><th class="n">#</th><th>Material</th>

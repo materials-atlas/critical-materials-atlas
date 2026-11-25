@@ -173,19 +173,19 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · supply structure</div>
   <h1>Hostage metals</h1>
-  <p class="deck">Some critical materials you simply cannot decide to mine more of. Gallium, germanium, hafnium, helium, cobalt &mdash; they are recovered only as <b>by-products</b> of a bigger host commodity, so their supply answers to <i>aluminium&rsquo;s</i> or <i>zinc&rsquo;s</i> economics, not their own. A supply squeeze can&rsquo;t be fixed by a higher price. This layer &mdash; a child of the <a href="commodity-attribution" style="color:#fff;text-decoration:underline">attribution page</a> &mdash; measures that structural trap and crosses it with geography to find the materials caught in <b>both</b>. <span class="dist">This is the by-product <i>dependency</i>; <a href="smelters">the smelter map</a> shows the host facilities where these metals are actually recovered.</span></p>
+  <p class="deck">Some critical materials cannot be mined in greater quantity by choice. Gallium, germanium, hafnium, helium and cobalt are recovered only as by-products of a larger host commodity, so their supply follows aluminium&rsquo;s or zinc&rsquo;s economics, not their own. A higher price cannot fix a shortage. This layer, a child of the <a href="commodity-attribution" style="color:#fff;text-decoration:underline">attribution page</a>, measures that structural constraint and crosses it with geography to find the materials exposed to both. <span class="dist">This is the by-product dependency; <a href="smelters">the smelter map</a> shows the host facilities where these metals are recovered.</span></p>
 </div></section>
 <article style="max-width:1060px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>What &ldquo;companionality&rdquo; means, and the sources</summary>
-  <p><b>Companionality</b> = the approximate share of world production that arises as a <i>by-product or co-product</i> of a host commodity (0 = always mined for itself; 100 = never mined for itself). A high value means supply is <b>inelastic to the material&rsquo;s own price</b>: more is produced only when the host is, regardless of how &ldquo;critical&rdquo; it becomes. We cross companionality with the atlas&rsquo;s trade concentration (HHI) into a <b>double-jeopardy</b> reading &mdash; supply-inelastic <i>and</i> geographically concentrated.</p>
-  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from <b>USGS Mineral Commodity Summaries 2024</b> and <b>Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>)</b>, and <b>recomputed from mine-level open data</b> (ICMM Global Mining Dataset 2025) as a validation column below. Values are round approximations of a genuinely fuzzy quantity (by-product share shifts with price and deposit) &mdash; treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
+  <p><b>Companionality</b> = the approximate share of world production that arises as a <i>by-product or co-product</i> of a host commodity (0 = always mined for itself; 100 = never mined for itself). A high value means supply is inelastic to the material&rsquo;s own price: more is produced only when the host is, regardless of how &ldquo;critical&rdquo; it becomes. The page crosses companionality with the atlas&rsquo;s trade concentration (HHI) into a double-jeopardy reading: supply-inelastic and geographically concentrated.</p>
+  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from USGS Mineral Commodity Summaries 2024 and Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>), and recomputed from mine-level open data (ICMM Global Mining Dataset 2025) as a validation column below. Values are round approximations of a fuzzy quantity (by-product share shifts with price and deposit), so treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">The double-jeopardy map</h2>
-  <p class="muted" style="margin-top:0">Each bubble is a material. <b>Right</b> = more of it is an unavoidable by-product (supply can&rsquo;t respond to its own price). <b>Up</b> = more geographically concentrated trade. Bubble size = trade value. The <span style="color:#c0392b;font-weight:700">top-right</span> is the danger zone: inelastic <i>and</i> concentrated.</p>
+  <p class="muted" style="margin-top:0">Each bubble is a material. <b>Right</b> = more of it is an unavoidable by-product (supply can&rsquo;t respond to its own price). <b>Up</b> = more geographically concentrated trade. Bubble size = trade value. The <span style="color:#c0392b;font-weight:700">top-right</span> holds the materials that are both inelastic and concentrated.</p>
   <div id="scatter"></div>
 
   <div class="keyline" id="keyline"></div>
@@ -195,12 +195,12 @@ HTML = r'''<!doctype html>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-product %</th><th>recovered from</th><th class="n">HHI</th><th class="n">DJI</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">Are these numbers right? A mine-level cross-check</h2>
-  <p class="muted" style="margin-top:0">The by-product shares above are compiled from the literature (USGS, Nassar 2015) &mdash; a fair objection is that they&rsquo;re curated, not computed. So we recomputed companionality <b>independently, from open mine-level data</b>: for every mine in the <b>ICMM Global Mining Dataset (2025)</b>, is the metal its <i>primary</i> product, or does it ride along as a secondary one? The by-product share falls straight out of the counts &mdash; and for the metals the whole thesis rests on, the two agree.</p>
+  <p class="muted" style="margin-top:0">The by-product shares above are compiled from the literature (USGS, Nassar 2015). A fair objection is that they are curated, not computed. Companionality was therefore recomputed independently from open mine-level data: for every mine in the ICMM Global Mining Dataset (2025), the test is whether the metal is its primary product or a secondary one. The by-product share follows from the counts, and for the metals the thesis rests on, the two agree.</p>
   <table class="tidy" id="valtab" style="max-width:560px"><thead><tr><th>Hostage metal</th><th class="n">literature</th><th class="n">from mine data</th><th class="n">mines</th></tr></thead><tbody></tbody></table>
   <div class="keyline" id="valkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Why this matters, and what it spawns next</h2>
-  <p>Conventional supply-risk scores treat every material as if a price signal could summon more of it. For the by-product tier that is simply false: no gallium price will build a gallium mine. This reframes mitigation &mdash; for hostage metals the levers are <i>recovery yield at the host</i>, <i>stockpiling</i>, and <i>substitution</i>, not new mines. It also seeds the next layers: a <a href="risk.html">risk</a> re-weighting that penalises companionality, a recovery-yield / recycling lens (secondary supply is the only elastic source for these metals), and a host-shock model &mdash; what an aluminium or zinc downturn does to the criticals riding on it. This atlas grows by letting each finding pose the next question.</p>
+  <p>Conventional supply-risk scores treat every material as if a price signal could summon more of it. For the by-product tier that is false: no gallium price will build a gallium mine. This changes mitigation. For hostage metals the levers are recovery yield at the host, stockpiling and substitution, not new mines. It also points to further layers: a <a href="risk.html">risk</a> re-weighting that penalises companionality, a recovery-yield / recycling lens (secondary supply is the only elastic source for these metals), and a host-shock model of what an aluminium or zinc downturn does to the critical materials that depend on it.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -213,15 +213,15 @@ function ld(u){return new Promise((res,rej)=>{const s=document.createElement('sc
 Promise.all([fetch('out/companionality.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
   const f=n=>Number(n).toLocaleString();
-  document.getElementById('lead').innerHTML='<b>Result:</b> of '+S.n_materials+' tracked materials, <b>'+S.n_byproduct+'</b> are produced mostly as by-products &mdash; their supply cannot answer to their own price &mdash; and <b>'+S.n_double_jeopardy+'</b> are caught in double jeopardy: supply-inelastic <i>and</i> geographically concentrated ('+S.double_jeopardy.join(', ')+'). For these, &ldquo;just mine more&rdquo; is not an option.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> of '+S.n_materials+' tracked materials, <b>'+S.n_byproduct+'</b> are produced mostly as by-products (their supply cannot respond to their own price), and <b>'+S.n_double_jeopardy+'</b> are caught in double jeopardy: supply-inelastic <i>and</i> geographically concentrated ('+S.double_jeopardy.join(', ')+'). For these, &ldquo;just mine more&rdquo; is not an option.';
   const stats=[
     {v:S.n_byproduct,l:'materials produced mostly as by-products (companionality &ge; 66)',warn:true},
     {v:S.n_double_jeopardy,l:'double-jeopardy: by-product-locked AND concentrated (HHI &ge; 0.5)',warn:true},
-    {v:S.n_mixed,l:'mixed — part primary, part by-product'},
-    {v:(S.n_materials-S.n_byproduct-S.n_mixed),l:'genuinely primary — supply can respond to price'},
+    {v:S.n_mixed,l:'mixed: part primary, part by-product'},
+    {v:(S.n_materials-S.n_byproduct-S.n_mixed),l:'primary: supply can respond to price'},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>The trap:</b> the seven by-product-dominant metals &mdash; arsenic, gallium, germanium, hafnium, helium, cobalt, vanadium &mdash; sit at ~90&ndash;100% companionality. A standard supply-risk index assumes a shortage pulls in new production; here it can&rsquo;t. Gallium is the sharpest case: 100% a by-product of aluminium, and its trade is China-dominated &mdash; inelastic supply meeting a single gatekeeper.';
+  document.getElementById('keyline').innerHTML='<b>The constraint:</b> the seven by-product-dominant metals (arsenic, gallium, germanium, hafnium, helium, cobalt, vanadium) sit at ~90&ndash;100% companionality. A standard supply-risk index assumes a shortage pulls in new production; here it cannot. Gallium is the clearest case: 100% a by-product of aluminium, with China-dominated trade, so inelastic supply meets a single gatekeeper.';
   // scatter
   const col={byproduct:'#c0392b',mixed:'#b07a18',primary:'#0e7c74'};
   const pts=S.rows.filter(r=>r.hhi!=null).map(r=>({
@@ -268,7 +268,7 @@ Promise.all([fetch('out/companionality.json').then(r=>r.json()),
         '<td class="n muted">'+f(v.n)+'</td>';
       vt.appendChild(tr);
     });
-    document.getElementById('valkey').innerHTML='<b style="color:#0e7c74">The curated numbers hold up.</b> Computed blind from '+f(S.rows.reduce((a,r)=>a+(r.empirical_n||0),0))+' mine records, the four hostage metals that appear in the data &mdash; <b>'+S.confirmed_titles.join(', ')+'</b> &mdash; match the literature within a couple of points ('+S.n_confirmed+' of '+S.n_validated+'). The remaining hostage metals (arsenic, hafnium, helium) are too trace to be listed as a mine product at all &mdash; itself a confirmation that they&rsquo;re never mined for their own sake. <b>Honest limit:</b> this counts <i>facilities</i>, not <i>tonnes</i>, so it overstates by-product share for metals with a few large primary mines (niobium, manganese), which is why it corroborates the curated figures rather than replacing them. Production-weighting (from the Jasansky mine database) is the next refinement.';
+    document.getElementById('valkey').innerHTML='<b style="color:#0e7c74">The curated numbers hold up.</b> Computed blind from '+f(S.rows.reduce((a,r)=>a+(r.empirical_n||0),0))+' mine records, the four hostage metals that appear in the data (<b>'+S.confirmed_titles.join(', ')+'</b>) match the literature within a couple of points ('+S.n_confirmed+' of '+S.n_validated+'). The remaining hostage metals (arsenic, hafnium, helium) are too trace to be listed as a mine product at all, which itself confirms that they are never mined for their own sake. <b>Limit:</b> this counts facilities, not tonnes, so it overstates by-product share for metals with a few large primary mines (niobium, manganese), which is why it corroborates the curated figures rather than replacing them. Production-weighting (from the Jasansky mine database) is the next refinement.';
   }
 });
 </script>

@@ -40,29 +40,29 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Rigor · uncertainty propagation</div>
   <h1>How robust is that?</h1>
-  <p class="deck">The <a href="synthesis" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard draws hard lines &mdash; and a fair critic says a metal sitting just under a cutoff is hidden by pass/fail. So don&rsquo;t draw the line once. Put an honest uncertainty on every input and run it <b>20,000 times</b>: the binary cliff becomes a probability gradient, and the &ldquo;only gallium and germanium&rdquo; headline gets the soft edges it deserves.</p>
+  <p class="deck">The <a href="synthesis" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard uses hard cutoffs, and pass/fail hides a metal that sits just under a cutoff. This page puts an uncertainty on every input and runs the scorecard 20,000 times. The pass/fail line becomes a probability, and the &ldquo;only gallium and germanium&rdquo; headline is shown with its uncertainty.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
-  <details class="howto"><summary>The uncertainty model — the load-bearing assumption, stated</summary>
-  <p>For each material we draw each axis input from a distribution and recompute the five failure flags, 20,000 times: companionality ~ N(mean, <b>12pp</b>); top-producer share ~ N(mean, <b>8pp</b>) (the cross-source spread measured at 6.4pp on this data); recycling ~ N(mean, <b>5pp</b>); demand growth ~ mean&times;exp(N(0, <b>0.40</b>)), because forward demand is deeply scenario-dependent; world tonnage ~ mean &plusmn;<b>~10%</b>. We report, per material, the probability each axis fails, the expected number of failures with a 90% interval, and <b>P(hardest) = P(&ge;4 of 5 fail)</b>.</p>
-  <p class="howto-src"><b>Honest about the honesty:</b> those five spreads are themselves judgement calls &mdash; a wider demand sigma pulls more metals into contention, a tighter one sharpens the top. The point is not a precise probability but to show the ranking&rsquo;s <i>shape</i> and which results survive perturbation. Deterministic (fixed seed). Inputs: the five layer JSONs &rarr; <a href="out/uncertainty.json">uncertainty.json</a>.</p>
+  <details class="howto"><summary>The uncertainty model and its main assumption</summary>
+  <p>For each material, each axis input is drawn from a distribution and the five failure flags are recomputed, 20,000 times: companionality ~ N(mean, 12pp); top-producer share ~ N(mean, 8pp) (the cross-source spread measured at 6.4pp on this data); recycling ~ N(mean, 5pp); demand growth ~ mean&times;exp(N(0, 0.40)), because forward demand depends strongly on the scenario; world tonnage ~ mean &plusmn;~10%. The page reports, per material, the probability that each axis fails, the expected number of failures with a 90% interval, and P(hardest) = P(&ge;4 of 5 fail).</p>
+  <p class="howto-src"><b>Limits.</b> The five spreads are themselves judgement calls. A wider demand sigma pulls more metals into contention; a tighter one sharpens the top. The aim is not a precise probability. It is the shape of the ranking, and which results survive perturbation. Deterministic (fixed seed). Inputs: the five layer JSONs &rarr; <a href="out/uncertainty.json">uncertainty.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.4rem 0 .3rem">P(hardest) — probability a material fails 4 or 5 of the 5 axes</h2>
-  <p class="muted" style="margin-top:0">Not a cliff, a gradient. The bracket marks the 90% interval on the <i>number</i> of axes failed. Two materials are almost certain; a cluster behind them is genuinely borderline &mdash; which the binary scorecard erased.</p>
+  <p class="muted" style="margin-top:0">A gradient rather than a cut-off. The bracket marks the 90% interval on the number of axes failed. Two materials are almost certain. A cluster behind them is borderline, which the binary scorecard did not show.</p>
   <div id="bars"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Per-axis failure probability</h2>
-  <p class="muted" style="margin-top:0">Shaded by probability, not on/off. Reading down the columns shows what actually drives vulnerability.</p>
+  <p class="muted" style="margin-top:0">Shaded by probability, not on/off. Reading down the columns shows which axes drive vulnerability.</p>
   <div style="overflow-x:auto"><table class="hm" id="hm"><thead></thead><tbody></tbody></table></div>
 
   <h2 style="margin:1.8rem 0 .3rem">The objection this page could not answer &mdash; so we tested it</h2>
-  <p><b>&ldquo;A Monte-Carlo propagates input uncertainty. It cannot validate the model.&rdquo;</b> That is the sharpest thing anyone has said about this page, and it is correct. Everything above draws the five <i>inputs</i> &mdash; but the <i>design</i> was held sacred: the five axes are chosen rather than derived, the thresholds (66, 60, 10, 2.5, 50 kt) are hard constants that were never drawn, and &ldquo;&ge;4 of 5&rdquo; is a constant too. So &ldquo;gallium 99%&rdquo; only ever meant <b>&ldquo;99% of draws, under this design&rdquo;</b>. Reported as though it were the probability gallium is truly the hardest case, it launders a designer&rsquo;s choices into false precision.</p>
-  <p>So we perturbed the design as well: <b>drew the thresholds</b> instead of fixing them, moved them &plusmn;15%, changed the rule to 3-of-5 and 5-of-5, and <b>dropped each axis in turn</b> &mdash; holding the bar at &ldquo;fails all but one&rdquo; so an ablation tests the axis rather than smuggling in a stricter rule. Eleven specifications. The results pull in opposite directions, and both belong on the page.</p>
+  <p><b>&ldquo;A Monte-Carlo propagates input uncertainty. It cannot validate the model.&rdquo;</b> This objection is correct. Everything above draws the five inputs, but the design was held fixed: the five axes are chosen rather than derived, the thresholds (66, 60, 10, 2.5, 50 kt) are constants that were never drawn, and &ldquo;&ge;4 of 5&rdquo; is a constant too. So &ldquo;gallium 99%&rdquo; only ever meant &ldquo;99% of draws, under this design&rdquo;. Read as the probability that gallium is the hardest case, it would turn a designer&rsquo;s choices into false precision.</p>
+  <p>The design was therefore perturbed as well. The thresholds were drawn instead of fixed and moved &plusmn;15%, the rule was changed to 3-of-5 and 5-of-5, and each axis was dropped in turn. In the ablations the bar stays at &ldquo;fails all but one&rdquo;, so each one tests the axis and does not bring in a stricter rule. Eleven specifications. The results point in opposite directions, and both are shown.</p>
   <table class="tidy" id="spec" style="width:100%;border-collapse:collapse;font-size:.86rem;margin:.6rem 0"><thead></thead><tbody></tbody></table>
   <div class="keyline" id="speckey"></div>
 
@@ -84,7 +84,7 @@
 fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
   const AX=S.axes;
   const clear=S.clear_hardest, bl=S.borderline;
-  document.getElementById('lead').innerHTML='<b>Result:</b> under 20,000 draws, <b>'+clear.join(' and ')+'</b> stay almost certainly in the hardest set (P&ge;0.66) &mdash; that result is robust, not a threshold fluke. But behind them sits a genuinely borderline cluster ('+bl.slice(0,4).join(', ')+(bl.length>4?'…':'')+') that the binary &ldquo;only two&rdquo; headline erased. Vulnerability is a gradient; the honest statement is &ldquo;two robust, several contingent,&rdquo; not &ldquo;two, full stop.&rdquo;';
+  document.getElementById('lead').innerHTML='<b>Result:</b> under 20,000 draws, '+clear.join(' and ')+' stay almost certainly in the hardest set (P&ge;0.66). That result is robust, not an artefact of the thresholds. Behind them sits a borderline cluster ('+bl.slice(0,4).join(', ')+(bl.length>4?'…':'')+') that the binary &ldquo;only two&rdquo; headline did not show. Vulnerability is a gradient: two materials are robust and several are contingent.';
   const drv=S.axis_drive_top10;
   const drank=AX.map(a=>[a.label,drv[a.key]]).sort((x,y)=>y[1]-x[1]);
   const st=[
@@ -94,7 +94,7 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
     {v:S.n_draws.toLocaleString(),l:'Monte-Carlo draws per material'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>The reframed insight:</b> propagation confirms what a reviewer suspected &mdash; the &ldquo;only gallium and germanium&rdquo; line is a threshold effect. What survives is subtler and more useful: the axes that most decide the hardest set are <b>'+drank[0][0].replace(/ \(.*/,'')+'</b> and <b>'+drank[1][0].replace(/ \(.*/,'')+'</b> &mdash; supply elasticity and market thinness &mdash; not geographic concentration on its own. Concentration is common; being a tiny by-product market is rare and decisive.';
+  document.getElementById('keyline').innerHTML='<b>What the draws show.</b> Propagation confirms what a reviewer suspected: the &ldquo;only gallium and germanium&rdquo; line is a threshold effect. What survives is narrower: the axes that most decide the hardest set are '+drank[0][0].replace(/ \(.*/,'')+' and '+drank[1][0].replace(/ \(.*/,'')+' (supply elasticity and market thinness), not geographic concentration on its own. Concentration is common. A very small by-product market is rare, and it decides the result.';
   // P(hardest) bars
   const bars=document.getElementById('bars');
   bars.innerHTML=S.rows.filter(r=>r.p_hardest>=0.02||r.e_count>=2).slice(0,16).map(r=>{
@@ -133,7 +133,7 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
         return '<td style="text-align:right;padding:.32rem .5rem;border-bottom:1px solid #eef1f0;font-variant-numeric:tabular-nums;color:'+c+';font-weight:'+(p>=0.66?700:400)+'">'+(p*100).toFixed(0)+'%</td>';}).join('')+'</tr>';
   }).join('');
   const g=S.rows.find(r=>r.label==='gallium'), ge=S.rows.find(r=>r.label==='germanium');
-  document.getElementById('speckey').innerHTML='<b>Two findings, and they cut opposite ways.</b> <b>The number is not robust:</b> across '+SR.n_specs+' designs gallium runs <b>'+(g.spec_min*100).toFixed(0)+'&ndash;'+(g.spec_max*100).toFixed(0)+'%</b> and germanium <b>'+(ge.spec_min*100).toFixed(0)+'&ndash;'+(ge.spec_max*100).toFixed(0)+'%</b>. &ldquo;99%&rdquo; is a property of one design, and this page no longer asks you to read it as more than that. <b>The finding is robust &mdash; more than the original could show:</b> gallium and germanium are the top two in <b>'+SR.top2_stable+' of '+SR.n_specs+'</b> specifications, including every single-axis ablation. Drop the axis they supposedly lean on &mdash; &ldquo;can&rsquo;t scale&rdquo; &mdash; and they still come first. The objection kills the decimal place. It does not touch the answer.';
+  document.getElementById('speckey').innerHTML='<b>Two findings, pointing opposite ways.</b> First, the number is not robust: across '+SR.n_specs+' designs gallium runs '+(g.spec_min*100).toFixed(0)+'&ndash;'+(g.spec_max*100).toFixed(0)+'% and germanium '+(ge.spec_min*100).toFixed(0)+'&ndash;'+(ge.spec_max*100).toFixed(0)+'%. &ldquo;99%&rdquo; is a property of one design and should be read as nothing more. Second, the ranking is robust, more so than the original could show: gallium and germanium are the top two in <b>'+SR.top2_stable+' of '+SR.n_specs+'</b> specifications, including every single-axis ablation. When the axis they are thought to rely on (&ldquo;can&rsquo;t scale&rdquo;) is dropped, they still come first. The objection removes the decimal place. It does not change the ranking.';
   // axis overlap
   document.getElementById('overlap').innerHTML=S.axis_overlap.map(o=>
     '<div class="prow"><div class="nm" style="width:auto">'+o.a+' vs '+o.b+'</div>'+
@@ -141,7 +141,7 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
     '<div class="lab">r = '+o.r+'</div></div></div>').join('')+
     '<p class="muted" style="margin-top:.7rem">'+S.axis_overlap_note+'</p>';
 
-  document.getElementById('closer').innerHTML='A binary scorecard is a claim stated with more confidence than the inputs support. Propagating uncertainty does two honest things at once: it <i>confirms</i> the robust core (gallium and germanium survive every reasonable perturbation) and it <i>surfaces</i> the contingent middle (cobalt, vanadium, hafnium and others whose status flips with a plausible change of assumption). That is the difference between a scorecard as rhetoric and a scorecard as evidence &mdash; and it turns the headline from &ldquo;only two metals&rdquo; into the more defensible &ldquo;two robust, a handful contingent, and elasticity-plus-thinness &mdash; not concentration &mdash; is what separates them.&rdquo;';
+  document.getElementById('closer').innerHTML='A binary scorecard states a claim with more confidence than its inputs support. Propagating the uncertainty does two things. It confirms the robust core (gallium and germanium survive every reasonable perturbation), and it shows the contingent middle (cobalt, vanadium, hafnium and others whose status changes with a plausible change of assumption). The headline changes from &ldquo;only two metals&rdquo; to a more defensible statement: two robust, a handful contingent, and elasticity plus market thinness, rather than concentration, is what separates them.';
 });
 </script>
 </body></html>

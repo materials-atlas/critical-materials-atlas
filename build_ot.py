@@ -144,7 +144,7 @@ for r in out.values():
     L, nl = r['leader_name'], r['new_leader_name']
     hb, ha = r['hhi_before'], r['hhi_after']
     c2 = r['coverage']['2']; fr = r['friction']
-    frict = (f' The spare capacity also sits far from the stranded buyers — reshuffled supply travels '
+    frict = (f' The spare capacity also sits far from the stranded buyers: reshuffled supply travels '
              f'~{fr:.1f}× farther than {L}’s current flows.') if fr and fr >= 1.3 else ''
     if c2 < 0.5:
         r['kind'] = 'uncoverable'
@@ -155,15 +155,15 @@ for r in out.values():
                         f'{c2:.0%} of {L}’s lost exports; full coverage needs {cap_txt}.' + frict)
     elif ha >= hb:
         r['kind'] = 'backfire'
-        r['verdict'] = (f'Diversification backfires — removing {L} hands the chokepoint to {nl} and '
-                        f'concentration RISES (HHI {hb:.2f}→{ha:.2f}). The runner-up is the real problem.' + frict)
+        r['verdict'] = (f'Removing {L} makes things worse: it hands the chokepoint to {nl} and '
+                        f'concentration rises (HHI {hb:.2f}→{ha:.2f}). The runner-up becomes the problem.' + frict)
     elif ha >= 0.25:
         r['kind'] = 'shifts'
-        r['verdict'] = (f'Removing {L} only shifts the chokepoint to {nl} — still concentrated '
+        r['verdict'] = (f'Removing {L} only shifts the chokepoint to {nl}, which is still concentrated '
                         f'(HHI {hb:.2f}→{ha:.2f}); covered only by a {"3" if r["coverage"]["3"]>=0.99 else "5"}× scale-up.' + frict)
     else:
         r['kind'] = 'diversifies'
-        r['verdict'] = (f'Removing {L} genuinely de-concentrates (HHI {hb:.2f}→{ha:.2f}); the freed '
+        r['verdict'] = (f'Removing {L} de-concentrates supply (HHI {hb:.2f}→{ha:.2f}); the freed '
                         f'demand is coverable if survivors scale ~{"2" if c2>=0.99 else "3+"}×.' + frict)
 
 # rank: worst first -- structurally uncoverable (low coverage at kappa=2) and high stress
@@ -259,18 +259,18 @@ PAGE = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · optimal transport on real trade flows</div>
   <h1>For some materials no reallocation covers the loss, and for more it makes things worse</h1>
-  <p class="deck">The fallback test asks <i>is there another exporter?</i> This asks the harder question: if a refining chokepoint is <b>cut</b>, can the world&rsquo;s <b>remaining export capacity actually cover it</b> — or does removing the leader just hand the chokepoint to the next player, and who is left stranded? We model the shock as the loss of the leader&rsquo;s <b>exports</b> (the only supply that was ever redirectable) and reallocate its freed demand across every surviving exporter by <b>optimal transport</b> — minimum geographic cost on the real bilateral trade matrix. Three numbers fall out: how hard the rest must scale, whether removal actually de-concentrates, and how much demand is <i>structurally uncoverable</i>.</p>
+  <p class="deck">The fallback test asks whether there is another exporter. This page asks a harder question: if a refining chokepoint is cut, whether the world&rsquo;s remaining export capacity can cover it, or whether removing the leader hands the chokepoint to the next country and leaves some buyers without supply. The shock is modelled as the loss of the leader&rsquo;s exports (the only supply that could ever be redirected). Its freed demand is reallocated across every surviving exporter by optimal transport, at minimum geographic cost on the recorded bilateral trade matrix. The result is three numbers: how far the rest must scale, whether removal de-concentrates supply, and how much demand is structurally uncoverable.</p>
 </div></section>
 <article style="max-width:1180px">
-  <div class="callout"><b>Why &ldquo;is there a fallback?&rdquo; is the wrong question.</b> A fallback exporter is not free capacity — it is already serving its own customers. The real questions are whether the <i>spare</i> capacity, scaled to a plausible ceiling, can cover the cut; whether removing the leader <b>de-concentrates or just shifts</b> the chokepoint to a runner-up (sometimes it makes concentration <i>worse</i>); and whether the spare sits <i>near</i> the stranded buyers or far away. Optimal transport answers all three on the actual flow matrix. The materials flagged <i>structurally uncoverable</i> here are deliberately <b>not</b> the same set as the export-fallback <a href="refiners.html">single points of failure</a> — this is the stricter capacity test, so it names a different list.
+  <div class="callout"><b>Why the fallback test is not enough.</b> A fallback exporter is not free capacity: it is already serving its own customers. The questions that matter are whether the spare capacity, scaled to a plausible ceiling, can cover the cut; whether removing the leader de-concentrates supply or only shifts the chokepoint to a runner-up (sometimes it makes concentration worse); and whether the spare capacity sits near the stranded buyers or far away. Optimal transport answers all three on the recorded flow matrix. The materials flagged structurally uncoverable here are deliberately not the same set as the export-fallback <a href="refiners.html">single points of failure</a>. This is the stricter capacity test, so it names a different list.
   <details class="howto"><summary>Method &amp; caveats</summary>
   <p><b>N−1 stress</b> = 1/(1−f), where f is the leader&rsquo;s share of world <i>exports</i>: the factor by which every other exporter must scale to cover the same demand. <b>Concentration</b> is the export HHI before, and after the leader is removed and survivors are renormalised (the runner-up&rsquo;s new share). <b>Coverage@κ</b> assumes each surviving exporter can scale its exports up to κ× current; spare = (κ−1)×current, coverage = min(1, Σspare / freed). <b>Reshuffle &amp; friction</b>: entropic optimal transport (Sinkhorn) reallocates the leader&rsquo;s freed demand onto survivors at minimum great-circle cost between country centroids; friction = mean distance the reshuffled supply travels ÷ the leader&rsquo;s original mean shipping distance (&gt;1 = spare sits farther away).</p>
-  <p class="howto-src"><b>Caveats.</b> This is <b>export-based by construction</b> — it models the loss of what the leader <i>ships</i>, which is the correct frame for reallocation (a domestic-consuming refiner&rsquo;s output was never available to importers), but it means the leader&rsquo;s share here is an <i>export</i> share, not a production share. The κ scale-up ceiling is an explicit assumption, not a forecast — read coverage as &ldquo;how much slack exists at ceiling κ,&rdquo; not a prediction; where USGS publishes real forward capacity we <b>ground it in the data</b> (see &ldquo;Under real capacity plans&rdquo; below), and it shows the abstract κ flatters the real plans. Distance is a crude friction proxy (centroid great-circle, not shipping cost or capability). <b>Shared HS codes.</b> Gallium, germanium and hafnium are read from one code (811292) that mixes several metals, so those rows are a basket. This is a stress test of <i>today&rsquo;s</i> trade structure, not the post-diversification world the <a href="breakout.html">Break the chokepoint</a> page tracks. Built by <code>build_ot.py</code> on CEPII BACI. <b>See also</b> <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="scenarios.html">shock scenarios</a>, <a href="cascade.html">the supply-shock cascade</a>, and <a href="breakout.html">the decision layer</a>.</p>
+  <p class="howto-src"><b>Caveats.</b> This is export-based by construction. It models the loss of what the leader ships, which is the correct frame for reallocation (a domestic-consuming refiner&rsquo;s output was never available to importers), but it means the leader&rsquo;s share here is an export share, not a production share. The κ scale-up ceiling is an explicit assumption, not a forecast: read coverage as &ldquo;how much slack exists at ceiling κ,&rdquo; not a prediction. Where USGS publishes forward capacity, the page uses those figures instead (see &ldquo;Under real capacity plans&rdquo; below), and they show that the abstract κ is more optimistic than the actual plans. Distance is a crude friction proxy (centroid great-circle, not shipping cost or capability). <b>Shared HS codes.</b> Gallium, germanium and hafnium are read from one code (811292) that mixes several metals, so those rows are a basket. This is a stress test of today&rsquo;s trade structure, not the post-diversification world the <a href="breakout.html">Break the chokepoint</a> page tracks. Built by <code>build_ot.py</code> on CEPII BACI. <b>See also</b> <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="scenarios.html">shock scenarios</a>, <a href="cascade.html">the supply-shock cascade</a>, and <a href="breakout.html">the decision layer</a>.</p>
   </details></div>
 
   <div style="margin:1.4rem 0">
   <h2 style="font-size:1.3rem;color:#15323a;margin:0 0 .3rem;letter-spacing:-.01em">Under real capacity plans, not just an assumption</h2>
-  <p style="color:#42514f;font-size:.95rem;line-height:1.55;max-width:74ch;margin:.2rem 0 .8rem">The coverage above rests on an explicit assumption &mdash; that survivors could scale to <b>κ×</b> current output. For the __CAPN__ commodities where the <b>USGS World Minerals Outlook</b> publishes actual forward capacity (to 2029), we ground it in the real number, on a consistent <b>production</b> basis: the share of world capacity held by the country with the most of it, and the capacity actually projected to be built. The &ldquo;real coverage&rdquo; column is a <b>generous upper bound</b> &mdash; it assumes every projected new tonne of capacity is spare, exportable and outside the cut country, ignoring baseline demand growth &mdash; so the true figure is lower still. Even so, two failure modes fall out, and only lithium escapes both.</p>
+  <p style="color:#42514f;font-size:.95rem;line-height:1.55;max-width:74ch;margin:.2rem 0 .8rem">The coverage above rests on an explicit assumption: that survivors could scale to κ× current output. For the __CAPN__ commodities where the <b>USGS World Minerals Outlook</b> publishes actual forward capacity (to 2029), we ground it in the real number, on a consistent <b>production</b> basis: the share of world capacity held by the country with the most of it, and the capacity actually projected to be built. The &ldquo;real coverage&rdquo; column is a generous upper bound. It assumes every projected new tonne of capacity is spare, exportable and outside the cut country, and it ignores baseline demand growth, so the true figure is lower still. Even so, two failure modes appear, and only lithium avoids both.</p>
   <div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px">
   <thead><tr style="border-bottom:2px solid #15323a;text-align:left">
     <th style="padding:.4rem .5rem">Material (country with the most capacity, its share of world capacity in 2024)</th>
@@ -343,7 +343,7 @@ function render(){
   const rows=Object.values(D.materials).filter(r=>active.has(r.kind)&&(!q||(r.name+' '+r.leader_name+' '+r.new_leader_name).toLowerCase().includes(q)))
     .sort((a,b)=>a.coverage['2']-b.coverage['2']||b.leader_export_share-a.leader_export_share);
   const g=document.getElementById('grid');
-  g.innerHTML=rows.length?rows.map(card).join(''):`<div class="empty">No materials match — widen the filters or clear the search.</div>`;
+  g.innerHTML=rows.length?rows.map(card).join(''):`<div class="empty">No materials match. Widen the filters or clear the search.</div>`;
 }
 render();
 
@@ -393,8 +393,8 @@ function drawMap(){
     h+=`<text class="lbl2" x="${(p[0]+6).toFixed(1)}" y="${(p[1]+3).toFixed(1)}">${iso}</text>`; });
   svg.innerHTML=h;
   const cap=document.getElementById('mapcap');
-  if(phase==='before') cap.innerHTML=`<b>${m.leader_name}</b> ships ~${(m.leader_export_share*100).toFixed(0)}% of world ${m.name} exports — the red arcs are its actual destinations. Hit &ldquo;after the cut&rdquo; to see where the freed demand would have to come from instead.`;
-  else cap.innerHTML=`With <b>${m.leader_name}</b> cut (✕), optimal transport reallocates its freed demand across surviving exporters at minimum distance (teal). ${m.friction&&m.friction>=1.3?`The reshuffle travels ~${m.friction}× farther — spare capacity sits far from the buyers. `:''}${m.coverage['2']<0.5?`But even doubling every survivor covers only ${(m.coverage['2']*100).toFixed(0)}% of the gap.`:''}`;
+  if(phase==='before') cap.innerHTML=`<b>${m.leader_name}</b> ships ~${(m.leader_export_share*100).toFixed(0)}% of world ${m.name} exports; the red arcs are its recorded destinations. Select &ldquo;after the cut&rdquo; to see where the freed demand would have to come from instead.`;
+  else cap.innerHTML=`With <b>${m.leader_name}</b> cut (✕), optimal transport reallocates its freed demand across surviving exporters at minimum distance (teal). ${m.friction&&m.friction>=1.3?`The reshuffle travels ~${m.friction}× farther: spare capacity sits far from the buyers. `:''}${m.coverage['2']<0.5?`But even doubling every survivor covers only ${(m.coverage['2']*100).toFixed(0)}% of the gap.`:''}`;
 }
 drawMap();
 </script>
@@ -481,18 +481,18 @@ CAPPARA = (
     'the country that produces the most. ' + ' '.join(_diff) + '</p>\n'
     + _P + 'Two ways a cut stays uncovered. <b>(1) Concentration too high:</b> '
     + _and(['%s (%d%%)' % (r['name'].lower(), r['producer_share']) for r in G1])
-    + ' are so dominated that even if <i>everyone else doubled</i> it would cover only '
+    + ' are so dominated that even if everyone else doubled it would cover only '
     + _span([r['double_coverage'] for r in G1], _pc) + ' of a cut, and the capacity planned is no better ('
     + _span([r['capacity_growth_pct'] for r in G1], _gr) + '). '
     '<b>(2) The capacity isn&rsquo;t being built:</b> ' + _and([r['name'].lower() for r in G2])
-    + ' have leaders under 75%, so doubling <i>would</i> cover ' + _span([r['double_coverage'] for r in G2], _pc)
+    + ' have leaders under 75%, so doubling would cover ' + _span([r['double_coverage'] for r in G2], _pc)
     + ' of a cut, but USGS projects their capacity <b>'
     + ('flat or shrinking' if min(r['capacity_growth_pct'] for r in G2) < 0 else 'flat') + '</b> ('
     + _span([r['capacity_growth_pct'] for r in G2], _gr) + '), so real coverage is <b style="color:#c0392b">'
     + _span([r['real_coverage'] for r in G2], _pc) + '</b>. Only <b>' + _and([r['name'].lower() for r in ESC])
-    + '</b> (' + _span([r['capacity_growth_pct'] for r in ESC], _gr) + ' capacity) genuinely escapes. '
-    'True <i>per-country</i> ceilings don&rsquo;t exist in public data for the rest, so the κ sweep stays for them. '
-    'Where USGS data does exist, real plans are far bleaker than any &ldquo;survivors could scale&rdquo; hope. '
+    + '</b> (' + _span([r['capacity_growth_pct'] for r in ESC], _gr) + ' capacity) escapes both. '
+    'Per-country ceilings do not exist in public data for the rest, so the κ sweep stays for them. '
+    'Where USGS data exist, the actual plans are far less favourable than the assumption that survivors could scale. '
     'real coverage = min(1, capacity growth ÷ the leader&rsquo;s share of capacity); reproducible: '
     '<code>build_ot_capacity.py</code>.</p>')
 PAGE = (PAGE.replace('__CAPROWS__', CAPROWS).replace('__CAPPARA__', CAPPARA)

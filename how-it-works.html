@@ -46,7 +46,7 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · the mechanism</div>
   <h1>How the atlas works</h1>
-  <p class="deck">Not a summary of what each page shows &mdash; the actual machinery. How two countries reporting the same shipment differently become one number. How a production rule catches a false origin. What every analysis takes in and puts out. And the five checks a figure must survive before it is published.</p>
+  <p class="deck">This page describes the machinery rather than what each page shows. It explains how two countries&rsquo; different reports of the same shipment become one number, how a production rule catches a false origin, what every analysis takes in and puts out, and the five checks a figure must pass before it is published.</p>
 </div></section>
 
 <article>
@@ -55,22 +55,22 @@
   <h2 id="evidence" style="scroll-margin-top:80px">Four kinds of figure</h2>
   <p class="note" style="max-width:80ch;margin-bottom:.4rem">Not every number here is the same kind of thing. Where a figure is labelled, the label says which it is.</p>
   <ul style="max-width:80ch;line-height:1.7">
-    <li><a href="how-it-works#evidence" title="Observed: read straight from a published source" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#e2f0ec;color:#0b6f66">observed</a> Read straight from a published source &mdash; a USGS mine share, a customs value.</li>
-    <li><a href="how-it-works#evidence" title="Estimated: a gap filled where nobody measures, by the source or by us" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#fdf4e7;color:#a5641a">estimated</a> A gap filled where nobody measures, by the source or by us &mdash; germanium mining, which no country table covers.</li>
-    <li><a href="how-it-works#evidence" title="Inferred: worked out from observed figures by a stated rule" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#e6edf2;color:#15323a">inferred</a> Worked out from observed figures by a stated rule &mdash; the origin gap is an export share minus a mine share.</li>
-    <li><a href="how-it-works#evidence" title="Modelled: depends on a model with assumptions or settings" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#efe9f6;color:#5b3a85">modelled</a> Depends on a model with assumptions or settings &mdash; the nowcast, the anchor&rsquo;s corrected shares, the demand estimates, the risk-index weights. Change the setting and the number moves.</li>
+    <li><a href="how-it-works#evidence" title="Observed: read straight from a published source" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#e2f0ec;color:#0b6f66">observed</a> Read straight from a published source, such as a USGS mine share or a customs value.</li>
+    <li><a href="how-it-works#evidence" title="Estimated: a gap filled where nobody measures, by the source or by us" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#fdf4e7;color:#a5641a">estimated</a> A gap filled where nobody measures, by the source or by the atlas. Example: germanium mining, which no country table covers.</li>
+    <li><a href="how-it-works#evidence" title="Inferred: worked out from observed figures by a stated rule" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#e6edf2;color:#15323a">inferred</a> Worked out from observed figures by a stated rule. Example: the origin gap is an export share minus a mine share.</li>
+    <li><a href="how-it-works#evidence" title="Modelled: depends on a model with assumptions or settings" style="display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;vertical-align:.12em;text-decoration:none;white-space:nowrap;background:#efe9f6;color:#5b3a85">modelled</a> Depends on a model with assumptions or settings. Examples: the nowcast, the anchor&rsquo;s corrected shares, the demand estimates, the risk-index weights. If a setting changes, the number moves.</li>
   </ul>
 
   <h2>The engine, step by step</h2>
-  <p class="note" style="max-width:80ch;margin-bottom:.4rem">Five operations turn raw public files into the figures on the site. Each is stated with its actual rule, because &ldquo;we reconcile the data&rdquo; is not a method.</p>
+  <p class="note" style="max-width:80ch;margin-bottom:.4rem">Five operations turn raw public files into the figures on the site. Each is given with its rule, because saying that the data are reconciled is not a method.</p>
 
   <div class="step"><div class="num">1</div><div>
     <h3>Decide who to believe</h3>
-    <p>Every shipment is reported twice &mdash; once by the exporter, once by the importer &mdash; and the two rarely agree. Import values also include freight and insurance that export values do not, so they are not even measuring the same thing. The engine first removes that wedge by estimating the CIF/FOB markup, then combines the two sides. Version 1 uses an <b>equal-weighted geometric mean</b> of the adjusted pair.</p>
-    <p>Reporters are also scored, so that combination can improve. Each country&rsquo;s systematic bias is estimated by <b>robust two-way median centering</b> (removing partner and product effects), and its <b>reliability = 1 / residual variance</b>, shrunk toward the average so a country with few flows cannot look artificially precise.</p>
+    <p>Every shipment is reported twice, once by the exporter and once by the importer, and the two rarely agree. Import values also include freight and insurance that export values leave out, so the two do not measure the same thing. The engine first removes that wedge by estimating the CIF/FOB markup, then combines the two sides. Version 1 uses an equal-weighted geometric mean of the adjusted pair.</p>
+    <p>Reporters are also scored, so that combination can improve. Each country&rsquo;s systematic bias is estimated by robust two-way median centering (removing partner and product effects), and its reliability = 1 / residual variance, shrunk toward the average so a country with few flows cannot look artificially precise.</p>
     <div class="io"><div><div class="k">Input</div><div class="v">Both sides of each bilateral flow (CEPII BACI, UN Comtrade mirrors)</div></div>
       <div><div class="k">Method</div><div class="v">CIF/FOB adjustment &rarr; geometric mean of the pair; reporter bias and reliability estimated separately</div></div>
-      <div><div class="k">Output</div><div class="v"><code>flows_reconciled</code> &mdash; one agreed value per flow, plus a quality score per reporter</div></div></div>
+      <div><div class="k">Output</div><div class="v"><code>flows_reconciled</code>: one agreed value per flow, plus a quality score per reporter</div></div></div>
   </div></div>
 
   <div class="step"><div class="num">2</div><div>
@@ -83,13 +83,13 @@
 
   <div class="step"><div class="num">3</div><div>
     <h3>Apply the attribution rule</h3>
-    <p>Trade data says where a shipment came <i>from</i>, not where the material was <i>mined</i> &mdash; a refiner or a hub can export what it never mined. So the atlas applies an attribution rule: a country is credited as the mine origin of no more than it produced, minus what it used at home.</p>
-    <p>This is a rule of thumb, not a law of physics. It assumes a country serves its own use from its own mines first, so it can under-credit a country that both mines and imports. Only under-crediting of producers is corrected; anything else is flagged, not changed. Full method and results: <a href="anchor">the production-constrained anchor</a>.</p>
+    <p>Trade data says where a shipment came from, not where the material was mined. A refiner or a hub can export what it never mined. So the atlas applies an attribution rule: a country is credited as the mine origin of no more than it produced, minus what it used at home.</p>
+    <p>This is a rule of thumb. It assumes a country serves its own use from its own mines first, so it can under-credit a country that both mines and imports. Only under-crediting of producers is corrected; anything else is flagged, not changed. Full method and results: <a href="anchor">the production-constrained anchor</a>.</p>
     <div class="formula">exportable(c)       = max(0, production(c) − consumption(c))
 exportable_share(c) = exportable(c) / Σ exportable        · the production prior
 guardrailed(c)      = min(observed_share(c), exportable_share(c))   · attribution cap
 corrected(c)        ≈ w·guardrailed(c) + (1−w)·exportable_share(c)  · w = 0.5</div>
-    <p style="margin-top:.5rem">The weight <b>w</b> is how much we trust the trade record against the production prior. It is set at 0.5 and documented as a knob, not a discovery &mdash; which means <b>a corrected share is the midpoint of a range, never a point finding</b>, and the pages say so.</p>
+    <p style="margin-top:.5rem">The weight <b>w</b> sets how much the trade record counts against the production prior. It is set at 0.5 and documented as a setting, not a finding. A corrected share is therefore the midpoint of a range, never a point finding, and the pages say so.</p>
     <div class="io"><div><div class="k">Input</div><div class="v">Reconciled flows + production + the consumption estimate from step 4</div></div>
       <div><div class="k">Method</div><div class="v">Mine-origin credit capped at production minus home use, then a documented blend</div></div>
       <div><div class="k">Output</div><div class="v">Corrected origin shares with the size of each correction shown</div></div></div>
@@ -97,28 +97,28 @@ corrected(c)        ≈ w·guardrailed(c) + (1−w)·exportable_share(c)  · w =
 
   <div class="step"><div class="num">4</div><div>
     <h3>Estimate what a country actually uses</h3>
-    <p>Consumption is mostly unpublished, so it is estimated from what a country visibly <i>does</i> &mdash; how much steel it makes, how many cars, how much construction &mdash; times how much of each material that activity needs. The intensities are not guessed. Each is <b>back-solved from a known world total</b>, so the country cells can be uncertain but the world sum cannot drift:</p>
+    <p>Consumption is mostly unpublished, so it is estimated from visible activity (how much steel a country makes, how many cars, how much construction) times how much of each material that activity needs. The intensities are not guessed. Each is back-solved from a known world total, so the country cells can be uncertain but the world sum cannot drift:</p>
     <div class="formula">intensity(m, driver) = KNOWN_WORLD(m) × end_use_share(m, driver) / WORLD_TOTAL(driver)
 demand(c, m)         = Σ over drivers  activity(c, driver) × intensity(m, driver)</div>
-    <p style="margin-top:.5rem">This is deliberately <b>trade-independent</b>: it never looks at imports, which is what lets it be used as an independent check on the trade data in step 3 rather than a restatement of it.</p>
+    <p style="margin-top:.5rem">The estimate is built without trade data: it never looks at imports, so it can serve as an independent check on the trade data in step 3 rather than a restatement of it.</p>
     <div class="io"><div><div class="k">Input</div><div class="v">National activity series (steel, vehicles, construction, semiconductors&hellip;) + published end-use splits</div></div>
       <div><div class="k">Method</div><div class="v">Activity &times; self-calibrating intensity, anchored to a known world total</div></div>
-      <div><div class="k">Output</div><div class="v">Demand by country and material &mdash; an order-of-magnitude estimate, labelled as one</div></div></div>
+      <div><div class="k">Output</div><div class="v">Demand by country and material: an order-of-magnitude estimate, labelled as one</div></div></div>
   </div></div>
 
   <div class="step"><div class="num">5</div><div>
     <h3>Turn it into indices</h3>
-    <p>Shares become comparable measures: concentration (HHI of national shares), a weighted supply-risk score, resilience under supplier removal. Where an input is an interval rather than a measurement, the index <b>carries a score band and a rank band</b> instead of pretending to a point.</p>
+    <p>Shares become comparable measures: concentration (HHI of national shares), a weighted supply-risk score, resilience under supplier removal. Where an input is an interval rather than a measurement, the index carries a score band and a rank band instead of a single point.</p>
     <div class="io"><div><div class="k">Input</div><div class="v">Production, refining and trade shares; recycling rates; origin gaps</div></div>
       <div><div class="k">Method</div><div class="v">Explicit weights, published and adjustable; uncertainty propagated, not hidden</div></div>
       <div><div class="k">Output</div><div class="v"><a href="risk-index">the reweightable index</a>, <a href="concentration">concentration</a>, <a href="n1">N&minus;1</a></div></div></div>
   </div></div>
 
   <h2>What each analysis takes in, and puts out</h2>
-  <p class="note" style="max-width:80ch;margin-bottom:.6rem">Six analyses, each attacking supply risk from a different side. Same question for each: what goes in, what is done to it, what comes out.</p>
+  <p class="note" style="max-width:80ch;margin-bottom:.6rem">Six analyses, each approaching supply risk from a different side. For each: what goes in, what is done to it, and what comes out.</p>
 
   <div class="layer"><h3>1 · Value chains</h3>
-    <div class="q">Where does this material actually come from, stage by stage?</div>
+    <div class="q">Where does this material come from, stage by stage?</div>
     <div class="io"><div><div class="k">In</div><div class="v">Production by stage, reconciled trade, published chain literature per material</div></div>
       <div><div class="k">Method</div><div class="v">Trace mine &rarr; concentrate &rarr; refine &rarr; component; attach the leading producers to each stage</div></div>
       <div><div class="k">Out</div><div class="v"><a href="value-chains">57 chain pages</a> + 59 material and country profiles, each with a research library</div></div></div></div>
@@ -136,33 +136,33 @@ demand(c, m)         = Σ over drivers  activity(c, driver) × intensity(m, driv
       <div><div class="k">Out</div><div class="v"><a href="risk-index">Risk scores</a>, <a href="n1">N&minus;1 coverage</a>, <a href="ot">stress test</a>, <a href="leverage">importer exposure</a></div></div></div></div>
 
   <div class="layer"><h3>4 · Trade engine + anchor</h3>
-    <div class="q">Which trade numbers do we actually believe?</div>
+    <div class="q">Which trade numbers can be trusted?</div>
     <div class="io"><div><div class="k">In</div><div class="v">Both sides of every flow, from seven overlapping sources</div></div>
       <div><div class="k">Method</div><div class="v">Steps 1&ndash;3 above: reconcile, de-duplicate, then cap mine-origin credit at production minus home use</div></div>
-      <div><div class="k">Out</div><div class="v"><a href="anchor">The anchor</a> &mdash; corrected origin shares, each with the size of its correction</div></div></div></div>
+      <div><div class="k">Out</div><div class="v"><a href="anchor">The anchor</a>: corrected origin shares, each with the size of its correction</div></div></div></div>
 
   <div class="layer"><h3>5 · Concentration</h3>
-    <div class="q">Did supply actually get more concentrated?</div>
-    <div class="io"><div><div class="k">In</div><div class="v">Production tonnages only &mdash; no trade, no model, no forecast</div></div>
+    <div class="q">Did supply become more concentrated?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Production tonnages only, with no trade, model or forecast</div></div>
       <div><div class="k">Method</div><div class="v">HHI of national shares per decade, then leave-one-out and a frozen pre-window definition to test whether the result is an artefact</div></div>
       <div><div class="k">Out</div><div class="v"><a href="concentration">The finding</a>: the story runs two ways, and the cited average is two materials</div></div></div></div>
 
   <div class="layer"><h3>6 · Cross-source comparison</h3>
-    <div class="q">Does a second compilation report the same numbers we do?</div>
+    <div class="q">Does a second compilation report the same numbers as the atlas?</div>
     <div class="io"><div><div class="k">In</div><div class="v">The cube: BGS national sums against USGS world estimates, paired form by form</div></div>
-      <div><div class="k">Method</div><div class="v">Explicitly declared pairings &mdash; never matched on material name &mdash; then the ratio of the two sums</div></div>
+      <div><div class="k">Method</div><div class="v">Explicitly declared pairings (never matched on material name), then the ratio of the two sums</div></div>
       <div><div class="k">Out</div><div class="v"><a href="comparison">34 of 53 within 10%</a>, and a recorded reason for every figure that differs</div></div></div></div>
 
   <h2>The five checks a number passes before it appears</h2>
-  <p class="lead" style="margin-bottom:.2rem">This is the part worth knowing before you use anything here. Most publishing on critical minerals gives you a number. The atlas gives you the number <i>and</i> what it is worth &mdash; and takes numbers down in public when they fail. Every figure runs this gauntlet.</p>
+  <p class="lead" style="margin-bottom:.2rem">These checks are worth knowing before using anything here. The atlas gives each number together with how far it can be trusted, and takes numbers down in public when they fail. Every figure goes through these checks.</p>
 
-  <div class="gate"><span class="n">1 · Mechanical</span><p>Nothing is published if a link is broken, a dataset a page depends on is missing, or a retracted figure has reappeared. This runs before every single deployment and has <b>never been bypassed</b>.</p></div>
-  <div class="gate"><span class="n">2 · Provenance</span><p>Every estimate carries a clickable basis note naming the source, the quoted row and the computation. <b>Reported, computed and estimated are never silently mixed</b> &mdash; and a figure with no recorded source says so on its face rather than borrowing the authority of the ones that have it.</p></div>
-  <div class="gate"><span class="n">3 · Adversarial</span><p>Findings are attacked before publication, not after. The <a href="concentration">concentration finding</a> went through five review passes and two complete framings were discarded, because a claim that only survives friendly reading is not a finding.</p></div>
+  <div class="gate"><span class="n">1 · Mechanical</span><p>Nothing is published if a link is broken, a dataset a page depends on is missing, or a retracted figure has reappeared. This runs before every deployment and has never been bypassed.</p></div>
+  <div class="gate"><span class="n">2 · Provenance</span><p>Every estimate carries a clickable basis note naming the source, the quoted row and the computation. Reported, computed and estimated figures are never mixed without a label, and a figure with no recorded source says so rather than borrowing the authority of the ones that have one.</p></div>
+  <div class="gate"><span class="n">3 · Adversarial</span><p>Findings are challenged before publication. The <a href="concentration">concentration finding</a> went through five review passes, and two complete framings were discarded, because a claim that survives only a friendly reading is not a finding.</p></div>
   <div class="gate"><span class="n">4 · Drift</span><p>A corrected source does not correct its copies. Every derived figure is compared against the source it was copied from, so a page cannot keep publishing a number the rest of the site has already retracted.</p></div>
   <div class="gate"><span class="n">5 · Census</span><p>A sum over a handful of reporting countries is not a world total, however plausible it looks. <b>13 of 53</b> materials fail that test &mdash; including lithium and rare earths &mdash; and the pages that use them say so rather than quietly rounding the limitation away.</p></div>
 
-  <div class="callout" style="margin-top:1.4rem"><b>What this cannot do.</b> The atlas measures public data, so it inherits what public data cannot see: artisanal and informal output that never enters a national return, company-confidential cells, and stockpiles nobody publishes. Consumption is an estimate and is labelled as one. Corrected origin shares are midpoints of a documented range, not measurements. Where two sources disagree we <a href="comparison">show both and explain the difference</a> rather than picking a winner. <a href="limitations">The full limits page</a> states the rest, and <a href="challenge">the challenge page</a> invites you to break any of it.</div>
+  <div class="callout" style="margin-top:1.4rem"><b>What this cannot do.</b> The atlas measures public data, so it inherits what public data cannot see: artisanal and informal output that never enters a national return, company-confidential cells, and stockpiles nobody publishes. Consumption is an estimate and is labelled as one. Corrected origin shares are midpoints of a documented range, not measurements. Where two sources disagree, the atlas <a href="comparison">shows both and explains the difference</a> rather than picking one. <a href="limitations">The full limits page</a> states the rest, and <a href="challenge">the challenge page</a> invites readers to break any of it.</div>
 
   <div class="ftr"><a href="method">Method hub</a> &middot; <a href="data">Download the data</a> &middot; <a href="comparison">Cross-source comparison</a> &middot; <a href="limitations">Limits</a></div>
 </article>

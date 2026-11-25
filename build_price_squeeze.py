@@ -162,13 +162,13 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · falsification</div>
   <h1>Does the market already show the squeeze?</h1>
-  <p class="deck">The <a href="demand.html" style="color:#fff;text-decoration:underline">squeeze thesis</a> predicts that where demand rises and supply is by-product-locked, pressure escapes into price. That is a testable claim &mdash; so test it. This page checks the atlas&rsquo;s own implied-price series against the squeeze, and reports what the data says, including where it <i>refuses</i> to cooperate.</p>
+  <p class="deck">The <a href="demand.html" style="color:#fff;text-decoration:underline">squeeze thesis</a> predicts that where demand rises and supply is by-product-locked, pressure shows up in price. That claim can be tested. This page checks the atlas&rsquo;s own implied-price series against the squeeze index, and reports what the data show, including where they do not fit.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the price test is built (and its limits)</summary>
-  <p>Price = the <b>implied world unit value</b> (trade value &divide; quantity, $/tonne) from BACI, per material, 2002&ndash;2024 &mdash; the same series behind the <a href="volume.html">value-vs-volume page</a>. We take the 2018&rarr;2024 change and correlate it across materials against the <a href="demand.html">squeeze index</a> and companionality.</p>
-  <p class="howto-src"><b>Limits (important):</b> trade unit values are <i>not</i> spot prices &mdash; they mix grade, product form and contract lags, are <b>nominal</b> (not inflation-adjusted), and are noisy for thinly-traded materials. <b>Gallium, germanium and hafnium are read from one HS6 code (811292)</b>, so they carry <i>identical</i> unit values (marked “shared code”) and are counted once in the correlations, not three times. This is a directional corroboration test, not a price model; a weak or mixed correlation is a real result, not a bug. Inputs: <a href="out/volume.json">volume.json</a> &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/price_squeeze.json">price_squeeze.json</a>.</p>
+  <p>Price = the <b>implied world unit value</b> (trade value &divide; quantity, $/tonne) from BACI, per material, 2002&ndash;2024, the same series behind the <a href="volume.html">value-vs-volume page</a>. The page takes the 2018&rarr;2024 change and correlates it across materials against the <a href="demand.html">squeeze index</a> and companionality.</p>
+  <p class="howto-src"><b>Limits:</b> trade unit values are not spot prices. They mix grade, product form and contract lags, are nominal (not inflation-adjusted), and are noisy for thinly traded materials. Gallium, germanium and hafnium are read from one HS6 code (811292), so they carry identical unit values (marked “shared code”) and are counted once in the correlations, not three times. This is a directional corroboration test, not a price model; a weak or mixed correlation is a real result, not a bug. Inputs: <a href="out/volume.json">volume.json</a> &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/price_squeeze.json">price_squeeze.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -176,16 +176,16 @@ HTML = r'''<!doctype html>
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Squeeze vs realised price change, 2018&ndash;2024</h2>
-  <p class="muted" style="margin-top:0"><b>Right</b> = higher squeeze index (surging demand + inelastic supply). <b>Up</b> = the implied price actually rose over 2018&ndash;24. If the thesis were mechanical, everything would sit on a rising diagonal &mdash; watch where it doesn&rsquo;t.</p>
+  <p class="muted" style="margin-top:0"><b>Right</b> = higher squeeze index (surging demand + inelastic supply). <b>Up</b> = the implied price rose over 2018&ndash;24. If the thesis were mechanical, every point would sit on a rising diagonal; several do not.</p>
   <div id="scatter"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">The price record, material by material</h2>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th class="n">2024 unit value $/t</th><th class="n">change 18–24</th><th class="n">squeeze</th><th>what the price says</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">What the test refines</h2>
-  <p>The clean result would have been &ldquo;squeeze predicts price.&rdquo; The real one is sharper: what companionality changes is the <i>direction</i> of price outcomes &mdash; or rather, who decides it. Gallium and germanium &mdash; by-product-locked and hit by 2023 export controls &mdash; spiked; cobalt, equally by-product-locked, <i>fell</i> as Indonesian nickel dragged a flood of by-product cobalt to market. Same structure, opposite prices, because in each case the host&rsquo;s cycle decided. That is exactly why the <a href="host-shock.html">host-shock</a> layer matters, and it pointed to the next child: track each squeeze metal&rsquo;s price <i>against its host&rsquo;s</i> output.</p>
-  <p><b>That child came back with bad news, and it belongs here.</b> The <a href="host-coupling.html">host-coupling test</a> looked for &ldquo;the host decides&rdquo; as a <i>general law</i> and could not find it: on real prices with a valid control, the average companion&ndash;host coupling is <b>0.03</b>, and only bismuth&larr;lead survives. Testing the channel the theory actually names &mdash; the host&rsquo;s <i>output</i> &mdash; finds nothing at all. So this paragraph is narrowed to what it can carry: <b>in these episodes</b>, host and policy shocks set the direction. Gallium&rsquo;s 2023 spike and cobalt&rsquo;s Indonesian crash are documented events and are not in doubt. What is not supported is the stronger claim that companion prices <i>systematically</i> track their hosts. They track the commodity cycle, like everything else.</p>
-  <div class="note">This page once carried a second claim &mdash; that companionality also raises price <i>volatility</i>. Retesting withdrew it, and it has been removed from this page and its dataset rather than left standing: on real price series with a market-size control the gap belongs to market size, and trade unit values turn out not to measure volatility at all. The replacement is <a href="price-volatility.html">here</a>; the full record of what broke and why is on <a href="challenge.html">the error record</a>.</div>
+  <p>The simple result would have been &ldquo;squeeze predicts price.&rdquo; The actual result is more specific: what companionality changes is the direction of price outcomes, or rather who decides it. Gallium and germanium, by-product-locked and hit by 2023 export controls, spiked. Cobalt, equally by-product-locked, fell as Indonesian nickel brought a flood of by-product cobalt to market. Same structure, opposite prices, because in each case the host&rsquo;s cycle decided. That is why the <a href="host-shock.html">host-shock</a> layer matters, and it pointed to the next test: track each high-squeeze metal&rsquo;s price against its host&rsquo;s output.</p>
+  <p><b>That test came back negative, and the result belongs here.</b> The <a href="host-coupling.html">host-coupling test</a> looked for &ldquo;the host decides&rdquo; as a general law and could not find it: on real prices with a valid control, the average companion&ndash;host coupling is 0.03, and only bismuth&larr;lead survives. Testing the channel the theory names (the host&rsquo;s output) finds nothing at all. This paragraph is therefore narrowed to what it can support: in these episodes, host and policy shocks set the direction. Gallium&rsquo;s 2023 spike and cobalt&rsquo;s Indonesian crash are documented events and are not in doubt. What is not supported is the stronger claim that companion prices systematically track their hosts. They track the commodity cycle, like everything else.</p>
+  <div class="note">This page once carried a second claim: that companionality also raises price volatility. Retesting withdrew it, and it has been removed from this page and its dataset. On real price series with a market-size control the gap belongs to market size, and trade unit values turn out not to measure volatility at all. The replacement is <a href="price-volatility.html">here</a>; the full record of what broke and why is on <a href="challenge.html">the error record</a>.</div>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -198,15 +198,15 @@ function ld(u){return new Promise((res,rej)=>{const s=document.createElement('sc
 Promise.all([fetch('out/price_squeeze.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
   const cc=S.corr_squeeze_pricechange;
-  document.getElementById('lead').innerHTML='<b>Result:</b> of the '+S.n_locked+' by-product-locked metals, '+S.locked_up.length+' saw implied prices <b>surge</b> ('+S.locked_up.join(', ')+' — three of them the single Ga/Ge/Hf trade code) and '+S.locked_down.length+' <b>crash</b> ('+S.locked_down.join(', ')+') over 2018–24. Same structural inelasticity, opposite outcomes &mdash; in each case because a host or policy shock, not the metal&rsquo;s own demand, set the direction.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> of the '+S.n_locked+' by-product-locked metals, '+S.locked_up.length+' saw implied prices <b>surge</b> ('+S.locked_up.join(', ')+' — three of them the single Ga/Ge/Hf trade code) and '+S.locked_down.length+' <b>crash</b> ('+S.locked_down.join(', ')+') over 2018–24. Same structural inelasticity, opposite outcomes: in each case a host or policy shock, not the metal&rsquo;s own demand, set the direction.';
   const stats=[
     {v:(cc>0?'+':'')+cc,l:'correlation: squeeze vs 2018–24 price change (deduped for the shared Ga/Ge/Hf code)'},
     {v:S.n_locked,l:'by-product-locked metals tested (companionality ≥ 66%)'},
-    {v:S.window,l:'price window — implied trade unit values, BACI'},
-    {v:S.locked_up.length+'↑ / '+S.locked_down.length+'↓',l:'by-product-locked metals that surged vs crashed — the split'},
+    {v:S.window,l:'price window: implied trade unit values, BACI'},
+    {v:S.locked_up.length+'↑ / '+S.locked_down.length+'↓',l:'by-product-locked metals that surged vs crashed'},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>Read it honestly:</b> the raw squeeze&harr;price correlation (+'+cc+') is modest, and even that leans on gallium, germanium and hafnium &mdash; which share one HS6 code and so post the <i>identical</i> +454%, one signal masquerading as three. Strip the double-counting and what is left is <b>direction, not turbulence</b>: prices rise when supply is restricted (gallium, germanium — 2023 export controls) and fall when the host floods the market (cobalt via Indonesian nickel). In each episode a host or policy shock decided it.';
+  document.getElementById('keyline').innerHTML='<b>How to read it.</b> The raw squeeze&harr;price correlation (+'+cc+') is modest, and even that leans on gallium, germanium and hafnium, which share one HS6 code and so post the identical +454%: one signal counted three times. Without the double-counting, what remains is direction, not volatility: prices rise when supply is restricted (gallium, germanium: 2023 export controls) and fall when the host floods the market (cobalt via Indonesian nickel). In each episode a host or policy shock decided it.';
   const col={byproduct:'#c0392b',mixed:'#b07a18',primary:'#0e7c74'};
   const pts=S.rows.filter(r=>r.chg_18_24!=null).map(r=>({
     value:[r.squeeze, r.chg_18_24, r.title, r['class']],
@@ -231,8 +231,8 @@ Promise.all([fetch('out/price_squeeze.json').then(r=>r.json()),
       '<span style="color:'+(chg>15?'#c0392b':chg<-15?'#3f9b46':'#5a6b68')+';font-weight:600">'+(chg>0?'+':'')+chg+'%</span>';
     let says='&mdash;';
     const locked=r.companionality_pct>=66;
-    if(chg!=null){ if(locked&&chg>20) says='inelastic + supply squeezed — price up';
-      else if(locked&&chg<-20) says='inelastic but host oversupplied — price down';
+    if(chg!=null){ if(locked&&chg>20) says='inelastic + supply squeezed: price up';
+      else if(locked&&chg<-20) says='inelastic but host oversupplied: price down';
       else if(locked) says='inelastic, price flat';
       else if(chg>40) says='demand-driven price rise';
       else if(chg<-40) says='oversupply / demand soft';
