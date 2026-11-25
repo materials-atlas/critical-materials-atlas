@@ -85,7 +85,9 @@ Promise.all([fetch('out/demand.json').then(r=>r.json()),
     {v:S.demand_driven.length,l:'demand-driven but mineable: capital and time can answer'},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>Two different problems.</b> &ldquo;Critical and high-demand&rdquo; covers two cases. Lithium demand may rise ~8&times;, but lithium can be mined; the constraint is capital and permitting. Gallium demand also rises fast, but no gallium mine can be opened at any price, because gallium comes only with aluminium. A policy that treats both the same way (subsidising mines) helps the first group and does nothing for the second.';
+  // lithium's multiple and its scenario band come from the store (the typed ~8x was the old curated figure)
+  const li=S.rows.find(r=>r.label==='lithium');
+  document.getElementById('keyline').innerHTML='<b>Two different problems.</b> &ldquo;Critical and high-demand&rdquo; covers two cases. Lithium demand may rise '+li.demand_growth_2040.toFixed(1)+'&times; ('+li.g_low.toFixed(1)+'&ndash;'+li.g_high.toFixed(1)+'&times; across the IEA scenarios), but lithium can be mined; the constraint is capital and permitting. Gallium demand also rises fast, but no gallium mine can be opened at any price, because gallium comes only with aluminium. A policy that treats both the same way (subsidising mines) helps the first group and does nothing for the second.';
   const ocls={'very high':'o3','high':'o2','moderate':'o1','low':'o0'};
   const col={'very high':'#c0392b','high':'#d98324','moderate':'#0e7c74','low':'#9aa6ad'};
   const pts=S.rows.map(r=>({value:[r.demand_growth_2040,r.companionality_pct,r.title,r.outlook,r.squeeze],

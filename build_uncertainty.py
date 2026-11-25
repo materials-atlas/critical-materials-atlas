@@ -3,7 +3,7 @@
 Scorecard uncertainty — the hardest-cases result under Monte-Carlo, not binary thresholds.
 
 The synthesis scorecard uses hard cutoffs, so a peer reviewer's fair objection is that "only gallium and
-germanium fail 4-5 axes" is a threshold artifact: metals sitting just under a cutoff (cobalt, vanadium,
+germanium fail 4-5 axes" is a threshold artifact: metals sitting just under a cutoff (vanadium,
 hafnium) are hidden, and the pass/fail hides continuous vulnerability. This layer answers that directly.
 
 We put an explicit uncertainty on each axis input and propagate it: 20,000 Monte-Carlo draws per material,
@@ -338,11 +338,11 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
   const st=[
     {v:clear.length,l:'materials robustly in the hardest set (P ≥ 0.66 across 20k draws)'},
     {v:bl.length,l:'borderline materials the binary scorecard hid (P 0.2–0.66)'},
-    {v:(drank[0][1]*100).toFixed(0)+'%',l:'most-decisive axis among the top-10 vulnerable: '+drank[0][0].replace(/ \(.*/,'')},
+    {v:(drank[0][1]*100).toFixed(0)+'%',l:'axis failed most often among the top-10 vulnerable: '+drank[0][0].replace(/ \(.*/,'')},
     {v:S.n_draws.toLocaleString(),l:'Monte-Carlo draws per material'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>What the draws show.</b> Propagation confirms what a reviewer suspected: the &ldquo;only gallium and germanium&rdquo; line is a threshold effect. What survives is narrower: the axes that most decide the hardest set are '+drank[0][0].replace(/ \(.*/,'')+' and '+drank[1][0].replace(/ \(.*/,'')+' (supply elasticity and market thinness), not geographic concentration on its own. Concentration is common. A very small by-product market is rare, and it decides the result.';
+  document.getElementById('keyline').innerHTML='<b>What the draws show.</b> Propagation confirms part of what a reviewer suspected: the word &ldquo;only&rdquo; in &ldquo;only gallium and germanium&rdquo; is a threshold effect. The two stay at the top of the ranking, but the line behind them is soft. Among the ten most vulnerable materials, the axes failed most often are '+drank[0][0].replace(/ \(.*/,'')+' and '+drank[1][0].replace(/ \(.*/,'')+'. Those failures are common, so they do not single out a material. A very small by-product market is rare, and it is what sets the top two apart.';
   // P(hardest) bars
   const bars=document.getElementById('bars');
   bars.innerHTML=S.rows.filter(r=>r.p_hardest>=0.02||r.e_count>=2).slice(0,16).map(r=>{
@@ -389,7 +389,7 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
     '<div class="lab">r = '+o.r+'</div></div></div>').join('')+
     '<p class="muted" style="margin-top:.7rem">'+S.axis_overlap_note+'</p>';
 
-  document.getElementById('closer').innerHTML='A binary scorecard states a claim with more confidence than its inputs support. Propagating the uncertainty does two things. It confirms the robust core (gallium and germanium survive every reasonable perturbation), and it shows the contingent middle (cobalt, vanadium, hafnium and others whose status changes with a plausible change of assumption). The headline changes from &ldquo;only two metals&rdquo; to a more defensible statement: two robust, a handful contingent, and elasticity plus market thinness, rather than concentration, is what separates them.';
+  document.getElementById('closer').innerHTML='A binary scorecard states a claim with more confidence than its inputs support. Propagating the uncertainty does two things. It confirms the robust core (gallium and germanium survive every reasonable perturbation), and it shows the contingent middle (vanadium, hafnium and others whose status changes with a plausible change of assumption). The headline changes from &ldquo;only two metals&rdquo; to a more defensible statement: two robust, a handful contingent, and elasticity plus market thinness, rather than concentration, is what separates them.';
 });
 </script>
 </body></html>'''

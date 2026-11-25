@@ -79,10 +79,10 @@ under-developed holders such as Bolivia (lithium), Vietnam and Guinea. The measu
 are proven and economic, so frontier deposits still classed as "resources" (e.g. Greenland's rare earths)
 stay dim, and byproduct or abundant materials (gallium, germanium, hafnium, silicon, arsenic, and a few
 others USGS leaves blank) carry no figure.</li>
-<li><b>Mined</b>: world mine-production shares by country, from USGS Mineral Commodity Summaries (approximate).</li>
-<li><b>Refined / processed</b>: where the ore is turned into usable metal. Each material uses its best available source. For the metals it reports, BGS World Mineral Statistics gives annual refined/smelter production by country (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic; 2019–2024, with a year slider). Otherwise the source is the IEA Critical Minerals Outlook 2026, EU CRM 2023 (JRC/SCRREEN2), or USGS, whichever is the strongest published figure. Each profile shows the source it used.</li>
+<li><b>Mined</b>: world mine-production shares by country for 2024, under one source rule: the USGS Mineral Commodity Summaries table where the atlas holds one, otherwise World Mining Data, otherwise BGS World Mineral Statistics. Each profile shows the source it used. For the materials none of these sources covers (germanium, gallium, silicon, hafnium, phosphorus, helium) the shares are estimates.</li>
+<li><b>Refined / processed</b>: where the ore is turned into usable metal. Each material uses its best available source. For the metals it reports, BGS World Mineral Statistics gives annual refined/smelter production by country (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic; 2000–2024, in five-year steps before 2020, with a year slider). Otherwise the source is the IEA Critical Minerals Outlook 2026, EU CRM 2023 (JRC/SCRREEN2), or USGS, whichever is the strongest published figure. Each profile shows the source it used.</li>
 <li><b>Traded</b>: complete bilateral trade between every country pair, both directions, for each year
-2018–2024 (selectable with the year slider). The primary source is UN Comtrade, in its reconciled,
+2002–2024 (selectable with the year slider). The primary source is UN Comtrade, in its reconciled,
 mirror-harmonised form CEPII BACI. The map, globe and flow view draw this directly; arrows are
 coloured by what is shipped (raw ore or refined product). 2024 is the newest complete year (BACI release
 V202601, Jan 2026). The slider also offers a provisional 2025 and a directional 2026, built
@@ -97,10 +97,10 @@ the picture changes. The apparent origin is often the refining chokepoint, not t
 <table>
 <thead><tr><th>Material</th><th>Refined origin (traded)</th><th>Actually mined — USGS</th></tr></thead>
 <tbody>
-<tr><td>Cobalt</td><td><b>China 62%</b></td><td><b>DR Congo 76%</b>, Indonesia 10%</td></tr>
-<tr><td>Nickel</td><td><b>Norway 33%</b></td><td><b>Indonesia 67%</b>, Philippines 11%</td></tr>
-<tr><td>Tantalum</td><td><b>China 37%</b></td><td><b>DR Congo 40%</b>, Rwanda 30%</td></tr>
-<tr><td>Lithium</td><td><b>Chile 75%</b></td><td><b>Australia 52%</b>, Chile 22%</td></tr>
+<tr><td>Cobalt</td><td><b>China 62%</b></td><td><b>DR Congo 75%</b>, Indonesia 12%</td></tr>
+<tr><td>Nickel</td><td><b>Norway 33%</b></td><td><b>Indonesia 62%</b>, Philippines 10%</td></tr>
+<tr><td>Tantalum</td><td><b>China 37%</b></td><td><b>DR Congo 41%</b>, Rwanda 20% (World Mining Data)</td></tr>
+<tr><td>Lithium</td><td><b>Chile 75%</b></td><td><b>Australia 37%</b>, Chile 22%</td></tr>
 </tbody>
 </table>
 <p>So an apparent China dependence on cobalt is, upstream, a dependence on mining in Congo,
@@ -171,7 +171,7 @@ Russia step in. China's July-2023 export controls show directly in the customs r
 as three lenses laid over each other, not a single flow:</p>
 <ul>
 <li><b>Three concepts, three vintages.</b> Mine production (USGS, physical, approximate), refining
-(IEA, processing, approximate) and trade (BACI, customs value, 2018–2024) measure different things; the EU
+(IEA, processing, approximate) and trade (BACI, customs value, 2002–2024) measure different things; the EU
 lens uses Comext 2024. A row sets them side by side; it does not reconcile them into one measured chain.</li>
 <li><b>HS6 resolution.</b> In the world trade file (CEPII BACI, HS 2017 nomenclature) gallium, germanium
 and hafnium are all read from the six-digit code <code>811292</code>, which also holds unwrought indium,
@@ -220,19 +220,19 @@ run ~1.8× higher (current Comtrade has absorbed revisions and late filers since
 2025 is calibrated to BACI's 2024 scale per material. A by-product finding: CIF/FOB rates are
 not identifiable on a 31-product slice (R²≈0.01), because BACI's gravity estimation needs the full
 ~5,000-product universe. The atlas therefore falls back to a robust per-product median markup. This agreement is a consistency check, not an independent test: BACI and the atlas both start from the same customs declarations, so an error in what a country declares passes through both.</p>
-<p><b>Caveat: partial coverage.</b> Only about half of countries have filed 2025 annual data so far, so
+<p><b>Caveat: partial coverage.</b> The 2025 layer was built on 26 June 2026 and has not been rebuilt since. At that date only about half of countries had filed 2025 annual data (76 reporters in the pull, against 136 for 2024), so
 2025 is provisional: stable monopolies (niobium, gallium) hold, but a material that leans on a
-country which has not yet reported (e.g. bauxite, whose dominant Guinea→China flow China has not filed)
-is distorted. Treat 2025 as indicative, not measured. Every earlier year (2018–2024) is reconciled CEPII
+country which has not yet reported (e.g. bauxite, whose dominant Guinea→China flow China had not filed)
+is distorted. Treat 2025 as indicative, not measured. Every earlier year (2002–2024) is reconciled CEPII
 BACI, untouched by this.</p>
-<p><b>2026 (labelled &ldquo;scenario&rdquo;) goes one step further: it is a directional scenario.</b> The year is barely
-underway, so there is no annual data at all; only ~one quarter of monthly trade exists. Rather than
+<p><b>2026 (labelled &ldquo;scenario&rdquo;) goes one step further: it is a directional scenario.</b> It was built on 26 June 2026,
+when no annual data existed for the year and only the first quarter of monthly trade had been filed. It has not been rebuilt since. Rather than
 invent a structure, it carries 2025's reconciled bilateral structure forward and scales each material by
 its Q1-2026 vs Q1-2025 export momentum (reporter-matched, from monthly Comtrade) blended with the
 change in its commodity price (World Bank Pink Sheet, for the ~7 base metals it covers). One
 quarter cannot credibly predict who trades with whom, so shares are held at 2025 and only levels
 move: platinum rises (corroborated by a ~2× price move), antimony and graphite fall (export-control
-pressure). It is a trend signal, showing where each material is heading as of mid-2026, not a measurement.</p>
+pressure). It is a trend signal, showing where each material was heading in mid-2026, not a measurement.</p>
 
 <h2>Validation &amp; failure cases</h2>
 <p>The reconciliation engine (<a href="https://github.com/materials-atlas/critical-materials-atlas">comtrade-reconcile</a>,
@@ -243,8 +243,8 @@ shares and concentration), not on a global level correlation.</p>
 <tr><td><b>2022</b> (settled year)</td><td class="n">22/30</td><td class="n">2.43/3</td><td class="n">3.9%</td><td class="n">0.89</td><td class="n">~1.5×</td></tr>
 </tbody></table>
 <p>The figures above are for exporters. Importers validate similarly (2024: top-1 22/30,
-share MAE 4.2%, HHI corr 0.97), so both sides of the bilateral matrix hold. The validation is reproducible
-in CI from committed data (no API key); see the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</p>
+share MAE 4.2%, HHI corr 0.97), so both sides of the bilateral matrix hold. The validation starts from raw UN Comtrade declarations, which are not redistributed, so it is run on the maintainer&rsquo;s machine before each release and not in CI. CI reproduces the out-of-sample backtest and the origin-gap finding
+from committed data (no API key); see the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</p>
 <p><b>Where it is weakest (2024):</b></p>
 <ul>
 <li><b>Top-1 exporter misses</b> (5/30): fluorspar, graphite, arsenic, phosphate, tantalum. Each is a close race for first place on a diffuse code.</li>
@@ -410,10 +410,10 @@ deviations, well inside ordinary variation. The splice does not show in the seri
 2002&ndash;2024 are not artefacts of it (reproducible: <code>build_splice_sensitivity.py</code>).</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.
-<b>Mine production &amp; reserves:</b> USGS Mineral Commodity Summaries (annual editions 2020–2024, with a
+<b>Mine production:</b> 2024 shares under one source rule (USGS Mineral Commodity Summaries 2026 where the atlas holds the table, otherwise World Mining Data, otherwise BGS World Mineral Statistics). The per-layer year slider on the profiles uses a BGS World Mineral Statistics long-run series (2000–2024) where the atlas holds one, otherwise the USGS annual editions 2020–2024. <b>Reserves:</b> USGS Mineral Commodity Summaries (annual editions 2020–2024, with a
 per-layer year slider). <b>Refining shares:</b> the best source per material, BGS World Mineral Statistics (OGC API,
-annual, for the metals it reports), else IEA Critical Minerals Outlook 2026 / EU CRM 2023 / USGS. All
-sources are public and free (no API key); figures are rounded.</p>
+annual, for the metals it reports), else IEA Critical Minerals Outlook 2026 / EU CRM 2023 / USGS. The
+sources named in this section are public and free (no API key). The 2025 and 2026 layers are built from the UN Comtrade API, which needs a subscription key. Figures are rounded.</p>
 
 </article>
 

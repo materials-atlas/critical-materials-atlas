@@ -103,7 +103,7 @@ fetch('out/cobalt.json').then(r=>r.json()).then(S=>{
   const rows=[['Atlas engine (reconciled)','$'+f(S.engine_2020.total_musd)+'M','~'+S.engine_2020.drc_share+'%'],
               ['Official BACI (reality)','$'+f(S.baci_2020.total_musd)+'M','~'+S.baci_2020.drc_share+'%']];
   rows.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+r[0]+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td>';tb.appendChild(tr);});
-  document.getElementById('missnote').innerHTML='The engine reconstructs about <b>a fifth</b> of the trade and misses the DRC almost entirely, because its reliability weighting shrinks the DRC&rsquo;s large but weakly-corroborated export reports. The engine is not hand-tuned toward BACI. Instead, the reading is corrected: for cobalt, trust production and BACI (itself a reconciliation of mirror trade, but with DRC’s real ~70% mine dominance the far better guide here), not the atlas’s own reconciled series. That correction is the finding.';
+  document.getElementById('missnote').innerHTML='The engine reconstructs about <b>a fifth</b> of the trade and misses the DRC almost entirely, because its reliability weighting shrinks the DRC&rsquo;s large but weakly-corroborated export reports. The engine is not hand-tuned toward BACI. Instead, the reading is corrected: for cobalt, trust production and BACI (itself a reconciliation of mirror trade, but with DRC’s real ~'+Math.round(S.drc_mine_share)+'% mine dominance the far better guide here), not the atlas’s own reconciled series. That correction is the finding.';
 });
 </script>
 </body></html>

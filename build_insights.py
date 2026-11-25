@@ -14,6 +14,10 @@ risk = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.js
 # chokepoints that are a capability, not an ore endowment: import-fed + by-product moats (build_breakout.py)
 _moat = json.load(open(os.path.join(ROOT, 'out', 'breakout.json'), encoding='utf8'))['summary']['by_moat']
 n_capability = _moat['import-fed capability'] + _moat['by-product capability']
+# reallocation stress test (build_ot.py): materials whose loss cannot be covered even if every other exporter
+# doubles, and those where removing the leader raises concentration. Read from the store, not typed.
+_ot = json.load(open(os.path.join(ROOT, 'out', 'ot.json'), encoding='utf8'))['summary']
+ot_cant, ot_worse, ot_n = _ot['uncoverable2x'], _ot['backfire'], _ot['n']
 NAMES = flows.get('names', {})
 MATS = data['materials']
 HUBS = {'HK', 'SG', 'AE', 'PA', 'MO', 'GI'}
@@ -219,8 +223,8 @@ def main():
     </a>
     <a href="ot.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
       <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Reallocation stress test</div>
-      <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">4 can&rsquo;t &middot; 8 worse</div>
-      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">Cut a chokepoint and reallocate optimally: <b>4 of 31</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>8</b>, removal makes concentration worse. With a before/after map.</p>
+      <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">{ot_cant} can&rsquo;t &middot; {ot_worse} worse</div>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">Cut a chokepoint and reallocate optimally: <b>{ot_cant} of {ot_n}</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>{ot_worse}</b>, removal makes concentration worse. With a before/after map.</p>
       <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Run the stress test &rarr;</span>
     </a>
     <a href="leverage.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">

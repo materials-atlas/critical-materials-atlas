@@ -244,6 +244,12 @@ cyc_sig = [q for q in QT if q['p_cycle'] < 0.05]
 mean_raw = round(float(np.mean([r['best_raw'] for r in rows])), 2)
 mean_partial = round(float(np.mean([r['best_partial'] for r in rows])), 2)
 spec = [r for r in rows if r['host_specific']]
+# The deck, the meta description, the keyline and the verdict below are typed around ONE result: a single
+# surviving pair, bismuth<-lead. Stop if the data no longer say that, so the text is rewritten, not left false.
+_surv = [(r['label'], r['best_host']) for r in spec]
+if _surv != [('bismuth', 'lead')]:
+    raise SystemExit(f'build_host_coupling: the page text says only bismuth<-lead survives; the data say '
+                     f'{_surv}. Rewrite the deck, the description, the keyline and the verdict.')
 _n = int(np.median([r['n'] for r in rows]))
 _crit = stats.t.ppf(0.975, _n - 3)
 crit_r = round(float(_crit / math.sqrt(_n - 3 + _crit ** 2)), 2)
@@ -262,7 +268,7 @@ out = {
     'fdr_note': 'Hosts are PRE-SPECIFIED (one per companion, from where the metal actually comes from), '
                 'not chosen by which correlates best — the old page reported the best-matching host of two '
                 'or three, which is cherry-picking. p-values carry a Benjamini-Hochberg FDR correction '
-                'across the 18 tests: at 5% across 18 tests you expect about one false positive, so an '
+                f'across the {len(rows)} tests: at 5% across {len(rows)} tests you expect about one false positive, so an '
                 'uncorrected lone survivor is exactly what noise looks like.',
     'critical_r': crit_r, 'median_n': _n,
     'quantity_test': sorted(QT, key=lambda q: q['beta_host_output']),
@@ -342,7 +348,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; mechanism &middot; falsification</div>
   <h1>By-product metals do not follow their host metal’s output</h1>
-  <p class="deck">The atlas&rsquo;s <a href="price-squeeze" style="color:#fff;text-decoration:underline">price test</a> claimed that a by-product metal&rsquo;s price direction is set by its host&rsquo;s cycle. That is a mechanism, and a mechanism can be checked. Tested properly, it is not there. The apparent link (mean correlation 0.27) is the shared commodity cycle; once a partial correlation removes it, the link falls to 0.03. Of 18 pairs, only one survives (bismuth&larr;lead). The finding has been withdrawn. Companions track the commodity cycle in general, not the metal they are mined with.</p>
+  <p class="deck">The atlas&rsquo;s <a href="price-squeeze" style="color:#fff;text-decoration:underline">price test</a> claimed that a by-product metal&rsquo;s price direction is set by its host&rsquo;s cycle. That is a mechanism, and a mechanism can be checked. Tested properly, it is not there. The apparent link (mean correlation @@MEAN_RAW@@) is the shared commodity cycle; once a partial correlation removes it, the link falls to @@MEAN_PARTIAL@@. Of @@N_PAIRS@@ pairs, only one survives (bismuth&larr;lead). The finding has been withdrawn. Companions track the commodity cycle in general, not the metal they are mined with.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
@@ -440,5 +446,9 @@ fetch('out/host_coupling.json').then(r=>r.json()).then(S=>{
 });
 </script>
 </body></html>'''
+# the deck is static HTML: its three figures come from the computation above, the same values the JSON carries
+for _k, _v in (('@@MEAN_RAW@@', mean_raw), ('@@MEAN_PARTIAL@@', mean_partial), ('@@N_PAIRS@@', len(rows))):
+    assert HTML.count(_k) == 1, _k
+    HTML = HTML.replace(_k, str(_v))
 open(os.path.join(ROOT, 'host-coupling.html'), 'w', encoding='utf8', newline='\n').write(HTML)
 print('wrote host-coupling.html')

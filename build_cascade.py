@@ -103,6 +103,9 @@ for c, prod in country_prod.items():
                     'echo': echo, 'score': score, 'exposed': exposed}
 
 ranking = sorted(countries.values(), key=lambda d: -d['score'])
+# hit materials with no world tonnage in out/production.json (no World Mining Data sheet): named on the page
+NO_TONNES = sorted({x['title'].lower() for c in countries.values() for x in c['direct'] + c['echo']
+                    if not x.get('world_tonnes')})
 for i, r in enumerate(ranking, 1):
     r['rank'] = i
 
@@ -209,7 +212,7 @@ HTML = r'''<!doctype html>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the cascade is computed (and where it stops)</summary>
-  <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host), a second-order hit that the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. Each hit is expressed in absolute tonnes at risk = share of world supply lost &times; world production (World Mining Data 2024). The systemic score stays based on shares and rigidity on purpose: a tonnage sum would be dominated by bulk commodities, so tonnes are shown per material, not summed into the rank.</p>
+  <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host), a second-order hit that the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. Each hit is expressed in absolute tonnes at risk = share of world supply lost &times; world production (World Mining Data 2024), where that source has a sheet for the material. The systemic score stays based on shares and rigidity on purpose: a tonnage sum would be dominated by bulk commodities, so tonnes are shown per material, not summed into the rank.</p>
   <p class="howto-src"><b>Limits:</b> the echo only runs through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal), so zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for lack of their host&rsquo;s production geography. First- and second-order effects only. Price feedback is <a href="#robust">tested below</a> across a demand-elasticity band, and the top single point of failure holds. Still a structural map, not a calibrated forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
   </details></div>
 
@@ -236,7 +239,7 @@ HTML = r'''<!doctype html>
   <div class="keyline" id="robust"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Where the whole arc lands</h2>
-  <p>Ten layers built this up step by step: satellites cannot name a mineral &rarr; many minerals are by-products &rarr; by-products cannot scale &rarr; their host&rsquo;s cycle governs them &rarr; demand is surging and nationally concentrated. This page combines them: a shock lands, passes down the companion links into metals the shocked country never mined, and then reaches the blocs that buy them. The limit is the one the atlas has stated throughout: this is a structural map from public data, not a calibrated forecast. The missing piece is absolute production tonnages and real prices to turn these shares into quantities. Acquiring them is the next step, and it would turn the atlas from a demonstration into a measuring instrument.</p>
+  <p>Ten layers built this up step by step: satellites cannot name a mineral &rarr; many minerals are by-products &rarr; by-products cannot scale &rarr; demand is surging and nationally concentrated. One step did not hold: the claim that a host&rsquo;s cycle governs its by-products was tested and <a href="host-coupling.html">withdrawn</a>. This page combines the others: a shock lands, passes down the companion links into metals the shocked country never mined, and then reaches the blocs that buy them. The limit is the one the atlas has stated throughout: this is a structural map from public data, not a calibrated forecast. World production tonnages now turn the shares into quantities__NO_TONNES__. The missing piece is real prices, to turn those quantities into values. Acquiring them is the next step, and it would turn the atlas from a demonstration into a measuring instrument.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -249,7 +252,8 @@ fetch('out/cascade.json').then(r=>r.json()).then(S=>{
   const COL={CN:'#c0392b',EU:'#2b6fb0',US:'#15323a',JP:'#7d5fb0',KR:'#2f8f6b',IN:'#d98324',Other:'#c2ccca'};
   const NAME={CN:'China',EU:'EU',US:'US',JP:'Japan',KR:'Korea',IN:'India',Other:'Other'};
   const rank=S.ranking, C=S.countries, top=rank[0];
-  document.getElementById('lead').innerHTML='<b>Result:</b> the most systemic single producer is <b>'+top.name+'</b> ('+top.n_direct+' materials directly, plus '+top.n_echo+' companion echoes) &mdash; and every hit is now quantified in <b>real tonnes</b> (World Mining Data 2024), not just an index. A full China shock removes almost all of the world&rsquo;s ~987 t of gallium and ~150 t of germanium; a shock to Congo&rsquo;s copper takes extra cobalt down on top of the direct cobalt loss; a shock to Indonesia&rsquo;s nickel cuts cobalt again. Pick a producer to see the shock pass through, in tonnes.';
+  const miss=[...new Set(Object.values(C).flatMap(c=>c.direct.concat(c.echo)).filter(x=>!x.world_tonnes).map(x=>x.title.toLowerCase()))].sort();
+  document.getElementById('lead').innerHTML='<b>Result:</b> the most systemic single producer is <b>'+top.name+'</b> ('+top.n_direct+' materials directly, plus '+top.n_echo+' companion echoes). Hits are given in <b>tonnes</b> (World Mining Data 2024)'+(miss.length?', except '+miss.join(', ')+', which have no sheet in that source':'')+'. A full China shock removes almost all of the world&rsquo;s ~987 t of gallium and about two-thirds of its ~150 t of germanium; a shock to Congo&rsquo;s copper takes extra cobalt down on top of the direct cobalt loss; a shock to Indonesia&rsquo;s nickel cuts cobalt again. Pick a producer to see the shock pass through, in tonnes.';
   const sel=document.getElementById('country');
   rank.forEach(r=>{const o=document.createElement('option');o.value=r.iso;o.textContent=r.name+' — score '+r.score;sel.appendChild(o);});
   const shock=document.getElementById('shock'),shockv=document.getElementById('shockv');
@@ -283,5 +287,7 @@ fetch('out/cascade.json').then(r=>r.json()).then(S=>{
 });
 </script>
 </body></html>'''
+HTML = HTML.replace('__NO_TONNES__', (', except for ' + ', '.join(NO_TONNES) + ', which have no World Mining Data sheet')
+                    if NO_TONNES else '')
 open(os.path.join(ROOT, 'cascade.html'), 'w', encoding='utf8', newline='\n').write(HTML)
 print('wrote cascade.html')

@@ -116,7 +116,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>When supply can't respond — companionality-adjusted risk · Critical Materials Atlas</title>
-<meta name="description" content="Standard supply-risk scores assume a shortage summons new production. For by-product metals it can't. This layer re-weights the risk index by supply elasticity and shows which materials the market most under-rates.">
+<meta name="description" content="The atlas's supply-risk index implicitly assumes a shortage summons new production. For by-product metals it can't. This layer re-weights the risk index by supply elasticity and shows which materials the market most under-rates.">
 <meta property="og:title" content="When supply can't respond: risk the market under-rates">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,7 +147,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · risk · supply elasticity</div>
   <h1>Supply risk when supply cannot respond to price</h1>
-  <p class="deck">Every supply-risk score assumes that the market can answer a shortage by producing more. For the <a href="companionality" style="color:#fff;text-decoration:underline">by-product metals</a> that assumption fails, because a gallium mine cannot be opened. This layer re-weights the <a href="risk" style="color:#fff;text-decoration:underline">risk index</a> by how elastic each material&rsquo;s supply is, and shows which materials are most under-rated when supply is assumed to respond.</p>
+  <p class="deck">The atlas&rsquo;s supply-risk index implicitly assumes that the market can answer a shortage by producing more. For the <a href="companionality" style="color:#fff;text-decoration:underline">by-product metals</a> that assumption fails, because a gallium mine cannot be opened. This layer re-weights the <a href="risk" style="color:#fff;text-decoration:underline">risk index</a> by how elastic each material&rsquo;s supply is, and shows which materials are most under-rated when supply is assumed to respond.</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>

@@ -9,6 +9,7 @@
 <meta property="og:url" content="https://criticalmaterialsatlas.org/risk-index">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>
  .muted{color:#5a6b68;font-size:.86rem}
@@ -30,6 +31,18 @@
  .r .track{background:#eef3f2;border-radius:5px;height:20px;position:relative;overflow:hidden}
  .r .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#0e7c74,#15323a);transition:width .4s}
  .r .sc{font-weight:800;color:#15323a;text-align:right;font-variant-numeric:tabular-nums}
+.sliders{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1.4rem;margin:.6rem 0}
+@media(max-width:640px){.sliders{grid-template-columns:1fr}}
+.srow{display:flex;align-items:center;gap:.6rem}
+.srow label{flex:0 0 9.5rem;font-size:.85rem;font-weight:600}
+.srow input[type=range]{flex:1}
+.srow .v{flex:0 0 2.2rem;text-align:right;font-variant-numeric:tabular-nums;color:#0e7c74;font-weight:700;font-size:.85rem}
+.presets button{font:inherit;font-size:.82rem;font-weight:600;padding:.35rem .7rem;border:1px solid #cdd6d4;border-radius:7px;background:#fff;cursor:pointer;margin:0 .3rem .3rem 0}
+.presets button:hover{border-color:#0e7c74;color:#0e7c74}
+.corr{display:flex;gap:1.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.9rem}
+.corr b{color:#15323a}
+#c1{width:100%;height:430px}
+.chartwrap{background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem;margin:1rem 0}
 </style>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,6 +80,37 @@
   <h2 style="margin:1.6rem 0 .3rem">What this replaces, and why one page is better</h2>
   <p>The atlas used to carry this as several separate rankings (a value index, a tonnes index, a governance-weighted index, a recycling-adjusted index), each one an argument about which weighting is &ldquo;right&rdquo;. They were all correct and all incomplete, because the weighting is a choice, not a fact. One dial makes that visible and testable: a robust dependency (gallium, rare-earth magnets, tungsten) sits near the top however it is set; a fragile one moves. For an external check against an independent expert list, see the <a href="iea-risk-check">IEA cross-check</a>. For whether concentration is measured correctly, see the <a href="methodology#status">per-commodity status map</a>. This index takes concentration as given and shows only what it is multiplied by.</p>
   <p class="muted">Ingredients (each material&rsquo;s three HHIs, its top producer&rsquo;s governance score, its recycling rate and substitutability) are assembled by <code>build_risk_index.py</code> from the atlas&rsquo;s own <a href="out/risk_index.json">risk_index.json</a>. Governance from World Bank WGI; recycling/substitutability from USGS. Adjustments are transparent multipliers, shown below.</p>
+
+  <h2 id="eight-criteria" style="margin:2rem 0 .3rem">Weight eight criteria yourself</h2>
+  <p class="muted">A second tool on the same question. Above, the index has three bases and three switches. Here each material carries eight criteria, and the weight on each is set with a slider. It was a separate page (the index builder) until 25 November 2026.</p>
+  <div class="callout">The weights are yours to set. Set the eight sliders however you like, and all 32 materials re-rank live, with the correlation to the published index updating as you go.
+  <details class="howto"><summary>The eight criteria, and what you&rsquo;re comparing against</summary>
+  <p>Each material is scored on eight risk criteria, each normalised to 0&ndash;1 (higher = riskier): mine and refining concentration, trade concentration, China&rsquo;s share, the origin gap, lack of recycling, hard-to-substitute, and producer governance risk. Your weights combine them into a 0&ndash;100 score. The published <a href="risk">supply-risk index</a> and the data-driven <a href="riskmethods">entropy-TOPSIS</a> are two particular weightings; the correlations show how close your index lands to each.</p>
+  </details></div>
+
+  <div class="chartwrap">
+    <div class="presets" style="margin-bottom:.5rem">
+      <b style="font-size:.85rem;margin-right:.4rem">Presets:</b>
+      <button data-p="equal">Equal weights</button>
+      <button data-p="entropy">Entropy (data-driven)</button>
+      <button data-p="china">China-exposure focus</button>
+      <button data-p="gov">Governance focus</button>
+    </div>
+    <div class="sliders" id="sliders"></div>
+    <div class="corr">
+      <span>Your ranking vs the <b>published index</b>: <b id="rfix" style="color:#c0392b">–</b> (Spearman)</span>
+      <span>vs <b>entropy-TOPSIS</b>: <b id="rtop" style="color:#0e7c74">–</b></span>
+    </div>
+  </div>
+
+  <div class="chartwrap">
+    <div style="font-weight:600;font-size:.92rem;margin-bottom:.3rem">Your top-15 most-at-risk materials <span class="muted" style="font-weight:400">(bars are your score; the line marks the published index for comparison)</span></div>
+    <div id="c1"></div>
+  </div>
+
+  <h2 style="margin:1.4rem 0 .4rem">Full ranking under your weights</h2>
+  <table id="tab"><thead><tr><th class="n">#</th><th>Material</th><th class="n">your score</th><th class="n">published</th><th class="n">entropy-TOPSIS</th><th>your biggest driver</th></tr></thead><tbody></tbody></table>
+  <p class="note">Computed in-browser from <a href="out/riskmethods.json">riskmethods.json</a> (the same min-max criteria behind the entropy-TOPSIS panel). &ldquo;Biggest driver&rdquo; = the criterion contributing most to that material&rsquo;s score under your weights. A weighting exercise is a way to see your assumptions, not a forecast.</p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -106,5 +150,65 @@ document.querySelectorAll('#unit button').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
   T[c.dataset.t]=!T[c.dataset.t];c.classList.toggle('on',T[c.dataset.t]);render();});
 fetch('out/risk_index.json').then(r=>r.json()).then(d=>{DATA=d.materials;render();});
+</script>
+<script>
+(function(){
+const PRESETS={
+  equal:[1,1,1,1,1,1,1,1],
+  china:[1,1,2,5,3,0,1,1],
+  gov:[1,1,1,1,1,1,1,5]
+};
+fetch('out/riskmethods.json').then(r=>r.json()).then(R=>{
+  const CR=R.criteria, M=R.materials, K=CR.length;
+  // entropy weights aligned to criteria order
+  const wmap={}; R.weights.forEach(w=>wmap[w.crit]=w.w);
+  PRESETS.entropy=CR.map(c=>Math.round((wmap[c]||0)*100)||0);
+  if(PRESETS.entropy.every(x=>x===0)) PRESETS.entropy=PRESETS.equal.slice();
+  let W=PRESETS.equal.slice();
+  const sl=document.getElementById('sliders');
+  CR.forEach((c,j)=>{
+    const row=document.createElement('div'); row.className='srow';
+    row.innerHTML='<label>'+c+'</label><input type="range" min="0" max="10" step="1" value="'+W[j]+'" data-j="'+j+'"><span class="v" id="v'+j+'">'+W[j]+'</span>';
+    sl.appendChild(row);
+  });
+  sl.addEventListener('input',e=>{const j=+e.target.dataset.j; W[j]=+e.target.value; document.getElementById('v'+j).textContent=W[j]; render();});
+  document.querySelectorAll('.presets button').forEach(b=>b.onclick=()=>{
+    let p=PRESETS[b.dataset.p]; if(p.length<K) p=p.concat(Array(K-p.length).fill(1));
+    W=p.slice(); W.forEach((v,j)=>{const el=document.querySelector('input[data-j="'+j+'"]'); if(el){el.value=Math.min(10,v); document.getElementById('v'+j).textContent=Math.min(10,v);}}); render();
+  });
+  const c=echarts.init(document.getElementById('c1'));
+  function spearman(a,b){const n=a.length;const rk=x=>{const idx=x.map((v,i)=>[v,i]).sort((p,q)=>p[0]-q[0]);const r=Array(n);idx.forEach((e,i)=>r[e[1]]=i);return r;};
+    const ra=rk(a),rb=rk(b);const ma=(n-1)/2;let num=0,da=0,db=0;for(let i=0;i<n;i++){num+=(ra[i]-ma)*(rb[i]-ma);da+=(ra[i]-ma)**2;db+=(rb[i]-ma)**2;}return (da&&db)?num/Math.sqrt(da*db):0;}
+  function render(){
+    const ws=W.reduce((a,b)=>a+b,0)||1;
+    const scored=M.map(m=>{
+      let s=0,best=-1,bestj=0;
+      for(let j=0;j<K;j++){const contrib=(W[j]/ws)*(m.crit[j]||0); s+=contrib; if(contrib>best){best=contrib;bestj=j;}}
+      return {...m, score:Math.round(s*100), driver:CR[bestj]};
+    }).sort((a,b)=>b.score-a.score);
+    // correlations (only over materials that have a published value)
+    const withFix=scored.filter(m=>m.fixed!=null);
+    document.getElementById('rfix').textContent = withFix.length>2 ? spearman(withFix.map(m=>m.score),withFix.map(m=>m.fixed)).toFixed(2) : '–';
+    document.getElementById('rtop').textContent = spearman(scored.map(m=>m.score),scored.map(m=>m.topsis)).toFixed(2);
+    const top=scored.slice(0,15);
+    c.setOption({grid:{left:140,right:30,top:10,bottom:28},tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+      xAxis:{type:'value',max:100,name:'risk score'},
+      yAxis:{type:'category',data:top.map(m=>m.title).reverse(),axisLabel:{fontSize:11}},
+      series:[
+        {name:'your score',type:'bar',data:top.map(m=>m.score).reverse(),itemStyle:{color:'#0e7c74',borderRadius:[0,3,3,0]}},
+        {name:'published',type:'scatter',symbol:'rect',symbolSize:[3,18],data:top.map(m=>m.fixed).reverse(),itemStyle:{color:'#c0392b'}}
+      ]},true);
+    const tb=document.querySelector('#tab tbody'); tb.innerHTML='';
+    scored.forEach((m,i)=>{const tr=document.createElement('tr');
+      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+m.label+'">'+m.title+'</a></td>'+
+        '<td class="n" style="font-weight:700;color:#0e7c74">'+m.score+'</td>'+
+        '<td class="n muted">'+(m.fixed!=null?m.fixed:'—')+'</td><td class="n muted">'+Math.round(m.topsis)+'</td>'+
+        '<td class="muted">'+m.driver+'</td>';
+      tb.appendChild(tr);});
+  }
+  render();
+  window.addEventListener('resize',()=>c.resize());
+});
+})();
 </script>
 </body></html>

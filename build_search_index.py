@@ -39,6 +39,8 @@ for p in pages:
     if leaf == '404' or p.endswith('/library.html'):
         continue
     s = open(p, encoding='utf8').read()
+    if 'http-equiv="refresh"' in s:      # a redirect stub is not a page to send a visitor to (25 Nov 2026)
+        continue
     mt = re.search(r'<title>(.*?)</title>', s, re.S)
     md = re.search(r'<meta name="description" content="(.*?)"', s, re.S)
     title = html.unescape(re.sub(r'\s+', ' ', mt.group(1)).strip()) if mt else leaf

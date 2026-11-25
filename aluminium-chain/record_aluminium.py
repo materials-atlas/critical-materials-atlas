@@ -35,11 +35,11 @@ CHAIN = {
     "byline": "bauxite (spread) ≠ alumina ≠ smelting (electricity) ≠ the metal's carbon footprint",
     "correction": "A bauxite map looks diversified — Australia, Guinea and China each mine about a quarter. But "
                   "aluminium smelting is ~40% electricity by cost, so it concentrated wherever power was cheap. "
-                  "China's share jumps from ~21% at the mine to ~59% at the smelter.",
+                  "China's share jumps from ~16% at the mine to ~59% at the smelter.",
     "stats": [
-        {"v": "21% → 59%", "l": "China's share from bauxite MINING to aluminium SMELTING", "conf": "measured"},
+        {"v": "16% → 59%", "l": "China's share from bauxite MINING to aluminium SMELTING", "conf": "measured"},
         {"v": "12–15 MWh", "l": "electricity to smelt one tonne of aluminium", "conf": "measured"},
-        {"v": "AU · GN · CN", "l": "bauxite mining is a three-way split (~25% each)", "conf": "measured"},
+        {"v": "GN · AU · CN", "l": "bauxite mining is led by Guinea (~34%), Australia (~24%) and China (~16%)", "conf": "measured"},
         {"v": "Guinea", "l": "holds the largest bauxite reserves (7.4 bn t)", "conf": "measured"},
     ],
     "history": {
@@ -56,7 +56,7 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Bauxite", "t": "the ore — mined in Australia, Guinea and China (~25% each)"},
+        {"n": "1 · Bauxite", "t": "the ore — mined mainly in Guinea (~34%), Australia (~24%) and China (~16%)"},
         {"n": "2 · Alumina", "t": "Bayer process refines bauxite to aluminium oxide"},
         {"n": "3 · Smelting", "t": "Hall–Héroult electrolysis — 12–15 MWh/tonne; China ~59%, energy-sited"},
         {"n": "4 · The metal", "t": "transport, packaging, construction, grid — and a power-dependent carbon footprint"},

@@ -170,7 +170,7 @@ fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
   const top=S.hardest.slice(0,3).join(' and ');
-  document.getElementById('keyline').innerHTML='<b>Across the atlas.</b> The metals that fail on every axis ('+top+') are the ones the atlas found again and again: invisible to satellites, produced as by-products, controlled by one country, unrecycled, and physically tiny. They are critical because every independent way out is closed at the same time, not because a list names them.';
+  document.getElementById('keyline').innerHTML='<b>Across the atlas.</b> The metals that fail on four or five of the five axes ('+top+') are the ones the atlas found again and again: produced as by-products, controlled by one country, unrecycled, and physically tiny. They are critical because every independent way out is closed at the same time, not because a list names them.';
   // heatmap
   const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
   thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/ \(.*\)/,'')+'</th>').join('')+'<th>fails</th></tr>';
@@ -187,7 +187,10 @@ fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
       '<td class="cnt" style="color:'+col+'">'+r.count+'</td>';
     tb.appendChild(tr);
   });
-  document.getElementById('closer').innerHTML='Discussion of critical materials usually starts and ends with concentration: one country, one number. The atlas tested that from many angles. Concentration turns out to be only one of at least five ways a material gets stuck, and rarely the binding one. The hardest cases ('+S.hardest.join(', ')+') are hard because several things hold at once. They are by-products of other mines, which cannot be opened at will; their markets are a few hundred tonnes; there is no scrap stream; and demand is climbing. A policy that uses the usual lever (subsidising a mine) addresses one axis and leaves four in place. The aim of the exercise is to name which materials fail on which axis, from public data cross-checked against independent sources. The result is a more precise list, not a longer one.';
+  // world output of the hardest cases, read from the store (was typed as "a few hundred tonnes")
+  const hw=S.rows.filter(r=>r.count>=4&&r.world_tonnes).map(r=>r.world_tonnes).sort((a,b)=>a-b);
+  const hwTxt=(hw.length>1?hw[0].toLocaleString('en')+' to '+hw[hw.length-1].toLocaleString('en'):hw[0].toLocaleString('en'))+' tonnes a year';
+  document.getElementById('closer').innerHTML='Discussion of critical materials usually starts and ends with concentration: one country, one number. The atlas tested that from many angles. Concentration turns out to be only one of at least five ways a material gets stuck, and rarely the binding one. The hardest cases ('+S.hardest.join(', ')+') are hard because several things hold at once. They are by-products of other mines, which cannot be opened at will; their markets are small, '+hwTxt+'; there is no scrap stream; and demand is climbing. A policy that uses the usual lever (subsidising a mine) addresses one axis and leaves four in place. The aim of the exercise is to name which materials fail on which axis, from public data cross-checked against independent sources. The result is a more precise list, not a longer one.';
 });
 </script>
 </body></html>'''

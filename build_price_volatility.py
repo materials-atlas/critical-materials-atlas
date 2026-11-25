@@ -375,6 +375,10 @@ shrink = round((1 - c2['coef'] / c1['coef']) * 100, 0) if c1['coef'] else None
 # conclusion: no relationship.
 baci = {'n': 27, 'r': 0.13, 'p': 0.5183, 'as_of': '15 Jul 2026'}
 
+# figures quoted in the verdict text below, read from the models so the text cannot drift from them
+_tot = f"{m3['terms'][1]['coef']:+.1f}pp, p={m3['terms'][1]['p']:.3f}"          # total (uncontrolled) effect
+_small = f"{matched['small']['diff']:+.1f}pp, p={matched['small']['p']:.2f}"    # small-half matched gap
+
 out = {
     'generated': comp.get('generated'),
     'window': f'{Y0}-{Y1}',
@@ -389,7 +393,7 @@ out = {
                         'market size is a mediator, not a confounder, and controlling it estimates the '
                         'direct effect net of the mechanism — a null then means "no direct effect", not '
                         '"companionality is irrelevant". We do not dismiss this. We report the TOTAL '
-                        'effect (real: +9.3pp, p=0.017), we show the result holds with size measured '
+                        f'effect (real: {_tot}), we show the result holds with size measured '
                         '1985-99 (predetermined — 2000-23 volatility cannot cause 1985-99 market size), '
                         'and we show that small PRIMARY metals are just as volatile as small by-product '
                         'metals, which mediation cannot explain. What we CANNOT settle here is whether '
@@ -402,10 +406,10 @@ out = {
                        'this to n=300. More metals do not exist. This bound applies equally to the '
                        'published literature.',
     'wide_excess': wide_excess, 'wide_rows': sorted(WS, key=lambda r: -r['volatility']),
-    'verdict': 'By-product metals ARE more volatile — that total effect is real (+9.3pp, p=0.017). But it '
-               'is fully accounted for by market size: conditional on scale, by-product status adds '
+    'verdict': f'By-product metals ARE more volatile — that total effect is real ({_tot}). But it '
+               'is largely accounted for by market size: conditional on scale, by-product status adds '
                'nothing (+0.9pp, p=0.85), and small PRIMARY metals (rare earths 50%, tantalum 45%, '
-               'beryllium 43%) are just as volatile as small by-product metals (+1.7pp, p=0.75). '
+               f'beryllium 43%) are just as volatile as small by-product metals ({_small}). '
                'Smallness is SUFFICIENT for volatility without companionality. So there is no volatility '
                'penalty specific to being a by-product. It holds under HC3, a permutation test, a '
                'rank-based model, a physical-tonnes control, dropping contested classes, drop-one, every '
@@ -474,7 +478,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Are by-product metal prices more volatile? · Critical Materials Atlas</title>
-<meta name="description" content="By-product metals are famously more price-volatile than primary ones — and they are. But on 24 years of real USGS prices the gap is fully accounted for by market size: small PRIMARY metals like rare earths, tantalum and beryllium swing just as hard, and companionality cannot explain those. Smallness alone is sufficient.">
+<meta name="description" content="By-product metals are famously more price-volatile than primary ones — and they are. But on 24 years of real USGS prices the gap is largely accounted for by market size: small PRIMARY metals like rare earths, tantalum and beryllium swing just as hard, and companionality cannot explain those. Smallness alone is sufficient.">
 <meta property="og:title" content="Are by-product metal prices more volatile?">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -506,7 +510,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; falsification &middot; regression</div>
   <h1>Are by-product metal prices more volatile?</h1>
-  <p class="deck">Yes, but not for the usual reason. On 24 years of real prices, the volatility of by-product metals is fully accounted for by how small their markets are. Small primary metals (rare earths, tantalum, beryllium) swing just as hard, and companionality cannot explain those. A price is volatile because its market is small, not because its supply is tied to a host metal.</p>
+  <p class="deck">Yes, but not for the usual reason. On 24 years of real prices, the volatility of by-product metals is largely accounted for by how small their markets are. Small primary metals (rare earths, tantalum, beryllium) swing just as hard, and companionality cannot explain those. A price is volatile because its market is small, not because its supply is tied to a host metal.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
@@ -556,7 +560,7 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">A fair worry: 24-year volatility might hide episodic spikes. With non-overlapping windows the direction holds at every length (bigger markets are calmer, and by-product status is never close to significant), <span id="horizverdict"></span></p>
   <table class="tidy" id="horiz"><thead><tr><th>volatility window</th><th class="n">observations</th><th class="n">by-product</th><th class="n">p</th><th class="n">market size</th><th class="n">p</th></tr></thead><tbody></tbody></table>
 
-  <div class="keyline"><b>Why a panel does not help.</b> The obvious way to get a bigger n is a panel: slice the window into rolling 5-year sub-periods and there are 614 observations instead of 33. In that panel by-product status becomes significant (+7.8pp, p=0.07) while market size goes away. This is an artefact, for two reasons. First, rolling windows overlap, so each year&rsquo;s return is reused up to four times: the 2023 gallium/germanium export-control spike is counted repeatedly, and pseudo-replication looks like evidence. Run the same 5-year window without overlap and the effect vanishes (+1.5pp, p=0.70) while size returns (p=0.003). Second, by-product status never varies within a metal, so a panel adds no information about it: the naive unclustered panel reports p&lt;0.0001, but with the errors clustered by metal, as they must be, the effective sample is back to 33. The panel does not add evidence. It counts the same evidence more times.</div>
+  <div class="keyline"><b>Why a panel does not help.</b> The obvious way to get a bigger n is a panel: slice the window into rolling 5-year sub-periods and there are 614 observations instead of 33. In that panel by-product status looks stronger (+7.8pp, p=0.07: weakly significant, and not significant at the 5% level) while market size goes away. This is an artefact, for two reasons. First, rolling windows overlap, so each year&rsquo;s return is reused up to four times: the 2023 gallium/germanium export-control spike is counted repeatedly, and pseudo-replication looks like evidence. Run the same 5-year window without overlap and the effect vanishes (+1.5pp, p=0.70) while size returns (p=0.003). Second, by-product status never varies within a metal, so a panel adds no information about it: the naive unclustered panel reports p&lt;0.0001, but with the errors clustered by metal, as they must be, the effective sample is back to 33. The panel does not add evidence. It counts the same evidence more times.</div>
 
   <h2 style="margin:1.8rem 0 .3rem">Every metal in the test</h2>
   <table class="tidy" id="tab"><thead><tr><th>Metal</th><th>class</th><th class="n">volatility %</th><th class="n">median output t</th><th class="n">yrs</th></tr></thead><tbody></tbody></table>
@@ -566,7 +570,7 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.8rem 0 .3rem">How this sits with the literature</h2>
   <p>The direct precedent is Redlinger &amp; Eggert, &ldquo;Volatility of by-product metal and mineral prices&rdquo; (<i>Resources Policy</i> 47, 2016, 69&ndash;77), which reports by-products averaging ~50% higher volatility across ~50 years of annual prices. The uncontrolled estimate here reproduces that direction and is significant. The controlled estimate does not.</p>
-  <p>That comparison needs care. Their variables tested included quantity produced, so this is not a claim that they missed the control. Their full specification is paywalled and has not been read for this page, and the window here (24 years) and the sample differ from theirs. They raised both of this page&rsquo;s findings themselves: they attribute the &ldquo;mixed evidence&rdquo; in their <i>monthly</i> data to &ldquo;the smaller volume of transactions for by-product materials&rdquo; and to prices &ldquo;unchanged for several months at a time&rdquo;, that is, thinness and administered prices. And they close by calling for research into &ldquo;the underlying determinants of price volatility.&rdquo; This page responds to that call, on fully open data: among the candidate determinants, market size absorbs the by-product effect entirely. Their own suspected explanation appears to be the right one.</p>
+  <p>That comparison needs care. Their variables tested included quantity produced, so this is not a claim that they missed the control. Their full specification is paywalled and has not been read for this page, and the window here (24 years) and the sample differ from theirs. They raised both of this page&rsquo;s findings themselves: they attribute the &ldquo;mixed evidence&rdquo; in their <i>monthly</i> data to &ldquo;the smaller volume of transactions for by-product materials&rdquo; and to prices &ldquo;unchanged for several months at a time&rdquo;, that is, thinness and administered prices. And they close by calling for research into &ldquo;the underlying determinants of price volatility.&rdquo; This page responds to that call, on fully open data: among the candidate determinants, market size absorbs most of the by-product effect: the point estimate falls by about 90%, though with n=33 the interval around what remains is wide. Their own suspected explanation appears to be the right one.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">Why this matters for the rest of the atlas</h2>
   <p>This result does not weaken the <a href="companionality.html">hostage-metals</a> thesis; it narrows it. The claim that by-product supply cannot respond to price is a statement about elasticity, and it stands on its own evidence: a higher gallium price does not lead to a gallium mine. What fails is the corollary that inelasticity should therefore show up as price volatility. It does not, once market size is accounted for. Inelasticity and volatility are different claims, and treating them as one let a size effect pass for a structural one. The <a href="risk-adjusted.html">risk re-weighting</a>, which penalises companionality via elasticity rather than via observed volatility, is unaffected, and this result supports keeping it that way.</p>

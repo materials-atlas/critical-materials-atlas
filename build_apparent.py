@@ -212,9 +212,10 @@ out = {
                    'Cobalt/nickel/REE are D: their HS codes bundle intermediates or split forms, so '
                    'production + imports double-counts (China lands at 223% / 32% / 182% of world).'),
     'ceiling': ('Apparent consumption measures refined-metal absorption, not final demand: it misses metal '
-                'embodied in imported finished goods. It is bloc-level today; per-country and more metals '
-                '(lead/zinc/tin/aluminium are the next clean-HS candidates; cobalt/REE need national 8-digit '
-                'customs lines) are the registry\'s next phases. Global closure ~cancels under balanced trade, '
+                'embodied in imported finished goods. The bloc layer covers ' + str(len(results)) + ' metals'
+                + ('; the per-country layer covers ' + ', '.join(country) + ' so far' if country else '') + '. '
+                'Tin and aluminium are the next clean-HS candidates; cobalt and rare earths need national '
+                '8-digit customs lines. Global closure ~cancels under balanced trade, '
                 'so the real validation is the anchors, not closure.'),
     'sources': ('Production: IEA Critical Minerals Dataset 2024 (CC BY) + Eurostat PRODCOM ds-059358 (EU-27 '
                 'refined copper) + USGS MCS 2025. Trade: CEPII BACI 2023, refined-form HS. Anchors: ICSG '
@@ -302,14 +303,15 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="bloc-demand.html">Demand by bloc</a><br><a href="net-demand.html">Net demand</a><br><a href="refining.html">Refining wedge</a><br><a href="limitations.html">Limitations</a></div>
   <div><h4>Sources</h4>IEA Critical Minerals Dataset 2024 (CC BY) · Eurostat PRODCOM · USGS MCS 2025 · CEPII BACI 2023 · ICSG Copper Factbook</div>
-  <div class="fineprint">Apparent consumption = refined-metal absorption, not final demand; graded A–D. Bloc-level today; per-country + more metals are the registry's next phases.</div>
+  <div class="fineprint">Apparent consumption = refined-metal absorption, not final demand; graded A–D. Shown by bloc and, for the metals built so far, by country.</div>
 </div></footer>
 <script>
 fetch('out/apparent.json').then(r=>r.json()).then(S=>{
   const M=S.minerals, col={China:'#c0392b',EU:'#2f6fb0',US:'#0e7c74',Japan:'#b07a18',Korea:'#7d5fb0',India:'#c98a2f',Other:'#9aa6ad'};
   const cu=M.copper;
   const ccu=(S.country_level||{}).copper;
-  document.getElementById('lead').innerHTML='<b>Result:</b> the demand work now reaches a per-country measurement. Both inputs (production and trade) are observed, so a country’s number is a measurement, not its industrial size in disguise. <b>Copper</b> (China '+(ccu?ccu.china_share:57)+'%, tier A), <b>lead</b> (China 43%, tier A) and <b>silicon</b> (China 56%, tier B, a 2020 snapshot on a grade-bundled HS) are built and graded. The limit, stated below: no free source independently measures consumption for these metals (the study groups’ usage figures are themselves apparent consumption), so a study-group match is a reproducibility check, not corroboration. That statement about what the numbers are is the main finding of this layer.';
+  const czn=(S.country_level||{}).zinc;
+  document.getElementById('lead').innerHTML='<b>Result:</b> the demand work now reaches a per-country measurement. Both inputs (production and trade) are observed, so a country’s number is a measurement, not its industrial size in disguise. <b>Copper</b> (China '+(ccu?ccu.china_share:57)+'%, tier A), <b>lead</b> (China 43%, tier A)'+(czn?', <b>zinc</b> (China '+czn.china_share+'%, tier '+czn.tier+')':'')+' and <b>silicon</b> (China 56%, tier B, a 2020 snapshot on a grade-bundled HS) are built and graded. The limit, stated below: no free source independently measures consumption for these metals (the study groups’ usage figures are themselves apparent consumption), so a study-group match is a reproducibility check, not corroboration. That statement about what the numbers are is the main finding of this layer.';
   const nPub=S.published.length, nTot=S.published.length+S.rejected.length;
   const st=[
     {v:(ccu?ccu.china_share:57)+'%',l:'China’s share of world refined <b>copper</b> absorption, per country, tier A (clean, current, reproduces vs ICSG)'},
@@ -318,7 +320,7 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
     {v:'A–D',l:'scorecard grade on every metal: stage-match, HS purity, closure, multi-anchor'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>Why a scorecard, and what the top rung is:</b> a single "China within 15pp" test can pass on luck or fail on a mismatched comparator. A has a limit here: no free source independently measures consumption for these metals (the study groups’ usage is itself apparent consumption), so A cannot require an independent anchor. The ladder: <b>A</b> = clean stage + clean HS + current year + closure holds + a study-group figure to reproduce against (copper, lead); <b>B</b> = one of those compromised (silicon: a 2020 snapshot and a bundled HS code); <b>C/D</b> = stage mismatch or the code double-counts. The grades record a real difference between metals rather than a blanket caveat.';
+  document.getElementById('keyline').innerHTML='<b>Why a scorecard, and what the top rung is:</b> a single "China within 15pp" test can pass on luck or fail on a mismatched comparator. A has a limit here: no free source independently measures consumption for these metals (the study groups’ usage is itself apparent consumption), so A cannot require an independent anchor. The ladder: <b>A</b> = clean stage + clean HS + current year + closure holds + a study-group figure to reproduce against (copper, lead'+(czn&&czn.tier==='A'?', zinc':'')+'); <b>B</b> = one of those compromised (silicon: a 2020 snapshot and a bundled HS code); <b>C/D</b> = stage mismatch or the code double-counts. The grades record a real difference between metals rather than a blanket caveat.';
 
   const tc={A:'tA',B:'tB',C:'tC',D:'tD'};
   // ---- per-country (Phase 2) ----
@@ -358,7 +360,7 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
     const d=M[m], over=d.china_share>100;
     return '<div class="fail"><b>'+d.title+', tier '+d.tier+' ('+d.badge+'). Computed China share = '+d.china_share+'% vs known ~'+d.china_known+'%.</b> '+d.hs_note+'. '+(over?'A share above 100% means <code>production + imports</code> counts the same metal twice: the intermediate feedstock and the refined output share one HS code.':'The HS code misses most of the metal (for nickel, all of class-II ferronickel/NPI), so the share is understated and not usable.')+' So no number is published for '+d.title.toLowerCase()+' here.'+scTable(d)+'</div>';
   }).join('');
-  document.getElementById('ceiling').innerHTML=S.ceiling+' Two of five measured shows the method working where the data support it and grading down where they do not. Copper and lithium are, as far as the atlas can tell, the only per-bloc refined-consumption numbers on this site that outside institutions independently confirm.';
+  document.getElementById('ceiling').innerHTML=S.ceiling+' At bloc level, '+nPub+' of '+nTot+' metals are published as measured ('+S.published.join(' and ')+'). The method works where the data support it and grades down where they do not. For these metals the computed China share lands close to the share known from outside sources. As explained above, that is a reproducibility check, not an independent measurement of consumption.';
 });
 </script>
 </body></html>'''

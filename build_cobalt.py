@@ -59,7 +59,7 @@ steps = [
      'note': 'WMD 2024 — 100% of primary supply'},
     {'label': 'From DR Congo (as a copper by-product)', 'tonnes': round(CO_T * DRC_MINE / 100),
      'lo': round(CO_T * 0.70), 'hi': round(CO_T * 0.78),
-     'note': f'~{DRC_MINE:.0f}% of mine supply, recovered from Katangan copper ore'},
+     'note': f'~{int(DRC_MINE + 0.5)}% of mine supply, recovered from Katangan copper ore'},
     {'label': 'Refined in China', 'tonnes': round(CO_T * CHINA_REFINE['central'] / 100),
      'lo': round(CO_T * CHINA_REFINE['low'] / 100), 'hi': round(CO_T * CHINA_REFINE['high'] / 100),
      'note': f"~{CHINA_REFINE['central']}% of refining — the chokepoint moves to a different country than the mine"},
