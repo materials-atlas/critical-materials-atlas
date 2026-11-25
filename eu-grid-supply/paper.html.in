@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${title} — Critical Materials Atlas</title>
+  <meta name="description" content="${deck}">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="${title}">
+  <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+  <link rel="canonical" href="https://criticalmaterialsatlas.org/grid-exposure">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="chain-assets/chainview.css">
+  <style>
+    :root{--acc:#15323a}
+    .study-nav{display:flex;flex-wrap:wrap;gap:.55rem 1.2rem;margin:1rem 0}
+    .table-wrap{overflow-x:auto;margin:1rem 0}
+    .table-wrap table{margin:0;min-width:34rem}
+    caption{text-align:left;color:var(--mut);padding:.35rem .5rem}
+    th[scope="row"]{font-weight:600}
+    td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+    figure.panel{margin-inline:0}
+    figure.panel figcaption{margin-top:.8rem}
+    .pairs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .pair b{font-size:.85rem;color:var(--navy)}
+    .paired-value{display:grid;grid-template-columns:3.4rem minmax(1rem,1fr) 3.2rem;gap:.35rem;align-items:center;font-size:.77rem}
+    .paired-value strong{text-align:right;font-variant-numeric:tabular-nums}
+    .paired-value .track{height:8px}
+    .paired-value .fill{background:#0e7c74}
+    .paired-value .imported{background:#15323a}
+    .formula{margin:.8rem 0;padding:.7rem .9rem;background:var(--bg-soft);border-left:3px solid var(--acc);font-variant-numeric:tabular-nums}
+    @media(max-width:550px){.pairs{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Electricity grid · Research working paper</div>
+  <h1>${title}</h1>
+  <p class="deck">${deck}</p>
+  <p class="byline">Working paper · <time datetime="${version}">25 November 2026</time> · Presents a study filed on 21 September 2026</p>
+</div></section>
+<article>
+<nav class="study-nav" aria-label="On this page">
+  <a href="#measure">The measure</a>
+  <a href="#results">Results for 2024</a>
+  <a href="#context">Earlier years</a>
+  <a href="#codes">Product definitions</a>
+  <a href="#sensitivity">Sensitivity</a>
+  <a href="#limits">Limits</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<h2 id="summary">Summary</h2>
+<p>A country's share of another economy's imports is often read as a measure of dependence. It leaves out what the importing economy makes for itself. This paper measures China's part in seven kinds of electricity-grid equipment used in the European Union in two ways: as a share of imports from outside the EU, and as a share of apparent supply, which adds EU production and subtracts EU exports.</p>
+<p><strong>Finding.</strong> In 2024 China supplied ${tr_m} of the EU's imports of liquid-dielectric transformers and ${tr_s} of their apparent supply. For grain-oriented electrical steel, the core material of transformers, the two figures were ${go_m} and ${go_s}. In ${n_under_half} of the seven components the supply share was less than half the import share. The exception was large inverters, at ${inv_m} of imports and ${inv_s} of supply, and that figure is the least reliable of the seven. The supply share equals the import share multiplied by the part of supply that is imported, so the gap between the two measures is set by how much the EU makes for itself. <a href="#source-prodcom">Eurostat Prodcom</a> and <a href="#source-comext">Comext.</a></p>
+<p>The measure describes direct exposure to one supplying country. It says nothing about whether equipment is scarce, which is the subject of the companion paper on <a href="grid-chain/grid-chain">transformer procurement</a>.</p>
+
+<h2 id="measure">The measure</h2>
+<p>Apparent supply is EU sold production plus imports from outside the EU minus exports to outside the EU, by value. China's share of apparent supply divides gross imports from China by that total. The United Kingdom is excluded from the trade sums in every year. The study design, the seven components and their product codes were filed on 21 September 2026, before any value for the five new components was read. <a href="#source-prereg">Pre-registration.</a></p>
+<div class="formula">China's share of supply = China's share of imports × imports as a share of apparent supply</div>
+<p>The second term is import penetration. It is the reason the two shares differ. Where the EU imports little of what it uses, even a supplier with most of the import market has a small part of supply. Where the EU imports nearly all of what it uses, the two shares are close.</p>
+<p>The filed design read each result through the ratio of the supply share to the import share: below 0.5, the import share overstates dependence and the supply share is the number to use; from 0.5 to 0.8, it partly overstates it; at 0.8 or above, it is a fair guide. <span class="conf snapshot">Added after filing</span> That ratio is import penetration. The filed text did not name it, and naming it adds no assumption.</p>
+
+<h2 id="results">Results for 2024</h2>
+<figure class="panel" aria-labelledby="exposure-figure">
+  <h3 id="exposure-figure">China's share of EU imports and of apparent supply, 2024</h3>
+  <div class="pairs">${pairs}</div>
+  <figcaption class="note">By value. Both measures use gross imports from China in the numerator.</figcaption>
+</figure>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Import share, import penetration and supply share, 2024">
+  <table>
+    <caption>EU27, 2024, by value. The ratio is the supply share divided by the import share, which equals imports from outside the EU divided by apparent supply. Net trade is exports minus imports. The reading and the band are the filed ones.</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col" class="n">China's share of imports</th><th scope="col" class="n">Ratio (import penetration)</th><th scope="col" class="n">China's share of supply</th><th scope="col">Filed reading of the import share</th><th scope="col" class="n">EU net trade, € million</th><th scope="col">Filed band</th></tr></thead>
+    <tbody>
+${result_rows}
+    </tbody>
+  </table>
+</div>
+<p>The EU was a net exporter of transformers, high-voltage cable, switchgear, switchboards and large inverters in 2024, and a net importer of electrical steel and meters. The ratio ranged from ${pen_min} for ${pen_min_label} to ${pen_max} for large inverters. On the filed rule the import share overstates dependence for ${n_under_half} components, by a factor of two to seven. Electrical steel, at ${go_ratio}, is the borderline case. For large inverters the import share is a fair guide.</p>
+<p>The filed bands name the size of the supply share: low (under 10%), material (10% to 25%), high (25% to 50%) and critical (above 50%). The filing says of them: “The bands describe; they do not measure strategic risk, which depends on what could replace the supply.” “Critical” there means a share above half. It does not mean a shortage. <a href="grid-trade#supplier-exposure">Filed study, section 4.6c.</a> <a href="#source-prereg">Pre-registration.</a></p>
+
+<h2 id="context">Earlier years</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="China's share of apparent supply, 2019 to 2024">
+  <table>
+    <caption>China's share of EU apparent supply, by value. The filed design shows 2019 to 2023 as context and reads no trend from them, because the pandemic, the energy shock and the war in Ukraine fall inside those years.</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col" class="n">2019</th><th scope="col" class="n">2020</th><th scope="col" class="n">2021</th><th scope="col" class="n">2022</th><th scope="col" class="n">2023</th><th scope="col" class="n">2024</th></tr></thead>
+    <tbody>
+${context_rows}
+    </tbody>
+  </table>
+</div>
+<p class="note">A blank cell means a sold-production value was suppressed, so no supply total can be formed. The inverter figures move with production values that Eurostat publishes as round numbers: €2.0 billion for 2020, €6.0 billion for 2023 and €3.0 billion for 2024.</p>
+<p>Later import data exist for one component. China's share of EU imports of grain-oriented electrical steel was ${go_m_2025} by value in 2025. No supply share can be formed for 2025 until the production statistics are published.</p>
+
+<h2 id="codes">Product definitions</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Product codes and independent check">
+  <table>
+    <caption>Production codes (Prodcom), trade codes (CN8, 2024) and an independent second extraction of the Eurostat data for 2024.</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col">Prodcom</th><th scope="col">CN8 in 2024</th><th scope="col" class="n">Supply share, second extraction</th><th scope="col">Sold-production flags</th></tr></thead>
+    <tbody>
+${code_rows}
+    </tbody>
+  </table>
+</div>
+<p>The official 2024 correspondence confirms the transformer and electrical-steel code links. The inverter link is partial: the trade code also feeds a production line for telecom and computer power supplies. The transformer lines run from units of 650 kVA or less to units above 10 MVA. The highest bin still includes equipment far below a large power transformer, which the US Department of Energy defines as 100 MVA or more. The electrical-steel lines split at 600 mm of width and give no grade or end use. The inverter line starts at 7.5 kVA and covers solar, storage and industrial equipment as well as grid converters. The meter line includes household smart meters. Eurostat flags rounded production values with R and estimates with E. <a href="#source-crosswalk">Prodcom List 2024.</a></p>
+<p>By mass, the electrical-steel result is close to the result by value: ${go_m_mass} of imports and ${go_s_mass} of apparent supply in 2024, with some production tonnage rounded.</p>
+
+<h2 id="sensitivity">Sensitivity</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Sensitivity of the supply shares">
+  <table>
+    <caption>Modelled. Range of China's 2024 supply share when one input is moved, and when production, valuation, exports and retention are moved together.</caption>
+    <thead><tr><th scope="col">Component</th><th scope="col" class="n">Production ±10%</th><th scope="col" class="n">Trade valuation ±5%</th><th scope="col" class="n">Exports ±10%</th><th scope="col" class="n">Product scope</th><th scope="col" class="n">Re-export</th><th scope="col" class="n">Combined, without scope</th><th scope="col">Bands spanned by the combined range</th></tr></thead>
+    <tbody>
+${sensitivity_rows}
+    </tbody>
+  </table>
+</div>
+<p class="note"><span class="conf snapshot">Modelled</span> Illustrative ranges, added on 24 November 2026. Trade valuation scales all customs values equally. The scope check removes 10% of apparent supply and assigns it either to Chinese-origin supply or to other supply. Re-export varies the retained fraction of Chinese imports from 75% to 100%. The ranges describe sensitivity and carry no probability.</p>
+<p>On the combined range, three components stay inside their band and four reach into a neighbouring one. The transformer share stays between ${tr_lo} and ${tr_hi} on the combined range. The inverter share does not hold up in the same way. Moving EU production by 10% either way gives ${inv_lo} to ${inv_hi}. Eurostat publishes the 2024 inverter production value rounded to a base of €${inv_base} billion. Applying its rounding rule to production alone allows a share as low as ${inv_round_lo}, and at the low end of the rounding range the supply total could be zero or negative, so the formula gives no upper limit. The filed study reads the inverter row as a dependence in a broad class of large inverters, of imprecise size, that is not shown to be a grid one. <a href="#source-prodcom_flags">Eurostat DS-059358 quick guide, p. 2.</a></p>
+<p>From 2026 the EU customs classification splits inverters by function instead of size. In January to July 2026 China supplied ${inv_solar} of EU imports of solar inverters and ${inv_other} of imports of other inverters, at any size. The split does not show how much of the large-inverter line is solar. <a href="grid-trade#supplier-exposure">Filed study, section 4.6c.</a></p>
+
+<h2 id="us">The United States, for comparison</h2>
+<p>US customs data for 2024 show a much smaller direct share for the same supplier: China accounted for ${us_goes} of the import value of grain-oriented electrical steel and ${us_tr} of the import value of liquid-dielectric transformers. Japan and South Korea supplied most US imports of the steel. No apparent-supply figure is formed for the United States here, because no production series on the same product definitions was used. A low share from one country can sit beside heavy reliance on imports from others. <a href="grid-trade">September trade study, section 4.7.</a></p>
+
+<h2 id="limits">What the measure cannot say</h2>
+<p>Apparent supply is not consumption. Sold production leaves out what a manufacturer uses itself. Production is valued at the factory gate and imports include freight. Stock changes are not observed. Gross imports from China include goods that may later be re-exported, and public totals cannot trace them by origin. The production and trade codes are matched on product descriptions and, for inverters, only partly correspond.</p>
+<p>The measure is direct. It counts a transformer imported from China and does not count Chinese electrical steel inside a transformer made in the EU or imported from a third country. The seven components are therefore never added together. On these figures China supplied ${go_s} of the EU's electrical steel in 2024, so some exposure sits inside EU-made transformers that the ${tr_s} does not show.</p>
+<p>The measure is about one supplier's part in supply. Whether equipment can be obtained on time depends on factory capacity, order books and qualified inputs. A component with a small share from one country can be in short supply worldwide, and a component with a large share can be readily available.</p>
+
+<h2 id="filed">Relation to the filed study</h2>
+<p>The design was filed on 21 September 2026 and its results were published as sections 4.6b and 4.6c of the September trade study, which remain as filed. This paper presents those results on their own, with three additions made after filing and marked as such: the naming of the filed ratio as import penetration, the product-correspondence check against the official 2024 list, and the sensitivity ranges. No filed figure has been changed. The independent second extraction reproduces each published 2024 share to the first decimal place. <a href="grid-trade#supplier-exposure">Filed study, sections 4.6b and 4.6c.</a> <a href="#source-prereg">Pre-registration.</a></p>
+
+<h2 id="sources">Sources and downloads</h2>
+<ul>
+${sources}
+</ul>
+<p>The <a href="out/grid_exposure.json">figures and calculations on this page</a>, the <a href="out/eu_grid_supply.json">filed results by year</a>, the <a href="eu-grid-supply/eurostat_audit.json">second Eurostat extraction</a> and the <a href="eu-grid-supply/exposure.py">sensitivity code</a> give the underlying data.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="grid-chain/grid-chain">Transformer procurement and the grid</a><br><a href="grid-trade">September transformer trade study</a><br><a href="analysis">All research</a></div><div><h4>Evidence</h4><a href="out/grid_exposure.json">Evidence JSON</a><br><a href="eu-grid-supply/PREREGISTRATION.md">Pre-registration</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+</body>
+</html>

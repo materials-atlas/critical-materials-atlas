@@ -1,0 +1,720 @@
+{
+  "title": "Which parts of Europe's grid come from China, on a supply basis?",
+  "deck": "In 2024 China supplied 34% of the EU's transformer imports and 9% of its transformer supply. The difference between the two measures is the part of supply that the EU imports at all.",
+  "version": "2026-11-25",
+  "filed": "eu-grid-supply/PREREGISTRATION.md, 21 September 2026; results in grid-trade.html sections 4.6b and 4.6c",
+  "added_after_filing": [
+    "decomposition into import penetration",
+    "product-correspondence check",
+    "sensitivity ranges"
+  ],
+  "sources": {
+    "prodcom": {
+      "title": "Eurostat, sold production, DS-059358, October 2026 snapshot",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-059358/default/table?lang=en"
+    },
+    "comext": {
+      "title": "Eurostat, EU trade by HS and CN, DS-045409, November 2026 snapshot",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"
+    },
+    "crosswalk": {
+      "title": "Eurostat, Prodcom List 2024 with CN correspondence, published by Statistics Netherlands",
+      "url": "https://www.cbs.nl/-/media/_pdf/2025/21/prodcom-list_en_2024.pdf"
+    },
+    "prodcom_flags": {
+      "title": "Eurostat, DS-059358 quick guide, flag and rounding-base definitions, p. 2",
+      "url": "https://ec.europa.eu/eurostat/documents/120432/19597181/Quick%2Bguide%2Bon%2Baccessing%2BPRODCOM%2Bdata%2BDS-059358.pdf/30ad2839-31cd-32b0-c0f2-d43f200be35e?t=1762360585715"
+    },
+    "prereg": {
+      "title": "Critical Materials Atlas, pre-registration of the seven-component study, filed 21 September 2026",
+      "url": "eu-grid-supply/PREREGISTRATION.md"
+    },
+    "trade": {
+      "title": "Critical Materials Atlas, September 2026 transformer trade study, sections 4.6b, 4.6c and 4.7",
+      "url": "grid-trade"
+    }
+  },
+  "results": {
+    "headline_year": 2024,
+    "components": {
+      "transformers": {
+        "label": "Liquid-dielectric transformers",
+        "share_of_imports": 0.3421,
+        "import_penetration": 0.26686643980564445,
+        "share_of_supply": 0.0913,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.26688102893890675,
+        "filed_reading": "overstates dependence",
+        "filed_band": "low (under 10%)",
+        "net_trade_meur": 253.29999999999995,
+        "band": "Below 10%",
+        "prodcom": [
+          "27114120",
+          "27114150",
+          "27114180"
+        ],
+        "cn8_2024": [
+          "85042100",
+          "85042210",
+          "85042290",
+          "85042300"
+        ],
+        "second_extraction_share": 0.09130229672370098,
+        "production_flags": [
+          ":R"
+        ],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.0826651540006439,
+              0.10191468047706354
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.08653630921559999,
+              0.09605643671949693
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.08854353116594359,
+              0.09420413925160823
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.10142907395180238
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.06846462491746662,
+              0.09128616655662215
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.05726186684298238,
+              0.11131893949716544
+            ],
+            "exposure_bands": [
+              "Below 10%",
+              "10% to below 25%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0053,
+          "2020": 0.0052,
+          "2021": 0.0117,
+          "2022": 0.0141,
+          "2023": 0.0654,
+          "2024": 0.0913
+        }
+      },
+      "goes": {
+        "label": "Grain-oriented electrical steel",
+        "share_of_imports": 0.5187,
+        "import_penetration": 0.46585719059819536,
+        "share_of_supply": 0.2416,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.4657798342008868,
+        "filed_reading": "overstates dependence",
+        "filed_band": "material (10% to 25%)",
+        "net_trade_meur": -101.30000000000001,
+        "band": "10% to below 25%",
+        "prodcom": [
+          "24105310",
+          "24105410"
+        ],
+        "cn8_2024": [
+          "72251100",
+          "72261100"
+        ],
+        "second_extraction_share": 0.24164903218702893,
+        "production_flags": [
+          ":R"
+        ],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.22190393370504885,
+              0.26511030984538286
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.23081317524237316,
+              0.2522470136731405
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.23335377465061485,
+              0.2504300839385297
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.15732283854360038,
+              0.2684339496547115
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.1811929160169303,
+              0.24159055468924037
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.15415732119157236,
+              0.28830652435215054
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0327,
+          "2020": null,
+          "2021": 0.0866,
+          "2022": 0.1019,
+          "2023": 0.1428,
+          "2024": 0.2416
+        }
+      },
+      "cables": {
+        "label": "Insulated conductors above 1,000 V",
+        "share_of_imports": 0.1783,
+        "import_penetration": 0.14956429967055065,
+        "share_of_supply": 0.0267,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.1497476163768929,
+        "filed_reading": "overstates dependence",
+        "filed_band": "low (under 10%)",
+        "net_trade_meur": 746.5999999999999,
+        "band": "Below 10%",
+        "prodcom": [
+          "27321400"
+        ],
+        "cn8_2024": [
+          "85446010",
+          "85446090"
+        ],
+        "second_extraction_share": 0.026663842886978328,
+        "production_flags": [
+          ":E"
+        ],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.02401308777489849,
+              0.029988229219119335
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.02520240660639274,
+              0.028153484163934005
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.026004258023426083,
+              0.027370913939699097
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.029633432850958097
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.020002567174396715,
+              0.026670089565862285
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.016664470585763255,
+              0.032670856223523566
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0111,
+          "2020": 0.016,
+          "2021": 0.0102,
+          "2022": 0.0132,
+          "2023": 0.0186,
+          "2024": 0.0267
+        }
+      },
+      "switchgear": {
+        "label": "Switchgear above 1,000 V",
+        "share_of_imports": 0.2239,
+        "import_penetration": 0.19912841215945243,
+        "share_of_supply": 0.0446,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.1991960696739616,
+        "filed_reading": "overstates dependence",
+        "filed_band": "low (under 10%)",
+        "net_trade_meur": 1714.7,
+        "band": "Below 10%",
+        "prodcom": [
+          "27121010",
+          "27121020",
+          "27121030",
+          "27121041",
+          "27121090"
+        ],
+        "cn8_2024": [
+          "85351000",
+          "85352100",
+          "85352900",
+          "85353010",
+          "85353090",
+          "85354000",
+          "85359000"
+        ],
+        "second_extraction_share": 0.0445762615536095,
+        "production_flags": [
+          ":E"
+        ],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.03889489046666868,
+              0.052177070259069945
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.041390332541847055,
+              0.047893582585544776
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.04181770291118441,
+              0.04770421668645996
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.04951936215972147
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.03342556945781199,
+              0.04456742594374932
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.02579067910379296,
+              0.06139623961843729
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0584,
+          "2020": 0.0393,
+          "2021": 0.0402,
+          "2022": 0.0444,
+          "2023": 0.0441,
+          "2024": 0.0446
+        }
+      },
+      "switchboards": {
+        "label": "Switchboards above 1,000 V",
+        "share_of_imports": 0.2862,
+        "import_penetration": 0.19689207650273224,
+        "share_of_supply": 0.0564,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.1970649895178197,
+        "filed_reading": "overstates dependence",
+        "filed_band": "low (under 10%)",
+        "net_trade_meur": 1079.3,
+        "band": "Below 10%",
+        "prodcom": [
+          "27123203",
+          "27123205"
+        ],
+        "cn8_2024": [
+          "85372091",
+          "85372099"
+        ],
+        "second_extraction_share": 0.05635351521289395,
+        "production_flags": [],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.04983777552361128,
+              0.06482642560840256
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.05272503794605004,
+              0.060093044497468676
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.053648214029278926,
+              0.059343801420055214
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.0,
+              0.06261384335154828
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.04226434426229509,
+              0.05635245901639345
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.0336284428332562,
+              0.07387063471717302
+            ],
+            "exposure_bands": [
+              "Below 10%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0197,
+          "2020": 0.0251,
+          "2021": 0.0332,
+          "2022": 0.0339,
+          "2023": 0.0455,
+          "2024": 0.0564
+        }
+      },
+      "inverters": {
+        "label": "Inverters above 7.5 kVA",
+        "share_of_imports": 0.8226,
+        "import_penetration": 0.8879675977226702,
+        "share_of_supply": 0.7305,
+        "supply_share_under_half_import_share": false,
+        "ratio_supply_to_import_share": 0.8880379285193291,
+        "filed_reading": "a fair guide",
+        "filed_band": "critical (above 50%)",
+        "net_trade_meur": 382.9000000000001,
+        "band": "50% and above",
+        "prodcom": [
+          "27904155"
+        ],
+        "cn8_2024": [
+          "85044086"
+        ],
+        "second_extraction_share": 0.7304611009572823,
+        "production_flags": [
+          ":R"
+        ],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.6553426348085427,
+              0.8250399205903932
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.688902207495889,
+              0.7726404037021427
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.661996412469094,
+              0.8147305256518442
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.7005166872577366,
+              0.8116277983688478
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.5478487638989722,
+              0.7304650185319629
+            ],
+            "exposure_bands": [
+              "50% and above"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.42653287680713076,
+              0.9967940266399704
+            ],
+            "exposure_bands": [
+              "25% to below 50%",
+              "50% and above"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.2043,
+          "2020": 0.6107,
+          "2021": 0.3529,
+          "2022": 0.5452,
+          "2023": 0.4998,
+          "2024": 0.7305
+        }
+      },
+      "meters": {
+        "label": "Electricity meters, including household smart meters",
+        "share_of_imports": 0.6129,
+        "import_penetration": 0.3885983648817854,
+        "share_of_supply": 0.2382,
+        "supply_share_under_half_import_share": true,
+        "ratio_supply_to_import_share": 0.3886441507586882,
+        "filed_reading": "overstates dependence",
+        "filed_band": "material (10% to 25%)",
+        "net_trade_meur": -324.20000000000005,
+        "band": "10% to below 25%",
+        "prodcom": [
+          "26516370"
+        ],
+        "cn8_2024": [
+          "90283011",
+          "90283019",
+          "90283090"
+        ],
+        "second_extraction_share": 0.2381849767334322,
+        "production_flags": [],
+        "sensitivity": {
+          "production": {
+            "range": [
+              0.2213643270770873,
+              0.25784127692822856
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "trade_valuation": {
+            "range": [
+              0.22903853465435103,
+              0.24717391779066972
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "exports": {
+            "range": [
+              0.23469817263451237,
+              0.24183778771517875
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "product_scope": {
+            "range": [
+              0.1535716624107903,
+              0.2646827735219014
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          },
+          "reexport": {
+            "range": [
+              0.1786608721272834,
+              0.23821449616971122
+            ],
+            "exposure_bands": [
+              "10% to below 25%"
+            ]
+          },
+          "combined_excluding_scope": {
+            "range": [
+              0.15738672028949766,
+              0.2718489039822658
+            ],
+            "exposure_bands": [
+              "10% to below 25%",
+              "25% to below 50%"
+            ]
+          }
+        },
+        "context_supply_share": {
+          "2019": 0.0992,
+          "2020": 0.109,
+          "2021": 0.1196,
+          "2022": 0.1832,
+          "2023": 0.2111,
+          "2024": 0.2382
+        }
+      }
+    },
+    "n_supply_share_under_half": 6,
+    "max_second_extraction_difference": 4.9032187028924534e-05,
+    "bands_spanned": {
+      "transformers": 2,
+      "goes": 2,
+      "cables": 1,
+      "switchgear": 1,
+      "switchboards": 1,
+      "inverters": 2,
+      "meters": 2
+    },
+    "goes_mass_check_2024": {
+      "production_kg": 364522320,
+      "imports_kg": 171983011.0,
+      "exports_kg": 167261319.0,
+      "imports_from_china_kg": 97092373.0,
+      "china_import_share": 0.5645463027740572,
+      "china_apparent_supply_share": 0.2629490793204793,
+      "production_flags": {
+        "24105410": ":R"
+      }
+    },
+    "goes_import_share_2025": 0.5697168002283625,
+    "inverter_rounding": {
+      "base_eur": 3000000000,
+      "apparent_supply_eur": [
+        -382914954,
+        5617085046
+      ],
+      "share_from_production_rounding_alone": [
+        0.3403328965726327,
+        null
+      ]
+    },
+    "inverters_jan_jul_2026_china_share_of_imports": {
+      "solar": 0.9738298943130347,
+      "other": 0.574740207833733
+    },
+    "us_2024": {
+      "goes_china_share_of_import_value": 0.006,
+      "transformer_china_share_of_import_value": 0.0336
+    },
+    "eurostat_source_dates": {
+      "trade": "2026-11-13T11:00:00+0100",
+      "sold_production": "2026-10-20T11:00:00+0200"
+    }
+  }
+}
