@@ -1,25 +1,146 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow"><title>The materials behind modern weapons — Critical Materials Atlas</title><meta name="description" content="gallium, germanium, antimony, tungsten and rare earths behind radar, night vision and munitions — with 2000–2024 mine history and the export controls that hit exactly those materials.">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/defence-chain/defence-chain"><meta property="og:title" content="The West's weapons run on materials a rival controls — Critical Materials Atlas"><meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/defence-chain/defence-chain">
+<title>Materials and trade in defence supply chains — Critical Materials Atlas</title><meta name="description" content="Production shares and trade records show where materials come from. Antimony imports show how origins and unit values changed around export controls.">
+<meta property="og:title" content="Materials and trade in defence supply chains"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #8a3b3b; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
 <main id="main">
-<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Defence supply chains · Research note</div>
+  <h1>Materials and trade in defence supply chains</h1>
+  <p class="deck">Production shares and trade records show where materials come from. Antimony imports show how origins and unit values changed around export controls.</p>
+  <p class="byline">Evidence review · <time datetime="2026-11-25">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
 <article>
-<div class="callout hot" id="correction"></div>
-<div class="stats" id="stats"></div>
-<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
-<div id="history-wrap"></div>
-<div id="sections"></div>
-<h2>Customs records are context, not capability</h2>
-<p id="trade-intro"></p>
-<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0" aria-label="trade year"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
-<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
-<p id="conflegend" class="conflegend"></p>
-<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+  <p>This note asks what production shares, import origins and historical export controls can establish about selected materials used across civilian and defence industries. It examines five material groups that illustrate mining, refining or component production with documented controls. The selection serves as a set of examples. It gives no ranking of all industrial inputs.</p>
+  <p><strong>Finding.</strong> China-origin imports of selected antimony products fell steeply in the EU series after the 2024 controls. The EU total for the same basket held up while customs unit values rose. The separate US series shows a fall in total imports. These changes describe aggregate markets. The records give no purchase volumes or output effects for individual defence programmes. <a href="../export-controls">Atlas export-controls study</a>.</p>
+
+  <h2>Production shares describe separate stages</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Production shares by material and stage">
+    <table>
+      <caption>Published production shares for China, each as a fraction of the world total at the named stage.</caption>
+      <thead><tr><th scope="col">Material</th><th scope="col">Stage</th><th scope="col">Year</th><th scope="col">China share</th><th scope="col">Measure and source</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Gallium</th><td>Primary refined production</td><td>2023</td><td>98%</td><td>Semiconductor material across applications. <a href="https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf">USGS Open-File Report 2026-1018, Table 3</a>.</td></tr>
+<tr><th scope="row">Germanium</th><td>Refined production</td><td>2023</td><td>77%</td><td>Refined material for optics and electronics. <a href="https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf">USGS Open-File Report 2026-1018, Table 3</a>.</td></tr>
+<tr><th scope="row">Antimony</th><td>Mine production</td><td>2025</td><td>36%</td><td>40,000 of 110,000 tonnes in the published estimate. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf">USGS Mineral Commodity Summaries 2026, Antimony</a>.</td></tr>
+<tr><th scope="row">Tungsten</th><td>Mine production</td><td>2023</td><td>83%</td><td>Mine output upstream of industrial tooling and other products. <a href="https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf">USGS Open-File Report 2026-1018, Table 3</a>.</td></tr>
+<tr><th scope="row">Rare-earth magnets</th><td>Sintered permanent magnet production</td><td>2024</td><td>94%</td><td>Sintered magnet output across markets. The estimate has a separate scope from bonded magnets. <a href="https://www.iea.org/reports/rare-earth-elements/executive-summary">IEA Rare Earth Elements, executive summary</a>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Mine output, refined output and finished magnet production refer to different stages and years. None of these shares measures the available supply of a qualified grade for a buyer. For germanium, the controls tracker uses the IEA export-control table’s 94% market share for 2025. The Atlas tracker labels it recovery. USGS estimates 77% of refined production in 2023. Differences in coverage and year prevent a direct comparison. <a href="https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf">USGS Open-File Report 2026-1018, Table 3</a>. <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA Global Critical Minerals Outlook 2026, p. 39</a>.</p>
+
+  <h3>Antimony mine shares depend on the source edition</h3>
+  <p>The Atlas BGS series puts China at 43% in 2024. The 48% figure in the pilot matches the USGS estimate for 2023 in its 2024 edition. Its 2025 edition estimates 60% for 2024. The 2026 edition revises the estimates for China and several other producers. It puts China at 33.6% in 2024 and 36.4% in 2025. The published world totals exclude US mine output. These estimates have different reporting coverage and revision dates. The mine series alone gives no trend in refining. <a href="https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-antimony.pdf?v=101202">USGS Mineral Commodity Summaries 2024, Antimony</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf">USGS Mineral Commodity Summaries 2025, Antimony</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf">USGS Mineral Commodity Summaries 2026, Antimony</a>.</p>
+  <details>
+    <summary>China’s share of world antimony and tungsten mine output in the Atlas BGS series</summary>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Mine production shares by year">
+      <table><thead><tr><th scope="col">Year</th><th scope="col">Antimony</th><th scope="col">Tungsten</th></tr></thead><tbody>
+<tr><th scope="row">2000</th><td>84%</td><td>77%</td></tr>
+<tr><th scope="row">2005</th><td>87%</td><td>84%</td></tr>
+<tr><th scope="row">2010</th><td>80%</td><td>81%</td></tr>
+<tr><th scope="row">2015</th><td>74%</td><td>80%</td></tr>
+<tr><th scope="row">2020</th><td>49%</td><td>83%</td></tr>
+<tr><th scope="row">2021</th><td>43%</td><td>82%</td></tr>
+<tr><th scope="row">2022</th><td>37%</td><td>80%</td></tr>
+<tr><th scope="row">2023</th><td>35%</td><td>80%</td></tr>
+<tr><th scope="row">2024</th><td>43%</td><td>78%</td></tr>
+      </tbody></table>
+    </div>
+  </details>
+
+  <h2>Trade exposure has a different denominator</h2>
+  <p><strong>EU magnet imports.</strong> For CN 85051110 in 2024, China accounted for <strong>91.1% by mass</strong> (18,246,441 of 20,028,179 kg) and <strong>92.7% by value</strong> of extra-EU imports. The code covers metal permanent magnets and magnet blanks containing specified rare earths, including neodymium, praseodymium, dysprosium or samarium. Its scope differs from the IEA’s sintered magnet production series. It groups several chemistries and serves many end uses. <a href="https://ec.europa.eu/eurostat/databrowser/view/DS-045409/default/table?lang=en">Eurostat Comext DS-045409</a>. <a href="../magnet-chain/magnet-chain">Atlas magnet study</a>.</p>
+  <p><strong>US antimony market.</strong> USGS estimates net import reliance at 91% of apparent consumption in 2025. The numerator is imports minus exports of oxide and unwrought metal or powder. This measures the market’s reliance on imports from all sources. It gives no defence procurement share. The public USGS stockpile table lists potential transactions. Estimating coverage would require data on usable inventories and the rate of consumption. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf">USGS Mineral Commodity Summaries 2026, Antimony</a>.</p>
+
+  <h2>What happened around the antimony controls?</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Dates and scope of export controls">
+    <table>
+      <caption>Policy timeline through 25 November 2026.</caption>
+      <thead><tr><th scope="col">Date</th><th scope="col">Measure</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+<tr><th scope="row">1 August 2023</th><td>Licensing took effect for specified gallium and germanium items.</td><td><a href="https://www.mofcom.gov.cn/zcfb/dwmygl/art/2023/art_52b9a321087f402bb3d310d18b07967e.html">MOFCOM and Customs announcement 23 of 2023</a>.</td></tr>
+<tr><th scope="row">15 September 2024</th><td>Licensing took effect for specified antimony and superhard-material items.</td><td><a href="https://www.mofcom.gov.cn/zcfb/zgdwjjmywg/art/2024/art_3840ffc4bd104de2aa673ccd74a646cc.html">MOFCOM and Customs announcement 33 of 2024</a>.</td></tr>
+<tr><th scope="row">3 December 2024</th><td>The second paragraph generally ruled out approval for certain US-bound gallium, germanium, antimony and superhard-material items. It tightened scrutiny for certain graphite exports.</td><td><a href="https://www.mofcom.gov.cn/zfxxgk/gkml/art/2024/art_99f5d51bbe6a412ca309d5818c4dee52.html">MOFCOM announcement 46 of 2024</a>.</td></tr>
+<tr><th scope="row">4 February 2025</th><td>Licensing was introduced for specified tungsten and other items.</td><td><a href="https://exportcontrol.mofcom.gov.cn/article/hgfw/lywxcx/gzqd/202502/1102.html">MOFCOM and Customs announcement 10 of 2025</a>.</td></tr>
+<tr><th scope="row">4 April 2025</th><td>Licensing was introduced for selected medium and heavy rare-earth items.</td><td><a href="https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html/">MOFCOM and Customs announcement 18 of 2025</a>.</td></tr>
+<tr><th scope="row">9 November 2025</th><td>China suspended the second paragraph of announcement 46 through 27 November 2026.</td><td><a href="https://www.mofcom.gov.cn/zfxxgk/gkml/art/2025/art_43489ca6f2094b70954c25249702b4cc.html">MOFCOM announcement 72 of 2025</a>.</td></tr>
+<tr><th scope="row">24 November 2026</th><td>China published an extension covering 28 November 2026 through 27 January 2027.</td><td><a href="https://aqygzj.mofcom.gov.cn/qdml/art/2026/art_98ae61c2a60f43638304f2e6a43f952f.html">MOFCOM announcement 59 of 2026</a>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The suspension applies only to the second paragraph of the December 2024 measure. Its separate first paragraph still prohibits exports of controlled dual-use items to US military users or for military use. General licensing rules continue to apply. <a href="https://www.mofcom.gov.cn/zfxxgk/gkml/art/2024/art_99f5d51bbe6a412ca309d5818c4dee52.html">MOFCOM announcement 46 of 2024</a>. <a href="https://aqygzj.mofcom.gov.cn/qdml/art/2026/art_98ae61c2a60f43638304f2e6a43f952f.html">MOFCOM announcement 59 of 2026</a>.</p>
+
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Antimony imports before and after licensing">
+    <table>
+      <caption>Average monthly import mass and pooled customs unit values for selected antimony products. Earlier window Aug 2022 to Jul 2024. Later window Apr 2025 to Sep 2025.</caption>
+      <thead><tr><th scope="col">Market and measure</th><th scope="col">Earlier window</th><th scope="col">Later window</th><th scope="col">Change</th></tr></thead>
+      <tbody>
+<tr><th scope="row">EU · China origin, tonnes/month</th><td>190.32</td><td>8.44</td><td>-95.6%</td></tr>
+<tr><th scope="row">EU · Total, tonnes/month</th><td>1,663.67</td><td>1,718.78</td><td>+3.3%</td></tr>
+<tr><th scope="row">EU · Unit value, EUR/kg</th><td>11.40</td><td>46.98</td><td>+312.2%</td></tr>
+<tr><th scope="row">US · China origin, tonnes/month</th><td>73.55</td><td>22.31</td><td>-69.7%</td></tr>
+<tr><th scope="row">US · Total, tonnes/month</th><td>602.77</td><td>394.26</td><td>-34.6%</td></tr>
+<tr><th scope="row">US · Unit value, USD/kg</th><td>10.67</td><td>44.54</td><td>+317.5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The EU series uses Eurostat extra-EU imports and excludes UK and Northern Ireland partner codes, following the filed Atlas analysis. Its basket covers ore and concentrates plus unwrought material, scrap and articles. The US Census series covers general imports of unwrought material, scrap and articles. Oxide is outside both baskets. Unit values are declared value divided by reported weight. They change with prices, product mix and reporting. <a href="../export-controls">Filed analysis and customs definitions</a>. <a href="out/defence_antimony_monthly.csv">Download the monthly series (CSV)</a>.</p>
+  <figure style="margin:1.25rem 0">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Monthly antimony trade chart">
+      <a href="out/defence_antimony_monthly.png"><img src="out/defence_antimony_monthly.png" width="1500" height="1125" loading="lazy" style="display:block;width:100%;min-width:42rem;height:auto" alt="Monthly EU and US antimony imports and customs unit values from August 2022 to September 2025. China-origin volumes fell in both series. EU total volumes held up and US total volumes fell. Unit values rose in each market. The table and CSV give the figures."></a>
+    </div>
+    <figcaption class="note">Monthly mass and customs unit values from the filed Atlas analysis. The two baskets and currencies differ. The vertical markers show when the measures took effect.</figcaption>
+  </figure>
+  <p>The two windows are descriptive. EU imports from China and total US imports were already falling before the announcement. The December US-specific measures overlap the later window. The records support a fall in direct imports from China and different changes in the two observed market totals. They leave demand, stocks, the causes of the changes and military end use unresolved.</p>
+  <p><strong>Price reports.</strong> USGS lists annual antimony metal benchmark averages of USD 10.24 and USD 25 per pound for 2024 and 2025, respectively, in its February 2026 edition. The November outlook gives approximate annual averages of USD 10 and USD 24 and an end-April 2026 spot observation of about USD 12 per pound. The annual figures come from different publications and the spot quote is a point in time. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf">USGS Mineral Commodity Summaries 2026, Antimony</a>. <a href="https://pubs.usgs.gov/publication/sir20265081/full">USGS World Minerals Outlook, November 2026, Antimony</a>.</p>
+
+  <h2>What the evidence can support</h2>
+  <p>Global shares show where production occurs. Import origins show where an importing market buys a customs category. Recovery is a separate question about usable supply, inventories and time. Public procurement data have limited coverage of material and lower-tier supplier origins, as documented by the US Government Accountability Office. The evidence supports the market findings above. Programme-specific exposure, stock coverage and production losses require separate evidence. <a href="https://www.gao.gov/products/gao-25-107283">US GAO report on industrial supplier visibility, July 2025</a>.</p>
+
+  <h2>Customs context for the selected materials</h2>
+  <p>BACI gives nominal values for traded product groups. HS 811292 in this vintage combines several minor metals. HS 850511 groups metal permanent magnets. Neither heading isolates the individual material, grade or final end use. Compare observations within the same definition. The extract uses HS02 through 2016 and HS17 from 2017. <a href="https://unstats.un.org/unsd/classifications/Econ/Detail/EN/2089/811292">UN Statistics Division, HS 2017 code 811292</a>. <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601</a>.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">2024</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>The latest year in the BACI extract is 2024.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+<tr data-trade-code="811292"><td>Gallium, germanium, indium etc. (unwrought basket) (811292)</td><td>USD 1,105.9 million</td><td>China · 29%</td><td>Mixed minor metals and forms. Individual metal values are unavailable.</td></tr>
+<tr data-trade-code="811010"><td>Antimony, unwrought; powders (811010)</td><td>USD 771.8 million</td><td>Tajikistan · 31%</td><td>Unwrought antimony and powders. Oxide is a separate heading.</td></tr>
+<tr data-trade-code="810194"><td>Tungsten, unwrought; powders (810194)</td><td>USD 129.8 million</td><td>China · 62%</td><td>Unwrought tungsten and powders. The heading gives no final end use.</td></tr>
+<tr data-trade-code="850511"><td>Permanent magnets, metal (incl. rare-earth NdFeB) (850511)</td><td>USD 4,962.9 million</td><td>China · 63%</td><td>Metal permanent magnets, including more categories than the CN8 series above.</td></tr>
+<tr data-trade-code="810320"><td>Tantalum, unwrought; powders (810320)</td><td>USD 340.2 million</td><td>USA · 21%</td><td>Unwrought tantalum and powders. The heading gives no final end use.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Evidence and reproduction</h2>
+  <p>The <a href="PRODUCTION.md">claim register</a> identifies the prior release, corrections and source limits. The <a href="README.md">methods and commands</a>, <a href="out/defence_chain.json">evidence JSON</a> and <a href="out/defence_trade.json">frozen BACI extract</a> give the underlying data.</p>
 </article>
 </main>
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">A research layer of the Critical Materials Atlas — each chain shows its own sources and confidence tags.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
-<script>window.CHAIN_DATA='out/defence_chain.json';window.CHAIN_TRADE='out/defence_trade.json';</script>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../export-controls">Export controls</a></div><div><h4>Evidence</h4><a href="out/defence_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/defence_trade.json';</script>
 <script src="../chain-assets/chainview.js"></script>
-</body></html>
+</body>
+</html>

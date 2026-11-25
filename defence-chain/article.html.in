@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/defence-chain/defence-chain">
+<title>$title — Critical Materials Atlas</title><meta name="description" content="$deck">
+<meta property="og:title" content="$title"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #8a3b3b; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Defence supply chains · Research note</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$date">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p>This note asks what production shares, import origins and historical export controls can establish about selected materials used across civilian and defence industries. It examines five material groups that illustrate mining, refining or component production with documented controls. The selection serves as a set of examples. It gives no ranking of all industrial inputs.</p>
+  <p><strong>Finding.</strong> China-origin imports of selected antimony products fell steeply in the EU series after the 2024 controls. The EU total for the same basket held up while customs unit values rose. The separate US series shows a fall in total imports. These changes describe aggregate markets. The records give no purchase volumes or output effects for individual defence programmes. <a href="../export-controls">Atlas export-controls study</a>.</p>
+
+  <h2>Production shares describe separate stages</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Production shares by material and stage">
+    <table>
+      <caption>Published production shares for China, each as a fraction of the world total at the named stage.</caption>
+      <thead><tr><th scope="col">Material</th><th scope="col">Stage</th><th scope="col">Year</th><th scope="col">China share</th><th scope="col">Measure and source</th></tr></thead>
+      <tbody>
+$material_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Mine output, refined output and finished magnet production refer to different stages and years. None of these shares measures the available supply of a qualified grade for a buyer. For germanium, the controls tracker uses the IEA export-control table’s 94% market share for 2025. The Atlas tracker labels it recovery. USGS estimates 77% of refined production in 2023. Differences in coverage and year prevent a direct comparison. $china_usgs $iea_controls</p>
+
+  <h3>Antimony mine shares depend on the source edition</h3>
+  <p>The Atlas BGS series puts China at $bgs_antimony_2024 in 2024. The 48% figure in the pilot matches the USGS estimate for 2023 in its 2024 edition. Its 2025 edition estimates 60% for 2024. The 2026 edition revises the estimates for China and several other producers. It puts China at $antimony_2024 in 2024 and $antimony_2025 in 2025. The published world totals exclude US mine output. These estimates have different reporting coverage and revision dates. The mine series alone gives no trend in refining. $mcs_2024 $mcs_earlier $mcs_antimony</p>
+  <details>
+    <summary>China’s share of world antimony and tungsten mine output in the Atlas BGS series</summary>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Mine production shares by year">
+      <table><thead><tr><th scope="col">Year</th><th scope="col">Antimony</th><th scope="col">Tungsten</th></tr></thead><tbody>
+$history_rows
+      </tbody></table>
+    </div>
+  </details>
+
+  <h2>Trade exposure has a different denominator</h2>
+  <p><strong>EU magnet imports.</strong> For CN 85051110 in 2024, China accounted for <strong>$magnet_mass by mass</strong> ($magnet_china_kg of $magnet_total_kg kg) and <strong>$magnet_value by value</strong> of extra-EU imports. The code covers metal permanent magnets and magnet blanks containing specified rare earths, including neodymium, praseodymium, dysprosium or samarium. Its scope differs from the IEA’s sintered magnet production series. It groups several chemistries and serves many end uses. $comext <a href="../magnet-chain/magnet-chain">Atlas magnet study</a>.</p>
+  <p><strong>US antimony market.</strong> USGS estimates net import reliance at $import_reliance of apparent consumption in 2025. The numerator is imports minus exports of oxide and unwrought metal or powder. This measures the market’s reliance on imports from all sources. It gives no defence procurement share. The public USGS stockpile table lists potential transactions. Estimating coverage would require data on usable inventories and the rate of consumption. $mcs_antimony</p>
+
+  <h2>What happened around the antimony controls?</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Dates and scope of export controls">
+    <table>
+      <caption>Policy timeline through 25 November 2026.</caption>
+      <thead><tr><th scope="col">Date</th><th scope="col">Measure</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+$policy_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The suspension applies only to the second paragraph of the December 2024 measure. Its separate first paragraph still prohibits exports of controlled dual-use items to US military users or for military use. General licensing rules continue to apply. $ban $extension</p>
+
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Antimony imports before and after licensing">
+    <table>
+      <caption>Average monthly import mass and pooled customs unit values for selected antimony products. Earlier window $early_window. Later window $late_window.</caption>
+      <thead><tr><th scope="col">Market and measure</th><th scope="col">Earlier window</th><th scope="col">Later window</th><th scope="col">Change</th></tr></thead>
+      <tbody>
+$episode_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The EU series uses Eurostat extra-EU imports and excludes UK and Northern Ireland partner codes, following the filed Atlas analysis. Its basket covers ore and concentrates plus unwrought material, scrap and articles. The US Census series covers general imports of unwrought material, scrap and articles. Oxide is outside both baskets. Unit values are declared value divided by reported weight. They change with prices, product mix and reporting. <a href="../export-controls">Filed analysis and customs definitions</a>. <a href="out/defence_antimony_monthly.csv">Download the monthly series (CSV)</a>.</p>
+  <figure style="margin:1.25rem 0">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Monthly antimony trade chart">
+      <a href="out/defence_antimony_monthly.png"><img src="out/defence_antimony_monthly.png" width="1500" height="1125" loading="lazy" style="display:block;width:100%;min-width:42rem;height:auto" alt="Monthly EU and US antimony imports and customs unit values from August 2022 to September 2025. China-origin volumes fell in both series. EU total volumes held up and US total volumes fell. Unit values rose in each market. The table and CSV give the figures."></a>
+    </div>
+    <figcaption class="note">Monthly mass and customs unit values from the filed Atlas analysis. The two baskets and currencies differ. The vertical markers show when the measures took effect.</figcaption>
+  </figure>
+  <p>The two windows are descriptive. EU imports from China and total US imports were already falling before the announcement. The December US-specific measures overlap the later window. The records support a fall in direct imports from China and different changes in the two observed market totals. They leave demand, stocks, the causes of the changes and military end use unresolved.</p>
+  <p><strong>Price reports.</strong> USGS lists annual antimony metal benchmark averages of $price_2024 and $price_2025 per pound for 2024 and 2025, respectively, in its February 2026 edition. The November outlook gives approximate annual averages of $outlook_2024 and $outlook_2025 and an end-April 2026 spot observation of about $april_spot per pound. The annual figures come from different publications and the spot quote is a point in time. $mcs_antimony $outlook</p>
+
+  <h2>What the evidence can support</h2>
+  <p>Global shares show where production occurs. Import origins show where an importing market buys a customs category. Recovery is a separate question about usable supply, inventories and time. Public procurement data have limited coverage of material and lower-tier supplier origins, as documented by the US Government Accountability Office. The evidence supports the market findings above. Programme-specific exposure, stock coverage and production losses require separate evidence. $gao</p>
+
+  <h2>Customs context for the selected materials</h2>
+  <p>BACI gives nominal values for traded product groups. HS 811292 in this vintage combines several minor metals. HS 850511 groups metal permanent magnets. Neither heading isolates the individual material, grade or final end use. Compare observations within the same definition. The extract uses HS02 through 2016 and HS17 from 2017. $hs_minor $baci</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">$trade_year</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>The latest year in the BACI extract is $trade_year.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Evidence and reproduction</h2>
+  <p>The <a href="PRODUCTION.md">claim register</a> identifies the prior release, corrections and source limits. The <a href="README.md">methods and commands</a>, <a href="out/defence_chain.json">evidence JSON</a> and <a href="out/defence_trade.json">frozen BACI extract</a> give the underlying data.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../export-controls">Export controls</a></div><div><h4>Evidence</h4><a href="out/defence_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/defence_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

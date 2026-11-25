@@ -6753,14 +6753,22 @@
   },
   "defence-chain/record_defence.py": {
    "reads": [
+    "defence-chain/",
+    "defence-chain/article.html.in",
+    "defence-chain/out/defence_trade.json",
+    "defence-chain/record_defence.py",
+    "magnet-chain/out/comext_audit.json",
+    "out/export_controls.json",
     "out/mined_years.json"
    ],
    "writes": [
+    "defence-chain/defence-chain.html",
+    "defence-chain/out/defence_antimony_monthly.csv",
     "defence-chain/out/defence_chain.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "be00948174f0d678"
+   "secs": 0.1,
+   "code_sha": "8c16c983434156e2"
   },
   "displays-indium-chain/extract_baci.py": {
    "reads": [

@@ -48,3 +48,10 @@ The West's weapons run on materials a rival controls: radar, night vision, preci
 - Tantalum (capacitors) and rare-earth magnets beyond the CSIS pieces are thin on peer-reviewed material — search "tantalum capacitor defense supply chain criticality" and "NdFeB magnet defense procurement Resources Policy".
 - The EU-side defense-materials angle (beyond the general EU CRM 2023 study) is unexplored — search "European Defence Agency critical raw materials report" for an EU-defence-specific counterpart to the US sources above.
 - Payne Institute for Public Policy (Colorado School of Mines) runs an active defense-industrial-base research stream (https://payneinstitute.mines.edu/defense-industrial-base/) not yet mined for specific reports — worth a follow-up pass.
+
+
+## Evidence note, 25 November 2026
+
+The [revised study](defence-chain.html) updates the August 2026 library's framing and figures.
+It uses public production data, import origins and observed market changes.
+The [claim register](PRODUCTION.md) records the corrections and the current scope of the controls.

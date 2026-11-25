@@ -1,134 +1,240 @@
-"""Evidence JSON for the unpublished defence / military-materials chain pilot.
-
-Uniform chain schema (shared by the newer chains): title/thesis/stats/hops/sections/
-method/sources. Physical production, component use, demonstrated leverage and the
-stockpile response are kept as separate measures. Public sources only.
-Run: python record_defence.py  ->  out/defence_chain.json
-"""
+"""Build the defence materials evidence note from pinned inputs and Atlas aggregates."""
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "defence_chain.json")
-MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")  # atlas's own BGS mine-history
+from calendar import month_abbr
+import csv
+from html import escape
+import json
+from pathlib import Path
+from statistics import mean
+from string import Template
 
-def hist_points(material, country):
-    """China's (or any country's) mine-production share over 2000-2024, from the atlas's BGS series."""
-    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
-    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+HERE = Path(__file__).parent
+ROOT = HERE.parent
+OUT = HERE / "out"
+DATE = "2026-11-25"
+TITLE = "Materials and trade in defence supply chains"
+DECK = "Production shares and trade records show where materials come from. Antimony imports show how origins and unit values changed around export controls."
 
-SRC = {
-    "usgs_gallium": {"title": "USGS Mineral Commodity Summaries 2025 — Gallium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"},
-    "usgs_germanium": {"title": "USGS Mineral Commodity Summaries 2025 — Germanium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"},
-    "usgs_antimony": {"title": "USGS Mineral Commodity Summaries 2025 — Antimony", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf"},
-    "csis_controls": {"title": "CSIS, China Imposes Its Most Stringent Critical Minerals Export Restrictions Yet (Dec 2024)", "year": 2024, "url": "https://www.csis.org/analysis/china-imposes-its-most-stringent-critical-minerals-export-restrictions-yet-amidst"},
-    "gta_antimony": {"title": "Global Trade Alert, China export-control measures for antimony (Aug 2024)", "year": 2024, "url": "https://globaltradealert.org/state-act/88204-china-government-announces-export-control-measures-for-antimony-and-related-items"},
-    "fastmarkets": {"title": "Fastmarkets, Uncertainty lingers over antimony exports (2025)", "year": 2025, "url": "https://www.fastmarkets.com/insights/uncertainty-lingers-over-antimony-exports-following-us-china-truce/"},
-    "eu_crm": {"title": "European Commission, Study on the Critical Raw Materials for the EU 2023", "year": 2023, "url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+SOURCES = {
+    "china_usgs": ("USGS Open-File Report 2026-1018, Table 3", "https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf"),
+    "mcs_2024": ("USGS Mineral Commodity Summaries 2024, Antimony", "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-antimony.pdf?v=101202"),
+    "mcs_earlier": ("USGS Mineral Commodity Summaries 2025, Antimony", "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf"),
+    "mcs_antimony": ("USGS Mineral Commodity Summaries 2026, Antimony", "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf"),
+    "outlook": ("USGS World Minerals Outlook, November 2026, Antimony", "https://pubs.usgs.gov/publication/sir20265081/full"),
+    "magnets": ("IEA Rare Earth Elements, executive summary", "https://www.iea.org/reports/rare-earth-elements/executive-summary"),
+    "iea_controls": ("IEA Global Critical Minerals Outlook 2026, p. 39", "https://www.iea.org/reports/global-critical-minerals-outlook-2026"),
+    "comext": ("Eurostat Comext DS-045409", "https://ec.europa.eu/eurostat/databrowser/view/DS-045409/default/table?lang=en"),
+    "gao": ("US GAO report on industrial supplier visibility, July 2025", "https://www.gao.gov/products/gao-25-107283"),
+    "licenses": ("MOFCOM and Customs announcement 23 of 2023", "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2023/art_52b9a321087f402bb3d310d18b07967e.html"),
+    "antimony_licensing": ("MOFCOM and Customs announcement 33 of 2024", "https://www.mofcom.gov.cn/zcfb/zgdwjjmywg/art/2024/art_3840ffc4bd104de2aa673ccd74a646cc.html"),
+    "ban": ("MOFCOM announcement 46 of 2024", "https://www.mofcom.gov.cn/zfxxgk/gkml/art/2024/art_99f5d51bbe6a412ca309d5818c4dee52.html"),
+    "tungsten": ("MOFCOM and Customs announcement 10 of 2025", "https://exportcontrol.mofcom.gov.cn/article/hgfw/lywxcx/gzqd/202502/1102.html"),
+    "rare_earths": ("MOFCOM and Customs announcement 18 of 2025", "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html/"),
+    "suspension": ("MOFCOM announcement 72 of 2025", "https://www.mofcom.gov.cn/zfxxgk/gkml/art/2025/art_43489ca6f2094b70954c25249702b4cc.html"),
+    "extension": ("MOFCOM announcement 59 of 2026", "https://aqygzj.mofcom.gov.cn/qdml/art/2026/art_98ae61c2a60f43638304f2e6a43f952f.html"),
+    "hs_minor": ("UN Statistics Division, HS 2017 code 811292", "https://unstats.un.org/unsd/classifications/Econ/Detail/EN/2089/811292"),
+    "baci": ("CEPII BACI V202601", "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"),
+}
+POLICIES = (
+    ("1 August 2023", "Licensing took effect for specified gallium and germanium items.", "licenses"),
+    ("15 September 2024", "Licensing took effect for specified antimony and superhard-material items.", "antimony_licensing"),
+    ("3 December 2024", "The second paragraph generally ruled out approval for certain US-bound gallium, germanium, antimony and superhard-material items. It tightened scrutiny for certain graphite exports.", "ban"),
+    ("4 February 2025", "Licensing was introduced for specified tungsten and other items.", "tungsten"),
+    ("4 April 2025", "Licensing was introduced for selected medium and heavy rare-earth items.", "rare_earths"),
+    ("9 November 2025", "China suspended the second paragraph of announcement 46 through 27 November 2026.", "suspension"),
+    ("24 November 2026", "China published an extension covering 28 November 2026 through 27 January 2027.", "extension"),
+)
+MINE = {"2024": {"china_t": 40000, "world_t": 119000}, "2025": {"china_t": 40000, "world_t": 110000}}
+PRICES = {"mcs_2024": 10.24, "mcs_2025": 25, "outlook_2024": 10, "outlook_2025": 24, "april_2026_spot": 12}
+TRADE_BOUNDARIES = {
+    "811292": "Mixed minor metals and forms. Individual metal values are unavailable.",
+    "811010": "Unwrought antimony and powders. Oxide is a separate heading.",
+    "810194": "Unwrought tungsten and powders. The heading gives no final end use.",
+    "850511": "Metal permanent magnets, including more categories than the CN8 series above.",
+    "810320": "Unwrought tantalum and powders. The heading gives no final end use.",
 }
 
-CHAIN = {
-    "title": "Defence / military-materials chain",
-    "chokepoint": {"product": "Weapons systems", "stage": "Many inputs", "mechanism": "capability", "physics": "A composite — inherits its inputs' China-processed capability (magnets, gallium, antimony, tungsten)", "holder": "China (many)", "share": "—", "control": "multiple", "conf": "measured"},
-    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../tungsten-chain/tungsten-chain", "label": "Tungsten chain"}, {"href": "../titanium-chain/titanium-chain", "label": "Titanium chain"}],
-    "published": True,  # the flagship chain wired into the live atlas nav
-    "accent": "#8a3b3b",
-    "eyebrow": "Product-chain pilot · defence industrial base",
-    "h1": "The West's weapons run on materials a rival controls",
-    "deck": "Radar, night vision, precision-guided munitions and the shells themselves depend on a short list of "
-            "materials whose mining and refining is concentrated in China — the same materials China placed under "
-            "export control in 2023–2024 and briefly banned outright to the United States.",
-    "byline": "material ≠ component ≠ weapon system ≠ who can switch it off",
-    "correction": "A defence 'critical minerals' list is not just a supply-risk table — it is a map of a rival's "
-                  "leverage. Every material below is China-dominated upstream AND has already been export-controlled.",
-    "stats": [
-        {"v": "~99%", "l": "of refined gallium is China (GaN radar &amp; electronic warfare)", "conf": "measured"},
-        {"v": "48%", "l": "of mined antimony is China — it goes into 200+ munitions", "conf": "measured"},
-        {"v": "−97%", "l": "China antimony shipments after the Sept-2024 controls (prices +200%)", "conf": "measured"},
-        {"v": "Dec 2024", "l": "China banned Ga, Ge, Sb &amp; superhard materials to the US outright", "conf": "measured"},
-    ],
-    "history": {
-        "title": "China's share of mined antimony and tungsten, 2000–2024",
-        "conf": "measured",
-        "note": "BGS World Mineral Statistics (mine production), from the atlas's own data. The nuance the snapshot "
-                "hides: China's antimony MINE share has fallen from ~87% (2005) to ~40% as its reserves deplete — even "
-                "as it kept refining dominance and used export controls. Tungsten's mine grip, by contrast, is durable "
-                "(~80% for two decades). So the antimony leverage now sits in refining and policy, not the mine.",
-        "series": [
-            {"label": "Antimony (China, mine %)", "points": hist_points("antimony", "CN")},
-            {"label": "Tungsten (China, mine %)", "points": hist_points("tungsten", "CN")},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Materials", "t": "gallium, germanium, antimony, tungsten, rare earths — China-dominated upstream"},
-        {"n": "2 · Components", "t": "GaN radar chips, IR optics, magnets, penetrators, capacitors"},
-        {"n": "3 · Weapon systems", "t": "EW/radar, night vision, precision-guided munitions, armour, shells"},
-        {"n": "4 · Leverage & response", "t": "export controls demonstrated; Western stockpiles thin"},
-    ],
-    "sections": [
-        {"h2": "1 · The materials — China holds the upstream of nearly all of them", "panels": [
-            {"kind": "bars", "h3": "China's share of supply (mine or refined)", "max": 1.0, "note":
-                "USGS / EU CRM. Shares mix stages (mine vs refined) by material — gallium and germanium are refining "
-                "shares, antimony and tungsten are mine shares, magnets are downstream. Read each as 'the stage that "
-                "matters for that material'.", "bars": [
-                {"label": "Gallium (refined)", "value": 0.99},
-                {"label": "Germanium (refined)", "value": 0.60},
-                {"label": "Rare-earth magnets", "value": 0.90},
-                {"label": "Tungsten (mine)", "value": 0.80},
-                {"label": "Antimony (mine)", "value": 0.48},
-            ]},
-            {"kind": "text", "h3": "Why this list, not another",
-             "text": "These are not the biggest materials by tonnage — they are the ones a modern weapon cannot be "
-                     "built without and cannot quickly re-source. Gallium and germanium are trace by-products; antimony "
-                     "and tungsten are small markets with one dominant producer; rare-earth magnets are a downstream "
-                     "capability China spent decades concentrating.",
-             "flag": "defence-critical, not high-tonnage"},
-        ]},
-        {"h2": "2 · Each maps to a weapon-system capability", "panels": [
-            {"kind": "cards", "h3": "Material → what it enables", "cards": [
-                {"t": "Gallium", "d": "Gallium-nitride (GaN) chips for AESA radar, electronic warfare and jammers — the sensor edge of modern air defence."},
-                {"t": "Germanium", "d": "Infrared optics and night-vision / thermal imaging; also space-grade solar cells and fibre."},
-                {"t": "Antimony", "d": "Hardened lead for armour-piercing rounds, primers and tracer compounds — cited in 200+ munition types — plus flame retardants."},
-                {"t": "Tungsten", "d": "Armour-piercing penetrators, shaped-charge liners and heavy alloy — the density metal of kinetic weapons."},
-                {"t": "Rare earths", "d": "NdFeB and samarium-cobalt magnets for actuators, guidance fins and motors in precision-guided munitions."},
-                {"t": "Tantalum", "d": "High-reliability capacitors in guidance electronics, avionics and communications."},
-            ]},
-        ]},
-        {"h2": "3 · The leverage has already been used", "panels": [
-            {"kind": "big", "h3": "Antimony after the September 2024 controls", "big": "−97% / +200%",
-             "text": "Chinese antimony shipments fell about 97% and prices roughly tripled after export licensing "
-                     "took effect in September 2024 — a live demonstration that the upstream position is a usable lever.",
-             "note": "Fastmarkets / Global Trade Alert."},
-            {"kind": "text", "h3": "The escalation timeline",
-             "text": "July 2023: gallium and germanium placed under export licensing. Aug–Sep 2024: antimony and "
-                     "superhard materials added. December 2024: China banned exports of gallium, germanium, antimony "
-                     "and superhard materials to the United States outright and tightened dual-use graphite checks. "
-                     "The bans were later eased under a truce — but the capability was proven.",
-             "note": "CSIS.", "flag": "2023 → 2024 escalation"},
-        ]},
-        {"h2": "4 · The Western response is thin", "panels": [
-            {"kind": "text", "h3": "No domestic supply, limited stockpiles",
-             "text": "The United States has no primary domestic production of antimony or gallium and only limited "
-                     "strategic stockpiles; allied primary capacity for these materials is small and slow to build. "
-                     "The gap between the material list and the response is the whole risk.",
-             "note": "USGS net-import-reliance; public stockpile reporting.",
-             "flag": "the list is long, the buffer is short"},
-        ]},
-    ],
-    "trade_intro": "BACI gives a consistent monetary lens on the traded forms, but it cannot see military end-use, "
-                   "captive defence procurement, or the shared HS codes (gallium/germanium sit in one basket). Read "
-                   "the table as availability of the traded good, not as who arms whom.",
-    "method": [
-        {"stage": "Materials", "lens": "USGS/EU CRM production or refining share", "why": "who holds the upstream, by the stage that binds each material"},
-        {"stage": "Components", "lens": "qualitative end-use mapping", "why": "no public per-weapon bill of materials; map material to capability"},
-        {"stage": "Leverage", "lens": "policy events + price/volume response", "why": "export controls are observable; the market response measures the bite"},
-        {"stage": "Response", "lens": "net-import reliance + stockpile reporting", "why": "the buffer, not the flow"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— defence chain, 4 sections, gallium 99% / antimony 48% + Sep-2024 controls")
+def load(path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def month_number(month):
+    return int(month[:4]) * 12 + int(month[4:])
+
+
+def month_label(month):
+    return f"{month_abbr[int(month[4:])]} {month[:4]}"
+
+
+def summarise_months(rows):
+    total = sum(row["total_t"] for row in rows)
+    return {
+        "start": rows[0]["ym"], "end": rows[-1]["ym"], "months": len(rows),
+        "china_t_per_month": mean(row["china_t"] for row in rows),
+        "total_t_per_month": total / len(rows),
+        "unit_value_per_kg": sum(row["uv"] * row["total_t"] for row in rows if row["uv"] is not None) / total,
+    }
+
+
+def antimony_episode():
+    aggregate = load(ROOT / "out/export_controls.json")
+    cases = {}
+    for result in aggregate["results"]:
+        if result["control"] != "C5" or result["importer"] not in ("EU", "US"):
+            continue
+        rows = result["monthly"]
+        effective_month = month_number(result["in_force"])
+        earlier = [row for row in rows if row["ym"] < result["announced"]]
+        later = [row for row in rows if 7 <= month_number(row["ym"]) - effective_month <= 12]
+        if any(row["uv"] is None and row["total_t"] > 0 for row in earlier + later):
+            raise ValueError("Reported import mass has no corresponding customs unit value")
+        cases[result["importer"]] = {
+            "effective_month": result["in_force"], "announcement_month": result["announced"],
+            "basket_codes": (
+                ["81101000", "81102000", "81109000", "26171000"] if result["importer"] == "EU"
+                else ["8110100000", "8110200000", "8110900000"]
+            ),
+            "earlier": summarise_months(earlier), "later": summarise_months(later),
+            "monthly": [{key: row[key] for key in ("ym", "china_t", "total_t", "uv")} for row in rows],
+        }
+    return cases
+
+
+def benchmark_magnets():
+    comext = load(ROOT / "magnet-chain/out/comext_audit.json")
+    benchmark = comext["annual"]["rows"]["2024"]
+    china, total = benchmark["CN"], benchmark["EXT_EU27_2020"]
+    return {
+        "year": 2024, "source": comext["dataset"], "query": comext["annual"]["query"], "code": comext["product"],
+        "china_kg": round(china["QUANTITY_IN_100KG"]["value"] * 100),
+        "total_kg": round(total["QUANTITY_IN_100KG"]["value"] * 100),
+        "china_eur": china["VALUE_IN_EUROS"]["value"], "total_eur": total["VALUE_IN_EUROS"]["value"],
+    }
+
+
+def mine_history():
+    data = load(ROOT / "out/mined_years.json")
+    return {
+        material: {year: next((item["v"] for item in countries if item["c"] == "CN"), None)
+                   for year, countries in data[material].items()}
+        for material in ("antimony", "tungsten")
+    }
+
+
+def build_evidence():
+    share = MINE["2025"]["china_t"] / MINE["2025"]["world_t"]
+    materials = (
+        ("Gallium", "Primary refined production", 2023, 0.98, "Semiconductor material across applications.", "china_usgs"),
+        ("Germanium", "Refined production", 2023, 0.77, "Refined material for optics and electronics.", "china_usgs"),
+        ("Antimony", "Mine production", 2025, share, "40,000 of 110,000 tonnes in the published estimate.", "mcs_antimony"),
+        ("Tungsten", "Mine production", 2023, 0.83, "Mine output upstream of industrial tooling and other products.", "china_usgs"),
+        ("Rare-earth magnets", "Sintered permanent magnet production", 2024, 0.94,
+         "Sintered magnet output across markets. The estimate has a separate scope from bonded magnets.", "magnets"),
+    )
+    keys = ("material", "stage", "year", "china_share", "scope", "source")
+    return {
+        "title": TITLE, "h1": TITLE, "deck": DECK, "published": True, "version": DATE,
+        "chokepoint": {
+            "product": "Defence supply chains", "stage": "Selected materials", "mechanism": "capability",
+            "physics": "Concentration varies by material and stage. Public trade does not identify defence procurement.",
+            "holder": "Varies by material", "share": "—", "control": "multiple", "conf": "snapshot", "research": True,
+        },
+        "materials": [dict(zip(keys, row, strict=True)) for row in materials],
+        "mine_history_bgs": mine_history(), "antimony_mine_usgs": MINE,
+        "us_antimony_net_import_reliance": {"year": 2025, "share": 0.91, "source": "mcs_antimony"},
+        "magnet_imports": benchmark_magnets(),
+        "policy_timeline": [dict(date=date, measure=measure, source=source) for date, measure, source in POLICIES],
+        "antimony_episode": antimony_episode(), "antimony_prices_usgs": PRICES,
+        "sources": {key: {"title": title, "url": url} for key, (title, url) in SOURCES.items()},
+    }
+
+
+def display_rows(items):
+    return "\n".join(
+        f'<tr><th scope="row">{escape(str(head))}</th>'
+        + "".join(f"<td>{escape(str(value))}</td>" for value in cells) + "</tr>"
+        for head, *cells in items
+    )
+
+
+def source_link(key):
+    title, url = SOURCES[key]
+    return f'<a href="{escape(url, quote=True)}">{escape(title)}</a>.'
+
+
+def trade_rows(trade, year):
+    for code, category in trade["codes"].items():
+        row = trade["years_data"][str(year)][code]
+        exporter = next(iter(row["exporters"]), None)
+        lead = f'{exporter["name"]} · {exporter["share"]:.0%}' if exporter else "Unavailable"
+        cells = (f'{category["title"]} ({code})', f'USD {row["world_usd"] / 1e6:,.1f} million',
+                 lead, TRADE_BOUNDARIES[code])
+        yield f'<tr data-trade-code="{escape(code)}">' + "".join(f"<td>{escape(cell)}</td>" for cell in cells) + "</tr>"
+
+
+def render(data, trade):
+    material_rows = []
+    for row in data["materials"]:
+        head = (row["material"], row["stage"], row["year"], f'{row["china_share"]:.0%}')
+        material_rows.append(display_rows([head]).removesuffix("</tr>")
+                             + f'<td>{escape(row["scope"])} {source_link(row["source"])}</td></tr>')
+    policy_rows = [display_rows([(date, measure)]).removesuffix("</tr>")
+                   + f"<td>{source_link(key)}</td></tr>" for date, measure, key in POLICIES]
+    episode_rows = []
+    for market, currency in (("EU", "EUR"), ("US", "USD")):
+        case = data["antimony_episode"][market]
+        metrics = (("china_t_per_month", "China origin, tonnes/month"), ("total_t_per_month", "Total, tonnes/month"),
+                   ("unit_value_per_kg", f"Unit value, {currency}/kg"))
+        for key, label in metrics:
+            a, b = (case[window][key] for window in ("earlier", "later"))
+            episode_rows.append((f"{market} · {label}", f"{a:,.2f}", f"{b:,.2f}", f"{b/a-1:+.1%}"))
+    eu = data["antimony_episode"]["EU"]
+    history = data["mine_history_bgs"]
+    years = sorted(set(history["antimony"]) | set(history["tungsten"]))
+    magnet = data["magnet_imports"]
+    last = trade["years"][-1]
+    values = {
+        "title": TITLE, "deck": DECK, "date": DATE,
+        "material_rows": "\n".join(material_rows), "policy_rows": "\n".join(policy_rows),
+        "bgs_antimony_2024": f'{history["antimony"]["2024"]:g}%',
+        "antimony_2024": f'{MINE["2024"]["china_t"] / MINE["2024"]["world_t"]:.1%}',
+        "antimony_2025": f'{MINE["2025"]["china_t"] / MINE["2025"]["world_t"]:.1%}',
+        "history_rows": display_rows((year, *(f"{v:g}%" if v is not None else "Unavailable" for v in (
+            history["antimony"].get(year), history["tungsten"].get(year)))) for year in years),
+        "magnet_china_kg": f'{magnet["china_kg"]:,}', "magnet_total_kg": f'{magnet["total_kg"]:,}',
+        "magnet_mass": f'{magnet["china_kg"] / magnet["total_kg"]:.1%}',
+        "magnet_value": f'{magnet["china_eur"] / magnet["total_eur"]:.1%}',
+        "import_reliance": f'{data["us_antimony_net_import_reliance"]["share"]:.0%}',
+        "early_window": f'{month_label(eu["earlier"]["start"])} to {month_label(eu["earlier"]["end"])}',
+        "late_window": f'{month_label(eu["later"]["start"])} to {month_label(eu["later"]["end"])}',
+        "episode_rows": display_rows(episode_rows),
+        "price_2024": f'USD {PRICES["mcs_2024"]:g}', "price_2025": f'USD {PRICES["mcs_2025"]:g}',
+        "outlook_2024": f'USD {PRICES["outlook_2024"]:g}', "outlook_2025": f'USD {PRICES["outlook_2025"]:g}',
+        "april_spot": f'USD {PRICES["april_2026_spot"]:g}',
+        "trade_year": last, "trade_rows": "\n".join(trade_rows(trade, last)),
+        **{key: source_link(key) for key in SOURCES},
+    }
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
+
+
+def build():
+    data = build_evidence()
+    trade = load(OUT / "defence_trade.json")
+    article = render(data, trade)
+    (OUT / "defence_chain.json").write_text(
+        json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n",
+    )
+    (HERE / "defence-chain.html").write_text(article, encoding="utf-8", newline="\n")
+    with (OUT / "defence_antimony_monthly.csv").open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(("market", "month", "china_t", "total_t", "customs_unit_value_per_kg", "currency"))
+        for market, case in data["antimony_episode"].items():
+            for row in case["monthly"]:
+                writer.writerow((market, row["ym"], row["china_t"], row["total_t"], row["uv"],
+                                 "EUR" if market == "EU" else "USD"))
+
+
+if __name__ == "__main__":
+    build()

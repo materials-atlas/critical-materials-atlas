@@ -1,338 +1,739 @@
 {
-  "title": "Defence / military-materials chain",
+  "title": "Materials and trade in defence supply chains",
+  "h1": "Materials and trade in defence supply chains",
+  "deck": "Production shares and trade records show where materials come from. Antimony imports show how origins and unit values changed around export controls.",
+  "published": true,
+  "version": "2026-11-25",
   "chokepoint": {
-    "product": "Weapons systems",
-    "stage": "Many inputs",
+    "product": "Defence supply chains",
+    "stage": "Selected materials",
     "mechanism": "capability",
-    "physics": "A composite — inherits its inputs' China-processed capability (magnets, gallium, antimony, tungsten)",
-    "holder": "China (many)",
+    "physics": "Concentration varies by material and stage. Public trade does not identify defence procurement.",
+    "holder": "Varies by material",
     "share": "—",
     "control": "multiple",
-    "conf": "measured"
+    "conf": "snapshot",
+    "research": true
   },
-  "related": [
+  "materials": [
     {
-      "href": "../magnet-chain/magnet-chain",
-      "label": "Rare-earth magnet chain"
-    },
-    {
-      "href": "../gallium-chain/gallium-chain",
-      "label": "Gallium chain"
-    },
-    {
-      "href": "../tungsten-chain/tungsten-chain",
-      "label": "Tungsten chain"
-    },
-    {
-      "href": "../titanium-chain/titanium-chain",
-      "label": "Titanium chain"
-    }
-  ],
-  "published": true,
-  "accent": "#8a3b3b",
-  "eyebrow": "Product-chain pilot · defence industrial base",
-  "h1": "The West's weapons run on materials a rival controls",
-  "deck": "Radar, night vision, precision-guided munitions and the shells themselves depend on a short list of materials whose mining and refining is concentrated in China — the same materials China placed under export control in 2023–2024 and briefly banned outright to the United States.",
-  "byline": "material ≠ component ≠ weapon system ≠ who can switch it off",
-  "correction": "A defence 'critical minerals' list is not just a supply-risk table — it is a map of a rival's leverage. Every material below is China-dominated upstream AND has already been export-controlled.",
-  "stats": [
-    {
-      "v": "~99%",
-      "l": "of refined gallium is China (GaN radar &amp; electronic warfare)",
-      "conf": "measured"
-    },
-    {
-      "v": "48%",
-      "l": "of mined antimony is China — it goes into 200+ munitions",
-      "conf": "measured"
-    },
-    {
-      "v": "−97%",
-      "l": "China antimony shipments after the Sept-2024 controls (prices +200%)",
-      "conf": "measured"
-    },
-    {
-      "v": "Dec 2024",
-      "l": "China banned Ga, Ge, Sb &amp; superhard materials to the US outright",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "China's share of mined antimony and tungsten, 2000–2024",
-    "conf": "measured",
-    "note": "BGS World Mineral Statistics (mine production), from the atlas's own data. The nuance the snapshot hides: China's antimony MINE share has fallen from ~87% (2005) to ~40% as its reserves deplete — even as it kept refining dominance and used export controls. Tungsten's mine grip, by contrast, is durable (~80% for two decades). So the antimony leverage now sits in refining and policy, not the mine.",
-    "series": [
-      {
-        "label": "Antimony (China, mine %)",
-        "points": [
-          {
-            "y": 2000,
-            "v": 84
-          },
-          {
-            "y": 2005,
-            "v": 87
-          },
-          {
-            "y": 2010,
-            "v": 80
-          },
-          {
-            "y": 2015,
-            "v": 74
-          },
-          {
-            "y": 2020,
-            "v": 49
-          },
-          {
-            "y": 2021,
-            "v": 43
-          },
-          {
-            "y": 2022,
-            "v": 37
-          },
-          {
-            "y": 2023,
-            "v": 35
-          },
-          {
-            "y": 2024,
-            "v": 43
-          }
-        ]
-      },
-      {
-        "label": "Tungsten (China, mine %)",
-        "points": [
-          {
-            "y": 2000,
-            "v": 77
-          },
-          {
-            "y": 2005,
-            "v": 84
-          },
-          {
-            "y": 2010,
-            "v": 81
-          },
-          {
-            "y": 2015,
-            "v": 80
-          },
-          {
-            "y": 2020,
-            "v": 83
-          },
-          {
-            "y": 2021,
-            "v": 82
-          },
-          {
-            "y": 2022,
-            "v": 80
-          },
-          {
-            "y": 2023,
-            "v": 80
-          },
-          {
-            "y": 2024,
-            "v": 78
-          }
-        ]
-      }
-    ]
-  },
-  "hops": [
-    {
-      "n": "1 · Materials",
-      "t": "gallium, germanium, antimony, tungsten, rare earths — China-dominated upstream"
-    },
-    {
-      "n": "2 · Components",
-      "t": "GaN radar chips, IR optics, magnets, penetrators, capacitors"
-    },
-    {
-      "n": "3 · Weapon systems",
-      "t": "EW/radar, night vision, precision-guided munitions, armour, shells"
-    },
-    {
-      "n": "4 · Leverage & response",
-      "t": "export controls demonstrated; Western stockpiles thin"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The materials — China holds the upstream of nearly all of them",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "China's share of supply (mine or refined)",
-          "max": 1.0,
-          "note": "USGS / EU CRM. Shares mix stages (mine vs refined) by material — gallium and germanium are refining shares, antimony and tungsten are mine shares, magnets are downstream. Read each as 'the stage that matters for that material'.",
-          "bars": [
-            {
-              "label": "Gallium (refined)",
-              "value": 0.99
-            },
-            {
-              "label": "Germanium (refined)",
-              "value": 0.6
-            },
-            {
-              "label": "Rare-earth magnets",
-              "value": 0.9
-            },
-            {
-              "label": "Tungsten (mine)",
-              "value": 0.8
-            },
-            {
-              "label": "Antimony (mine)",
-              "value": 0.48
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Why this list, not another",
-          "text": "These are not the biggest materials by tonnage — they are the ones a modern weapon cannot be built without and cannot quickly re-source. Gallium and germanium are trace by-products; antimony and tungsten are small markets with one dominant producer; rare-earth magnets are a downstream capability China spent decades concentrating.",
-          "flag": "defence-critical, not high-tonnage"
-        }
-      ]
-    },
-    {
-      "h2": "2 · Each maps to a weapon-system capability",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "Material → what it enables",
-          "cards": [
-            {
-              "t": "Gallium",
-              "d": "Gallium-nitride (GaN) chips for AESA radar, electronic warfare and jammers — the sensor edge of modern air defence."
-            },
-            {
-              "t": "Germanium",
-              "d": "Infrared optics and night-vision / thermal imaging; also space-grade solar cells and fibre."
-            },
-            {
-              "t": "Antimony",
-              "d": "Hardened lead for armour-piercing rounds, primers and tracer compounds — cited in 200+ munition types — plus flame retardants."
-            },
-            {
-              "t": "Tungsten",
-              "d": "Armour-piercing penetrators, shaped-charge liners and heavy alloy — the density metal of kinetic weapons."
-            },
-            {
-              "t": "Rare earths",
-              "d": "NdFeB and samarium-cobalt magnets for actuators, guidance fins and motors in precision-guided munitions."
-            },
-            {
-              "t": "Tantalum",
-              "d": "High-reliability capacitors in guidance electronics, avionics and communications."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "h2": "3 · The leverage has already been used",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Antimony after the September 2024 controls",
-          "big": "−97% / +200%",
-          "text": "Chinese antimony shipments fell about 97% and prices roughly tripled after export licensing took effect in September 2024 — a live demonstration that the upstream position is a usable lever.",
-          "note": "Fastmarkets / Global Trade Alert."
-        },
-        {
-          "kind": "text",
-          "h3": "The escalation timeline",
-          "text": "July 2023: gallium and germanium placed under export licensing. Aug–Sep 2024: antimony and superhard materials added. December 2024: China banned exports of gallium, germanium, antimony and superhard materials to the United States outright and tightened dual-use graphite checks. The bans were later eased under a truce — but the capability was proven.",
-          "note": "CSIS.",
-          "flag": "2023 → 2024 escalation"
-        }
-      ]
-    },
-    {
-      "h2": "4 · The Western response is thin",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "No domestic supply, limited stockpiles",
-          "text": "The United States has no primary domestic production of antimony or gallium and only limited strategic stockpiles; allied primary capacity for these materials is small and slow to build. The gap between the material list and the response is the whole risk.",
-          "note": "USGS net-import-reliance; public stockpile reporting.",
-          "flag": "the list is long, the buffer is short"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI gives a consistent monetary lens on the traded forms, but it cannot see military end-use, captive defence procurement, or the shared HS codes (gallium/germanium sit in one basket). Read the table as availability of the traded good, not as who arms whom.",
-  "method": [
-    {
-      "stage": "Materials",
-      "lens": "USGS/EU CRM production or refining share",
-      "why": "who holds the upstream, by the stage that binds each material"
-    },
-    {
-      "stage": "Components",
-      "lens": "qualitative end-use mapping",
-      "why": "no public per-weapon bill of materials; map material to capability"
-    },
-    {
-      "stage": "Leverage",
-      "lens": "policy events + price/volume response",
-      "why": "export controls are observable; the market response measures the bite"
-    },
-    {
-      "stage": "Response",
-      "lens": "net-import reliance + stockpile reporting",
-      "why": "the buffer, not the flow"
-    }
-  ],
-  "sources": {
-    "usgs_gallium": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Gallium",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"
-    },
-    "usgs_germanium": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Germanium",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"
-    },
-    "usgs_antimony": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Antimony",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf"
-    },
-    "csis_controls": {
-      "title": "CSIS, China Imposes Its Most Stringent Critical Minerals Export Restrictions Yet (Dec 2024)",
-      "year": 2024,
-      "url": "https://www.csis.org/analysis/china-imposes-its-most-stringent-critical-minerals-export-restrictions-yet-amidst"
-    },
-    "gta_antimony": {
-      "title": "Global Trade Alert, China export-control measures for antimony (Aug 2024)",
-      "year": 2024,
-      "url": "https://globaltradealert.org/state-act/88204-china-government-announces-export-control-measures-for-antimony-and-related-items"
-    },
-    "fastmarkets": {
-      "title": "Fastmarkets, Uncertainty lingers over antimony exports (2025)",
-      "year": 2025,
-      "url": "https://www.fastmarkets.com/insights/uncertainty-lingers-over-antimony-exports-following-us-china-truce/"
-    },
-    "eu_crm": {
-      "title": "European Commission, Study on the Critical Raw Materials for the EU 2023",
+      "material": "Gallium",
+      "stage": "Primary refined production",
       "year": 2023,
-      "url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en"
+      "china_share": 0.98,
+      "scope": "Semiconductor material across applications.",
+      "source": "china_usgs"
+    },
+    {
+      "material": "Germanium",
+      "stage": "Refined production",
+      "year": 2023,
+      "china_share": 0.77,
+      "scope": "Refined material for optics and electronics.",
+      "source": "china_usgs"
+    },
+    {
+      "material": "Antimony",
+      "stage": "Mine production",
+      "year": 2025,
+      "china_share": 0.36363636363636365,
+      "scope": "40,000 of 110,000 tonnes in the published estimate.",
+      "source": "mcs_antimony"
+    },
+    {
+      "material": "Tungsten",
+      "stage": "Mine production",
+      "year": 2023,
+      "china_share": 0.83,
+      "scope": "Mine output upstream of industrial tooling and other products.",
+      "source": "china_usgs"
+    },
+    {
+      "material": "Rare-earth magnets",
+      "stage": "Sintered permanent magnet production",
+      "year": 2024,
+      "china_share": 0.94,
+      "scope": "Sintered magnet output across markets. The estimate has a separate scope from bonded magnets.",
+      "source": "magnets"
+    }
+  ],
+  "mine_history_bgs": {
+    "antimony": {
+      "2000": 84,
+      "2005": 87,
+      "2010": 80,
+      "2015": 74,
+      "2020": 49,
+      "2021": 43,
+      "2022": 37,
+      "2023": 35,
+      "2024": 43
+    },
+    "tungsten": {
+      "2000": 77,
+      "2005": 84,
+      "2010": 81,
+      "2015": 80,
+      "2020": 83,
+      "2021": 82,
+      "2022": 80,
+      "2023": 80,
+      "2024": 78
+    }
+  },
+  "antimony_mine_usgs": {
+    "2024": {
+      "china_t": 40000,
+      "world_t": 119000
+    },
+    "2025": {
+      "china_t": 40000,
+      "world_t": 110000
+    }
+  },
+  "us_antimony_net_import_reliance": {
+    "year": 2025,
+    "share": 0.91,
+    "source": "mcs_antimony"
+  },
+  "magnet_imports": {
+    "year": 2024,
+    "source": "Eurostat Comext DS-045409",
+    "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=A&reporter=EU27_2020&flow=1&product=85051110&partner=CN&partner=EXT_EU27_2020&indicators=QUANTITY_IN_100KG&indicators=VALUE_IN_EUROS&time=2023&time=2024&time=2025",
+    "code": "85051110",
+    "china_kg": 18246441,
+    "total_kg": 20028179,
+    "china_eur": 727662254,
+    "total_eur": 784810312
+  },
+  "policy_timeline": [
+    {
+      "date": "1 August 2023",
+      "measure": "Licensing took effect for specified gallium and germanium items.",
+      "source": "licenses"
+    },
+    {
+      "date": "15 September 2024",
+      "measure": "Licensing took effect for specified antimony and superhard-material items.",
+      "source": "antimony_licensing"
+    },
+    {
+      "date": "3 December 2024",
+      "measure": "The second paragraph generally ruled out approval for certain US-bound gallium, germanium, antimony and superhard-material items. It tightened scrutiny for certain graphite exports.",
+      "source": "ban"
+    },
+    {
+      "date": "4 February 2025",
+      "measure": "Licensing was introduced for specified tungsten and other items.",
+      "source": "tungsten"
+    },
+    {
+      "date": "4 April 2025",
+      "measure": "Licensing was introduced for selected medium and heavy rare-earth items.",
+      "source": "rare_earths"
+    },
+    {
+      "date": "9 November 2025",
+      "measure": "China suspended the second paragraph of announcement 46 through 27 November 2026.",
+      "source": "suspension"
+    },
+    {
+      "date": "24 November 2026",
+      "measure": "China published an extension covering 28 November 2026 through 27 January 2027.",
+      "source": "extension"
+    }
+  ],
+  "antimony_episode": {
+    "EU": {
+      "effective_month": "202409",
+      "announcement_month": "202408",
+      "basket_codes": [
+        "81101000",
+        "81102000",
+        "81109000",
+        "26171000"
+      ],
+      "earlier": {
+        "start": "202208",
+        "end": "202407",
+        "months": 24,
+        "china_t_per_month": 190.32095833333332,
+        "total_t_per_month": 1663.6705833333333,
+        "unit_value_per_kg": 11.398364109917193
+      },
+      "later": {
+        "start": "202504",
+        "end": "202509",
+        "months": 6,
+        "china_t_per_month": 8.442666666666666,
+        "total_t_per_month": 1718.7821666666666,
+        "unit_value_per_kg": 46.98189136445738
+      },
+      "monthly": [
+        {
+          "ym": "202208",
+          "china_t": 396.805,
+          "total_t": 1967.966,
+          "uv": 12.585
+        },
+        {
+          "ym": "202209",
+          "china_t": 143.028,
+          "total_t": 1942.302,
+          "uv": 12.551
+        },
+        {
+          "ym": "202210",
+          "china_t": 241.378,
+          "total_t": 1953.945,
+          "uv": 12.516
+        },
+        {
+          "ym": "202211",
+          "china_t": 68.267,
+          "total_t": 1338.321,
+          "uv": 12.021
+        },
+        {
+          "ym": "202212",
+          "china_t": 73.648,
+          "total_t": 858.542,
+          "uv": 10.219
+        },
+        {
+          "ym": "202301",
+          "china_t": 406.86,
+          "total_t": 1656.221,
+          "uv": 10.005
+        },
+        {
+          "ym": "202302",
+          "china_t": 191.109,
+          "total_t": 1654.586,
+          "uv": 10.595
+        },
+        {
+          "ym": "202303",
+          "china_t": 494.49,
+          "total_t": 1712.227,
+          "uv": 10.817
+        },
+        {
+          "ym": "202304",
+          "china_t": 332.833,
+          "total_t": 1820.379,
+          "uv": 11.103
+        },
+        {
+          "ym": "202305",
+          "china_t": 129.259,
+          "total_t": 1332.742,
+          "uv": 10.657
+        },
+        {
+          "ym": "202306",
+          "china_t": 135.829,
+          "total_t": 1845.939,
+          "uv": 10.714
+        },
+        {
+          "ym": "202307",
+          "china_t": 257.655,
+          "total_t": 1727.59,
+          "uv": 10.166
+        },
+        {
+          "ym": "202308",
+          "china_t": 196.763,
+          "total_t": 1129.441,
+          "uv": 9.448
+        },
+        {
+          "ym": "202309",
+          "china_t": 212.633,
+          "total_t": 1867.15,
+          "uv": 10.641
+        },
+        {
+          "ym": "202310",
+          "china_t": 230.516,
+          "total_t": 1734.321,
+          "uv": 10.379
+        },
+        {
+          "ym": "202311",
+          "china_t": 175.614,
+          "total_t": 1129.462,
+          "uv": 10.379
+        },
+        {
+          "ym": "202312",
+          "china_t": 213.357,
+          "total_t": 858.476,
+          "uv": 10.1
+        },
+        {
+          "ym": "202401",
+          "china_t": 217.635,
+          "total_t": 1859.253,
+          "uv": 10.425
+        },
+        {
+          "ym": "202402",
+          "china_t": 212.937,
+          "total_t": 2054.847,
+          "uv": 11.21
+        },
+        {
+          "ym": "202403",
+          "china_t": 92.681,
+          "total_t": 2151.018,
+          "uv": 10.821
+        },
+        {
+          "ym": "202404",
+          "china_t": 79.028,
+          "total_t": 1798.255,
+          "uv": 10.895
+        },
+        {
+          "ym": "202405",
+          "china_t": 6.86,
+          "total_t": 1725.454,
+          "uv": 12.451
+        },
+        {
+          "ym": "202406",
+          "china_t": 48.352,
+          "total_t": 2001.86,
+          "uv": 13.745
+        },
+        {
+          "ym": "202407",
+          "china_t": 10.166,
+          "total_t": 1807.797,
+          "uv": 16.074
+        },
+        {
+          "ym": "202408",
+          "china_t": 24.649,
+          "total_t": 1435.179,
+          "uv": 19.1
+        },
+        {
+          "ym": "202409",
+          "china_t": 47.641,
+          "total_t": 1165.353,
+          "uv": 18.6
+        },
+        {
+          "ym": "202410",
+          "china_t": 3.546,
+          "total_t": 1902.967,
+          "uv": 21.479
+        },
+        {
+          "ym": "202411",
+          "china_t": 310.423,
+          "total_t": 1842.223,
+          "uv": 26.698
+        },
+        {
+          "ym": "202412",
+          "china_t": 74.789,
+          "total_t": 1174.776,
+          "uv": 27.611
+        },
+        {
+          "ym": "202501",
+          "china_t": 10.408,
+          "total_t": 1680.957,
+          "uv": 31.452
+        },
+        {
+          "ym": "202502",
+          "china_t": 63.163,
+          "total_t": 1980.097,
+          "uv": 33.258
+        },
+        {
+          "ym": "202503",
+          "china_t": 16.282,
+          "total_t": 1701.28,
+          "uv": 42.254
+        },
+        {
+          "ym": "202504",
+          "china_t": 0.334,
+          "total_t": 2159.843,
+          "uv": 43.482
+        },
+        {
+          "ym": "202505",
+          "china_t": 25.027,
+          "total_t": 2168.721,
+          "uv": 48.13
+        },
+        {
+          "ym": "202506",
+          "china_t": 20.729,
+          "total_t": 1819.263,
+          "uv": 48.99
+        },
+        {
+          "ym": "202507",
+          "china_t": 0.078,
+          "total_t": 1324.726,
+          "uv": 47.55
+        },
+        {
+          "ym": "202508",
+          "china_t": 1.397,
+          "total_t": 1416.157,
+          "uv": 47.223
+        },
+        {
+          "ym": "202509",
+          "china_t": 3.091,
+          "total_t": 1423.983,
+          "uv": 47.208
+        }
+      ]
+    },
+    "US": {
+      "effective_month": "202409",
+      "announcement_month": "202408",
+      "basket_codes": [
+        "8110100000",
+        "8110200000",
+        "8110900000"
+      ],
+      "earlier": {
+        "start": "202208",
+        "end": "202407",
+        "months": 24,
+        "china_t_per_month": 73.55204166666667,
+        "total_t_per_month": 602.7678333333333,
+        "unit_value_per_kg": 10.667230470991178
+      },
+      "later": {
+        "start": "202504",
+        "end": "202509",
+        "months": 6,
+        "china_t_per_month": 22.307666666666666,
+        "total_t_per_month": 394.2586666666666,
+        "unit_value_per_kg": 44.540808018170814
+      },
+      "monthly": [
+        {
+          "ym": "202208",
+          "china_t": 244.384,
+          "total_t": 828.547,
+          "uv": 12.945
+        },
+        {
+          "ym": "202209",
+          "china_t": 87.815,
+          "total_t": 513.61,
+          "uv": 9.363
+        },
+        {
+          "ym": "202210",
+          "china_t": 222.807,
+          "total_t": 1051.896,
+          "uv": 9.654
+        },
+        {
+          "ym": "202211",
+          "china_t": 170.445,
+          "total_t": 680.261,
+          "uv": 13.123
+        },
+        {
+          "ym": "202212",
+          "china_t": 56.267,
+          "total_t": 1174.782,
+          "uv": 6.133
+        },
+        {
+          "ym": "202301",
+          "china_t": 94.566,
+          "total_t": 1039.909,
+          "uv": 8.618
+        },
+        {
+          "ym": "202302",
+          "china_t": 52.249,
+          "total_t": 659.968,
+          "uv": 9.633
+        },
+        {
+          "ym": "202303",
+          "china_t": 0.0,
+          "total_t": 741.079,
+          "uv": 9.036
+        },
+        {
+          "ym": "202304",
+          "china_t": 149.014,
+          "total_t": 1060.363,
+          "uv": 8.598
+        },
+        {
+          "ym": "202305",
+          "china_t": 30.335,
+          "total_t": 640.396,
+          "uv": 12.575
+        },
+        {
+          "ym": "202306",
+          "china_t": 0.05,
+          "total_t": 381.276,
+          "uv": 11.164
+        },
+        {
+          "ym": "202307",
+          "china_t": 0.0,
+          "total_t": 238.529,
+          "uv": 12.601
+        },
+        {
+          "ym": "202308",
+          "china_t": 50.317,
+          "total_t": 796.13,
+          "uv": 10.705
+        },
+        {
+          "ym": "202309",
+          "china_t": 100.076,
+          "total_t": 441.905,
+          "uv": 11.759
+        },
+        {
+          "ym": "202310",
+          "china_t": 221.948,
+          "total_t": 719.853,
+          "uv": 12.239
+        },
+        {
+          "ym": "202311",
+          "china_t": 27.911,
+          "total_t": 318.082,
+          "uv": 12.275
+        },
+        {
+          "ym": "202312",
+          "china_t": 73.849,
+          "total_t": 663.262,
+          "uv": 10.45
+        },
+        {
+          "ym": "202401",
+          "china_t": 0.02,
+          "total_t": 564.506,
+          "uv": 11.731
+        },
+        {
+          "ym": "202402",
+          "china_t": 50.0,
+          "total_t": 360.022,
+          "uv": 11.677
+        },
+        {
+          "ym": "202403",
+          "china_t": 0.2,
+          "total_t": 317.187,
+          "uv": 12.563
+        },
+        {
+          "ym": "202404",
+          "china_t": 123.77,
+          "total_t": 410.06,
+          "uv": 12.84
+        },
+        {
+          "ym": "202405",
+          "china_t": 3.0,
+          "total_t": 354.581,
+          "uv": 13.928
+        },
+        {
+          "ym": "202406",
+          "china_t": 6.226,
+          "total_t": 201.57,
+          "uv": 16.253
+        },
+        {
+          "ym": "202407",
+          "china_t": 0.0,
+          "total_t": 308.654,
+          "uv": 14.228
+        },
+        {
+          "ym": "202408",
+          "china_t": 22.672,
+          "total_t": 444.683,
+          "uv": 19.242
+        },
+        {
+          "ym": "202409",
+          "china_t": 40.426,
+          "total_t": 341.992,
+          "uv": 22.346
+        },
+        {
+          "ym": "202410",
+          "china_t": 87.829,
+          "total_t": 511.72,
+          "uv": 22.331
+        },
+        {
+          "ym": "202411",
+          "china_t": 92.003,
+          "total_t": 823.117,
+          "uv": 22.354
+        },
+        {
+          "ym": "202412",
+          "china_t": 67.487,
+          "total_t": 602.426,
+          "uv": 27.405
+        },
+        {
+          "ym": "202501",
+          "china_t": 99.0,
+          "total_t": 380.983,
+          "uv": 23.469
+        },
+        {
+          "ym": "202502",
+          "china_t": 25.249,
+          "total_t": 361.564,
+          "uv": 37.536
+        },
+        {
+          "ym": "202503",
+          "china_t": 0.249,
+          "total_t": 476.343,
+          "uv": 36.444
+        },
+        {
+          "ym": "202504",
+          "china_t": 25.249,
+          "total_t": 397.762,
+          "uv": 34.263
+        },
+        {
+          "ym": "202505",
+          "china_t": 2.249,
+          "total_t": 487.231,
+          "uv": 44.622
+        },
+        {
+          "ym": "202506",
+          "china_t": 32.018,
+          "total_t": 225.727,
+          "uv": 39.01
+        },
+        {
+          "ym": "202507",
+          "china_t": 45.374,
+          "total_t": 436.723,
+          "uv": 46.211
+        },
+        {
+          "ym": "202508",
+          "china_t": 25.516,
+          "total_t": 593.083,
+          "uv": 50.336
+        },
+        {
+          "ym": "202509",
+          "china_t": 3.44,
+          "total_t": 225.026,
+          "uv": 49.565
+        }
+      ]
+    }
+  },
+  "antimony_prices_usgs": {
+    "mcs_2024": 10.24,
+    "mcs_2025": 25,
+    "outlook_2024": 10,
+    "outlook_2025": 24,
+    "april_2026_spot": 12
+  },
+  "sources": {
+    "china_usgs": {
+      "title": "USGS Open-File Report 2026-1018, Table 3",
+      "url": "https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf"
+    },
+    "mcs_2024": {
+      "title": "USGS Mineral Commodity Summaries 2024, Antimony",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-antimony.pdf?v=101202"
+    },
+    "mcs_earlier": {
+      "title": "USGS Mineral Commodity Summaries 2025, Antimony",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf"
+    },
+    "mcs_antimony": {
+      "title": "USGS Mineral Commodity Summaries 2026, Antimony",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf"
+    },
+    "outlook": {
+      "title": "USGS World Minerals Outlook, November 2026, Antimony",
+      "url": "https://pubs.usgs.gov/publication/sir20265081/full"
+    },
+    "magnets": {
+      "title": "IEA Rare Earth Elements, executive summary",
+      "url": "https://www.iea.org/reports/rare-earth-elements/executive-summary"
+    },
+    "iea_controls": {
+      "title": "IEA Global Critical Minerals Outlook 2026, p. 39",
+      "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2026"
+    },
+    "comext": {
+      "title": "Eurostat Comext DS-045409",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/DS-045409/default/table?lang=en"
+    },
+    "gao": {
+      "title": "US GAO report on industrial supplier visibility, July 2025",
+      "url": "https://www.gao.gov/products/gao-25-107283"
+    },
+    "licenses": {
+      "title": "MOFCOM and Customs announcement 23 of 2023",
+      "url": "https://www.mofcom.gov.cn/zcfb/dwmygl/art/2023/art_52b9a321087f402bb3d310d18b07967e.html"
+    },
+    "antimony_licensing": {
+      "title": "MOFCOM and Customs announcement 33 of 2024",
+      "url": "https://www.mofcom.gov.cn/zcfb/zgdwjjmywg/art/2024/art_3840ffc4bd104de2aa673ccd74a646cc.html"
+    },
+    "ban": {
+      "title": "MOFCOM announcement 46 of 2024",
+      "url": "https://www.mofcom.gov.cn/zfxxgk/gkml/art/2024/art_99f5d51bbe6a412ca309d5818c4dee52.html"
+    },
+    "tungsten": {
+      "title": "MOFCOM and Customs announcement 10 of 2025",
+      "url": "https://exportcontrol.mofcom.gov.cn/article/hgfw/lywxcx/gzqd/202502/1102.html"
+    },
+    "rare_earths": {
+      "title": "MOFCOM and Customs announcement 18 of 2025",
+      "url": "https://english.mofcom.gov.cn/Policies/AnnouncementsOrders/art/2025/art_0dd87cbee7b045bf93fabe6ab2faceee.html/"
+    },
+    "suspension": {
+      "title": "MOFCOM announcement 72 of 2025",
+      "url": "https://www.mofcom.gov.cn/zfxxgk/gkml/art/2025/art_43489ca6f2094b70954c25249702b4cc.html"
+    },
+    "extension": {
+      "title": "MOFCOM announcement 59 of 2026",
+      "url": "https://aqygzj.mofcom.gov.cn/qdml/art/2026/art_98ae61c2a60f43638304f2e6a43f952f.html"
+    },
+    "hs_minor": {
+      "title": "UN Statistics Division, HS 2017 code 811292",
+      "url": "https://unstats.un.org/unsd/classifications/Econ/Detail/EN/2089/811292"
     },
     "baci": {
-      "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
+      "title": "CEPII BACI V202601",
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
     }
   }

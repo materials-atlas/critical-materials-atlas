@@ -1,5 +1,7 @@
 # Defence-chain interpretation notes
 
+25 November 2026. These notes preserve the earlier pilot. The [claim register](PRODUCTION.md) records the review and the [revised study](defence-chain.html) gives the current evidence.
+
 ## The claim
 For defence, a critical-minerals list read at the mine understates the problem: the
 same materials are (a) China-dominated upstream and (b) already used as export levers.

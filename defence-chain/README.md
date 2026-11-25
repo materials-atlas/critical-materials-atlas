@@ -1,25 +1,40 @@
-# Defence / military-materials chain pilot (unpublished)
+# Materials and trade in defence supply chains
 
-Follows the short list of materials modern weapon systems depend on — gallium,
-germanium, antimony, tungsten and rare earths — from the mine to the capability,
-and shows that it is the same list a rival dominates upstream and has already
-export-controlled. Isolated on `wip/value-chains`; not linked from the live Atlas.
+The [research note](defence-chain.html) compares public production,
+import-origin and trade evidence. The [claim register](PRODUCTION.md) pins the
+prior release and records the audit and remaining gaps.
 
-## Reading rule
-Production/refining share, component use, demonstrated policy leverage and the
-stockpile response are kept as separate measures. Military end-use is mapped
-qualitatively — there is no public per-weapon bill of materials — and never
-inferred from customs trade.
+Run `python defence-chain/record_defence.py` from the repository root.
+The builder uses the static template, the frozen BACI extract, the Atlas BGS
+mine series, the existing export-controls series and the magnet study's
+Comext audit. It writes the article, the evidence JSON and
+`out/defence_antimony_monthly.csv`. It requires no network access. To regenerate the chart from the CSV, run
+`python defence-chain/plot_antimony.py` with Matplotlib installed.
 
-## The finding
-The defence-critical list is a map of leverage, not just supply risk. China holds
-the upstream of nearly every material (gallium ~99% refined, germanium ~60%,
-rare-earth magnets ~90%, tungsten ~80% mine, antimony ~48% mine) and demonstrated
-the lever in 2023–2024: after Sept-2024 antimony controls, shipments fell ~97% and
-prices roughly tripled; in Dec-2024 China banned Ga/Ge/Sb/superhard exports to the US.
+## Antimony comparison
 
-## Files
-- `record_defence.py` → `out/defence_chain.json` (sourced evidence, uniform schema).
-- `extract_baci.py` → `out/defence_trade.json` (HS 811292/811010/810194/850511/810320).
-- `defence-chain.html` — unpublished research page (generic chain renderer).
-- `NOTES.md`, `PRODUCTION.md` — interpretation and source ledger.
+The builder takes the EU and US antimony cases from `out/export_controls.json`.
+The earlier period is August 2022 through July 2024. The later period is April
+through September 2025, months seven through twelve after the September 2024
+entry into force. Month zero is September 2024. The EU basket uses
+CN 81101000, 81102000, 81109000 and 26171000 in extra-EU data. The filed
+analysis excludes UK and Northern Ireland partner codes. The US basket uses
+8110100000, 8110200000 and 8110900000 from US Census general imports.
+Neither basket includes antimony oxide.
+
+The monthly averages weight months equally. The pooled unit value weights each
+monthly customs unit value by the same month's reported import mass. The
+published monthly extraction rounds the inputs. Recomputed summaries may
+therefore differ slightly from the underlying analysis. The downloadable CSV
+retains the available months and distinguishes EUR/kg and USD/kg. Monthly
+unit values reflect prices, product mix and customs reporting.
+
+The BGS and USGS mine estimates are each reported with their source and year.
+There is no interpolated series across source vintages. The magnet benchmark
+divides Chinese-origin entries by the official extra-EU aggregate from the
+same Eurostat query, once for net mass and once for value.
+
+The customs series cover aggregate markets. Programme exposure and the
+effects of export controls on defence procurement need separate evidence.
+Rebuilding the filed antimony series or the BACI trade extract requires the
+raw data used by the original builders.
