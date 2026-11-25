@@ -146,10 +146,9 @@ def build():
     data.update({
         "title": "Solar-PV chain", "h1": TITLE, "deck": DECK, "published": True,
         "chokepoint": {
-            "product": "Solar modules", "stage": "Ingot and wafer manufacturing", "mechanism": "capability",
-            "physics": "Usable supply depends on available equipment and qualified inputs",
-            "holder": "China", "share": "About 87% of global wafer capacity (2024)",
-            "control": "—", "conf": "estimate", "research": True,
+            "product": "Solar modules", "stage": "Ingot and wafer supply", "mechanism": "thermodynamic",
+            "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
+            "holder": "China", "share": "87–98% (wafers)", "control": "—", "conf": "estimate", "research": True,
         },
         "flow_results": evaluate(data),
         "review_addendum": evaluate_followup(data),
