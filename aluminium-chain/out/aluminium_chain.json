@@ -65,6 +65,11 @@
       "url": "https://pubs.usgs.gov/myb/vol1/2022/myb1-2022-bauxite-alumina.xlsx",
       "vintage": "advance release, August 2025"
     },
+    "kastner": {
+      "title": "Kastner, Kastner and Nonhebel (2011), Tracing distant environmental impacts of agricultural products from a consumer perspective, Ecological Economics 70",
+      "url": "https://doi.org/10.1016/j.ecolecon.2011.01.012",
+      "vintage": "2011"
+    },
     "ec_metals_plan": {
       "title": "European Commission, COM(2025) 125 final, A European Steel and Metals Action Plan",
       "url": "https://data.consilium.europa.eu/doc/document/ST-7288-2025-INIT/en/pdf",
@@ -2384,6 +2389,1788 @@
       "ceiling_mt": 45,
       "capacity_2025_kt": 45000,
       "output_2025_kt": 45000
+    }
+  },
+  "flow_model": {
+    "year": 2022,
+    "method": "Origin tracing with proportional mixing (Kastner, Kastner and Nonhebel, 2011) for each stage. Chaining the three stages is this study's own step.",
+    "inputs": {
+      "production": "production_2022.json (USGS Minerals Yearbook 2022)",
+      "trade": "CEPII BACI V202601, customs net weight",
+      "codes": {
+        "bauxite": [
+          "260600"
+        ],
+        "alumina": [
+          "281820"
+        ],
+        "aluminium": [
+          "760110",
+          "760120"
+        ]
+      }
+    },
+    "assumptions": [
+      "A country's exports have the same mix of origins as its supply (production plus imports) in that year.",
+      "A smelting country uses the national mix of alumina, and a refining country the national mix of bauxite.",
+      "Stocks do not change.",
+      "Unwrought aluminium in trade includes alloys and remelted metal; production is primary metal only.",
+      "The alumina code covers all grades, not only smelter grade. Bauxite production is in dry tonnes and trade in customs weight."
+    ],
+    "stages": {
+      "bauxite": {
+        "world_production_kt": 400368.0,
+        "world_trade_kt": 155665.90395300003,
+        "largest_tracing_gap_kt": 58.2,
+        "largest_gap_country": "Sierra Leone",
+        "exports_above_supply_kt": 123.3,
+        "largest_export_excess": {
+          "country": "Sierra Leone",
+          "kt": 57.7
+        },
+        "trade_shipped_by_countries_without_production_kt": 510.5,
+        "untraced_share_of_world_use": 0.0
+      },
+      "alumina": {
+        "world_production_kt": 140132.0,
+        "world_trade_kt": 35418.130238000005,
+        "largest_tracing_gap_kt": 1292.5,
+        "largest_gap_country": "Indonesia",
+        "exports_above_supply_kt": 1728.8,
+        "largest_export_excess": {
+          "country": "Indonesia",
+          "kt": 1646.4
+        },
+        "trade_shipped_by_countries_without_production_kt": 562.9,
+        "untraced_share_of_world_use": 0.0
+      },
+      "aluminium": {
+        "world_production_kt": 68358.0,
+        "world_trade_kt": 30413.710267,
+        "largest_tracing_gap_kt": 150.8,
+        "largest_gap_country": "Iceland",
+        "exports_above_supply_kt": 639.5,
+        "largest_export_excess": {
+          "country": "Iceland",
+          "kt": 140.1
+        },
+        "trade_shipped_by_countries_without_production_kt": 4929.4,
+        "untraced_share_of_world_use": 0.0001
+      }
+    },
+    "markets": {
+      "United States": {
+        "apparent_use_kt": 4816.5,
+        "customs_view": {
+          "imports_kt": 4432.4,
+          "top_suppliers": [
+            {
+              "name": "Canada",
+              "share": 0.5803
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.1148
+            },
+            {
+              "name": "Bahrain",
+              "share": 0.0695
+            },
+            {
+              "name": "Russia",
+              "share": 0.0433
+            },
+            {
+              "name": "Australia",
+              "share": 0.0422
+            },
+            {
+              "name": "Argentina",
+              "share": 0.0363
+            }
+          ],
+          "hhi": 3620
+        },
+        "smelted_in": {
+          "home": 0.1652,
+          "top_foreign": [
+            {
+              "name": "Canada",
+              "share": 0.4638
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.1006
+            },
+            {
+              "name": "Bahrain",
+              "share": 0.0621
+            },
+            {
+              "name": "Russia",
+              "share": 0.0402
+            },
+            {
+              "name": "Australia",
+              "share": 0.0381
+            },
+            {
+              "name": "India",
+              "share": 0.0323
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2625
+        },
+        "alumina_refined_in": {
+          "home": 0.0609,
+          "top_foreign": [
+            {
+              "name": "Brazil",
+              "share": 0.4054
+            },
+            {
+              "name": "Australia",
+              "share": 0.2754
+            },
+            {
+              "name": "Canada",
+              "share": 0.1087
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0488
+            },
+            {
+              "name": "India",
+              "share": 0.0323
+            },
+            {
+              "name": "Russia",
+              "share": 0.0187
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2598
+        },
+        "bauxite_mined_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "Brazil",
+              "share": 0.4759
+            },
+            {
+              "name": "Australia",
+              "share": 0.2791
+            },
+            {
+              "name": "Guinea",
+              "share": 0.1023
+            },
+            {
+              "name": "Jamaica",
+              "share": 0.052
+            },
+            {
+              "name": "India",
+              "share": 0.0282
+            },
+            {
+              "name": "Russia",
+              "share": 0.0187
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 3189
+        },
+        "customs_share_of": {
+          "Guinea": 0.0,
+          "Brazil": 0.007,
+          "Australia": 0.0422,
+          "Jamaica": 0.0,
+          "Canada": 0.5803,
+          "Norway": 0.0013
+        },
+        "selected": {
+          "guinea_bauxite": 0.1023,
+          "australia_bauxite": 0.2791,
+          "china_bauxite": 0.006,
+          "brazil_bauxite": 0.4759,
+          "china_alumina": 0.0105,
+          "australia_alumina": 0.2754,
+          "brazil_alumina": 0.4054,
+          "china_smelting": 0.0019,
+          "russia_smelting": 0.0402,
+          "canada_smelting": 0.4638,
+          "norway_smelting": 0.0024
+        }
+      },
+      "European Union": {
+        "apparent_use_kt": 8094.3,
+        "customs_view": {
+          "imports_kt": 7203.0,
+          "top_suppliers": [
+            {
+              "name": "Norway",
+              "share": 0.1871
+            },
+            {
+              "name": "Iceland",
+              "share": 0.1134
+            },
+            {
+              "name": "Russia",
+              "share": 0.1086
+            },
+            {
+              "name": "India",
+              "share": 0.098
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0948
+            },
+            {
+              "name": "Mozambique",
+              "share": 0.0697
+            }
+          ],
+          "hhi": 912
+        },
+        "smelted_in": {
+          "home": 0.1603,
+          "top_foreign": [
+            {
+              "name": "Norway",
+              "share": 0.1387
+            },
+            {
+              "name": "Russia",
+              "share": 0.1172
+            },
+            {
+              "name": "India",
+              "share": 0.1012
+            },
+            {
+              "name": "Iceland",
+              "share": 0.1
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0951
+            },
+            {
+              "name": "Mozambique",
+              "share": 0.0587
+            }
+          ],
+          "untraced": 0.0001,
+          "hhi": 975
+        },
+        "alumina_refined_in": {
+          "home": 0.1919,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.3174
+            },
+            {
+              "name": "Brazil",
+              "share": 0.1686
+            },
+            {
+              "name": "India",
+              "share": 0.0895
+            },
+            {
+              "name": "Russia",
+              "share": 0.0547
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0461
+            },
+            {
+              "name": "Kazakhstan",
+              "share": 0.0262
+            }
+          ],
+          "untraced": 0.0001,
+          "hhi": 1815
+        },
+        "bauxite_mined_in": {
+          "home": 0.0264,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.3221
+            },
+            {
+              "name": "Brazil",
+              "share": 0.1951
+            },
+            {
+              "name": "Guinea",
+              "share": 0.1761
+            },
+            {
+              "name": "India",
+              "share": 0.0784
+            },
+            {
+              "name": "Russia",
+              "share": 0.0546
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0287
+            }
+          ],
+          "untraced": 0.0001,
+          "hhi": 1853
+        },
+        "customs_share_of": {
+          "Guinea": 0.0,
+          "Brazil": 0.0026,
+          "Australia": 0.0102,
+          "Jamaica": 0.0,
+          "Canada": 0.0117,
+          "Norway": 0.1871
+        },
+        "selected": {
+          "guinea_bauxite": 0.1761,
+          "australia_bauxite": 0.3221,
+          "china_bauxite": 0.0121,
+          "brazil_bauxite": 0.1951,
+          "china_alumina": 0.0253,
+          "australia_alumina": 0.3174,
+          "brazil_alumina": 0.1686,
+          "china_smelting": 0.007,
+          "russia_smelting": 0.1172,
+          "canada_smelting": 0.0121,
+          "norway_smelting": 0.1387
+        }
+      },
+      "Japan": {
+        "apparent_use_kt": 2423.8,
+        "customs_view": {
+          "imports_kt": 2480.5,
+          "top_suppliers": [
+            {
+              "name": "United Arab Emirates",
+              "share": 0.1716
+            },
+            {
+              "name": "Russia",
+              "share": 0.1631
+            },
+            {
+              "name": "Australia",
+              "share": 0.1466
+            },
+            {
+              "name": "New Zealand",
+              "share": 0.0694
+            },
+            {
+              "name": "Saudi Arabia",
+              "share": 0.0624
+            },
+            {
+              "name": "China",
+              "share": 0.0583
+            }
+          ],
+          "hhi": 1002
+        },
+        "smelted_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "United Arab Emirates",
+              "share": 0.1855
+            },
+            {
+              "name": "Russia",
+              "share": 0.1727
+            },
+            {
+              "name": "Australia",
+              "share": 0.1495
+            },
+            {
+              "name": "China",
+              "share": 0.0764
+            },
+            {
+              "name": "India",
+              "share": 0.075
+            },
+            {
+              "name": "New Zealand",
+              "share": 0.0673
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 1124
+        },
+        "alumina_refined_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.4513
+            },
+            {
+              "name": "China",
+              "share": 0.0983
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0899
+            },
+            {
+              "name": "Russia",
+              "share": 0.0806
+            },
+            {
+              "name": "India",
+              "share": 0.0733
+            },
+            {
+              "name": "Saudi Arabia",
+              "share": 0.058
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2409
+        },
+        "bauxite_mined_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.467
+            },
+            {
+              "name": "Guinea",
+              "share": 0.1518
+            },
+            {
+              "name": "Russia",
+              "share": 0.0805
+            },
+            {
+              "name": "India",
+              "share": 0.0641
+            },
+            {
+              "name": "Saudi Arabia",
+              "share": 0.058
+            },
+            {
+              "name": "Brazil",
+              "share": 0.0559
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2619
+        },
+        "customs_share_of": {
+          "Guinea": 0.0,
+          "Brazil": 0.0545,
+          "Australia": 0.1466,
+          "Jamaica": 0.0,
+          "Canada": 0.0,
+          "Norway": 0.0005
+        },
+        "selected": {
+          "guinea_bauxite": 0.1518,
+          "australia_bauxite": 0.467,
+          "china_bauxite": 0.0413,
+          "brazil_bauxite": 0.0559,
+          "china_alumina": 0.0983,
+          "australia_alumina": 0.4513,
+          "brazil_alumina": 0.0503,
+          "china_smelting": 0.0764,
+          "russia_smelting": 0.1727,
+          "canada_smelting": 0.0027,
+          "norway_smelting": 0.0028
+        }
+      },
+      "South Korea": {
+        "apparent_use_kt": 1187.8,
+        "customs_view": {
+          "imports_kt": 1524.4,
+          "top_suppliers": [
+            {
+              "name": "India",
+              "share": 0.3523
+            },
+            {
+              "name": "Australia",
+              "share": 0.1552
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.1012
+            },
+            {
+              "name": "Russia",
+              "share": 0.0919
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0718
+            },
+            {
+              "name": "Qatar",
+              "share": 0.0615
+            }
+          ],
+          "hhi": 1816
+        },
+        "smelted_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "India",
+              "share": 0.3496
+            },
+            {
+              "name": "Australia",
+              "share": 0.1552
+            },
+            {
+              "name": "Russia",
+              "share": 0.0974
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0854
+            },
+            {
+              "name": "Qatar",
+              "share": 0.0717
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.0593
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 1788
+        },
+        "alumina_refined_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.4554
+            },
+            {
+              "name": "India",
+              "share": 0.2826
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0606
+            },
+            {
+              "name": "Russia",
+              "share": 0.0454
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0414
+            },
+            {
+              "name": "China",
+              "share": 0.0352
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2971
+        },
+        "bauxite_mined_in": {
+          "home": 0.0,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.4611
+            },
+            {
+              "name": "India",
+              "share": 0.2472
+            },
+            {
+              "name": "Guinea",
+              "share": 0.0981
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0637
+            },
+            {
+              "name": "Russia",
+              "share": 0.0454
+            },
+            {
+              "name": "Saudi Arabia",
+              "share": 0.0272
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2908
+        },
+        "customs_share_of": {
+          "Guinea": 0.0,
+          "Brazil": 0.0001,
+          "Australia": 0.1552,
+          "Jamaica": 0.0,
+          "Canada": 0.0001,
+          "Norway": 0.0
+        },
+        "selected": {
+          "guinea_bauxite": 0.0981,
+          "australia_bauxite": 0.4611,
+          "china_bauxite": 0.0151,
+          "brazil_bauxite": 0.0113,
+          "china_alumina": 0.0352,
+          "australia_alumina": 0.4554,
+          "brazil_alumina": 0.0075,
+          "china_smelting": 0.0198,
+          "russia_smelting": 0.0974,
+          "canada_smelting": 0.0049,
+          "norway_smelting": 0.0014
+        }
+      },
+      "India": {
+        "apparent_use_kt": 1343.1,
+        "customs_view": {
+          "imports_kt": 267.9,
+          "top_suppliers": [
+            {
+              "name": "Qatar",
+              "share": 0.2198
+            },
+            {
+              "name": "Bahrain",
+              "share": 0.1986
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.1723
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.1229
+            },
+            {
+              "name": "Oman",
+              "share": 0.1142
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0346
+            }
+          ],
+          "hhi": 1491
+        },
+        "smelted_in": {
+          "home": 0.9413,
+          "top_foreign": [
+            {
+              "name": "Qatar",
+              "share": 0.014
+            },
+            {
+              "name": "Bahrain",
+              "share": 0.0125
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.009
+            },
+            {
+              "name": "Oman",
+              "share": 0.0071
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.0062
+            },
+            {
+              "name": "Russia",
+              "share": 0.0026
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 8866
+        },
+        "alumina_refined_in": {
+          "home": 0.7398,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.1341
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0838
+            },
+            {
+              "name": "Vietnam",
+              "share": 0.0224
+            },
+            {
+              "name": "China",
+              "share": 0.0081
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0045
+            },
+            {
+              "name": "Brazil",
+              "share": 0.0014
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 5729
+        },
+        "bauxite_mined_in": {
+          "home": 0.6469,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.1357
+            },
+            {
+              "name": "Guinea",
+              "share": 0.0953
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0847
+            },
+            {
+              "name": "Vietnam",
+              "share": 0.0223
+            },
+            {
+              "name": "China",
+              "share": 0.0043
+            },
+            {
+              "name": "Sierra Leone",
+              "share": 0.0042
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 4537
+        },
+        "customs_share_of": {
+          "Guinea": 0.0,
+          "Brazil": 0.0016,
+          "Australia": 0.0141,
+          "Jamaica": 0.0,
+          "Canada": 0.0018,
+          "Norway": 0.0
+        },
+        "selected": {
+          "guinea_bauxite": 0.0953,
+          "australia_bauxite": 0.1357,
+          "china_bauxite": 0.0043,
+          "brazil_bauxite": 0.0021,
+          "china_alumina": 0.0081,
+          "australia_alumina": 0.1341,
+          "brazil_alumina": 0.0014,
+          "china_smelting": 0.0006,
+          "russia_smelting": 0.0026,
+          "canada_smelting": 0.0006,
+          "norway_smelting": 0.0001
+        }
+      },
+      "China": {
+        "apparent_use_kt": 41854.0,
+        "customs_view": {
+          "imports_kt": 1964.6,
+          "top_suppliers": [
+            {
+              "name": "Russia",
+              "share": 0.2643
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.2217
+            },
+            {
+              "name": "India",
+              "share": 0.0763
+            },
+            {
+              "name": "South Korea",
+              "share": 0.0616
+            },
+            {
+              "name": "Thailand",
+              "share": 0.0548
+            },
+            {
+              "name": "Vietnam",
+              "share": 0.0479
+            }
+          ],
+          "hhi": 1375
+        },
+        "smelted_in": {
+          "home": 0.9548,
+          "top_foreign": [
+            {
+              "name": "Russia",
+              "share": 0.0137
+            },
+            {
+              "name": "India",
+              "share": 0.0076
+            },
+            {
+              "name": "Malaysia",
+              "share": 0.0068
+            },
+            {
+              "name": "United Arab Emirates",
+              "share": 0.0037
+            },
+            {
+              "name": "Australia",
+              "share": 0.003
+            },
+            {
+              "name": "Bahrain",
+              "share": 0.0018
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 9119
+        },
+        "alumina_refined_in": {
+          "home": 0.9342,
+          "top_foreign": [
+            {
+              "name": "Australia",
+              "share": 0.0294
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0091
+            },
+            {
+              "name": "India",
+              "share": 0.0076
+            },
+            {
+              "name": "Russia",
+              "share": 0.0064
+            },
+            {
+              "name": "Vietnam",
+              "share": 0.0025
+            },
+            {
+              "name": "Kazakhstan",
+              "share": 0.0023
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 8738
+        },
+        "bauxite_mined_in": {
+          "home": 0.3905,
+          "top_foreign": [
+            {
+              "name": "Guinea",
+              "share": 0.3099
+            },
+            {
+              "name": "Australia",
+              "share": 0.1787
+            },
+            {
+              "name": "Indonesia",
+              "share": 0.0892
+            },
+            {
+              "name": "India",
+              "share": 0.0066
+            },
+            {
+              "name": "Russia",
+              "share": 0.0064
+            },
+            {
+              "name": "Turkey",
+              "share": 0.0034
+            }
+          ],
+          "untraced": 0.0,
+          "hhi": 2885
+        },
+        "customs_share_of": {
+          "Guinea": 0.0006,
+          "Brazil": 0.001,
+          "Australia": 0.0142,
+          "Jamaica": 0.0,
+          "Canada": 0.0003,
+          "Norway": 0.0
+        },
+        "selected": {
+          "guinea_bauxite": 0.3099,
+          "australia_bauxite": 0.1787,
+          "china_bauxite": 0.3905,
+          "brazil_bauxite": 0.0022,
+          "china_alumina": 0.9342,
+          "australia_alumina": 0.0294,
+          "brazil_alumina": 0.001,
+          "china_smelting": 0.9548,
+          "russia_smelting": 0.0137,
+          "canada_smelting": 0.0006,
+          "norway_smelting": 0.0002
+        }
+      }
+    },
+    "smelting_countries": {
+      "China": {
+        "metal_kt": 40214,
+        "alumina_refined_in": [
+          {
+            "name": "China",
+            "share": 0.9764
+          },
+          {
+            "name": "Australia",
+            "share": 0.0146
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0047
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0023
+          },
+          {
+            "name": "India",
+            "share": 0.0007
+          },
+          {
+            "name": "Kazakhstan",
+            "share": 0.0006
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "China",
+            "share": 0.4081
+          },
+          {
+            "name": "Guinea",
+            "share": 0.3195
+          },
+          {
+            "name": "Australia",
+            "share": 0.1707
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0885
+          },
+          {
+            "name": "Turkey",
+            "share": 0.0033
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0023
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "India": {
+        "metal_kt": 4100,
+        "alumina_refined_in": [
+          {
+            "name": "India",
+            "share": 0.7847
+          },
+          {
+            "name": "Australia",
+            "share": 0.0977
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0832
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0235
+          },
+          {
+            "name": "China",
+            "share": 0.0074
+          },
+          {
+            "name": "Germany",
+            "share": 0.0008
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "India",
+            "share": 0.6862
+          },
+          {
+            "name": "Australia",
+            "share": 0.0993
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0955
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.084
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0235
+          },
+          {
+            "name": "Sierra Leone",
+            "share": 0.0044
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Russia": {
+        "metal_kt": 3715,
+        "alumina_refined_in": [
+          {
+            "name": "Russia",
+            "share": 0.4665
+          },
+          {
+            "name": "China",
+            "share": 0.1253
+          },
+          {
+            "name": "Kazakhstan",
+            "share": 0.1123
+          },
+          {
+            "name": "Ireland",
+            "share": 0.0954
+          },
+          {
+            "name": "Australia",
+            "share": 0.0596
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.0388
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Russia",
+            "share": 0.4658
+          },
+          {
+            "name": "Guinea",
+            "share": 0.1415
+          },
+          {
+            "name": "Kazakhstan",
+            "share": 0.1123
+          },
+          {
+            "name": "Australia",
+            "share": 0.0797
+          },
+          {
+            "name": "China",
+            "share": 0.0526
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0438
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Canada": {
+        "metal_kt": 2765,
+        "alumina_refined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.6606
+          },
+          {
+            "name": "Canada",
+            "share": 0.2336
+          },
+          {
+            "name": "Australia",
+            "share": 0.0901
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.0121
+          },
+          {
+            "name": "United States",
+            "share": 0.0013
+          },
+          {
+            "name": "China",
+            "share": 0.001
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.8047
+          },
+          {
+            "name": "Australia",
+            "share": 0.0905
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0743
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.0156
+          },
+          {
+            "name": "Turkey",
+            "share": 0.0117
+          },
+          {
+            "name": "Guyana",
+            "share": 0.0016
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "United Arab Emirates": {
+        "metal_kt": 2650,
+        "alumina_refined_in": [
+          {
+            "name": "United Arab Emirates",
+            "share": 0.4847
+          },
+          {
+            "name": "Australia",
+            "share": 0.4386
+          },
+          {
+            "name": "India",
+            "share": 0.0494
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0178
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0053
+          },
+          {
+            "name": "China",
+            "share": 0.0028
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Guinea",
+            "share": 0.4914
+          },
+          {
+            "name": "Australia",
+            "share": 0.4391
+          },
+          {
+            "name": "India",
+            "share": 0.0434
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0177
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0055
+          },
+          {
+            "name": "China",
+            "share": 0.0013
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Bahrain": {
+        "metal_kt": 1600,
+        "alumina_refined_in": [
+          {
+            "name": "Australia",
+            "share": 0.9872
+          },
+          {
+            "name": "Saudi Arabia",
+            "share": 0.0121
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Australia",
+            "share": 0.9872
+          },
+          {
+            "name": "Saudi Arabia",
+            "share": 0.0121
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Australia": {
+        "metal_kt": 1510,
+        "alumina_refined_in": [
+          {
+            "name": "Australia",
+            "share": 0.9996
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Australia",
+            "share": 0.9996
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Norway": {
+        "metal_kt": 1400,
+        "alumina_refined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.8175
+          },
+          {
+            "name": "Spain",
+            "share": 0.1436
+          },
+          {
+            "name": "Australia",
+            "share": 0.033
+          },
+          {
+            "name": "Germany",
+            "share": 0.0016
+          },
+          {
+            "name": "Ireland",
+            "share": 0.0009
+          },
+          {
+            "name": "China",
+            "share": 0.0009
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.8177
+          },
+          {
+            "name": "Guinea",
+            "share": 0.1429
+          },
+          {
+            "name": "Australia",
+            "share": 0.0333
+          },
+          {
+            "name": "Guyana",
+            "share": 0.0024
+          },
+          {
+            "name": "Turkey",
+            "share": 0.0014
+          },
+          {
+            "name": "China",
+            "share": 0.0007
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Saudi Arabia": {
+        "metal_kt": 953,
+        "alumina_refined_in": [
+          {
+            "name": "Saudi Arabia",
+            "share": 0.9877
+          },
+          {
+            "name": "China",
+            "share": 0.0045
+          },
+          {
+            "name": "Australia",
+            "share": 0.0022
+          },
+          {
+            "name": "India",
+            "share": 0.0016
+          },
+          {
+            "name": "Ireland",
+            "share": 0.0009
+          },
+          {
+            "name": "Brazil",
+            "share": 0.0008
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Saudi Arabia",
+            "share": 0.9866
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0034
+          },
+          {
+            "name": "Australia",
+            "share": 0.003
+          },
+          {
+            "name": "China",
+            "share": 0.0021
+          },
+          {
+            "name": "India",
+            "share": 0.0017
+          },
+          {
+            "name": "Brazil",
+            "share": 0.0016
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Malaysia": {
+        "metal_kt": 900,
+        "alumina_refined_in": [
+          {
+            "name": "Australia",
+            "share": 0.5421
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.415
+          },
+          {
+            "name": "India",
+            "share": 0.0262
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0057
+          },
+          {
+            "name": "China",
+            "share": 0.0056
+          },
+          {
+            "name": "Ireland",
+            "share": 0.0016
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Australia",
+            "share": 0.543
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.4155
+          },
+          {
+            "name": "India",
+            "share": 0.0229
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0077
+          },
+          {
+            "name": "Vietnam",
+            "share": 0.0057
+          },
+          {
+            "name": "China",
+            "share": 0.0025
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "United States": {
+        "metal_kt": 861,
+        "alumina_refined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.4727
+          },
+          {
+            "name": "United States",
+            "share": 0.3647
+          },
+          {
+            "name": "Australia",
+            "share": 0.1024
+          },
+          {
+            "name": "Spain",
+            "share": 0.0207
+          },
+          {
+            "name": "China",
+            "share": 0.0137
+          },
+          {
+            "name": "Germany",
+            "share": 0.0087
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.4864
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.2604
+          },
+          {
+            "name": "Australia",
+            "share": 0.1158
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0462
+          },
+          {
+            "name": "Turkey",
+            "share": 0.0314
+          },
+          {
+            "name": "Guyana",
+            "share": 0.0268
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Brazil": {
+        "metal_kt": 811,
+        "alumina_refined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.9984
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Brazil",
+            "share": 0.9983
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0008
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "Iceland": {
+        "metal_kt": 720,
+        "alumina_refined_in": [
+          {
+            "name": "Australia",
+            "share": 0.4391
+          },
+          {
+            "name": "Brazil",
+            "share": 0.4128
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.0433
+          },
+          {
+            "name": "Ireland",
+            "share": 0.0407
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0227
+          },
+          {
+            "name": "China",
+            "share": 0.0127
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Australia",
+            "share": 0.4414
+          },
+          {
+            "name": "Brazil",
+            "share": 0.4222
+          },
+          {
+            "name": "Jamaica",
+            "share": 0.0491
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0491
+          },
+          {
+            "name": "Indonesia",
+            "share": 0.0239
+          },
+          {
+            "name": "China",
+            "share": 0.0057
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      },
+      "South Africa": {
+        "metal_kt": 718,
+        "alumina_refined_in": [
+          {
+            "name": "Australia",
+            "share": 0.992
+          },
+          {
+            "name": "China",
+            "share": 0.0039
+          },
+          {
+            "name": "Germany",
+            "share": 0.0014
+          }
+        ],
+        "bauxite_mined_in": [
+          {
+            "name": "Australia",
+            "share": 0.9926
+          },
+          {
+            "name": "Guinea",
+            "share": 0.0033
+          },
+          {
+            "name": "China",
+            "share": 0.0017
+          },
+          {
+            "name": "Brazil",
+            "share": 0.0006
+          }
+        ],
+        "alumina_untraced": 0.0,
+        "bauxite_untraced": 0.0
+      }
+    },
+    "sensitivity": {
+      "base": {
+        "United States": {
+          "guinea_bauxite": 0.1023,
+          "home_smelting": 0.1652,
+          "home_bauxite": 0.0,
+          "index_smelting": 2625,
+          "index_refining": 2598,
+          "index_mining": 3189
+        },
+        "European Union": {
+          "guinea_bauxite": 0.1761,
+          "home_smelting": 0.1603,
+          "home_bauxite": 0.0264,
+          "index_smelting": 975,
+          "index_refining": 1815,
+          "index_mining": 1853
+        },
+        "Japan": {
+          "guinea_bauxite": 0.1518,
+          "home_smelting": 0.0,
+          "home_bauxite": 0.0,
+          "index_smelting": 1124,
+          "index_refining": 2409,
+          "index_mining": 2619
+        },
+        "South Korea": {
+          "guinea_bauxite": 0.0981,
+          "home_smelting": 0.0,
+          "home_bauxite": 0.0,
+          "index_smelting": 1788,
+          "index_refining": 2971,
+          "index_mining": 2908
+        },
+        "India": {
+          "guinea_bauxite": 0.0953,
+          "home_smelting": 0.9413,
+          "home_bauxite": 0.6469,
+          "index_smelting": 8866,
+          "index_refining": 5729,
+          "index_mining": 4537
+        },
+        "China": {
+          "guinea_bauxite": 0.3099,
+          "home_smelting": 0.9548,
+          "home_bauxite": 0.3905,
+          "index_smelting": 9119,
+          "index_refining": 8738,
+          "index_mining": 2885
+        }
+      },
+      "unalloyed_metal_only": {
+        "note": "Unwrought alloy (HS 760120) left out of metal trade. A stress test: some smelting countries ship most of their metal as alloy.",
+        "markets": {
+          "United States": {
+            "guinea_bauxite": 0.0752,
+            "home_smelting": 0.2896,
+            "home_bauxite": 0.0,
+            "index_smelting": 3346,
+            "index_refining": 3020,
+            "index_mining": 3694
+          },
+          "European Union": {
+            "guinea_bauxite": 0.1853,
+            "home_smelting": 0.2746,
+            "home_bauxite": 0.0431,
+            "index_smelting": 1340,
+            "index_refining": 2059,
+            "index_mining": 1754
+          },
+          "Japan": {
+            "guinea_bauxite": 0.0879,
+            "home_smelting": 0.0,
+            "home_bauxite": 0.0,
+            "index_smelting": 1297,
+            "index_refining": 2815,
+            "index_mining": 2906
+          },
+          "South Korea": {
+            "guinea_bauxite": 0.077,
+            "home_smelting": 0.0,
+            "home_bauxite": 0.0,
+            "index_smelting": 3003,
+            "index_refining": 3267,
+            "index_mining": 2967
+          },
+          "India": {
+            "guinea_bauxite": 0.0953,
+            "home_smelting": 0.9857,
+            "home_bauxite": 0.6769,
+            "index_smelting": 9717,
+            "index_refining": 6178,
+            "index_mining": 4864
+          },
+          "China": {
+            "guinea_bauxite": 0.3162,
+            "home_smelting": 0.9832,
+            "home_bauxite": 0.4019,
+            "index_smelting": 9668,
+            "index_refining": 9249,
+            "index_mining": 2985
+          }
+        }
+      },
+      "traded_bauxite_less_10_per_cent_moisture": {
+        "note": "Bauxite trade tonnage multiplied by 0.9, against production in dry tonnes.",
+        "markets": {
+          "United States": {
+            "guinea_bauxite": 0.1018,
+            "home_smelting": 0.1652,
+            "home_bauxite": 0.0,
+            "index_smelting": 2625,
+            "index_refining": 2598,
+            "index_mining": 3188
+          },
+          "European Union": {
+            "guinea_bauxite": 0.1746,
+            "home_smelting": 0.1603,
+            "home_bauxite": 0.0275,
+            "index_smelting": 975,
+            "index_refining": 1815,
+            "index_mining": 1845
+          },
+          "Japan": {
+            "guinea_bauxite": 0.1496,
+            "home_smelting": 0.0,
+            "home_bauxite": 0.0,
+            "index_smelting": 1124,
+            "index_refining": 2409,
+            "index_mining": 2609
+          },
+          "South Korea": {
+            "guinea_bauxite": 0.0946,
+            "home_smelting": 0.0,
+            "home_bauxite": 0.0,
+            "index_smelting": 1788,
+            "index_refining": 2971,
+            "index_mining": 2915
+          },
+          "India": {
+            "guinea_bauxite": 0.0876,
+            "home_smelting": 0.9413,
+            "home_bauxite": 0.6551,
+            "index_smelting": 8866,
+            "index_refining": 5729,
+            "index_mining": 4630
+          },
+          "China": {
+            "guinea_bauxite": 0.2963,
+            "home_smelting": 0.9548,
+            "home_bauxite": 0.4146,
+            "index_smelting": 9119,
+            "index_refining": 8738,
+            "index_mining": 2968
+          }
+        }
+      }
     }
   }
 }

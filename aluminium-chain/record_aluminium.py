@@ -17,6 +17,7 @@ INPUTS = HERE / "evidence_inputs.json"
 TEMPLATE = HERE / "article.html.in"
 TONNAGE = HERE / "out" / "aluminium_tonnage.json"
 TRADE = HERE / "out" / "aluminium_trade.json"
+FLOWS = HERE / "out" / "aluminium_flows.json"
 OUT = HERE / "out" / "aluminium_chain.json"
 ARTICLE = HERE / "aluminium-chain.html"
 
@@ -77,6 +78,30 @@ def chart_concentration(prod, trade):
         ex = trade[s]["export_hhi"]
         out.append(_bar(left, y + bar + 2, ex * scale, bar, TEAL, f"{name}, exports: {ex:,}"))
         out.append(f'<text x="{left + ex * scale + 6:.1f}" y="{y + bar + 14}" fill="{INK}">{ex:,}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def chart_stages(markets):
+    """Concentration of origins at each stage, for the metal each market uses: three bars per market."""
+    keys = (("smelted_in", "Where the metal was smelted", NAVY), ("alumina_refined_in", "Where its alumina was refined", TEAL),
+            ("bauxite_mined_in", "Where the bauxite was mined", AMBER))
+    left, plot, bar, top, step = 112, 320, 11, 48, 50
+    scale = plot / 10000
+    out = [f'<svg viewBox="0 0 520 {top + len(markets) * step + 18}" role="img" aria-label="Concentration of origins at three stages, by market, 2022" style="{FONT};font-size:12.5px">']
+    for i, (_, label, fill) in enumerate(keys):
+        out.append(f'<rect x="4" y="{4 + i * 14}" width="11" height="11" fill="{fill}"/><text x="21" y="{13.5 + i * 14}" fill="{INK}">{label}</text>')
+    for tick in (0, 2500, 5000, 7500, 10000):
+        x = left + tick * scale
+        out.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="{top - 2}" y2="{top + len(markets) * step - 12}" stroke="{RULE}"/>'
+                   f'<text x="{x:.1f}" y="{top + len(markets) * step + 4}" fill="{MUT}" text-anchor="middle" font-size="11">{tick:,}</text>')
+    for i, (market, m) in enumerate(markets.items()):
+        y = top + i * step
+        out.append(f'<text x="{left - 8}" y="{y + 22}" fill="{INK}" text-anchor="end">{escape(market)}</text>')
+        for k, (key, label, fill) in enumerate(keys):
+            v = m[key]["hhi"]
+            out.append(_bar(left, y + k * (bar + 2), v * scale, bar, fill, f"{market}: {label.lower()}, index {v:,}"))
+            out.append(f'<text x="{left + v * scale + 5:.1f}" y="{y + k * (bar + 2) + 10}" fill="{INK}" font-size="11.5">{v:,}</text>')
     out.append("</svg>")
     return "".join(out)
 
@@ -387,6 +412,30 @@ def evaluate(inputs):
         if not ok:
             raise SystemExit("aluminium page text no longer matches the data: " + message)
 
+    flows = load(FLOWS)
+    fm = flows["markets"]
+    us, eu, cn = fm["United States"], fm["European Union"], fm["China"]
+    rising = [m for m, v in fm.items() if v["bauxite_mined_in"]["hhi"] > v["smelted_in"]["hhi"]]
+    alt = flows["sensitivity"]["unalloyed_metal_only"]["markets"]
+    rising_alt = [m for m, v in alt.items() if v["index_mining"] > v["index_smelting"]]
+    flow_checks = [
+        (rising == ["United States", "European Union", "Japan", "South Korea"] and rising_alt == ["United States", "European Union", "Japan"],
+         "the markets whose concentration rises upstream, with and without traded alloy, have changed"),
+        (fm["India"]["smelted_in"]["hhi"] > fm["India"]["bauxite_mined_in"]["hhi"], "India no longer runs the same way as China"),
+        (fm["China"]["customs_share_of"]["Guinea"] < 0.001 and all(v["customs_share_of"]["Guinea"] == 0 for m, v in fm.items() if m != "China"),
+         "Guinea's place in metal imports has changed"),
+        (us["smelted_in"]["top_foreign"][0]["name"] == "Canada" and us["bauxite_mined_in"]["top_foreign"][0]["name"] == "Brazil"
+         and us["customs_share_of"]["Brazil"] < 0.02, "the United States reading of the flow model has changed"),
+        (eu["bauxite_mined_in"]["top_foreign"][0]["name"] == "Australia" and eu["customs_share_of"]["Australia"] < 0.02
+         and eu["smelted_in"]["top_foreign"][0]["name"] == "Norway" and eu["smelted_in"]["top_foreign"][0]["share"] < eu["smelted_in"]["home"] < 0.2,
+         "the EU reading of the flow model has changed"),
+        (all(v["customs_share_of"]["Guinea"] < 0.001 for v in fm.values()), "Guinea now appears in a market's metal imports"),
+        (cn["smelted_in"]["hhi"] > 9000 and cn["bauxite_mined_in"]["hhi"] < 3000, "the China reading of the flow model has changed"),
+        (flows["stages"]["alumina"]["largest_gap_country"] == "Indonesia", "the largest inconsistency in the flow model is no longer Indonesian alumina"),
+    ]
+    for ok, message in flow_checks:
+        if not ok:
+            raise SystemExit("aluminium page text no longer matches the flow model: " + message)
     return {"trade_year": year, "production_2024": production, "trade_2024": trade, "semis_2024": semis, "china_bauxite_2024": china_bauxite,
             "bauxite_series": bx_series, "ratios_2024": ratios, "guinea_screen": screen, "energy_2025": energy,
             "capacity_utilisation_2024": utilisation, "revisions": revision, "recycled_share_of_metal_2024": recycled_share,
@@ -670,6 +719,43 @@ def render(inputs, r):
         "gn_m_low": f'{gd["guinea_exports"]["moisture_low"]:.2f}%', "gn_m_high": f'{gd["guinea_exports"]["moisture_high"]:.2f}%',
         "gn_m_avg": f'{gd["guinea_exports"]["moisture_average"]:.2f}%', "gn_gap": f'{gd["guinea_exports"]["usgs_wet_dry_gap"]:.1%}',
     })
+    flows = load(FLOWS)
+    fm = flows["markets"]
+
+    def origins(block, n=3):
+        items = [("home", block["home"])] + [(t["name"], t["share"]) for t in block["top_foreign"]]
+        items = sorted((i for i in items if i[1] >= 0.005), key=lambda kv: -kv[1])[:n]
+        return ", ".join(f"{name} {pct(share)}" for name, share in items)
+
+    flow_rows = [row(market, [f'{m["apparent_use_kt"] / 1000:.1f}', origins(m["smelted_in"]), origins(m["alumina_refined_in"]), origins(m["bauxite_mined_in"]),
+                              pct(m["selected"]["guinea_bauxite"])], numeric=False) for market, m in fm.items()]
+    us_f, eu_f, cn_f, jp_f = fm["United States"], fm["European Union"], fm["China"], fm["Japan"]
+    more.update({
+        "flow_year": flows["year"], "flow_rows": "\n".join(flow_rows), "chart_stages": chart_stages(fm),
+        "fl_us_ca": pct(us_f["smelted_in"]["top_foreign"][0]["share"]), "fl_us_br_bx": pct(us_f["selected"]["brazil_bauxite"]),
+        "fl_us_br_customs": pct(us_f["customs_share_of"]["Brazil"], 1), "fl_us_gn": pct(us_f["selected"]["guinea_bauxite"]),
+        "fl_eu_home": pct(eu_f["smelted_in"]["home"]), "fl_eu_au_bx": pct(eu_f["selected"]["australia_bauxite"]),
+        "fl_eu_au_customs": pct(eu_f["customs_share_of"]["Australia"], 0), "fl_eu_gn": pct(eu_f["selected"]["guinea_bauxite"]),
+        "fl_eu_h1": f'{eu_f["smelted_in"]["hhi"]:,}', "fl_eu_h3": f'{eu_f["bauxite_mined_in"]["hhi"]:,}',
+        "fl_jp_h1": f'{jp_f["smelted_in"]["hhi"]:,}', "fl_jp_h3": f'{jp_f["bauxite_mined_in"]["hhi"]:,}',
+        "fl_cn_h1": f'{cn_f["smelted_in"]["hhi"]:,}', "fl_cn_h3": f'{cn_f["bauxite_mined_in"]["hhi"]:,}',
+        "fl_cn_home_bx": pct(cn_f["bauxite_mined_in"]["home"]), "fl_cn_gn": pct(cn_f["selected"]["guinea_bauxite"]),
+        "fl_gap": f'{flows["stages"]["alumina"]["exports_above_supply_kt"] / 1000:.1f}',
+        "fl_eu_no": pct(eu_f["selected"]["norway_smelting"]), "fl_us_ca_customs": pct(us_f["customs_share_of"]["Canada"]),
+        "fl_in_h1": f'{fm["India"]["smelted_in"]["hhi"]:,}', "fl_in_h3": f'{fm["India"]["bauxite_mined_in"]["hhi"]:,}',
+        "fl_cn_gn_customs": pct(cn_f["customs_share_of"]["Guinea"], 2),
+        "fl_alt_low": pct(min(v["guinea_bauxite"] for v in flows["sensitivity"]["unalloyed_metal_only"]["markets"].values()), 1),
+        "fl_alt_high": pct(max(v["guinea_bauxite"] for v in flows["sensitivity"]["unalloyed_metal_only"]["markets"].values())),
+        "fl_alt_eu_home": pct(flows["sensitivity"]["unalloyed_metal_only"]["markets"]["European Union"]["home_smelting"]),
+        "fl_noprod": f'{flows["stages"]["aluminium"]["trade_shipped_by_countries_without_production_kt"] / 1000:.1f}',
+        "fl_metal_trade": f'{flows["stages"]["aluminium"]["world_trade_kt"] / 1000:.1f}',
+        "fl_cn_home_dry": pct(flows["sensitivity"]["traded_bauxite_less_10_per_cent_moisture"]["markets"]["China"]["home_bauxite"], 1),
+        "fl_cn_home_bx1": pct(cn_f["bauxite_mined_in"]["home"], 1),
+        "fl_gn_low": pct(min(v["selected"]["guinea_bauxite"] for v in fm.values())), "fl_gn_high": pct(max(v["selected"]["guinea_bauxite"] for v in fm.values())),
+        "src_myb_al": link(src, "myb2022_aluminum", "USGS Minerals Yearbook 2022, aluminum"),
+        "src_myb_bx": link(src, "myb2022_bauxite", "USGS Minerals Yearbook 2022, bauxite and alumina"),
+        "src_kastner": link(src, "kastner", "Kastner, Kastner and Nonhebel (2011)"),
+    })
     values.update(more)
     return Template(TEMPLATE.read_text(encoding="utf-8")).substitute(values)
 
@@ -694,6 +780,7 @@ def build():
         "inputs": {k: inputs[k] for k in ("usgs_mcs2026", "usgs_mcs2025_estimates_for_2024", "iai", "oecd2019", "guinea", "indonesia",
                                          "smm_china_imports_2024", "trade_checks", "scenarios", "brazil_2018", "emirates", "restarts", "stocks", "grades")},
         "results": results,
+        "flow_model": load(FLOWS),
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     ARTICLE.write_text(render(inputs, results), encoding="utf-8", newline="\n")

@@ -10,7 +10,8 @@ access. It reads:
 - `evidence_inputs.json`: the USGS, International Aluminium Institute and OECD figures as transcribed and checked on 25 November 2026, with source links;
 - `article.html.in`: the page text;
 - `out/aluminium_tonnage.json`: trade by weight, written by `extract_tonnage.py` from the local BACI extract;
-- `out/aluminium_trade.json`: trade by value, written by `extract_baci.py`.
+- `out/aluminium_trade.json`: trade by value, written by `extract_baci.py`;
+- `out/aluminium_flows.json`: the flow model, written by `flow_model.py` from `production_2022.json` and the local BACI extract.
 
 It writes the page and `out/aluminium_chain.json` (inputs, results and the chokepoint-map entry).
 
@@ -29,6 +30,7 @@ It writes the page and `out/aluminium_chain.json` (inputs, results and the choke
 - Brazil, 2018 = BACI exports of HS 281820 from Brazil, and imports of Norway and Canada by origin, in 2017 and 2018.
 - Unused capacity = year-end 2024 capacity less 2024 output, zero where negative.
 - Stock comparisons divide a stock at its own date by a 2024 flow (imports, output) and are for scale only.
+- Flow model, per stage: supply x = production p plus imports; origin shares C = diag(p / x) (I - Z diag(1 / x))^-1, where Z is bilateral trade with exporters in rows. A market's metal is traced with C for metal, then C for alumina, then C for bauxite. Markets are weighted by supply less exports. The concentration index counts the market itself as one origin.
 
 The builder stops if the country rows do not add to the world totals, if the power sources do not add to
 their total, or if any of the sentences that state a number in words no longer matches the data. It also

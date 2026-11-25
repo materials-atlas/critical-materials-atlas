@@ -92,8 +92,38 @@ Looked for and not found: a USGS table of smelters with their status; EU curtail
 bauxite in China; the alumina content of Chinese domestic ore as a percentage; bauxite per tonne of alumina by refinery;
 moisture by origin other than Guinea.
 
-Not done: a physically reconciled country-to-country flow model; plant-level capacity and power-cost modelling; a
-disruption model with substitution; an expert review. The page's interruption screen remains a first-order calculation.
+## Flow model · added 25 November 2026
+
+A country-to-country flow model was added (`flow_model.py`, results in `out/aluminium_flows.json`), in the section
+"Tracing a market's metal back to the mine". Everything it produces is labelled Modelled.
+
+- Inputs: USGS Minerals Yearbook 2022 production for every listed country at three stages (`production_2022.json`: 27
+  bauxite, 27 alumina and 38 primary aluminium producers, transcribed from tables 11, 12 and 13) and BACI bilateral trade by
+  weight for 2022 (HS 260600, 281820, 760110 plus 760120). 2022 is the latest year with full country tables.
+- Method: origin tracing with proportional mixing (Kastner, Kastner and Nonhebel, 2011). A country's exports are given
+  the origin mix of its supply (production plus imports). Stage results are chained: metal to smelting country, smelting
+  country's alumina supply to refining country, refining country's bauxite supply to mine.
+- Checks built in: origin shares are non-negative and add to at most one; what all countries keep, traced to an origin,
+  adds back to that origin's production within 58 kt for bauxite and 151 kt for metal. For alumina the gap is 1,293 kt,
+  in Indonesia, whose recorded exports exceed its recorded supply by 1,646 kt.
+- An independent re-implementation (an iterative version written without the matrix formula) reproduced every share and
+  index to the fourth decimal. The production file was checked against the two USGS workbooks, all 92 country values.
+- Two variants are computed and stored with the results: metal trade without alloy (HS 760120), and traded bauxite less
+  10% for moisture. The page states only what holds in the base run and says where a variant changes it: the rise in
+  concentration from smelter to mine holds for the United States, the EU and Japan in both metal treatments, and for
+  South Korea only when alloy is counted.
+- Result stated on the page: for the United States, the EU and Japan, origins are more concentrated at the mine than at
+  the smelter (EU index 975 to 1,853; Japan 1,124 to 2,619); China and India run the other way (China 9,119 to 2,885).
+  Brazil was 0.7% of US metal imports and, on this accounting, mined 48% of the bauxite behind the metal the United
+  States used. That figure applies Canada's national alumina mix to its smelters.
+- Limits: proportional mixing and national mixes carry the result; chaining the stages is this note's own step; countries
+  with no smelter ship 4.9 of the 30.4 Mt of metal traded; no stocks, prices or capacity; unwrought metal in trade includes remelted
+  metal; all grades of alumina; bauxite output in dry tonnes against customs weight in trade; US bauxite output is
+  withheld by USGS. It is an accounting of origins and not a model of what happens in an interruption.
+
+Not done: plant-level capacity and power-cost modelling; a disruption model with substitution; a run of the flow model
+for 2024, which needs production tables USGS has not yet published in full; an expert review. The page's interruption
+screen remains a first-order calculation.
 
 ## Not done at the first review
 
