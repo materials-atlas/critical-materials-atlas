@@ -1,29 +1,81 @@
-# Electrolyser and hydrogen chain pilot (unpublished)
+# Iridium and PEM electrolysis
 
-This workspace follows:
+Evidence review dated 25 November 2026. The [article](electrolyser-chain.html)
+compares published deployment, loading and supply evidence with a gross
+one-year threshold and an illustrative annual material balance. The
+[claim audit](PRODUCTION.md) identifies the public pilot and records the
+literature comparison and scope.
 
-`materials → stack → electrolyser system → hydrogen plant → conversion/transport → use/recovery`
+## Reproduce the article and tables
 
-It is isolated from the live Atlas and does not modify any existing material or product-chain page.
-
-## Evidence design
-
-| Layer | Coverage | Measure |
-|---|---|---|
-| Material context | 1900/1944–2019/22 | Economy-wide USGS world production histories |
-| Electrolyser deployment | 2021–2025 | Operating water-electrolysis capacity |
-| Project clocks | 2025–2030 | Operating, construction, committed and announced statuses |
-| Manufacturing | 2021–2024 evidence | Factory capacity, output and domestic demand |
-| Hydrogen system | 2025 | Total demand versus low-emissions production |
-| Customs context | 2002–2024 | Broad equipment and material baskets; no clean electrolyser code |
-
-## Rebuild and view
+From the repository root:
 
 ```text
 python electrolyser-chain/record_electrolyser.py
-python electrolyser-chain/extract_baci.py
+python electrolyser-chain/test_constraint_frontier.py
 python -m http.server 8765
 ```
 
-Open `http://localhost:8765/electrolyser-chain/electrolyser-chain.html`.
+Open [the local study](http://localhost:8765/electrolyser-chain/electrolyser-chain.html).
+The builder reads the pinned [evidence and assumptions](evidence_inputs.json),
+the [article template](article.html.in) and the [BACI extract](out/electrolyser_trade.json).
+It generates static HTML, [evidence JSON](out/electrolyser_chain.json), the
+[one-year scenario matrix](out/illustrative_scenario_matrix.csv) and
+[equality thresholds](out/illustrative_thresholds.csv), plus
+[annual flows](out/illustrative_annual_flows.csv),
+[mitigation curves](out/illustrative_mitigation.csv) and
+[sensitivity summaries](out/illustrative_sensitivity.csv).
+Running `python electrolyser-chain/constraint_frontier.py` regenerates the
+CSV files alone. Both scripts use the standard library.
 
+## One-year threshold
+
+Multiply annual new PEM GW by elemental kg Ir per MW. The factors of
+1,000 for GW to MW and kg to tonnes cancel. Gross demand equals the
+contained metal in new stacks. The available primary allocation is the
+assumed fraction of the 7.5 t/year literature reference. Dividing the
+allocation by intensity gives annual new PEM GW at equality. The result
+is the equality point for that pair of assumptions. This version omits
+stack replacements, manufacturing loss and recycling.
+
+## Annual model
+
+The slower, middle and faster paths are hypothetical global additions.
+Each path interpolates annual all-technology additions between the
+specified years, then allocates a fraction to PEM. This preserves the
+difference between annual additions and installed stock. The zero opening
+stock applies to the illustrative facility fleet and to recovered iridium.
+There is no pre-2026 fleet in the balance. All capacity is rated electrical
+input on a comparable stack basis. The alternative technology share
+changes capacity allocation and implies no particular hydrogen output.
+
+Convert stack operating hours to whole model years by dividing by 8,760
+times assumed annual utilisation and rounding up. Each vintage carries
+its capacity, contained metal and host plant end year. At stack end of life,
+the plant gets a new stack with the contemporary loading if it is still
+open. At plant retirement, the final stack leaves service without a
+replacement. Apply the combined collection and recovery fraction to the
+metal in the removed vintage and return it after the chosen lag. This
+illustration applies one combined rate per case. Unused recovered metal
+carries forward. Manufacturing yield converts contained metal to gross
+factory input. Production scrap exits the model. Recycled metal reduces
+gross input before comparison with the annual primary allocation.
+
+An annual gap is the positive difference between primary metal required
+and assumed primary supply allocated to PEM. Available primary material
+below that allocation in one year is not carried forward. For remaining
+sectors the model reserves the rest of primary supply without simulating
+their demand or prices. The reported sum of gaps adds the positive annual
+differences. It is conditional on scheduled capacity going ahead, even if
+a year has a gap, so subsequent metal returns are conditional as well.
+The lower-loading and lower-PEM-share cases interact through the returned
+metal. Varying the levers one at a time is not an additive decomposition.
+
+## What would calibrate the balance
+
+A calibrated projection needs project vintages by technology and status,
+elemental iridium loadings and rated power, stack hours across duty cycles,
+manufacturing yield, firm demand from other uses, access to inventoried
+metal, and collection and refining capacity with contractual delivery times.
+The current article supports an evidence review and reproducible comparisons
+of explicit assumptions.

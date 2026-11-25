@@ -1,0 +1,272 @@
+{
+  "date": "2026-11-25",
+  "sources": {
+    "deployment": {
+      "title": "IEA Global Hydrogen Review 2026, Production",
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2026/production"
+    },
+    "iea2025": {
+      "title": "IEA Global Hydrogen Review 2025, Executive summary",
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2025/executive-summary"
+    },
+    "annex": {
+      "title": "IEA Global Hydrogen Review 2026 assumptions annex, p. 6",
+      "url": "https://www.iea.org/files/c32f2c59-38ce-40d4-a424-9b20c9d7a149/GlobalHydrogenReview2026_AssumptionsAnnex1.pdf#page=6"
+    },
+    "study": {
+      "title": "Journal of Industrial Ecology (2026), §§2.3–2.5 and Fig. 7",
+      "url": "https://link.springer.com/article/10.1007/s44498-026-00088-y"
+    },
+    "targets": {
+      "title": "Energy & Fuels (2023), iridium-constrained performance targets",
+      "url": "https://doi.org/10.1021/acs.energyfuels.3c01473"
+    },
+    "earlier": {
+      "title": "International Journal of Hydrogen Energy (2021), Table 1",
+      "url": "https://doi.org/10.1016/j.ijhydene.2021.04.174"
+    },
+    "lab": {
+      "title": "ACS Catalysis (2025), low-iridium electrode study",
+      "url": "https://publikationen.bibliothek.kit.edu/1000188489/170761393"
+    },
+    "doe": {
+      "title": "US DOE technical targets for PEM electrolysis, 2026 edition",
+      "url": "https://www.energy.gov/cmei/fuels/technical-targets-proton-exchange-membrane-electrolysis"
+    },
+    "irena": {
+      "title": "IRENA Green Hydrogen Cost Reduction (2020), Table 1",
+      "url": "https://www.irena.org/Publications/2020/Dec/Green-hydrogen-cost-reduction"
+    },
+    "market": {
+      "title": "Johnson Matthey, May 2026 PGM Market Report, Iridium supply and demand, p. 34",
+      "url": "https://matthey.com/documents/161599/509428/pgm-market-report-26.pdf#page=34"
+    },
+    "market_basis": {
+      "title": "Johnson Matthey, Definitions of supply and demand",
+      "url": "https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/using-jms-supply-and-demand-figures"
+    },
+    "pgms": {
+      "title": "USGS Mineral Commodity Summaries 2026, Platinum-group metals",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf"
+    },
+    "machinery": {
+      "title": "UN Statistics Division, HS 854330",
+      "url": "https://unstats.un.org/unsd/classifications/Econ/Structure/Detail/EN/2089/854330"
+    },
+    "metals": {
+      "title": "UN Statistics Division, HS 711049",
+      "url": "https://unstats.un.org/unsd/classifications/Econ/Structure/Detail/en/32/711049"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601",
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html"
+    },
+    "refinery": {
+      "title": "Johnson Matthey, Royston refinery and iridium separation",
+      "url": "https://matthey.com/en/products-and-markets/pgms-and-circularity/pgm-refining-and-recycling/third-century-refining"
+    },
+    "components": {
+      "title": "Johnson Matthey, UK electrolyser component operations",
+      "url": "https://matthey.com/products-and-markets/hydrogen-solutions/electrolyser-components"
+    }
+  },
+  "benchmarks": {
+    "deployment": {
+      "year": 2025,
+      "installed_gw_lower_bound": 4,
+      "construction_targeting_2026_gw_lower_bound": 2.5,
+      "source": "deployment",
+      "scope": "Global installed water electrolysis across technologies. Construction is a separate project status."
+    },
+    "market": {
+      "year": 2025,
+      "primary_supply_t": 7.1,
+      "total_net_demand_t": 7.3,
+      "net_demand_t": {
+        "Chemical": 1.1,
+        "Electrical and electronics": 1,
+        "Electrochemical": 3.1,
+        "Other": 2.1
+      },
+      "source": "market",
+      "scope": "Rounded producer-market estimates. Primary supply is producer sales and may include past inventories. Sector demand is net of closed-loop returns and sale of excess stocks."
+    },
+    "loadings": [
+      {
+        "label": "Earlier model’s initial case",
+        "values_kg_per_mw": [
+          0.67
+        ],
+        "status": "Historical study assumption",
+        "detail": "Two mg of elemental Ir per cm² at about three watts per cm², as stated in Table 1.",
+        "source": "earlier"
+      },
+      {
+        "label": "Earlier model’s advanced case",
+        "values_kg_per_mw": [
+          0.05
+        ],
+        "status": "Technology scenario",
+        "detail": "0.40 mg Ir per cm² divided by eight watts per cm². The same table also gives an intermediate 0.33 kg/MW case.",
+        "source": "earlier"
+      },
+      {
+        "label": "Low-loading electrode study",
+        "values_kg_per_mw": [
+          0.06
+        ],
+        "status": "Laboratory result",
+        "detail": "Approximate power-specific Ir at two A/cm² in the reported cell. A cell test does not establish commercial stack lifetime and yield.",
+        "source": "lab"
+      },
+      {
+        "label": "Literature benchmarks assembled in 2026",
+        "values_kg_per_mw": [
+          0.34,
+          2
+        ],
+        "status": "Literature comparison",
+        "detail": "The study reports diverse published benchmarks referenced to 2024, with differing stack definitions and assumptions. It does not give a fleet distribution.",
+        "source": "study"
+      }
+    ]
+  },
+  "static_scenarios": {
+    "primary_output_t_per_year": 7.5,
+    "primary_output_source": "study",
+    "annual_new_pem_gw": [
+      10,
+      30,
+      100
+    ],
+    "intensity_kg_ir_per_mw": [
+      0.05,
+      0.2,
+      0.5
+    ],
+    "assumed_primary_shares": [
+      0.1,
+      0.3,
+      0.5
+    ],
+    "display_example": {
+      "annual_new_pem_gw": 30,
+      "intensity_kg_ir_per_mw": 0.2,
+      "assumed_primary_share": 0.3
+    }
+  },
+  "annual": {
+    "assumptions": {
+      "pem_share": 0.5,
+      "primary_share": 0.3,
+      "intensity_by_year": {
+        "2026": 0.2,
+        "2050": 0.2
+      },
+      "operating_stack_hours": 50000,
+      "utilisation": 0.6,
+      "plant_lifetime_years": 25,
+      "manufacturing_yield": 0.98,
+      "recovery_fraction": 0.7,
+      "recycling_lag_years": 2
+    },
+    "pathways": {
+      "slower": {
+        "label": "Slower additions",
+        "new_all_electrolysis_gw_by_year": {
+          "2026": 2,
+          "2030": 4,
+          "2040": 10,
+          "2050": 20
+        }
+      },
+      "middle": {
+        "label": "Middle path",
+        "new_all_electrolysis_gw_by_year": {
+          "2026": 2,
+          "2030": 8,
+          "2040": 30,
+          "2050": 60
+        }
+      },
+      "faster": {
+        "label": "Faster additions",
+        "new_all_electrolysis_gw_by_year": {
+          "2026": 2,
+          "2030": 16,
+          "2040": 60,
+          "2050": 100
+        }
+      }
+    },
+    "mitigation": {
+      "reference": {
+        "label": "Reference",
+        "changes": {}
+      },
+      "no_recovery": {
+        "label": "No return of old stack metal",
+        "changes": {
+          "recovery_fraction": 0
+        }
+      },
+      "lower_loading": {
+        "label": "Less iridium per MW",
+        "changes": {
+          "intensity_by_year": {
+            "2026": 0.2,
+            "2035": 0.05,
+            "2050": 0.05
+          }
+        }
+      },
+      "lower_share": {
+        "label": "Smaller PEM share of additions",
+        "changes": {
+          "pem_share": 0.25
+        }
+      },
+      "combined": {
+        "label": "Lower loading and smaller PEM share",
+        "changes": {
+          "intensity_by_year": {
+            "2026": 0.2,
+            "2035": 0.05,
+            "2050": 0.05
+          },
+          "pem_share": 0.25
+        }
+      },
+      "lower_loading_shorter_life": {
+        "label": "Lower loading with shorter stack life",
+        "changes": {
+          "intensity_by_year": {
+            "2026": 0.2,
+            "2035": 0.05,
+            "2050": 0.05
+          },
+          "operating_stack_hours": 25000
+        }
+      }
+    },
+    "sensitivity": {
+      "primary_share": [
+        0.1,
+        0.3,
+        0.5
+      ],
+      "utilisation": [
+        0.4,
+        0.8
+      ],
+      "recovery_fraction": [
+        0.7,
+        0.97
+      ],
+      "recycling_lag_years": [
+        1,
+        3
+      ]
+    }
+  }
+}

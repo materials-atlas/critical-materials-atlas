@@ -56,8 +56,8 @@ CHAINS = {
         "841861": {"title": "Heat pumps (other than air conditioners)", "boundary": "Finished heat pumps excluding machines of heading 8415. Value of equipment exports, across technologies."},
     }),
     "electrolyser": ("electrolyser-chain", "electrolyser", {
-        "854330": {"title": "Machines for electrolysis / electroplating", "boundary": "Electrolysers scatter across machinery headings; PEM and alkaline are not separable here."},
-        "711049": {"title": "Platinum-group metals, semi-manufactured", "boundary": "A PGM basket that includes iridium; the specific iridium line cannot be isolated."},
+        "854330": {"title": "Machines for electroplating, electrolysis or electrophoresis", "boundary": "Mixed-purpose machinery. This basket gives no split by electrolyser technology."},
+        "711049": {"title": "Iridium, osmium and ruthenium, semi-manufactured", "boundary": "Trade value for the combined basket. Quantities and origins for iridium alone are unreported here."},
     }),
     "data_centre": ("data-centre-chain", "data_centre", {
         "847150": {"title": "Automatic data-processing units", "boundary": "Includes servers and other processing units. Customs data do not identify data-centre buyers."},

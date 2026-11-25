@@ -1,5 +1,7 @@
 # Electrolyser / hydrogen chain — research library
 
+**Update, 25 November 2026.** The [dated evidence review](electrolyser-chain.html) now reports how annual additions, loading and supply assumptions affect PEM. The earlier reference library is preserved below.
+
 Green-hydrogen electrolysis is still tiny (a few GW worldwide) but growing fast; its future chokepoint is not the metals people expect — it is iridium, needed by PEM stacks — and that chokepoint is optional, because alkaline electrolysers use nickel instead. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
 
 ## Core references (already cited in the chain)

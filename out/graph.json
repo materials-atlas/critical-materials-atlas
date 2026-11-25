@@ -6799,13 +6799,26 @@
    "code_sha": "7911fa630d8e2e91"
   },
   "electrolyser-chain/record_electrolyser.py": {
-   "reads": [],
+   "reads": [
+    "electrolyser-chain/",
+    "electrolyser-chain/__pycache__/constraint_frontier.cpython-311.pyc",
+    "electrolyser-chain/article.html.in",
+    "electrolyser-chain/constraint_frontier.py",
+    "electrolyser-chain/evidence_inputs.json",
+    "electrolyser-chain/out/electrolyser_trade.json"
+   ],
    "writes": [
-    "electrolyser-chain/out/electrolyser_chain.json"
+    "electrolyser-chain/electrolyser-chain.html",
+    "electrolyser-chain/out/electrolyser_chain.json",
+    "electrolyser-chain/out/illustrative_annual_flows.csv",
+    "electrolyser-chain/out/illustrative_mitigation.csv",
+    "electrolyser-chain/out/illustrative_scenario_matrix.csv",
+    "electrolyser-chain/out/illustrative_sensitivity.csv",
+    "electrolyser-chain/out/illustrative_thresholds.csv"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "d4216637e8a87d7d"
+   "secs": 0.2,
+   "code_sha": "fe44249f7296641f"
   },
   "ev-chain/record_ev.py": {
    "reads": [

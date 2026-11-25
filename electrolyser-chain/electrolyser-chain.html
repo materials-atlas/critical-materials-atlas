@@ -1,26 +1,201 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/electrolyser-chain/electrolyser-chain">
-<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>Small today, PGM-gated at scale — Critical Materials Atlas</title><meta name="description" content="green-hydrogen electrolysis is tiny today; the material constraint that bites at scale is iridium for PEM stacks, not the metals people expect."><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"></head><body>
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>When could iridium limit PEM electrolysis? — Critical Materials Atlas</title><meta property="og:title" content="When could iridium limit PEM electrolysis?"><meta name="description" content="New capacity, catalyst loading and the share of supply available to PEM determine annual iridium requirements. Stack replacement and recycling change them over time.">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"><style>
+  :root { --acc: #3f7d8a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 32rem; margin: 0; }
+  caption, figcaption { padding: .4rem .5rem; text-align: left; color: var(--mut); font-size: .83rem; }
+  th[scope="row"] { font-weight: 600; }
+  .numbers td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  #static-trade[hidden], #frontier-controls[hidden] { display: none; }
+  #frontier-controls { display: grid; grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); gap: .8rem; }
+  #frontier-controls label { display: grid; gap: .35rem; }
+  #frontier-results { display: flex; flex-wrap: wrap; gap: .55rem 1rem; margin: .85rem 0 0; }
+  #frontier-results span { display: block; }
+  .annual-charts { display: grid; grid-template-columns: repeat(auto-fit,minmax(11rem,1fr)); gap: .9rem; }
+  .series { position: relative; height: 7rem; display: flex; gap: 1px; align-items: end; border-bottom: 1px solid #627575; background: #eff5f4; }
+  .series::after { content: ""; position: absolute; inset-inline: 0; bottom: var(--supply); border-top: 2px dashed #202e31; }
+  .series i { flex: 1; background: #3f7d8a; }
+  .time-axis { display: flex; justify-content: space-between; font-size: .8rem; }
+</style></head><body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<div class="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
 <main id="main">
-<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Hydrogen · Materials and electrolysis</div>
+  <h1>When could iridium limit PEM electrolysis?</h1>
+  <p class="deck">New capacity, catalyst loading and the share of supply available to PEM determine annual iridium requirements. Stack replacement and recycling change them over time.</p>
+  <p class="byline">Evidence review · <time datetime="2026-11-25">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
 <article>
-<div class="callout hot" id="correction"></div>
-<div class="stats" id="stats"></div>
-<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
-<div id="history-wrap"></div>
-<div id="sections"></div>
-<h2>Customs records are context, not capability</h2>
-<p id="trade-intro"></p>
-<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0" aria-label="trade year"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
-<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
-<p id="conflegend" class="conflegend"></p>
-<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+  <p>Proton-exchange membrane (PEM) electrolysers usually use an iridium-based anode catalyst. The amount needed each year depends on how much new PEM capacity is built, how much iridium each stack uses and how many stacks are replaced. Alkaline, anion-exchange membrane and solid-oxide systems offer different routes for suitable applications. This study compares those choices with an explicit annual iridium budget.</p>
+
+  <h2>The installed base and the annual market</h2>
+  <p>Global installed electrolysis capacity exceeded 4 GW in 2025 across technologies. The IEA identified more than 2.5 GW under construction targeting operation in 2026. Both refer to rated electrical input capacity. The model below uses annual additions, with a separate PEM share. The IEA identifies costs, market demand and project delays as important in the current market. <a href="https://www.iea.org/reports/global-hydrogen-review-2026/production">IEA Global Hydrogen Review 2026, Production</a>.</p>
+  <p>Iridium is recovered as a minor by-product of platinum-group metal mining, concentrated in South Africa. Production decisions respond to the economics of the whole mix of metals. The study uses the published 7.5 tonnes per year as a primary-output reference. Johnson Matthey separately estimates 7.1 tonnes of primary supply in 2025 on a producer-sales basis, against 7.3 tonnes of net demand. Its 3.1 tonnes of electrochemical demand cover several uses. The amount available to PEM manufacturers depends on allocation across those uses, stocks and contracts. <a href="https://link.springer.com/article/10.1007/s44498-026-00088-y">Journal of Industrial Ecology (2026), §§2.3–2.5 and Fig. 7</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS Mineral Commodity Summaries 2026, Platinum-group metals</a>. <a href="https://matthey.com/documents/161599/509428/pgm-market-report-26.pdf#page=34">Johnson Matthey, May 2026 PGM Market Report, Iridium supply and demand, p. 34</a>. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/using-jms-supply-and-demand-figures">Johnson Matthey, Definitions of supply and demand</a>.</p>
+  <table class="numbers">
+    <caption><strong>Industry estimates.</strong> Global iridium demand by category in 2025, tonnes net of closed-loop returns and sales of surplus metal</caption>
+    <thead><tr><th scope="col">Category</th><th scope="col">Tonnes</th></tr></thead><tbody>
+<tr><th scope="row">Chemical</th><td>1.1</td></tr>
+<tr><th scope="row">Electrical and electronics</th><td>1</td></tr>
+<tr><th scope="row">Electrochemical</th><td>3.1</td></tr>
+<tr><th scope="row">Other</th><td>2.1</td></tr>
+    </tbody>
+  </table>
+
+  <p>Mining, refining and catalyst-coated membrane production can occur in different places. Johnson Matthey reports separating iridium and other platinum-group metals at its Royston refinery in the United Kingdom and describes UK manufacturing operations for electrolyser components. The company disclosures illustrate these downstream stages. Country shares of qualified refinery or catalyst capacity remain unmeasured here. <a href="https://matthey.com/en/products-and-markets/pgms-and-circularity/pgm-refining-and-recycling/third-century-refining">Johnson Matthey, Royston refinery and iridium separation</a>. <a href="https://matthey.com/products-and-markets/hydrogen-solutions/electrolyser-components">Johnson Matthey, UK electrolyser component operations</a>.</p>
+
+  <h2>Stack choice changes material exposure</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Electrolyser technology comparison">
+    <table>
+      <caption>Representative stack designs and operating considerations</caption>
+      <thead><tr><th scope="col">Technology</th><th scope="col">Representative materials</th><th scope="col">Operating and substitution considerations</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">PEM</th><td>Iridium-based anode, platinum at the cathode, titanium components</td><td>High current density and flexible operation. Lower loadings must also meet performance and durability requirements.</td></tr>
+        <tr><th scope="row">Alkaline</th><td>Nickel-based electrodes and catalysts in conventional designs</td><td>Commercial route. Minimum load, response and pressure depend on the system and operating conditions.</td></tr>
+        <tr><th scope="row">Anion-exchange membrane (AEM)</th><td>Research and products use a range of catalysts, including nickel-based designs</td><td>Membrane and stack durability, project scale and vendor availability matter.</td></tr>
+        <tr><th scope="row">Solid oxide (SOEC)</th><td>Ceramic electrolytes and nickel-containing electrodes in common designs</td><td>Uses high-temperature steam and a suitable heat source. Thermal cycling can affect durability.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The material comparison follows representative designs. A particular project would also compare electricity and heat requirements, operating flexibility, lifetime, cost and hydrogen delivery conditions. <a href="https://www.irena.org/Publications/2020/Dec/Green-hydrogen-cost-reduction">IRENA Green Hydrogen Cost Reduction (2020), Table 1</a>. <a href="https://www.energy.gov/cmei/fuels/technical-targets-proton-exchange-membrane-electrolysis">US DOE technical targets for PEM electrolysis, 2026 edition</a>.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Iridium loading evidence">
+    <table>
+      <caption>Published intensities by evidence type, in kg of elemental iridium per MW of electrical stack rating</caption>
+      <thead><tr><th scope="col">Example</th><th scope="col">kg Ir/MW</th><th scope="col">Evidence type</th><th scope="col">Basis and limits</th></tr></thead><tbody>
+<tr><th scope="row">Earlier model’s initial case</th><td>0.67</td><td>Historical study assumption</td><td>Two mg of elemental Ir per cm² at about three watts per cm², as stated in Table 1. <a href="https://doi.org/10.1016/j.ijhydene.2021.04.174">International Journal of Hydrogen Energy (2021), Table 1</a>.</td></tr>
+<tr><th scope="row">Earlier model’s advanced case</th><td>0.05</td><td>Technology scenario</td><td>0.40 mg Ir per cm² divided by eight watts per cm². The same table also gives an intermediate 0.33 kg/MW case. <a href="https://doi.org/10.1016/j.ijhydene.2021.04.174">International Journal of Hydrogen Energy (2021), Table 1</a>.</td></tr>
+<tr><th scope="row">Low-loading electrode study</th><td>0.06</td><td>Laboratory result</td><td>Approximate power-specific Ir at two A/cm² in the reported cell. A cell test does not establish commercial stack lifetime and yield. <a href="https://publikationen.bibliothek.kit.edu/1000188489/170761393">ACS Catalysis (2025), low-iridium electrode study</a>.</td></tr>
+<tr><th scope="row">Literature benchmarks assembled in 2026</th><td>0.34–2</td><td>Literature comparison</td><td>The study reports diverse published benchmarks referenced to 2024, with differing stack definitions and assumptions. It does not give a fleet distribution. <a href="https://link.springer.com/article/10.1007/s44498-026-00088-y">Journal of Industrial Ecology (2026), §§2.3–2.5 and Fig. 7</a>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>To convert an elemental iridium loading in mg per cm², divide by the electrical power density in W per cm² at the same operating point. The result in mg per W equals kg per MW. An iridium oxide mass needs conversion to elemental iridium first. DOE’s targets for total platinum-group metals include platinum and use a different numerator. <a href="https://www.energy.gov/cmei/fuels/technical-targets-proton-exchange-membrane-electrolysis">US DOE technical targets for PEM electrolysis, 2026 edition</a>.</p>
+
+  <h2>How much new PEM fits within an annual iridium budget?</h2>
+  <p><strong>Illustrative calculation.</strong> Annual new PEM capacity in GW multiplied by kg Ir per MW gives annual tonnes of iridium. Dividing an assumed allocation of the 7.5 tonnes of primary output by the intensity gives the annual new PEM capacity at equality. This first calculation covers elemental iridium in new stacks alone, with full manufacturing yield. Loading and allocation are scenario choices.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Annual PEM capacity at equality">
+    <table class="numbers">
+      <caption><strong>Modelled.</strong> Annual new PEM capacity at equality, in GW per year, by assumed share of global primary output</caption>
+      <thead><tr><th scope="col">kg Ir per MW</th><th scope="col">10%</th><th scope="col">30%</th><th scope="col">50%</th></tr></thead><tbody>
+<tr><th scope="row">0.05</th><td>15</td><td>45</td><td>75</td></tr>
+<tr><th scope="row">0.2</th><td>3.75</td><td>11.25</td><td>18.75</td></tr>
+<tr><th scope="row">0.5</th><td>1.5</td><td>4.5</td><td>7.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel" id="frontier" data-primary="7.5">
+    <form id="frontier-controls" hidden>
+      <label for="pem-additions">Annual new PEM capacity (GW/year)<input type="range" id="pem-additions" min="1" max="100" value="30"><output id="pem-gw" for="pem-additions">30 GW/year</output></label>
+      <label for="ir-loading">Iridium intensity (kg/MW)<select id="ir-loading"><option value="0.05">0.05</option><option value="0.2" selected>0.2</option><option value="0.5">0.5</option></select></label>
+      <label for="ir-share">Share of primary output allocated to PEM<select id="ir-share"><option value="0.1">10%</option><option value="0.3" selected>30%</option><option value="0.5">50%</option></select></label>
+    </form>
+    <div id="frontier-results" aria-live="polite">
+      <span>Gross requirement <strong id="ir-gross">6 t/year</strong></span>
+      <span>Assumed primary supply <strong id="ir-available">2.25 t/year</strong></span>
+      <span>Illustrative gap <strong id="ir-gap">3.75 t/year</strong></span>
+      <span>Annual additions at equality <strong id="ir-threshold">11.25 GW/year</strong></span>
+    </div>
+  </div>
+  <p>The initial example uses 30 GW of new PEM per year, 0.2 kg Ir per MW and 30% of world primary output. At those additions and that allocation, equality requires 0.075 kg Ir per MW. The <a href="out/illustrative_scenario_matrix.csv">scenario matrix (CSV)</a> and <a href="out/illustrative_thresholds.csv">equality thresholds (CSV)</a> reproduce the one-year examples.</p>
+
+  <h2>Replacement and recycling change the annual balance</h2>
+  <p><strong>Modelled.</strong> The three paths are illustrative schedules for new electrolysis across all technologies from 2026 to 2050. Each starts with an empty modelled fleet. The reference assigns 50% of new capacity to PEM, keeps loading at 0.2 kg Ir per MW and allocates 30% of the primary reference to PEM (2.25 tonnes per year). The model follows scheduled capacity even in years with a material gap. Later recycling is therefore conditional on those earlier installations going ahead.</p>
+  <figure>
+    <figcaption><strong>Modelled.</strong> Annual primary iridium required after delayed recovery, in tonnes per year. All panels run from zero to 15. The dashed line shows the assumed 2.25 tonnes per year available to PEM.</figcaption>
+    <div class="annual-charts" aria-hidden="true">
+<div><b>Slower additions</b><div class="series" style="--supply:15.00%"><i style="height:1.36%"></i><i style="height:1.70%"></i><i style="height:2.04%"></i><i style="height:2.38%"></i><i style="height:2.72%"></i><i style="height:3.13%"></i><i style="height:3.54%"></i><i style="height:3.95%"></i><i style="height:4.35%"></i><i style="height:4.76%"></i><i style="height:6.53%"></i><i style="height:7.28%"></i><i style="height:7.09%"></i><i style="height:7.61%"></i><i style="height:8.12%"></i><i style="height:8.98%"></i><i style="height:9.83%"></i><i style="height:10.64%"></i><i style="height:11.45%"></i><i style="height:12.26%"></i><i style="height:14.43%"></i><i style="height:15.58%"></i><i style="height:15.79%"></i><i style="height:16.71%"></i><i style="height:17.62%"></i></div><div class="time-axis"><span>2026</span><span>2050</span></div></div>
+<div><b>Middle path</b><div class="series" style="--supply:15.00%"><i style="height:1.36%"></i><i style="height:2.38%"></i><i style="height:3.40%"></i><i style="height:4.42%"></i><i style="height:5.44%"></i><i style="height:6.94%"></i><i style="height:8.44%"></i><i style="height:9.93%"></i><i style="height:11.43%"></i><i style="height:12.93%"></i><i style="height:15.78%"></i><i style="height:18.30%"></i><i style="height:19.88%"></i><i style="height:21.70%"></i><i style="height:23.52%"></i><i style="height:26.35%"></i><i style="height:29.19%"></i><i style="height:31.70%"></i><i style="height:34.21%"></i><i style="height:36.72%"></i><i style="height:40.60%"></i><i style="height:44.13%"></i><i style="height:46.72%"></i><i style="height:49.56%"></i><i style="height:52.39%"></i></div><div class="time-axis"><span>2026</span><span>2050</span></div></div>
+<div><b>Faster additions</b><div class="series" style="--supply:15.00%"><i style="height:1.36%"></i><i style="height:3.74%"></i><i style="height:6.12%"></i><i style="height:8.50%"></i><i style="height:10.88%"></i><i style="height:13.88%"></i><i style="height:16.87%"></i><i style="height:19.86%"></i><i style="height:22.86%"></i><i style="height:25.85%"></i><i style="height:30.20%"></i><i style="height:35.58%"></i><i style="height:40.02%"></i><i style="height:43.76%"></i><i style="height:47.50%"></i><i style="height:51.58%"></i><i style="height:55.66%"></i><i style="height:59.32%"></i><i style="height:62.98%"></i><i style="height:66.65%"></i><i style="height:71.67%"></i><i style="height:77.71%"></i><i style="height:82.82%"></i><i style="height:87.23%"></i><i style="height:91.63%"></i></div><div class="time-axis"><span>2026</span><span>2050</span></div></div>
+    </div>
+  </figure>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Annual iridium demand and supply">
+    <table class="numbers">
+      <caption>Selected years from the plotted series, in tonnes per year</caption>
+      <thead><tr><th scope="col">Year</th><th scope="col">Primary allocation</th><th scope="col">Slower additions</th><th scope="col">Middle path</th><th scope="col">Faster additions</th></tr></thead><tbody>
+<tr><th scope="row">2026</th><td>2.25</td><td>0.2</td><td>0.2</td><td>0.2</td></tr>
+<tr><th scope="row">2030</th><td>2.25</td><td>0.41</td><td>0.82</td><td>1.63</td></tr>
+<tr><th scope="row">2040</th><td>2.25</td><td>1.22</td><td>3.53</td><td>7.13</td></tr>
+<tr><th scope="row">2050</th><td>2.25</td><td>2.64</td><td>7.86</td><td>13.75</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The operating-life reference is 50,000 hours from the IEA assumptions annex. At the model’s 60% utilisation it rounds up to 10 calendar years between stack changes. Stacks are replaced while plants remain in service. The model assumes a 25-year plant life, 98% manufacturing yield, 70% recovery of old stack iridium after collection and processing, and a 2-year delay before material returns. Recovered metal enters the supply balance only after it returns. <a href="https://www.iea.org/files/c32f2c59-38ce-40d4-a424-9b20c9d7a149/GlobalHydrogenReview2026_AssumptionsAnnex1.pdf#page=6">IEA Global Hydrogen Review 2026 assumptions annex, p. 6</a>. <a href="https://link.springer.com/article/10.1007/s44498-026-00088-y">Journal of Industrial Ecology (2026), §§2.3–2.5 and Fig. 7</a>.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Timing of first modelled gap">
+    <table>
+      <caption>First year in which the annual requirement exceeds the assumed allocation</caption>
+      <thead><tr><th scope="col">Path</th><th scope="col">First modelled gap</th></tr></thead><tbody>
+<tr><th scope="row">Slower additions</th><td>2047</td></tr>
+<tr><th scope="row">Middle path</th><td>2036</td></tr>
+<tr><th scope="row">Faster additions</th><td>2032</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Reducing loading, replacing PEM and recovering metal</h2>
+  <p>These cases share the middle additions path. The lower-loading case reaches 0.05 kg Ir per MW in 2035. The substitution case assigns 25% of new capacity to PEM. Each case reruns the stack and recycling balance, so savings overlap. Lower loading also reduces how much iridium will return from those stacks later. A paired case halves assumed stack hours alongside lower loading to test the effect of more frequent replacement.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Mitigation comparison under the middle path">
+    <table class="numbers">
+      <caption><strong>Modelled.</strong> Cumulative requirement and sum of annual gaps over the study period, in tonnes</caption>
+      <thead><tr><th scope="col">Case</th><th scope="col">Primary iridium required</th><th scope="col">Sum of annual gaps</th><th scope="col">First gap year</th></tr></thead><tbody>
+<tr><th scope="row">Reference</th><td>83.6</td><td>39.9</td><td>2036</td></tr>
+<tr><th scope="row">No return of old stack metal</th><td>96.1</td><td>52.4</td><td>2036</td></tr>
+<tr><th scope="row">Less iridium per MW</th><td>21.7</td><td>0</td><td>None</td></tr>
+<tr><th scope="row">Smaller PEM share of additions</th><td>41.8</td><td>7.2</td><td>2043</td></tr>
+<tr><th scope="row">Lower loading and smaller PEM share</th><td>10.8</td><td>0</td><td>None</td></tr>
+<tr><th scope="row">Lower loading with shorter stack life</th><td>28.1</td><td>0.8</td><td>2048</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Using the 2025 producer-sales estimate as the primary reference, at the same assumed allocation, moves the reference sum of gaps from 39.9 to 41.7 tonnes. Across the full sensitivity set, which varies the supply share, utilisation, recovery and the return delay in the middle path with reference loading, the sum ranges from 12.5 to 75.2 tonnes. The gap calculation carries forward only recovered metal left over from earlier years. Existing inventories, primary expansion, refurbishment and price or procurement responses sit outside this illustration.</p>
+  <p>Published research already models iridium constraints, replacement and recycling, including feasible rates of PEM growth. This study contributes a small reproducible set of annual thresholds and tests how explicit technology and recovery choices change the balance. Estimating future shortages would require calibrated project schedules, qualified recycling volumes, stack specifications and competing demand. <a href="https://link.springer.com/article/10.1007/s44498-026-00088-y">Journal of Industrial Ecology (2026), §§2.3–2.5 and Fig. 7</a>. <a href="https://doi.org/10.1021/acs.energyfuels.3c01473">Energy &amp; Fuels (2023), iridium-constrained performance targets</a>.</p>
+  <p>Download the <a href="out/illustrative_annual_flows.csv">annual flows</a>, <a href="out/illustrative_mitigation.csv">mitigation cases</a> and <a href="out/illustrative_sensitivity.csv">sensitivity results</a> as CSV files.</p>
+
+  <h2>Customs trade appendix</h2>
+  <p>The frozen BACI series measures nominal trade in mixed-use categories. HS 854330 includes electroplating, electrolysis and electrophoresis equipment. HS 711049 combines semi-manufactured iridium, osmium and ruthenium. The series cannot isolate PEM equipment, iridium flows or the geography of catalyst manufacturing. <a href="https://unstats.un.org/unsd/classifications/Econ/Structure/Detail/EN/2089/854330">UN Statistics Division, HS 854330</a>. <a href="https://unstats.un.org/unsd/classifications/Econ/Structure/Detail/en/32/711049">UN Statistics Division, HS 711049</a>. <a href="https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html">CEPII BACI V202601</a>.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Trade in the two customs categories">
+      <table>
+        <caption><strong>Reported customs trade.</strong> BACI V202601 · <span id="trade-year" aria-live="polite">2024</span></caption>
+        <thead><tr><th scope="col">Category</th><th scope="col">World export value</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead><tbody id="trade-body">
+<tr data-trade-code="854330"><th scope="row">Machines for electroplating, electrolysis or electrophoresis<br><span class="note">HS 854330</span></th><td>USD 1.84 billion</td><td>China · 31.7%</td><td>Mixed-purpose machinery. This basket gives no split by electrolyser technology.</td></tr>
+<tr data-trade-code="711049"><th scope="row">Iridium, osmium and ruthenium, semi-manufactured<br><span class="note">HS 711049</span></th><td>USD 0.52 billion</td><td>South Africa · 26.3%</td><td>Trade value for the combined basket. Quantities and origins for iridium alone are unreported here.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Evidence and reproduction</h2>
+  <p>See the <a href="PRODUCTION.md">claim audit and literature comparison</a>, <a href="README.md">methods and commands</a>, <a href="evidence_inputs.json">source and scenario inputs</a>, <a href="out/electrolyser_chain.json">calculated evidence</a> and <a href="out/electrolyser_trade.json">customs extract</a>.</p>
 </article>
 </main>
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">A research layer of the Critical Materials Atlas — each chain shows its own sources and confidence tags.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
-<script>window.CHAIN_DATA='out/electrolyser_chain.json';window.CHAIN_TRADE='out/electrolyser_trade.json';</script>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on manufacturing and materials.</div><div><h4>Related research</h4><a href="../value-chains">All value chains</a><br><a href="../pgm-catalyst-chain/pgm-catalyst-chain">Platinum-group metals</a></div><div><h4>Evidence</h4><a href="out/electrolyser_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/electrolyser_trade.json';</script>
 <script src="../chain-assets/chainview.js"></script>
+<script>
+(function () {
+  const controls = document.getElementById("frontier-controls");
+  const gw = document.getElementById("pem-additions");
+  const loading = document.getElementById("ir-loading");
+  const share = document.getElementById("ir-share");
+  const supply = Number(document.getElementById("frontier").dataset.primary);
+  const formatter = new Intl.NumberFormat("en", {maximumFractionDigits: 2});
+  function set(id, value, unit) {
+    document.getElementById(id).textContent = formatter.format(value) + " " + unit;
+  }
+  controls.addEventListener("input", function () {
+    const gross = Number(gw.value) * Number(loading.value);
+    const available = supply * Number(share.value);
+    set("pem-gw", Number(gw.value), "GW/year");
+    set("ir-gross", gross, "t/year");
+    set("ir-available", available, "t/year");
+    set("ir-gap", Math.max(0, gross - available), "t/year");
+    set("ir-threshold", available / Number(loading.value), "GW/year");
+  });
+  controls.hidden = false;
+}());
+</script>
 </body></html>

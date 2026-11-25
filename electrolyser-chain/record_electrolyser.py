@@ -1,110 +1,172 @@
-"""Evidence JSON for the electrolyser / hydrogen chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_electrolyser.py
-"""
+"""Build the static electrolyser study, evidence and downloadable model tables."""
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "electrolyser_chain.json")
+from decimal import Decimal
+from html import escape
+import json
+from math import ceil
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "iea_2025_summary": {"title": "IEA, Global Hydrogen Review 2025 — Executive summary", "year": 2025, "url": "https://www.iea.org/reports/global-hydrogen-review-2025/executive-summary"},
-    "iea_2026_production": {"title": "IEA, Global Hydrogen Review 2026 — Production", "year": 2026, "url": "https://www.iea.org/reports/global-hydrogen-review-2026/production"},
-    "iea_minerals": {"title": "IEA, The Role of Critical Minerals in Clean Energy Transitions", "year": 2021, "url": "https://www.iea.org/reports/the-role-of-critical-minerals-in-clean-energy-transitions/mineral-requirements-for-clean-energy-transitions"},
-    "irena_2020": {"title": "IRENA, Green Hydrogen Cost Reduction", "year": 2020, "url": "https://www.irena.org/publications/2020/Dec/Green-hydrogen-cost-reduction"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
-}
+from constraint_frontier import evaluate, summarise, write_tables
 
-CHAIN = {
-    "title": "Electrolyser / hydrogen chain",
-    "chokepoint": {"product": "Green hydrogen", "stage": "Iridium (PEM)", "mechanism": "byproduct", "physics": "The scale limit is iridium — a trace by-product of platinum mining (future-tense)", "holder": "South Africa", "share": "—", "control": "—", "conf": "estimate"},
-    "published": True,
-    "related": [{"href": "../pgm-catalyst-chain/pgm-catalyst-chain", "label": "PGM / catalyst chain"}, {"href": "../ammonia-chain/ammonia-chain", "label": "Ammonia / nitrogen chain"}],
-    "accent": "#3f7d8a",
-    "eyebrow": "Product-chain pilot · splitting water for fuel",
-    "h1": "Tiny today, iridium-gated at scale — and the chemistry is the lever",
-    "deck": "Green-hydrogen electrolysis barely exists yet — a few gigawatts worldwide — but it is growing fast. Its "
-            "future chokepoint is not the metals people expect: it is iridium, one of Earth's rarest elements, needed "
-            "by PEM stacks. And that chokepoint is optional, because alkaline electrolysers avoid it entirely.",
-    "byline": "electricity + water ≠ PEM stack (iridium) vs alkaline stack (nickel) ≠ the hydrogen ≠ ammonia / fuels",
-    "correction": "The honest reading of this chain is that its material chokepoint is in the future tense. Installed "
-                  "electrolysis is still tiny (a few GW) and today's limits are cost, cheap electricity and actual "
-                  "demand — not minerals. But at the terawatt scale climate plans imply, PEM electrolysers would need "
-                  "far more iridium than is mined. The escape hatch is chemistry: alkaline stacks use nickel, not PGMs.",
-    "stats": [
-        {"v": "0.6→4 GW", "l": "installed electrolysis capacity, 2021 → 2025", "conf": "measured"},
-        {"v": "iridium", "l": "the binding material for PEM at scale — among Earth's rarest metals", "conf": "estimate"},
-        {"v": "PEM vs alkaline", "l": "the technology choice decides the material exposure", "conf": "measured"},
-        {"v": "<1%", "l": "of hydrogen is low-emissions today — the chain barely exists yet", "conf": "estimate"},
-    ],
-    "history": {
-        "title": "Fast growth off a tiny base: installed electrolysis, 2021 → 2025",
-        "conf": "measured",
-        "unit": "GW (electrical input)",
-        "note": "IEA Global Hydrogen Review. Installed electrolysis roughly sextupled from 2021 to 2025 — but from ~0.6 "
-                "to only ~4 GW, a rounding error against the terawatts that net-zero scenarios imagine. The 2025 point "
-                "is an early estimate. The chart is here to make the scale honest: the hype is large, the built base is "
-                "not, and the material chokepoint is therefore a future risk, not a present one.",
-        "series": [
-            {"label": "installed electrolysis", "points": [{"y": 2021, "v": 0.6}, {"y": 2022, "v": 0.7}, {"y": 2023, "v": 1.4}, {"y": 2024, "v": 2.0}, {"y": 2025, "v": 4.0}]},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Materials", "t": "nickel, platinum, iridium, titanium, zirconium, steels — by stack type"},
-        {"n": "2 · Stack", "t": "electrodes, catalysts, membrane or electrolyte, bipolar plates — PEM or alkaline"},
-        {"n": "3 · System", "t": "stacks plus rectifier, water treatment, cooling, gas purification and controls"},
-        {"n": "4 · Hydrogen & downstream", "t": "compression, storage, and conversion to ammonia, methanol or fuels"},
-    ],
-    "sections": [
-        {"h2": "1 · The base is tiny — so the risk is future-tense", "panels": [
-            {"kind": "big", "h3": "What's actually built", "big": "~4 GW", "conf": "measured",
-             "text": "After years of announcements, the world has only a few gigawatts of installed electrolysis, and "
-                     "less than 1% of hydrogen is low-emissions. Today's constraints are economic — the cost of "
-                     "electrolysers, cheap enough clean power, and buyers willing to pay a green premium — not a "
-                     "shortage of any metal. The material chokepoint only appears if this scales by orders of magnitude.",
-             "note": "IEA Global Hydrogen Review 2025."},
-            {"kind": "text", "h3": "Why forecasts here must be marked",
-             "text": "Almost every alarming 'hydrogen needs X% of world iridium' figure is conditional on a terawatt-"
-                     "scale build-out that has not happened and may not. This chain is the atlas's clearest case for "
-                     "labelling the tense of a claim: the concentration is real in the metal, but the demand behind it "
-                     "is a projection, and is flagged as one.",
-             "flag": "the demand is a projection, not a fact"},
-        ]},
-        {"h2": "2 · The chokepoint — if it comes — is iridium", "panels": [
-            {"kind": "text", "h3": "PEM stacks need a metal that barely exists", "conf": "estimate",
-             "text": "Proton-exchange-membrane electrolysers use platinum and, critically, iridium as catalysts. Iridium "
-                     "is among the scarcest elements in the crust, produced as a tiny by-product of platinum mining "
-                     "concentrated in South Africa (see the PGM chain). At terawatt scale, PEM's iridium appetite would "
-                     "collide with a supply measured in a few tonnes a year — a hard geological ceiling.",
-             "note": "IEA critical-minerals analysis; do not infer iridium demand from platinum loadings.", "flag": "a by-product of a by-product"},
-            {"kind": "text", "h3": "Alkaline is the escape hatch",
-             "text": "Alkaline electrolysers — the older, mature technology — use nickel-based catalysts and no PGMs at "
-                     "all, and China is building alkaline capacity at scale. So the iridium chokepoint is avoidable by "
-                     "technology choice, at some cost in flexibility. As with wind drivetrains and EV motors, the "
-                     "material risk here is a design decision, not destiny.",
-             "flag": "nickel, not iridium — a design choice"},
-        ]},
-        {"h2": "3 · What this chain is really waiting on", "panels": [
-            {"kind": "cards", "h3": "The near-term limits are not minerals", "cards": [
-                {"t": "Cheap clean power", "d": "Electrolysis is only as green and as cheap as the electricity feeding it; abundant low-cost renewable power is the real enabler."},
-                {"t": "Demand", "d": "Without buyers for green hydrogen, ammonia and steel, capacity sits idle — many announced projects have stalled for lack of offtake."},
-                {"t": "Cost", "d": "Electrolyser and green-hydrogen costs must keep falling to compete with fossil hydrogen; that, not iridium, gates the next few years."},
-            ]},
-        ]},
-    ],
-    "trade_intro": "BACI carries electrolysers under broad electrical-machinery headings and does not separate PEM from "
-                   "alkaline or isolate iridium (which sits in the shared PGM baskets). Read any trade below as coarse "
-                   "context only — the material story here is a technology-and-scale question, not a customs one.",
-    "method": [
-        {"stage": "Scale", "lens": "IEA installed-GW history", "why": "still a few GW — the material risk is future-tense"},
-        {"stage": "Stack", "lens": "PEM (iridium) vs alkaline (nickel)", "why": "the chokepoint is a technology choice"},
-        {"stage": "Iridium", "lens": "PGM by-product supply", "why": "a hard geological ceiling if PEM scales — marked as conditional"},
-        {"stage": "Trade", "lens": "BACI electrical-machinery headings", "why": "cannot isolate stack type or iridium — flagged context"},
-    ],
-    "sources": SRC,
-}
+HERE = Path(__file__).resolve().parent
+OUT = HERE / "out"
+TITLE = "When could iridium limit PEM electrolysis?"
+DECK = ("New capacity, catalyst loading and the share of supply available to PEM determine "
+        "annual iridium requirements. Stack replacement and recycling change them over time.")
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- electrolyser, tiny base (0.6->4 GW); future iridium/PEM gate, alkaline escape")
+
+def fmt(value, places=2):
+    number = f"{value:,.{places}f}"
+    return number.rstrip("0").rstrip(".") if places else number
+
+
+def rows(items):
+    return "\n".join(
+        f'<tr><th scope="row">{escape(str(label))}</th>'
+        + "".join(f"<td>{escape(str(item))}</td>" for item in cells) + "</tr>"
+        for label, *cells in items
+    )
+
+
+def render(data, trade):
+    result = data["results"]
+    static = data["static_scenarios"]
+    annual = data["annual"]
+    benchmarks = data["benchmarks"]
+    reference = annual["assumptions"]
+    example = static["display_example"]
+    pathways = result["pathways"]
+    names = {key: path["label"] for key, path in annual["pathways"].items()}
+    citations = {key: f'<a href="{escape(source["url"], quote=True)}">{escape(source["title"])}</a>'
+                 for key, source in data["sources"].items()}
+
+    thresholds = {(row["intensity_kg_Ir_per_MW"], row["assumed_share_global_supply"]):
+                  row["annual_new_PEM_GW_at_equality"] for row in result["thresholds"]}
+    shares = static["assumed_primary_shares"]
+    choices = static["intensity_kg_ir_per_mw"]
+    gw = example["annual_new_pem_gw"]
+    example_pair = (example["intensity_kg_ir_per_mw"], example["assumed_primary_share"])
+    scenario = next(row for row in result["scenario_matrix"]
+                    if (row["annual_new_PEM_GW"], row["intensity_kg_Ir_per_MW"],
+                        row["assumed_share_global_supply"]) == (gw, *example_pair))
+    series = [path["rows"] for path in pathways.values()]
+    first, last = series[0][0]["year"], series[0][-1]["year"]
+    markers = (first, 2030, 2040, last)
+    primary = series[0][0]["primary_ir_available_t"]
+    max_annual = max(entry["primary_ir_required_t"] for entries in series for entry in entries)
+    ceiling = max(5, 5 * ceil(max(max_annual, primary) / 5))
+    charts = []
+    for label, entries in zip(names.values(), series, strict=True):
+        bars = "".join(f'<i style="height:{row["primary_ir_required_t"] / ceiling:.2%}"></i>' for row in entries)
+        charts.append(f'<div><b>{escape(label)}</b><div class="series" style="--supply:{primary / ceiling:.2%}">'
+                      f'{bars}</div><div class="time-axis"><span>{first}</span><span>{last}</span></div></div>')
+    yearly_rows = rows(
+        (year, fmt(primary), *(fmt(entries[year - first]["primary_ir_required_t"]) for entries in series))
+        for year in markers
+    )
+    first_gaps = rows((names[key], summarise(path)["first_gap_year"] or "None") for key, path in pathways.items())
+
+    mitigation = result["mitigation"]
+    ref = mitigation["reference"]
+    mitigation_rows = rows(
+        (case["label"], fmt(case["cumulative_primary_ir_required_t"], 1),
+         fmt(case["cumulative_gap_t"], 1), case["first_gap_year"] or "None")
+        for case in mitigation.values()
+    )
+    annual_sensitivity = [case["cumulative_gap_t"] for case in result["annual_sensitivity"]]
+    market = benchmarks["market"]
+    intensity_rows = "\n".join(
+        f'<tr><th scope="row">{escape(item["label"])}</th><td>{"–".join(fmt(v) for v in item["values_kg_per_mw"])}</td>'
+        f'<td>{escape(item["status"])}</td><td>{escape(item["detail"])} {citations[item["source"]]}.</td></tr>'
+        for item in benchmarks["loadings"]
+    )
+
+    year = trade["years"][-1]
+    trade_rows = []
+    for code, item in trade["codes"].items():
+        row = trade["years_data"][str(year)][code]
+        exporter = row["exporters"][0]
+        trade_rows.append(
+            f'<tr data-trade-code="{escape(code, quote=True)}"><th scope="row">{escape(item["title"])}<br>'
+            f'<span class="note">HS {escape(code)}</span></th><td>USD {fmt(row["world_usd"] / 1e9)} billion</td>'
+            f'<td>{escape(exporter["name"])} · {exporter["share"]:.1%}</td><td>{escape(item["boundary"])}</td></tr>'
+        )
+
+    def options(values, selected, percent=False):
+        return "".join(
+            f'<option value="{value}"{" selected" if value == selected else ""}>'
+            f'{f"{value:.0%}" if percent else fmt(value)}</option>'
+            for value in values
+        )
+
+    values = {
+        "title": TITLE, "deck": DECK, "date": data["date"],
+        "market_primary": fmt(market["primary_supply_t"]),
+        "market_demand": fmt(market["total_net_demand_t"]),
+        "electrochemical_demand": fmt(market["net_demand_t"]["Electrochemical"]),
+        "market_rows": rows((key, fmt(v)) for key, v in market["net_demand_t"].items()),
+        "intensity_rows": intensity_rows,
+        "capacity_stock": benchmarks["deployment"]["installed_gw_lower_bound"],
+        "construction": benchmarks["deployment"]["construction_targeting_2026_gw_lower_bound"],
+        "reference_supply": fmt(static["primary_output_t_per_year"]),
+        "share_columns": "".join(f'<th scope="col">{share:.0%}</th>' for share in shares),
+        "threshold_rows": rows((fmt(intensity), *(fmt(thresholds[intensity, share]) for share in shares))
+                               for intensity in choices),
+        "gw_default": gw, "example_loading": fmt(example_pair[0]), "example_share": f"{example_pair[1]:.0%}",
+        "intensity_options": options(choices, example_pair[0]),
+        "share_options": options(shares, example_pair[1], percent=True),
+        "gross": fmt(scenario["gross_demand_t_Ir_per_year"]),
+        "available": fmt(scenario["assumed_available_t_Ir_per_year"]),
+        "gap": fmt(scenario["shortfall_t_Ir_per_year"]),
+        "equality": fmt(thresholds[example_pair]),
+        "loading_at_equality": fmt(scenario["assumed_available_t_Ir_per_year"] / gw, 3),
+        "primary_allocation": fmt(primary), "start": first, "end": last, "ceiling": ceiling,
+        "charts": "\n".join(charts),
+        "annual_headers": "".join(f'<th scope="col">{escape(name)}</th>' for name in names.values()),
+        "yearly_rows": yearly_rows, "first_gaps": first_gaps, "mitigation_rows": mitigation_rows,
+        "cumulative_ref_gap": fmt(ref["cumulative_gap_t"], 1),
+        "cumulative_market_gap": fmt(result["market_supply_comparison"]["cumulative_gap_t"], 1),
+        "low_sensitivity": fmt(min(annual_sensitivity), 1), "high_sensitivity": fmt(max(annual_sensitivity), 1),
+        "operating_hours": fmt(reference["operating_stack_hours"], 0), "utilisation": f'{reference["utilisation"]:.0%}',
+        "calendar_stack": ref["stack_calendar_years"], "plant_years": reference["plant_lifetime_years"],
+        "ref_share": f'{reference["pem_share"]:.0%}', "primary_share": f'{reference["primary_share"]:.0%}',
+        "ref_intensity": fmt(reference["intensity_by_year"][str(first)]),
+        "manufacturing_yield": f'{reference["manufacturing_yield"]:.0%}',
+        "recovery": f'{reference["recovery_fraction"]:.0%}', "lag": reference["recycling_lag_years"],
+        "trade_year": year, "trade_rows": "\n".join(trade_rows),
+        **citations,
+    }
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
+
+
+def serialise_decimal(value):
+    if isinstance(value, Decimal):
+        return float(round(value, 6))
+    raise TypeError(f"Cannot serialise {type(value).__name__}")
+
+
+def build():
+    evidence = json.loads((HERE / "evidence_inputs.json").read_text(encoding="utf-8"))
+    trade = json.loads((OUT / "electrolyser_trade.json").read_text(encoding="utf-8"))
+    evidence.update({
+        "title": "Electrolyser / hydrogen chain", "h1": TITLE, "deck": DECK, "published": True,
+        "chokepoint": {
+            "product": "Water electrolysis", "stage": "Iridium supply for PEM", "mechanism": "byproduct",
+            "physics": "Iridium is recovered with other PGMs. PEM exposure depends on loading, supply allocation and recycling.",
+            "holder": "South Africa (primary supply)", "share": "—", "control": "—", "conf": "estimate",
+        },
+        "results": evaluate(evidence),
+    })
+    article = render(evidence, trade)
+    (HERE / "electrolyser-chain.html").write_text(article, encoding="utf-8", newline="\n")
+    (OUT / "electrolyser_chain.json").write_text(
+        json.dumps(evidence, ensure_ascii=False, indent=2, default=serialise_decimal) + "\n",
+        encoding="utf-8", newline="\n",
+    )
+    write_tables(OUT, evidence["results"])
+
+
+if __name__ == "__main__":
+    build()
