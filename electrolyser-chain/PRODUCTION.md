@@ -47,3 +47,12 @@ A second reading of the cited sources before publication found nothing wrong. Ar
   review reports for 2024 (section 2.3). The page now says the reference case is optimistic about loading.
 - The US DOE table gives 2022 status and 2026 targets; the source title no longer says "2026 edition".
 - The page's statement that the IEA capacity figures are rated electrical input was not found on the IEA page.
+
+## Follow-up on supply and deployment, 25 November 2026
+
+- The note to [IEA Global Hydrogen Review 2026, Figure 3.8](https://www.iea.org/files/af4b6218-0311-4963-91ab-903cb18ca0ca/GlobalHydrogenReview2026.pdf#page=90)
+  specifies GW of electrical input. The adjacent page reports capacity under construction with a 2026 target date. This supplies the unit locator missing from the web summary.
+- [International Journal of Hydrogen Energy (2021), Table 1](https://doi.org/10.1016/J.IJHYDENE.2021.04.174)
+  specifies the two endpoint loadings in g Ir/kW of nominal power, numerically equal to kg Ir/MW. The 0.67 value represents the paper's historical design basis. The 0.05 value is a technical target. The 0.20 case is an assumed low-intensity transition. The chart uses the transition case for the comparisons. No value represents a measured current fleet average.
+- The [2026 industrial ecology study](https://link.springer.com/article/10.1007/s44498-026-00088-y) supplies the approximate mine-output reference. The assumed competing demand is 5.5 t/year on the same market basis as other flows. Outside recycling and stock changes are zero in the reference. [Johnson Matthey's 2025 table and definitions](https://matthey.com/documents/161599/509428/pgm-market-report-26.pdf#page=34) give commercial producer sales and net demand. Their category structure gives no standalone PEM total. No observed PEM allocation is derived from these figures.
+- The follow-up compares a scheduled demand calculation with a constrained deployment calculation at the same annual market budget. The latter gives replacement stacks priority and defers new installations. Only commissioned stacks can later return material. The assumptions and flows are published. Project orders, accessible supply and stack durability still need independent calibration.

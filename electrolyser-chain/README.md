@@ -79,3 +79,31 @@ manufacturing yield, firm demand from other uses, access to inventoried
 metal, and collection and refining capacity with contractual delivery times.
 The current article supports an evidence review and reproducible comparisons
 of explicit assumptions.
+
+## Follow-up on the material budget, 25 November 2026
+
+The dated addendum compares the middle schedule against a second model
+that allows only the capacity that available material can support.
+The annual material budget adds mine-linked supply, releases of outside
+stocks and external recycled metal. It subtracts net demand from other
+applications and additions to outside stocks. Fleet returns are separate.
+The reference inputs are constant over the study years. Unused
+outside supply does not carry over. Unused recovered metal from the fleet does.
+
+Each year, new and replacement stacks draw from the fleet's recovered
+stock first, then the market budget. The model serves outstanding
+replacements for plants that remain open before commissioning new
+capacity. An expired stack stops operating until replaced. The plant
+lifetime starts at commissioning. New projects wait if their material
+is unavailable and are counted separately from existing capacity awaiting
+replacement. Fractional GW are allowed. In a scarce year the capacity
+budget is rounded down to the nearest watt. Replacements and recycling
+follow only stacks fitted in the constrained calculation. There is no
+pre-existing fleet, cancellation or switch to another technology.
+
+The main builder also writes [matched annual deployment and metal flows](out/constrained_annual_deployment.csv).
+The [evidence JSON](out/electrolyser_chain.json) holds one-at-a-time tests
+and the pairs of assumptions. Gross input and annual metal gaps in the
+sensitivity figure come from the demand calculation. Waiting GW and
+commissioned GW come from the constrained calculation. The tested ranges
+are illustrative. This is not an estimate of future PEM project delivery.

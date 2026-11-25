@@ -8,7 +8,8 @@ from math import ceil
 from pathlib import Path
 from string import Template
 
-from constraint_frontier import evaluate, summarise, write_tables
+from constrained_deployment import evaluate_followup
+from constraint_frontier import evaluate, summarise, write_csv, write_tables
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "out"
@@ -28,6 +29,91 @@ def rows(items):
         + "".join(f"<td>{escape(str(item))}</td>" for item in cells) + "</tr>"
         for label, *cells in items
     )
+
+
+def render_sensitivity(followup, last_year):
+    reference = followup["reference"]
+    metrics = ("first_gap_year", "gross_demand_t", "sum_annual_gaps_t")
+    cases = followup["sensitivity"]
+
+    def position(value, domain):
+        bottom, top = domain
+        return (value - bottom) / (top - bottom) if top > bottom else 0.5
+
+    def plot_value(value):
+        return last_year + 1 if value is None else value
+
+    domains = {}
+    for key in metrics:
+        values = [plot_value(reference[key])]
+        values.extend(plot_value(row[bound][key]) for row in cases for bound in ("low", "high"))
+        domains[key] = (min(values), max(values))
+
+    def cell(case, key):
+        low, high = (case[bound][key] for bound in ("low", "high"))
+        left, right = sorted(position(plot_value(value), domains[key]) for value in (low, high))
+        baseline = position(plot_value(reference[key]), domains[key])
+        values = " / ".join("No gap" if value is None else fmt(value, 0 if key == "first_gap_year" else 1)
+                            for value in (low, high))
+        return (
+            f'<td>{values}<span class="sensitivity-track" aria-hidden="true">'
+            f'<span class="sensitivity-interval" style="left:{left:.2%};width:{right-left:.2%}"></span>'
+            f'<span class="sensitivity-reference" style="left:{baseline:.2%}"></span></span></td>'
+        )
+
+    ordered = sorted(cases, key=lambda row: abs(
+        row["high"]["sum_annual_gaps_t"] - row["low"]["sum_annual_gaps_t"]), reverse=True)
+    return "\n".join(
+        f'<tr><th scope="row">{escape(case["label"])}<br>'
+        f'<span class="note">{fmt(case["low"]["value"])} / {fmt(case["high"]["value"])}</span></th>'
+        + "".join(cell(case, key) for key in metrics) + "</tr>"
+        for case in ordered
+    )
+
+
+def render_followup(data, citations, last_year):
+    settings = data["second_review"]
+    result = settings["results"]
+    cases = result["loading_cases"]
+    by_id = {case["id"]: case for case in cases}
+    transition, advanced = by_id["transition"], by_id["advanced"]
+    interaction = next(pair for pair in result["interactions"]
+                       if pair["parameters"] == ["ir_kg_per_mw", "operating_stack_hours"])
+    short_life = settings["sensitivity"]["operating_stack_hours"]["low"]
+    advanced_short = next(case for case in interaction["cases"]
+                          if case["left"] == advanced["ir_kg_per_mw"] and case["right"] == short_life)
+    source = settings["capacity_definition"]
+    deployment_rows = "\n".join(
+        f'<tr><th scope="row">{escape(case["label"])}<br>'
+        f'<span class="note">{escape(case["detail"])} {citations[case["source"]]}.</span></th>'
+        f'<td>{fmt(case["ir_kg_per_mw"])}</td><td>{case["first_gap_year"] or "No gap"}</td>'
+        f'<td>{fmt(case["commissioned_new_gw"], 1)}</td><td>{fmt(case["queued_new_gw"], 1)}</td></tr>'
+        for case in cases
+    )
+    labels = settings["sensitivity"]
+    interaction_rows = rows(
+        (pair["label"], f'{labels[pair["parameters"][0]]["label"]}: {fmt(case["left"])}',
+         f'{labels[pair["parameters"][1]]["label"]}: {fmt(case["right"])}',
+         case["first_gap_year"] or "No gap", fmt(case["sum_annual_gaps_t"], 1), fmt(case["queued_new_gw"], 1))
+        for pair in result["interactions"] for case in pair["cases"]
+    )
+    return {
+        "review_date": settings["date"],
+        "capacity_definition": f'<a href="{escape(source["url"], quote=True)}">{escape(source["title"])}</a>',
+        "mine_output": fmt(settings["market"]["mine_output_t"]),
+        "competing_demand": fmt(settings["market"]["other_net_demand_t"]),
+        "market_budget": fmt(transition["market_budget_t_per_year"]),
+        "deployment_rows": deployment_rows, "scheduled_new": fmt(transition["scheduled_new_gw"], 1),
+        "transition_loading": fmt(transition["ir_kg_per_mw"]),
+        "transition_fitted": fmt(transition["commissioned_new_gw"], 1),
+        "transition_queued": fmt(transition["queued_new_gw"], 1),
+        "advanced_loading": fmt(advanced["ir_kg_per_mw"]),
+        "advanced_short_gap": advanced_short["first_gap_year"],
+        "advanced_short_queue": fmt(advanced_short["queued_new_gw"], 1),
+        "short_life": fmt(short_life, 0),
+        "sensitivity_ranges": render_sensitivity(result, last_year),
+        "interaction_rows": interaction_rows,
+    }
 
 
 def render(data, trade):
@@ -137,6 +223,7 @@ def render(data, trade):
         "recovery": f'{reference["recovery_fraction"]:.0%}', "lag": reference["recycling_lag_years"],
         "trade_year": year, "trade_rows": "\n".join(trade_rows),
         **citations,
+        **render_followup(data, citations, last),
     }
     return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
 
@@ -159,6 +246,8 @@ def build():
         },
         "results": evaluate(evidence),
     })
+    followup = evidence["second_review"]
+    followup["results"] = evaluate_followup(evidence)
     article = render(evidence, trade)
     (HERE / "electrolyser-chain.html").write_text(article, encoding="utf-8", newline="\n")
     (OUT / "electrolyser_chain.json").write_text(
@@ -166,6 +255,10 @@ def build():
         encoding="utf-8", newline="\n",
     )
     write_tables(OUT, evidence["results"])
+    write_csv(OUT / "constrained_annual_deployment.csv", [
+        {"loading_case": case["id"], **row}
+        for case in followup["results"]["loading_cases"] for row in case["years"]
+    ])
 
 
 if __name__ == "__main__":

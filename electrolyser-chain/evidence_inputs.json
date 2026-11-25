@@ -268,5 +268,118 @@
         3
       ]
     }
+  },
+  "second_review": {
+    "date": "2026-11-25",
+    "capacity_definition": {
+      "title": "IEA Global Hydrogen Review 2026, Figure 3.8 and the following page",
+      "url": "https://www.iea.org/files/af4b6218-0311-4963-91ab-903cb18ca0ca/GlobalHydrogenReview2026.pdf#page=90"
+    },
+    "market": {
+      "mine_output_t": 7.5,
+      "stock_released_t": 0,
+      "external_recycling_t": 0,
+      "other_net_demand_t": 5.5,
+      "stock_added_t": 0
+    },
+    "reference": {
+      "ir_kg_per_mw": 0.2,
+      "deployment_scale": 1
+    },
+    "loading_cases": [
+      {
+        "id": "historical",
+        "label": "Historical design benchmark",
+        "ir_kg_per_mw": 0.67,
+        "detail": "Published 2020-status design assumptions. Two mg of iridium per cm² at about three watts per cm².",
+        "source": "earlier"
+      },
+      {
+        "id": "transition",
+        "label": "Low-intensity transition",
+        "ir_kg_per_mw": 0.2,
+        "detail": "Atlas scenario. The loading is below the range of literature benchmarks quoted above.",
+        "source": "study"
+      },
+      {
+        "id": "advanced",
+        "label": "Advanced target",
+        "ir_kg_per_mw": 0.05,
+        "detail": "Published target combines 0.40 mg per cm² and eight watts per cm². Commercial lifetime, rated performance and manufacturing yield at this loading remain uncertain.",
+        "source": "earlier"
+      }
+    ],
+    "sensitivity": {
+      "ir_kg_per_mw": {
+        "label": "Iridium loading (kg/MW)",
+        "low": 0.05,
+        "high": 0.67
+      },
+      "operating_stack_hours": {
+        "label": "Stack operating life (hours)",
+        "low": 25000,
+        "high": 75000
+      },
+      "pem_share": {
+        "label": "PEM share of additions (fraction)",
+        "low": 0.25,
+        "high": 0.75
+      },
+      "deployment_scale": {
+        "label": "Total additions (multiple of middle path)",
+        "low": 0.5,
+        "high": 1.5
+      },
+      "recovery_fraction": {
+        "label": "Recovered fraction of retired iridium",
+        "low": 0.4,
+        "high": 0.9
+      },
+      "recycling_lag_years": {
+        "label": "Recycling delay (years)",
+        "low": 1,
+        "high": 4
+      },
+      "mine_output_t": {
+        "label": "Mine-linked supply (t/year)",
+        "low": 6.5,
+        "high": 8.5
+      },
+      "other_net_demand_t": {
+        "label": "Competing net demand (t/year)",
+        "low": 4.5,
+        "high": 6.5
+      }
+    },
+    "interactions": [
+      {
+        "label": "Iridium loading and stack life",
+        "parameters": [
+          "ir_kg_per_mw",
+          "operating_stack_hours"
+        ]
+      },
+      {
+        "label": "PEM share and total additions",
+        "parameters": [
+          "pem_share",
+          "deployment_scale"
+        ]
+      },
+      {
+        "label": "Recovery fraction and delay",
+        "parameters": [
+          "recovery_fraction",
+          "recycling_lag_years"
+        ]
+      },
+      {
+        "label": "Mine-linked supply and competing demand",
+        "parameters": [
+          "mine_output_t",
+          "other_net_demand_t"
+        ]
+      }
+    ]
   }
 }

@@ -18,6 +18,10 @@
   .series::after { content: ""; position: absolute; inset-inline: 0; bottom: var(--supply); border-top: 2px dashed #202e31; }
   .series i { flex: 1; background: #3f7d8a; }
   .time-axis { display: flex; justify-content: space-between; font-size: .8rem; }
+  .followup-chart { margin: 1rem 0; }
+  .sensitivity-track { display: block; position: relative; min-width: 5rem; height: .65rem; margin-top: .2rem; border-block-end: 1px solid #bac5cc; }
+  .sensitivity-interval { position: absolute; inset-block-start: .25rem; height: .25rem; background: #687983; }
+  .sensitivity-reference { position: absolute; height: .65rem; border-inline-start: 1px solid currentColor; }
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
@@ -31,6 +35,8 @@
 </div></section>
 <article>
   <p>Proton-exchange membrane (PEM) electrolysers usually use an iridium-based anode catalyst. The amount needed each year depends on how much new PEM capacity is built, how much iridium each stack uses and how many stacks are replaced. Alkaline, anion-exchange membrane and solid-oxide systems offer different routes for suitable applications. This study compares those choices with an explicit annual iridium budget.</p>
+
+  <p class="note"><a href="#second-review">Follow-up on iridium supply and new capacity</a></p>
 
   <h2>The installed base and the annual market</h2>
   <p>Global installed electrolysis capacity exceeded $capacity_stock GW in 2025 across technologies. The IEA identified more than $construction GW under construction targeting operation in 2026. Both refer to rated electrical input capacity. The model below uses annual additions, with a separate PEM share. The IEA identifies costs, market demand and project delays as important in the current market. $deployment.</p>
@@ -132,6 +138,57 @@ $mitigation_rows
   <p>Using the 2025 producer-sales estimate as the primary reference, at the same assumed allocation, moves the reference sum of gaps from $cumulative_ref_gap to $cumulative_market_gap tonnes. Across the full sensitivity set, which varies the supply share, utilisation, recovery and the return delay in the middle path with reference loading, the sum ranges from $low_sensitivity to $high_sensitivity tonnes. The gap calculation carries forward only recovered metal left over from earlier years. Existing inventories, primary expansion, refurbishment and price or procurement responses sit outside this illustration.</p>
   <p>Published research already models iridium constraints, replacement and recycling, including feasible rates of PEM growth. This study contributes a small reproducible set of annual thresholds and tests how explicit technology and recovery choices change the balance. Estimating future shortages would require calibrated project schedules, qualified recycling volumes, stack specifications and competing demand. $study. $targets.</p>
   <p>Download the <a href="out/illustrative_annual_flows.csv">annual flows</a>, <a href="out/illustrative_mitigation.csv">mitigation cases</a> and <a href="out/illustrative_sensitivity.csv">sensitivity results</a> as CSV files.</p>
+
+  <section id="second-review">
+    <h2>Follow-up on iridium supply and new capacity</h2>
+    <p class="note"><time datetime="$review_date">25 November 2026</time></p>
+    <p><strong>Capacity units.</strong> The note to IEA Figure 3.8 specifies GW of electrical input for the installed figures. The next page separately reports capacity under construction and targeting operation in 2026. The scenario below uses annual new capacity at rated electrical input. $capacity_definition.</p>
+
+    <h3>How much iridium is available to PEM?</h3>
+    <p><strong>Modelled.</strong> Each year, take mine-linked output, add any release of outside stocks and any recycled supply from outside the modelled fleet, and subtract other users’ net demand and any additions to outside stocks. The balance cannot fall below zero. Returns from the modelled PEM fleet enter a separate inventory. The same metal can enter the balance only once.</p>
+    <p>The example uses $mine_output tonnes a year of mine-linked output and $competing_demand tonnes a year of competing net demand. Outside recycling and stock changes are set to zero. This leaves <strong>$market_budget tonnes a year</strong> for PEM from the market. The mine-output figure is a literature reference. The competing demand is an assumption. Johnson Matthey reports producer sales and sector net demand. Its electrochemical category covers several uses, so those totals cannot identify the amount available to PEM. $study. $market. $market_basis.</p>
+
+    <h3>How much of the middle pathway fits?</h3>
+    <p>The demand calculation assumes all scheduled capacity is installed. It estimates the iridium needed and the year in which requirements after fleet recycling first exceed the market budget. The constrained case fits replacement stacks first at plants that remain open. It fits new capacity with the metal left over. Unfunded capacity waits, and future recycling comes only from stacks that entered service. Both cases start with an empty fleet. The model treats GW as divisible and carries unused recycled metal forward.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="PEM deployment by iridium loading">
+      <table>
+        <caption><strong>Modelled.</strong> Cumulative new PEM capacity over $start to $end. The same middle pathway calls for $scheduled_new GW in each case.</caption>
+        <thead><tr><th scope="col">Iridium loading case</th><th scope="col">kg Ir/MW</th><th scope="col">First demand gap</th><th scope="col">New GW fitted</th><th scope="col">New GW waiting at end</th></tr></thead>
+        <tbody>
+$deployment_rows
+        </tbody>
+      </table>
+    </div>
+    <p>At $transition_loading kg/MW, the model fits $transition_fitted GW and leaves $transition_queued GW waiting at the end. The $advanced_loading kg/MW case fits the schedule at the assumed stack life. When that same loading is paired with $short_life operating hours, the demand calculation first exceeds the budget in $advanced_short_gap and the constrained case leaves $advanced_short_queue GW waiting. Commercial use of the advanced loading would require evidence that stacks at rated power last long enough and can be manufactured at the assumed yield. $earlier.</p>
+    <p>The totals count newly commissioned capacity. Replacement stacks use iridium and keep existing capacity in service. Waiting capacity may be built later. The model keeps the PEM share fixed in each case and leaves out project lead times, plant economics and changes in technology after a delay.</p>
+
+    <h3>Which assumptions change the results most?</h3>
+    <figure class="followup-chart">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Sensitivity ranges for the demand calculation">
+        <table>
+          <caption><strong>Modelled.</strong> One input changes at a time around the low-intensity transition case. Values appear in the order of the lower and higher input settings.</caption>
+          <thead><tr><th scope="col">Input and settings</th><th scope="col">First gap year</th><th scope="col">Gross iridium input (t)</th><th scope="col">Sum of annual gaps (t)</th></tr></thead>
+          <tbody>
+$sensitivity_ranges
+          </tbody>
+        </table>
+      </div>
+      <figcaption>The bars show the range for each metric on that column’s scale. The vertical mark shows the transition case. The chart places cases with no crossing just beyond the time horizon. Rows are ordered by the change in the sum of annual gaps. The input ranges describe selected assumptions.</figcaption>
+    </figure>
+    <p>Loading has the largest effect on annual gaps over the tested ranges. The paired cases show how the result depends on stack life, how PEM share and total additions combine, how recovery and delay affect returned metal, and how competing demand changes the market budget. The ranges do not establish a ranking by cost or likelihood.</p>
+    <details>
+      <summary>Results when two inputs change together</summary>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Paired scenario tests">
+        <table>
+          <thead><tr><th scope="col">Inputs</th><th scope="col">First setting</th><th scope="col">Second setting</th><th scope="col">First gap</th><th scope="col">Sum of gaps (t)</th><th scope="col">New GW waiting at end</th></tr></thead>
+          <tbody>
+$interaction_rows
+          </tbody>
+        </table>
+      </div>
+    </details>
+    <p>The <a href="out/constrained_annual_deployment.csv">annual deployment CSV</a> shows the schedule, commissioned capacity, replacements, waiting capacity and metal flows. The <a href="out/electrolyser_chain.json">evidence JSON</a> contains the model settings and sensitivity cases.</p>
+  </section>
 
   <h2>Customs trade appendix</h2>
   <p>The frozen BACI series measures nominal trade in mixed-use categories. HS 854330 includes electroplating, electrolysis and electrophoresis equipment. HS 711049 combines semi-manufactured iridium, osmium and ruthenium. The series cannot isolate PEM equipment, iridium flows or the geography of catalyst manufacturing. $machinery. $metals. $baci.</p>
