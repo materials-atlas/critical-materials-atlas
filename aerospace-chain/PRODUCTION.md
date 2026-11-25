@@ -83,3 +83,8 @@ for particular engine programmes are still unavailable.
 | A25 | **Modelled.** In the original eight cases, shortening the delivery wait from nine to three months reduces unmet units by an average of 105. Raising replacement from 10 to 25 units per month reduces the unmet total by an average of 90. Adding 75 units of stock reduces it by 75. | Each average weights the four matched comparisons equally. The result compares the stated input changes. The model contains no probabilities, programme calibration or causal estimate for either historical case. |
 
 [reviewed-release]: https://github.com/materials-atlas/critical-materials-atlas/blob/ac6f0abb4eda3305332ea307b64f378b5a4dc43d/aerospace-chain/aerospace-chain.html
+
+## Review of the follow-up, 25 November 2026
+
+All six access cases recomputed by hand from the JRC aviation-grade shares (12, 41, 30, 17): HHI 3,014; 3,014; 2,774; 3,706;
+4,314; 5,856, and included capacity 157.0 to 91.1 kt a year. No new outside source was added.

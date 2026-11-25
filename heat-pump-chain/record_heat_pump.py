@@ -150,8 +150,8 @@ def build():
         "chokepoint": {
             "product": "Heat pumps", "stage": "Compatible compressors", "mechanism": "capability",
             "physics": "Compressor supply depends on the refrigerant, operating range, drive and qualification",
-            "holder": "Depends on the design", "share": "—",
-            "control": "—", "conf": "snapshot", "research": True,
+            "holder": "China (rotary compressors)", "share": "About 90% of rotary compressor capacity (2024); scroll capacity is more dispersed",
+            "control": "—", "conf": "estimate", "research": True,
         },
         "assembly_comparison": {
             "status": "Calculated with 2025 mixed-technology capacity held constant",

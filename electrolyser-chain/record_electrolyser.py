@@ -53,7 +53,7 @@ def render_sensitivity(followup, last_year):
         low, high = (case[bound][key] for bound in ("low", "high"))
         left, right = sorted(position(plot_value(value), domains[key]) for value in (low, high))
         baseline = position(plot_value(reference[key]), domains[key])
-        values = " / ".join("No gap" if value is None else fmt(value, 0 if key == "first_gap_year" else 1)
+        values = " / ".join("No gap" if value is None else (str(int(value)) if key == "first_gap_year" else fmt(value, 1))
                             for value in (low, high))
         return (
             f'<td>{values}<span class="sensitivity-track" aria-hidden="true">'

@@ -3778,8 +3778,7 @@
    "reads": [
     "aerospace-chain/",
     "aerospace-chain/article.html.in",
-    "aerospace-chain/out/aerospace_trade.json",
-    "aerospace-chain/record_aerospace.py"
+    "aerospace-chain/out/aerospace_trade.json"
    ],
    "writes": [
     "aerospace-chain/aerospace-chain.html",
@@ -3788,7 +3787,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "4da34aa759ec2b33"
+   "code_sha": "62ee1bad604d07f3",
+   "restored": 3
   },
   "aluminium-chain/extract_baci.py": {
    "reads": [
@@ -6810,12 +6810,15 @@
   "electrolyser-chain/record_electrolyser.py": {
    "reads": [
     "electrolyser-chain/",
+    "electrolyser-chain/__pycache__/constrained_deployment.cpython-311.pyc",
+    "electrolyser-chain/__pycache__/constrained_deployment.cpython-311.pyc.1708305745520",
+    "electrolyser-chain/__pycache__/constraint_frontier.cpython-311.pyc",
+    "electrolyser-chain/__pycache__/constraint_frontier.cpython-311.pyc.1708305746320",
     "electrolyser-chain/article.html.in",
     "electrolyser-chain/constrained_deployment.py",
     "electrolyser-chain/constraint_frontier.py",
     "electrolyser-chain/evidence_inputs.json",
-    "electrolyser-chain/out/electrolyser_trade.json",
-    "electrolyser-chain/record_electrolyser.py"
+    "electrolyser-chain/out/electrolyser_trade.json"
    ],
    "writes": [
     "electrolyser-chain/electrolyser-chain.html",
@@ -6829,7 +6832,8 @@
    ],
    "exit": 0,
    "secs": 0.2,
-   "code_sha": "187b99624a077488"
+   "code_sha": "cec11d941c6648c7",
+   "restored": 8
   },
   "ev-chain/record_ev.py": {
    "reads": [
@@ -7021,11 +7025,12 @@
   "heat-pump-chain/record_heat_pump.py": {
    "reads": [
     "heat-pump-chain/",
+    "heat-pump-chain/__pycache__/compressor_supply.cpython-311.pyc",
+    "heat-pump-chain/__pycache__/compressor_supply.cpython-311.pyc.1697968917072",
     "heat-pump-chain/article.html.in",
     "heat-pump-chain/compressor_supply.py",
     "heat-pump-chain/evidence_inputs.json",
-    "heat-pump-chain/out/heat_pump_trade.json",
-    "heat-pump-chain/record_heat_pump.py"
+    "heat-pump-chain/out/heat_pump_trade.json"
    ],
    "writes": [
     "heat-pump-chain/heat-pump-chain.html",
@@ -7033,7 +7038,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "ae2d29de9b16811a"
+   "code_sha": "e9e3f5efe64db06e",
+   "restored": 2
   },
   "helium-chain/record_helium.py": {
    "reads": [],

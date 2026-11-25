@@ -74,3 +74,10 @@ A second reading of the cited sources before publication found nothing wrong and
   compressors per month from month nine clears the backlog in month 11 or month 10, respectively, assuming all orders are kept.
   A separate cancellation case removes 100 orders in month eight. The model is an auditable illustration of supply, stock and supplier
   qualification. It needs plant records and independent HVAC manufacturing review for empirical validation.
+
+## Review of the follow-up, 25 November 2026
+
+Backlog arithmetic re-done by hand (300 open orders after month 8; +100 a month clears in month 11, +200 in month 10; 75 a month
+would clear by month 12). JRC Figure 28 and the 2025 reference year for 7.7 million units confirmed in the JRC text. Model tests
+pass (6). One change at integration: the chokepoint-map row keeps a figure, "About 90% of rotary compressor capacity (2024);
+scroll capacity is more dispersed", instead of the follow-up's blank share.
