@@ -1,101 +1,129 @@
-"""Evidence JSON for the heat-pump chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_heat_pump.py
-"""
+"""Build the heat-pump evidence review and model from pinned public inputs."""
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "heat_pump_chain.json")
+from html import escape
+import json
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "iea_monitor": {"title": "IEA, Heat Pump Monitor 2026 — Key findings", "year": 2026, "url": "https://www.iea.org/reports/heat-pump-monitor-2026/key-findings"},
-    "iea_future": {"title": "IEA, The Future of Heat Pumps — Executive summary", "year": 2022, "url": "https://www.iea.org/reports/the-future-of-heat-pumps/executive-summary"},
-    "ehpa_2025": {"title": "EHPA Market Report 2025 — Executive summary", "year": 2025, "url": "https://www.ehpa.org/wp-content/uploads/2025/07/EHPA-Market-Report-2025-executive-summary.pdf"},
-    "unep_kigali": {"title": "UNEP OzonAction, HFC phase-down (Kigali Amendment) timeline", "year": 2026, "url": "https://www.unep.org/ozonaction/resources/toolkits-manuals-and-guides/path-kigali-hfc-phase-down-timeline"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
-}
+from compressor_supply import evaluate
 
-CHAIN = {
-    "title": "Heat-pump chain",
-    "chokepoint": {"product": "Heat pumps", "stage": "Install", "mechanism": "diffuse", "physics": "No scarce input; the limit is factory capacity + installer labour — a labour market", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
-    "published": True,
-    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}],
-    "accent": "#5a8a6a",
-    "eyebrow": "Product-chain pilot · the box that heats the house",
-    "h1": "No scarce metal gates the heat pump — people and factories do",
-    "deck": "A heat pump is copper, aluminium and steel wrapped around a compressor and a refrigerant. There is no "
-            "critical-mineral chokepoint. What limits it is different in kind: factory capacity, refrigerant "
-            "regulation and — above all — enough trained installers to put the units in.",
-    "byline": "copper & aluminium ≠ compressor ≠ refrigerant (regulated) ≠ the factory ≠ the installer",
-    "correction": "Heat pumps are a rare case in this atlas with no upstream mineral chokepoint. Their constraints are "
-                  "industrial and human: manufacturing capacity is distributed (China ~35%, US ~25%), the refrigerant "
-                  "is being reshaped by the Kigali HFC phase-down rather than by metal supply, and the binding limit on "
-                  "deployment is the installer workforce. The bottleneck is a labour market, not a mine.",
-    "stats": [
-        {"v": "35 / 25%", "l": "China / US share of heat-pump manufacturing capacity", "conf": "measured"},
-        {"v": "installers", "l": "the binding constraint on deployment is skilled labour, not materials", "conf": "estimate"},
-        {"v": "refrigerant", "l": "the Kigali HFC phase-down reshapes the chemistry — not the supply of a metal", "conf": "measured"},
-        {"v": "~12%", "l": "of building space-heating met by heat pumps today — the runway is long", "conf": "measured"},
-    ],
-    "hops": [
-        {"n": "1 · Materials", "t": "copper, aluminium, steels, polymers and a refrigerant — commodity inputs"},
-        {"n": "2 · Components", "t": "compressor, heat exchangers, expansion valve, fans/pumps, motor and controls"},
-        {"n": "3 · Factory", "t": "units integrated to local voltage, climate and building codes — distributed capacity"},
-        {"n": "4 · Install & operate", "t": "sizing, emitters, pipework, commissioning — efficiency set on site"},
-    ],
-    "sections": [
-        {"h2": "1 · What a heat pump is made of", "panels": [
-            {"kind": "text", "h3": "Commodity metals plus a compressor", "conf": "measured",
-             "text": "The bulk of a heat pump is copper (windings and heat-exchanger tubing), aluminium (fins and "
-                     "casing) and steel, around a compressor and a refrigerant loop. Some compressor motors use "
-                     "permanent magnets — a minor link to the magnet chain — but no input is a scarcity chokepoint. It "
-                     "is, materially, a fridge run in reverse.",
-             "note": "IEA / EHPA component data.", "flag": "no critical-mineral gate"},
-            {"kind": "text", "h3": "The refrigerant is the regulated input",
-             "text": "The one input under real pressure is the refrigerant. The Kigali Amendment's HFC phase-down is "
-                     "pushing the industry toward lower-warming refrigerants (propane, CO2, new blends), which changes "
-                     "designs and safety rules. It is a regulatory transition, not a supply shortage — the chemistry is "
-                     "being legislated, not rationed.",
-             "note": "UNEP, Kigali Amendment.", "flag": "legislated, not rationed"},
-        ]},
-        {"h2": "2 · Manufacturing is unusually distributed", "panels": [
-            {"kind": "bars", "h3": "Heat-pump manufacturing capacity by region", "conf": "measured", "max": 1.0, "note":
-                "IEA. Unlike solar or batteries, heat-pump factory capacity is spread — China ~35%, the US ~25%, with "
-                "Europe, Japan and Korea holding much of the rest. There is no single-country choke on making the "
-                "units; the technology is mature and widely held.", "bars": [
-                {"label": "China", "value": 0.35},
-                {"label": "United States", "value": 0.25},
-                {"label": "Rest of world", "value": 0.40},
-            ]},
-            {"kind": "text", "h3": "So the limit is capacity and demand, not control",
-             "text": "Because no one controls a scarce input, scaling heat pumps is about building more, fairly ordinary, "
-                     "factory lines and matching them to demand that swings with energy prices and subsidies. That makes "
-                     "the risk a market-and-policy risk rather than a geopolitical chokepoint — a different problem from "
-                     "most chains here.",
-             "flag": "a market risk, not a chokepoint"},
-        ]},
-        {"h2": "3 · The real bottleneck is people", "panels": [
-            {"kind": "text", "h3": "Installers are the scarce resource",
-             "text": "With space-heating only ~12% electrified by heat pumps, the runway is enormous — and the binding "
-                     "constraint on how fast it fills is the trained-installer workforce. Sizing, refrigerant handling "
-                     "and hydronic integration are skilled trades, and shortages of them, not of any metal, are what "
-                     "cap deployment in most markets. The chokepoint is a labour market.",
-             "note": "IEA, The Future of Heat Pumps; EHPA.", "flag": "the scarce input is skilled labour"},
-        ]},
-    ],
-    "trade_intro": "BACI carries heat pumps and air-conditioning equipment (HS 8415 / 8418 headings), but installation "
-                   "— the binding constraint — is a domestic service that no trade statistic captures. Read the shares "
-                   "below as equipment-trade positions, not a measure of who can actually deploy heat pumps at scale.",
-    "method": [
-        {"stage": "Materials", "lens": "IEA/EHPA bill of materials", "why": "commodity metals + refrigerant — no scarcity gate"},
-        {"stage": "Refrigerant", "lens": "Kigali HFC phase-down", "why": "a regulatory transition, not a supply shortage"},
-        {"stage": "Factory", "lens": "IEA manufacturing-capacity share", "why": "distributed (China ~35%, US ~25%) — no single choke"},
-        {"stage": "Install", "lens": "installer-workforce constraint", "why": "the actual bottleneck; not visible in trade — flagged"},
-    ],
-    "sources": SRC,
-}
+HERE = Path(__file__).resolve().parent
+INPUTS = HERE / "evidence_inputs.json"
+TRADE = HERE / "out" / "heat_pump_trade.json"
+TITLE = "What limits heat-pump supply?"
+DECK = ("Europe has substantial heat-pump assembly capacity. Compatible compressors can still limit "
+        "factory output, while trained installers affect how quickly equipment reaches buildings.")
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- heat pump, no mineral gate; bottleneck = factories + installers")
+
+def rows(items):
+    return "\n".join(
+        "<tr>" + f'<th scope="row">{escape(str(label))}</th>'
+        + "".join(f"<td>{escape(str(cell))}</td>" for cell in cells) + "</tr>"
+        for label, *cells in items
+    )
+
+
+def render(data, trade):
+    model = data["model"]
+    point = model["point"]
+    result = data["model_results"]
+    target = data["benchmarks"]["eu_assembly"]
+    global_capacity = data["benchmarks"]["global_final_assembly"]
+    scenarios = {case["id"]: case for case in result["scenarios"]}
+    base_case = scenarios["shock"]
+    changes = {
+        "open": "Normal receipts", "shock": "Base interruption",
+        "assembly": f'{scenarios["assembly"]["settings"]["monthly_assembly"]:,} units/month',
+        "replacement": f'{scenarios["replacement"]["settings"]["replacement_capacity_per_month"]:,} compressors/month after qualification',
+        "qualified": "No qualification delay",
+        "stock": f'{scenarios["stock"]["settings"]["opening_stock"]:,} compressors at start',
+    }
+    scenario_rows = rows(
+        (case["label"], changes[case["id"]], f'{case["production"]:,}', f'{case["unmet_orders"]:,}',
+         f'{case["production_lost_to_shock"]:,}')
+        for case in scenarios.values()
+    )
+    month_rows = rows(
+        (row["month"], row["total_receipts"], row["replacement_receipts"],
+         row["stock_draw"], row["ending_stock"], row["production"], row["unmet_orders"])
+        for row in base_case["monthly"]
+    )
+    stocks = model["sensitivity"]["opening_stock"]
+    delays = model["sensitivity"]["qualification_delay_months"]
+    at_point = [case for case in result["sensitivity"]
+                if case["monthly_demand"] == point["monthly_demand"]
+                and case["replacement_capacity_per_month"] == point["replacement_capacity_per_month"]]
+    losses = {(case["opening_stock"], case["qualification_delay_months"]): case["production_lost_to_shock"]
+              for case in at_point}
+    sources = data["sources"]
+    links = {key: f'<a href="{escape(source["url"], quote=True)}">{escape(source["title"])}</a>'
+             for key, source in sources.items()}
+    year = trade["years"][-1]
+    code, item = next(iter(trade["codes"].items()))
+    snapshot = trade["years_data"][str(year)][code]
+    lead = snapshot["exporters"][0]
+    values = {
+        "title": escape(TITLE), "deck": escape(DECK), "date": data["date"],
+        "world_gw": global_capacity["global_gw_per_year"],
+        "region_rows": rows((region, f"{share}%") for region, share in global_capacity["share_pct"].items()),
+        "rotary_share": data["benchmarks"]["rotary_compressors"]["china_share_pct"],
+        "nameplate_count": f'{target["units_per_year"] / 1e6:g}',
+        "assumed_kw": target["assumed_average_kw_thermal"],
+        "eu_nameplate_gw": target["reported_gw_thermal_per_year"],
+        "flat_gw": target["flat_annual_deployment_gw_thermal"],
+        "growth_gw": target["growth_path_2030_deployment_gw_thermal"],
+        "flat_ratio": f'{data["assembly_comparison"]["coverage_of_flat_path"]:.0%}',
+        "growth_ratio": f'{data["assembly_comparison"]["coverage_of_growth_path_in_2030"]:.0%}',
+        "scenario_rows": scenario_rows, "month_rows": month_rows,
+        "local_share": global_capacity["local_sourcing_pct_lower_bound"],
+        "lost_imports_per_month": point["exposed_import_receipts"] * point["shock_cut_pct"] // 100,
+        "assembly_loss": f'{scenarios["assembly"]["production_lost_to_shock"]:,}',
+        "min_replacement": min(model["sensitivity"]["replacement_capacity_per_month"]),
+        "max_replacement": max(model["sensitivity"]["replacement_capacity_per_month"]),
+        "min_orders": f'{min(model["sensitivity"]["monthly_demand"]):,}',
+        "max_orders": f'{max(model["sensitivity"]["monthly_demand"]):,}',
+        **{key: f"{value:,}" for key, value in point.items()},
+        "delay_head": "".join(f'<th scope="col">{delay} months</th>' for delay in delays),
+        "loss_grid": rows((f"{stock:,}", *(f"{losses[stock, delay]:,}" for delay in delays)) for stock in stocks),
+        "low_loss": f'{result["production_lost_range"][0]:,}',
+        "high_loss": f'{result["production_lost_range"][1]:,}',
+        "trade_code": escape(code), "trade_title": escape(item["title"]),
+        "trade_boundary": escape(item["boundary"]), "trade_year": year,
+        "trade_value": f'{snapshot["world_usd"] / 1e9:.2f}',
+        "trade_lead": f'{escape(lead["name"])} · {lead["share"]:.1%}',
+        **links,
+    }
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
+
+
+def build():
+    data = json.loads(INPUTS.read_text(encoding="utf-8"))
+    trade = json.loads(TRADE.read_text(encoding="utf-8"))
+    target = data["benchmarks"]["eu_assembly"]
+    capacity_rate = target["units_per_year"] * target["assumed_average_kw_thermal"] / 1_000_000
+    if capacity_rate != target["reported_gw_thermal_per_year"]:
+        raise ValueError("The JRC nameplate conversion should reproduce its published benchmark")
+    data.update({
+        "title": "Heat-pump chain", "h1": TITLE, "deck": DECK, "published": True,
+        "chokepoint": {
+            "product": "Heat pumps", "stage": "Compatible compressors", "mechanism": "capability",
+            "physics": "Compressor supply depends on the refrigerant, operating range, drive and qualification",
+            "holder": "China (rotary)", "share": "About 90% of rotary capacity (2024)",
+            "control": "—", "conf": "estimate", "research": True,
+        },
+        "assembly_comparison": {
+            "status": "Calculated with 2025 mixed-technology capacity held constant",
+            "coverage_of_flat_path": capacity_rate / target["flat_annual_deployment_gw_thermal"],
+            "coverage_of_growth_path_in_2030": capacity_rate / target["growth_path_2030_deployment_gw_thermal"],
+        },
+        "model_results": evaluate(data["model"]),
+    })
+    article = render(data, trade)
+    (HERE / "out" / "heat_pump_chain.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    (HERE / "heat-pump-chain.html").write_text(article, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    build()

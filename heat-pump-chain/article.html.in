@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/heat-pump-chain/heat-pump-chain">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>$title — Critical Materials Atlas</title><meta property="og:title" content="$title"><meta name="description" content="$deck">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"><style>
+  :root { --acc: #5a8a6a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 32rem; margin: 0; }
+  caption { text-align: left; font-size: .83rem; color: var(--mut); padding: .4rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  .numbers td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Heat pumps · Components and assembly</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$date">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p>The European Commission reports spare heat-pump assembly capacity, especially for hydronic units, alongside gaps in compressor and four-way valve production. The IEA finds that rotary compressor capacity is highly concentrated globally, while scroll compressor capacity is more geographically diverse. The question is how much factory output a disruption would put at risk for a line that needs a specific compressor. $commission2026. $rotary.</p>
+
+  <h2>Assembly, component supply and installation</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Heat-pump evidence by stage">
+    <table>
+      <caption>Technology and measurement scope</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">Evidence used</th><th scope="col">Scope</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Materials</th><td>JRC materials inventory</td><td>Steel and copper are major inputs. Some motors use permanent magnets. Material coefficients vary by design.</td></tr>
+        <tr><th scope="row">Components</th><td>Global capacity by compressor type, EU component assessments and supplier disclosures</td><td>Rotary and scroll figures pool multiple applications. A factory requires specific compressors, drives, refrigerants and ratings.</td></tr>
+        <tr><th scope="row">Assembly</th><td>IEA global and JRC EU estimates</td><td>Heat pumps for buildings and a separate mixed-technology EU benchmark. The model covers a single residential air-to-water design.</td></tr>
+        <tr><th scope="row">Deployment</th><td>IEA workforce evidence and EU regulation</td><td>Installation and servicing depend on local skills, building conditions, demand and operating economics.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The JRC inventory identifies copper and, in some designs, neodymium in compressor motors. It describes generally limited material-related vulnerabilities and identifies risks from component disruptions and metal prices. Establishing a particular raw-material constraint would require material demand and available supply by grade and application. $jrc.</p>
+  <p>The Kigali Amendment phases down HFCs globally. EU Regulation 2024/573 sets separate rules for placing equipment on the EU market. For example, Annex IV limits fluorinated gases with a global warming potential of 150 or higher in split air-to-water units up to 12 kW from January 2027, subject to safety exceptions and specific derogations. Different refrigerants can require different compressors, controls and safety provisions. Trained technicians are a deployment constraint documented separately by the IEA. $kigali. $regulation. $derogation. $monitor.</p>
+
+  <h2>Capacity depends on the product and the year</h2>
+  <p>The IEA estimates global manufacturing capacity for building heat pumps at about $world_gw GW per year in 2024. More than $local_share% of sales were supplied locally in each major market. Local sourcing refers to the finished equipment and gives no breakdown of component origins. $monitor.</p>
+  <table class="numbers">
+    <caption><strong>Source estimates.</strong> Shares of global heat-pump manufacturing capacity in 2024</caption>
+    <thead><tr><th scope="col">Location</th><th scope="col">Share</th></tr></thead><tbody>
+$region_rows
+    </tbody>
+  </table>
+  <p>The Commission’s 2025 report judged EU final assembly on track for its anticipated 2030 needs if planned expansions materialised. The 2026 industry assessment found underused hydronic assembly capacity and deficits in compressor and four-way valve manufacturing. These findings describe different periods and stages. $commission2025. $commission2026.</p>
+  <p><strong>Calculated comparison.</strong> The JRC’s 2025 mixed-technology EU estimate was $nameplate_count million units per year. At its assumed $assumed_kw kW per unit, this is $eu_nameplate_gw GW of thermal nameplate output per year. Holding that estimate fixed, it covers about $flat_ratio of the rounded $flat_gw GW annual requirement in the JRC’s flat path and $growth_ratio of the $growth_gw GW requirement in 2030 on its growth path. The two deployment paths are modelled. Meeting an annual average leaves open whether capacity is sufficient in the peak year. These JRC quantities use their own technology coverage and conversion. $jrc.</p>
+
+  <h2>Qualified compressors can limit assembly</h2>
+  <p>The IEA locates about $rotary_share% of global rotary compressor manufacturing capacity in China in 2024. The category includes applications such as air conditioning. Its chart shows more geographically dispersed scroll capacity. Neither category isolates compatible volumes for EU residential air-to-water lines. $rotary.</p>
+  <p>Copeland reports that a Weishaupt residential air-to-water design uses its variable-speed R290 scroll compressor with a qualified drive and controller. A separate Copeland–Daikin announcement describes a swing rotary and controls offering for European residential heat pumps. These disclosures identify different component configurations and give no qualified delivery volumes for the disruption case. $copeland. $joint.</p>
+
+  <h2>When a compressor interruption cuts factory output</h2>
+  <p><strong>Modelled.</strong> The illustration follows one EU-27 residential air-to-water line over $months months. All numbers in the stress test are assumptions or calculations from them. Monthly orders are $monthly_demand units and assembly can make $monthly_assembly. Normal monthly arrivals are $normal_domestic_receipts domestic and $normal_import_receipts imported compressors. The design uses $compressors_per_unit compressor per unit. For $shock_months months the example removes $shock_cut_pct% of the $exposed_import_receipts imports on an assumed China-origin route, cutting regular arrivals by $lost_imports_per_month per month. The line starts with $opening_stock compressors in stock. Alternatives can supply $replacement_capacity_per_month per month after $qualification_delay_months full months of qualification. All other inputs are assumed available.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Heat-pump intervention comparison">
+    <table class="numbers">
+      <caption><strong>Modelled.</strong> Factory output and unmet orders over $months months, in heat-pump units</caption>
+      <thead><tr><th scope="col">Case</th><th scope="col">Change to the interruption case</th><th scope="col">Output</th><th scope="col">Unmet orders</th><th scope="col">Units lost to disruption</th></tr></thead><tbody>
+$scenario_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Additional assembly capacity leaves the loss at $assembly_loss units in this case. Additional compatible capacity reduces losses after it qualifies. Prequalified replacement or larger stocks eliminate the shortfall on their own under the displayed assumptions. The comparison concerns physical output. Ranking these options by cost would require prices, lead times and product approvals.</p>
+  <details>
+    <summary>Monthly stock and delivery balance for the interruption case</summary>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Monthly compressor balance">
+      <table class="numbers">
+        <caption><strong>Modelled.</strong> Compressor counts and heat-pump units, by month</caption>
+        <thead><tr><th scope="col">Month</th><th scope="col">Total compressor receipts</th><th scope="col">Of which replacements</th><th scope="col">Stock draw</th><th scope="col">Closing stock</th><th scope="col">Units made</th><th scope="col">Unmet orders</th></tr></thead><tbody>
+$month_rows
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Sensitivity to inventory and qualification time">
+    <table class="numbers">
+      <caption><strong>Modelled.</strong> Heat-pump units lost to the shock as opening inventory and qualification delay change</caption>
+      <thead><tr><th scope="col">Opening compressors</th>$delay_head</tr></thead><tbody>
+$loss_grid
+      </tbody>
+    </table>
+  </div>
+  <p>With $opening_stock compressors in stock, the grid shows how earlier qualification can cover a temporary gap. The downloadable results also vary qualified replacement from $min_replacement to $max_replacement compressors per month and orders from $min_orders to $max_orders units per month. Across that full set the loss against a matched no-shock case ranges from $low_loss to $high_loss units. High demand can cause unmet orders even in the no-shock case. The range describes the chosen scenarios and assigns no probabilities. Each month’s balance counts stock once and lets unchanged arrivals resume after the shock.</p>
+  <p>Calibrating the model would require the component mix by design, actual procurement by origin, opening stocks, qualified spare capacity and approval timelines. Production and unmet factory orders are the outputs. Installed heat pumps and heating delivered additionally depend on local installers, demand and building conditions.</p>
+
+  <h2>Finished-equipment customs trade</h2>
+  <p>The checked-in BACI series measures nominal cross-border value in HS 841861, complete heat pumps excluding machines of heading 8415. Mixed-use compressor and air-conditioning categories require separate product evidence. This extract gives no compressor provenance or compatibility information. $baci.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="World exports of finished heat pumps">
+      <table>
+        <caption><strong>Reported customs trade.</strong> BACI V202601 · <span id="trade-year" aria-live="polite">$trade_year</span></caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World export value</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead><tbody id="trade-body">
+        <tr data-trade-code="$trade_code"><th scope="row">$trade_title<br><span class="note">HS $trade_code</span></th><td>USD $trade_value billion</td><td>$trade_lead</td><td>$trade_boundary</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Evidence and reproduction</h2>
+  <p>The <a href="PRODUCTION.md">claim register</a> records how the pilot’s claims were checked and how this analysis relates to the IEA and JRC studies. The <a href="README.md">methods and commands</a>, <a href="evidence_inputs.json">inputs</a>, <a href="out/heat_pump_chain.json">calculated evidence</a> and <a href="out/heat_pump_trade.json">trade data</a> are available for reproduction.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on manufacturing and materials.</div><div><h4>Related research</h4><a href="../value-chains">All value chains</a><br><a href="../magnet-chain/magnet-chain">Rare-earth magnets</a><br><a href="../grid-chain/grid-chain">Grid transformers</a></div><div><h4>Evidence</h4><a href="out/heat_pump_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/heat_pump_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body></html>

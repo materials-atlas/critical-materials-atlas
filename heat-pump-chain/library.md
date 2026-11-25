@@ -1,5 +1,7 @@
 # Heat-pump chain — research library
 
+**Update, 25 November 2026.** The [dated evidence review](heat-pump-chain.html) now distinguishes compatible compressor supply from assembly capacity and local installation. The library below preserves the August pilot’s framing and source list.
+
 No scarce metal gates the heat pump — people and factories do: manufacturing capacity is distributed (China ~35-40%, US ~20-25%), the refrigerant is being reshaped by the Kigali HFC phase-down, and the binding constraint on deployment is the installer workforce. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
 
 ## Core references (already cited in the chain)

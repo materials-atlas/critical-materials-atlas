@@ -6995,13 +6995,21 @@
    "restored": 2
   },
   "heat-pump-chain/record_heat_pump.py": {
-   "reads": [],
+   "reads": [
+    "heat-pump-chain/",
+    "heat-pump-chain/__pycache__/compressor_supply.cpython-311.pyc",
+    "heat-pump-chain/article.html.in",
+    "heat-pump-chain/compressor_supply.py",
+    "heat-pump-chain/evidence_inputs.json",
+    "heat-pump-chain/out/heat_pump_trade.json"
+   ],
    "writes": [
+    "heat-pump-chain/heat-pump-chain.html",
     "heat-pump-chain/out/heat_pump_chain.json"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "69902b9b2d0d1343"
+   "code_sha": "41310c7691dbd31d"
   },
   "helium-chain/record_helium.py": {
    "reads": [],

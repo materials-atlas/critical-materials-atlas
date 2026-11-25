@@ -1,0 +1,160 @@
+{
+  "date": "2026-11-25",
+  "sources": {
+    "monitor": {
+      "title": "IEA, Heat Pump Monitor 2026, pp. 23–24",
+      "url": "https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf#page=24"
+    },
+    "rotary": {
+      "title": "IEA, Heat Pump Monitor 2026, p. 32",
+      "url": "https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf#page=32"
+    },
+    "commission2025": {
+      "title": "European Commission, 2025 Competitiveness Progress Report, section 3.6",
+      "url": "https://publications.europa.eu/resource/cellar/13267a9f-f429-11ef-b7db-01aa75ed71a1.0001.03/DOC_1"
+    },
+    "commission2026": {
+      "title": "European Commission, 2026 Industrial Accelerator Act impact assessment, Figure HP",
+      "url": "https://data.consilium.europa.eu/doc/document/ST-7009-2026-ADD-4/en/pdf"
+    },
+    "jrc": {
+      "title": "JRC, Heat Pumps in the European Union, 2025, Tables 5–6 and §4.4",
+      "url": "https://publications.jrc.ec.europa.eu/repository/handle/JRC144191"
+    },
+    "copeland": {
+      "title": "Copeland, Weishaupt residential air-to-water case",
+      "url": "https://www.copeland.com/en-de/products-solutions/compression-technologies-systems/heat-pump-systems"
+    },
+    "joint": {
+      "title": "Copeland–Daikin European cooperation announcement, December 2025",
+      "url": "https://www.copeland.com/en-us/news/copeland-daikin-cooperation-brings-solutions-to-european-customers"
+    },
+    "regulation": {
+      "title": "EU Regulation 2024/573, Annex IV",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/573/oj/eng"
+    },
+    "derogation": {
+      "title": "EU Implementing Regulation 2026/2486",
+      "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2486/oj/eng"
+    },
+    "kigali": {
+      "title": "UNEP, Kigali Amendment HFC phase-down timeline",
+      "url": "https://www.unep.org/ozonaction/resources/toolkits-manuals-and-guides/path-kigali-hfc-phase-down-timeline"
+    },
+    "baci": {
+      "title": "CEPII, BACI V202601",
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html"
+    }
+  },
+  "benchmarks": {
+    "global_final_assembly": {
+      "source": "monitor",
+      "year": 2024,
+      "measure": "estimated factory nameplate capacity for heat pumps in buildings, in GW per year",
+      "global_gw_per_year": 145,
+      "share_pct": {
+        "China": 35,
+        "United States": 25,
+        "European Union": 20
+      },
+      "local_sourcing_pct_lower_bound": 70
+    },
+    "rotary_compressors": {
+      "source": "rotary",
+      "year": 2024,
+      "measure": "China share of global rotary compressor manufacturing capacity across applications",
+      "china_share_pct": 90
+    },
+    "eu_assembly": {
+      "source": "jrc",
+      "vintage": 2025,
+      "measure": "mixed heat-pump technologies, potential annual EU assembly capacity",
+      "units_per_year": 7700000,
+      "assumed_average_kw_thermal": 10,
+      "reported_gw_thermal_per_year": 77,
+      "flat_annual_deployment_gw_thermal": 66,
+      "growth_path_2030_deployment_gw_thermal": 100
+    }
+  },
+  "model": {
+    "scope": "Illustrative EU-27 residential air-to-water assembly line for one design. Monthly quantities in units with a hypothetical interruption on one China-origin import route. All line inputs are hypothetical.",
+    "point": {
+      "months": 8,
+      "shock_months": 6,
+      "monthly_demand": 1000,
+      "monthly_assembly": 1200,
+      "compressors_per_unit": 1,
+      "normal_domestic_receipts": 400,
+      "normal_import_receipts": 600,
+      "exposed_import_receipts": 300,
+      "shock_cut_pct": 50,
+      "opening_stock": 300,
+      "qualification_delay_months": 3,
+      "replacement_capacity_per_month": 100
+    },
+    "interventions": [
+      {
+        "label": "No disruption",
+        "changes": {
+          "shock_months": 0
+        },
+        "id": "open"
+      },
+      {
+        "label": "Import interruption",
+        "changes": {},
+        "id": "shock"
+      },
+      {
+        "label": "Additional assembly capacity",
+        "changes": {
+          "monthly_assembly": 1400
+        },
+        "id": "assembly"
+      },
+      {
+        "label": "More compatible replacement capacity",
+        "changes": {
+          "replacement_capacity_per_month": 150
+        },
+        "id": "replacement"
+      },
+      {
+        "label": "Replacement already qualified",
+        "changes": {
+          "qualification_delay_months": 0
+        },
+        "id": "qualified"
+      },
+      {
+        "label": "Larger opening inventory",
+        "changes": {
+          "opening_stock": 600
+        },
+        "id": "stock"
+      }
+    ],
+    "sensitivity": {
+      "opening_stock": [
+        0,
+        300,
+        600
+      ],
+      "qualification_delay_months": [
+        0,
+        3,
+        6
+      ],
+      "replacement_capacity_per_month": [
+        0,
+        100,
+        150
+      ],
+      "monthly_demand": [
+        1000,
+        1100,
+        1200
+      ]
+    }
+  }
+}

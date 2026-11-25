@@ -1,186 +1,1592 @@
 {
-  "title": "Heat-pump chain",
-  "chokepoint": {
-    "product": "Heat pumps",
-    "stage": "Install",
-    "mechanism": "diffuse",
-    "physics": "No scarce input; the limit is factory capacity + installer labour — a labour market",
-    "holder": "—",
-    "share": "—",
-    "control": "—",
-    "conf": "measured"
-  },
-  "published": true,
-  "related": [
-    {
-      "href": "../magnet-chain/magnet-chain",
-      "label": "Rare-earth magnet chain"
-    },
-    {
-      "href": "../aluminium-chain/aluminium-chain",
-      "label": "Aluminium chain"
-    }
-  ],
-  "accent": "#5a8a6a",
-  "eyebrow": "Product-chain pilot · the box that heats the house",
-  "h1": "No scarce metal gates the heat pump — people and factories do",
-  "deck": "A heat pump is copper, aluminium and steel wrapped around a compressor and a refrigerant. There is no critical-mineral chokepoint. What limits it is different in kind: factory capacity, refrigerant regulation and — above all — enough trained installers to put the units in.",
-  "byline": "copper & aluminium ≠ compressor ≠ refrigerant (regulated) ≠ the factory ≠ the installer",
-  "correction": "Heat pumps are a rare case in this atlas with no upstream mineral chokepoint. Their constraints are industrial and human: manufacturing capacity is distributed (China ~35%, US ~25%), the refrigerant is being reshaped by the Kigali HFC phase-down rather than by metal supply, and the binding limit on deployment is the installer workforce. The bottleneck is a labour market, not a mine.",
-  "stats": [
-    {
-      "v": "35 / 25%",
-      "l": "China / US share of heat-pump manufacturing capacity",
-      "conf": "measured"
-    },
-    {
-      "v": "installers",
-      "l": "the binding constraint on deployment is skilled labour, not materials",
-      "conf": "estimate"
-    },
-    {
-      "v": "refrigerant",
-      "l": "the Kigali HFC phase-down reshapes the chemistry — not the supply of a metal",
-      "conf": "measured"
-    },
-    {
-      "v": "~12%",
-      "l": "of building space-heating met by heat pumps today — the runway is long",
-      "conf": "measured"
-    }
-  ],
-  "hops": [
-    {
-      "n": "1 · Materials",
-      "t": "copper, aluminium, steels, polymers and a refrigerant — commodity inputs"
-    },
-    {
-      "n": "2 · Components",
-      "t": "compressor, heat exchangers, expansion valve, fans/pumps, motor and controls"
-    },
-    {
-      "n": "3 · Factory",
-      "t": "units integrated to local voltage, climate and building codes — distributed capacity"
-    },
-    {
-      "n": "4 · Install & operate",
-      "t": "sizing, emitters, pipework, commissioning — efficiency set on site"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · What a heat pump is made of",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Commodity metals plus a compressor",
-          "conf": "measured",
-          "text": "The bulk of a heat pump is copper (windings and heat-exchanger tubing), aluminium (fins and casing) and steel, around a compressor and a refrigerant loop. Some compressor motors use permanent magnets — a minor link to the magnet chain — but no input is a scarcity chokepoint. It is, materially, a fridge run in reverse.",
-          "note": "IEA / EHPA component data.",
-          "flag": "no critical-mineral gate"
-        },
-        {
-          "kind": "text",
-          "h3": "The refrigerant is the regulated input",
-          "text": "The one input under real pressure is the refrigerant. The Kigali Amendment's HFC phase-down is pushing the industry toward lower-warming refrigerants (propane, CO2, new blends), which changes designs and safety rules. It is a regulatory transition, not a supply shortage — the chemistry is being legislated, not rationed.",
-          "note": "UNEP, Kigali Amendment.",
-          "flag": "legislated, not rationed"
-        }
-      ]
-    },
-    {
-      "h2": "2 · Manufacturing is unusually distributed",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "Heat-pump manufacturing capacity by region",
-          "conf": "measured",
-          "max": 1.0,
-          "note": "IEA. Unlike solar or batteries, heat-pump factory capacity is spread — China ~35%, the US ~25%, with Europe, Japan and Korea holding much of the rest. There is no single-country choke on making the units; the technology is mature and widely held.",
-          "bars": [
-            {
-              "label": "China",
-              "value": 0.35
-            },
-            {
-              "label": "United States",
-              "value": 0.25
-            },
-            {
-              "label": "Rest of world",
-              "value": 0.4
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "So the limit is capacity and demand, not control",
-          "text": "Because no one controls a scarce input, scaling heat pumps is about building more, fairly ordinary, factory lines and matching them to demand that swings with energy prices and subsidies. That makes the risk a market-and-policy risk rather than a geopolitical chokepoint — a different problem from most chains here.",
-          "flag": "a market risk, not a chokepoint"
-        }
-      ]
-    },
-    {
-      "h2": "3 · The real bottleneck is people",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Installers are the scarce resource",
-          "text": "With space-heating only ~12% electrified by heat pumps, the runway is enormous — and the binding constraint on how fast it fills is the trained-installer workforce. Sizing, refrigerant handling and hydronic integration are skilled trades, and shortages of them, not of any metal, are what cap deployment in most markets. The chokepoint is a labour market.",
-          "note": "IEA, The Future of Heat Pumps; EHPA.",
-          "flag": "the scarce input is skilled labour"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries heat pumps and air-conditioning equipment (HS 8415 / 8418 headings), but installation — the binding constraint — is a domestic service that no trade statistic captures. Read the shares below as equipment-trade positions, not a measure of who can actually deploy heat pumps at scale.",
-  "method": [
-    {
-      "stage": "Materials",
-      "lens": "IEA/EHPA bill of materials",
-      "why": "commodity metals + refrigerant — no scarcity gate"
-    },
-    {
-      "stage": "Refrigerant",
-      "lens": "Kigali HFC phase-down",
-      "why": "a regulatory transition, not a supply shortage"
-    },
-    {
-      "stage": "Factory",
-      "lens": "IEA manufacturing-capacity share",
-      "why": "distributed (China ~35%, US ~25%) — no single choke"
-    },
-    {
-      "stage": "Install",
-      "lens": "installer-workforce constraint",
-      "why": "the actual bottleneck; not visible in trade — flagged"
-    }
-  ],
+  "date": "2026-11-25",
   "sources": {
-    "iea_monitor": {
-      "title": "IEA, Heat Pump Monitor 2026 — Key findings",
-      "year": 2026,
-      "url": "https://www.iea.org/reports/heat-pump-monitor-2026/key-findings"
+    "monitor": {
+      "title": "IEA, Heat Pump Monitor 2026, pp. 23–24",
+      "url": "https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf#page=24"
     },
-    "iea_future": {
-      "title": "IEA, The Future of Heat Pumps — Executive summary",
-      "year": 2022,
-      "url": "https://www.iea.org/reports/the-future-of-heat-pumps/executive-summary"
+    "rotary": {
+      "title": "IEA, Heat Pump Monitor 2026, p. 32",
+      "url": "https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf#page=32"
     },
-    "ehpa_2025": {
-      "title": "EHPA Market Report 2025 — Executive summary",
-      "year": 2025,
-      "url": "https://www.ehpa.org/wp-content/uploads/2025/07/EHPA-Market-Report-2025-executive-summary.pdf"
+    "commission2025": {
+      "title": "European Commission, 2025 Competitiveness Progress Report, section 3.6",
+      "url": "https://publications.europa.eu/resource/cellar/13267a9f-f429-11ef-b7db-01aa75ed71a1.0001.03/DOC_1"
     },
-    "unep_kigali": {
-      "title": "UNEP OzonAction, HFC phase-down (Kigali Amendment) timeline",
-      "year": 2026,
+    "commission2026": {
+      "title": "European Commission, 2026 Industrial Accelerator Act impact assessment, Figure HP",
+      "url": "https://data.consilium.europa.eu/doc/document/ST-7009-2026-ADD-4/en/pdf"
+    },
+    "jrc": {
+      "title": "JRC, Heat Pumps in the European Union, 2025, Tables 5–6 and §4.4",
+      "url": "https://publications.jrc.ec.europa.eu/repository/handle/JRC144191"
+    },
+    "copeland": {
+      "title": "Copeland, Weishaupt residential air-to-water case",
+      "url": "https://www.copeland.com/en-de/products-solutions/compression-technologies-systems/heat-pump-systems"
+    },
+    "joint": {
+      "title": "Copeland–Daikin European cooperation announcement, December 2025",
+      "url": "https://www.copeland.com/en-us/news/copeland-daikin-cooperation-brings-solutions-to-european-customers"
+    },
+    "regulation": {
+      "title": "EU Regulation 2024/573, Annex IV",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/573/oj/eng"
+    },
+    "derogation": {
+      "title": "EU Implementing Regulation 2026/2486",
+      "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2486/oj/eng"
+    },
+    "kigali": {
+      "title": "UNEP, Kigali Amendment HFC phase-down timeline",
       "url": "https://www.unep.org/ozonaction/resources/toolkits-manuals-and-guides/path-kigali-hfc-phase-down-timeline"
     },
     "baci": {
-      "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "title": "CEPII, BACI V202601",
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html"
     }
+  },
+  "benchmarks": {
+    "global_final_assembly": {
+      "source": "monitor",
+      "year": 2024,
+      "measure": "estimated factory nameplate capacity for heat pumps in buildings, in GW per year",
+      "global_gw_per_year": 145,
+      "share_pct": {
+        "China": 35,
+        "United States": 25,
+        "European Union": 20
+      },
+      "local_sourcing_pct_lower_bound": 70
+    },
+    "rotary_compressors": {
+      "source": "rotary",
+      "year": 2024,
+      "measure": "China share of global rotary compressor manufacturing capacity across applications",
+      "china_share_pct": 90
+    },
+    "eu_assembly": {
+      "source": "jrc",
+      "vintage": 2025,
+      "measure": "mixed heat-pump technologies, potential annual EU assembly capacity",
+      "units_per_year": 7700000,
+      "assumed_average_kw_thermal": 10,
+      "reported_gw_thermal_per_year": 77,
+      "flat_annual_deployment_gw_thermal": 66,
+      "growth_path_2030_deployment_gw_thermal": 100
+    }
+  },
+  "model": {
+    "scope": "Illustrative EU-27 residential air-to-water assembly line for one design. Monthly quantities in units with a hypothetical interruption on one China-origin import route. All line inputs are hypothetical.",
+    "point": {
+      "months": 8,
+      "shock_months": 6,
+      "monthly_demand": 1000,
+      "monthly_assembly": 1200,
+      "compressors_per_unit": 1,
+      "normal_domestic_receipts": 400,
+      "normal_import_receipts": 600,
+      "exposed_import_receipts": 300,
+      "shock_cut_pct": 50,
+      "opening_stock": 300,
+      "qualification_delay_months": 3,
+      "replacement_capacity_per_month": 100
+    },
+    "interventions": [
+      {
+        "label": "No disruption",
+        "changes": {
+          "shock_months": 0
+        },
+        "id": "open"
+      },
+      {
+        "label": "Import interruption",
+        "changes": {},
+        "id": "shock"
+      },
+      {
+        "label": "Additional assembly capacity",
+        "changes": {
+          "monthly_assembly": 1400
+        },
+        "id": "assembly"
+      },
+      {
+        "label": "More compatible replacement capacity",
+        "changes": {
+          "replacement_capacity_per_month": 150
+        },
+        "id": "replacement"
+      },
+      {
+        "label": "Replacement already qualified",
+        "changes": {
+          "qualification_delay_months": 0
+        },
+        "id": "qualified"
+      },
+      {
+        "label": "Larger opening inventory",
+        "changes": {
+          "opening_stock": 600
+        },
+        "id": "stock"
+      }
+    ],
+    "sensitivity": {
+      "opening_stock": [
+        0,
+        300,
+        600
+      ],
+      "qualification_delay_months": [
+        0,
+        3,
+        6
+      ],
+      "replacement_capacity_per_month": [
+        0,
+        100,
+        150
+      ],
+      "monthly_demand": [
+        1000,
+        1100,
+        1200
+      ]
+    }
+  },
+  "title": "Heat-pump chain",
+  "h1": "What limits heat-pump supply?",
+  "deck": "Europe has substantial heat-pump assembly capacity. Compatible compressors can still limit factory output, while trained installers affect how quickly equipment reaches buildings.",
+  "published": true,
+  "chokepoint": {
+    "product": "Heat pumps",
+    "stage": "Compatible compressors",
+    "mechanism": "capability",
+    "physics": "Compressor supply depends on the refrigerant, operating range, drive and qualification",
+    "holder": "China (rotary)",
+    "share": "About 90% of rotary capacity (2024)",
+    "control": "—",
+    "conf": "estimate",
+    "research": true
+  },
+  "assembly_comparison": {
+    "status": "Calculated with 2025 mixed-technology capacity held constant",
+    "coverage_of_flat_path": 1.1666666666666667,
+    "coverage_of_growth_path_in_2030": 0.77
+  },
+  "model_results": {
+    "status": "Modelled",
+    "scenarios": [
+      {
+        "id": "open",
+        "label": "No disruption",
+        "settings": {
+          "months": 8,
+          "shock_months": 0,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1200,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 300,
+          "qualification_delay_months": 3,
+          "replacement_capacity_per_month": 100
+        },
+        "production": 8000,
+        "unmet_orders": 0,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 4,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 5,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 6,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 7,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 300,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 0
+      },
+      {
+        "id": "shock",
+        "label": "Import interruption",
+        "settings": {
+          "months": 8,
+          "shock_months": 6,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1200,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 300,
+          "qualification_delay_months": 3,
+          "replacement_capacity_per_month": 100
+        },
+        "production": 7700,
+        "unmet_orders": 300,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 300,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 150,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 150,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 850,
+            "unmet_orders": 150
+          },
+          {
+            "month": 4,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 5,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 6,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 7,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 300
+      },
+      {
+        "id": "assembly",
+        "label": "Additional assembly capacity",
+        "settings": {
+          "months": 8,
+          "shock_months": 6,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1400,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 300,
+          "qualification_delay_months": 3,
+          "replacement_capacity_per_month": 100
+        },
+        "production": 7700,
+        "unmet_orders": 300,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 300,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 150,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 150,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 850,
+            "unmet_orders": 150
+          },
+          {
+            "month": 4,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 5,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 6,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 950,
+            "unmet_orders": 50
+          },
+          {
+            "month": 7,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 300
+      },
+      {
+        "id": "replacement",
+        "label": "More compatible replacement capacity",
+        "settings": {
+          "months": 8,
+          "shock_months": 6,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1200,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 300,
+          "qualification_delay_months": 3,
+          "replacement_capacity_per_month": 150
+        },
+        "production": 7850,
+        "unmet_orders": 150,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 300,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 150,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 150,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 850,
+            "unmet_orders": 150
+          },
+          {
+            "month": 4,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 150,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 5,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 150,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 6,
+            "opening_stock": 0,
+            "lost_receipts": 150,
+            "replacement_receipts": 150,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 7,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 150
+      },
+      {
+        "id": "qualified",
+        "label": "Replacement already qualified",
+        "settings": {
+          "months": 8,
+          "shock_months": 6,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1200,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 300,
+          "qualification_delay_months": 0,
+          "replacement_capacity_per_month": 100
+        },
+        "production": 8000,
+        "unmet_orders": 0,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 300,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 250,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 250,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 200,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 200,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 150,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 4,
+            "opening_stock": 150,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 100,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 5,
+            "opening_stock": 100,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 50,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 6,
+            "opening_stock": 50,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 7,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 0
+      },
+      {
+        "id": "stock",
+        "label": "Larger opening inventory",
+        "settings": {
+          "months": 8,
+          "shock_months": 6,
+          "monthly_demand": 1000,
+          "monthly_assembly": 1200,
+          "compressors_per_unit": 1,
+          "normal_domestic_receipts": 400,
+          "normal_import_receipts": 600,
+          "exposed_import_receipts": 300,
+          "shock_cut_pct": 50,
+          "opening_stock": 600,
+          "qualification_delay_months": 3,
+          "replacement_capacity_per_month": 100
+        },
+        "production": 8000,
+        "unmet_orders": 0,
+        "monthly": [
+          {
+            "month": 1,
+            "opening_stock": 600,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 450,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 2,
+            "opening_stock": 450,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 300,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 3,
+            "opening_stock": 300,
+            "lost_receipts": 150,
+            "replacement_receipts": 0,
+            "total_receipts": 850,
+            "stock_draw": 150,
+            "ending_stock": 150,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 4,
+            "opening_stock": 150,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 100,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 5,
+            "opening_stock": 100,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 50,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 6,
+            "opening_stock": 50,
+            "lost_receipts": 150,
+            "replacement_receipts": 100,
+            "total_receipts": 950,
+            "stock_draw": 50,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 7,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          },
+          {
+            "month": 8,
+            "opening_stock": 0,
+            "lost_receipts": 0,
+            "replacement_receipts": 0,
+            "total_receipts": 1000,
+            "stock_draw": 0,
+            "ending_stock": 0,
+            "production": 1000,
+            "unmet_orders": 0
+          }
+        ],
+        "matched_open_production": 8000,
+        "production_lost_to_shock": 0
+      }
+    ],
+    "sensitivity": [
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7100,
+        "unmet_orders": 900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7100,
+        "unmet_orders": 1700,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7100,
+        "unmet_orders": 2500,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 8000,
+        "unmet_orders": 800,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 8000,
+        "unmet_orders": 1600,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7100,
+        "unmet_orders": 900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7100,
+        "unmet_orders": 1700,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7100,
+        "unmet_orders": 2500,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 7550,
+        "unmet_orders": 450,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 7550,
+        "unmet_orders": 1250,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 7550,
+        "unmet_orders": 2050,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7100,
+        "unmet_orders": 900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7100,
+        "unmet_orders": 1700,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7100,
+        "unmet_orders": 2500,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7100,
+        "unmet_orders": 900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7100,
+        "unmet_orders": 1700,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7100,
+        "unmet_orders": 2500,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 7100,
+        "unmet_orders": 900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 7100,
+        "unmet_orders": 1700,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 0,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 7100,
+        "unmet_orders": 2500,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 8000,
+        "unmet_orders": 800,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 8000,
+        "unmet_orders": 1600,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 8300,
+        "unmet_orders": 500,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 8300,
+        "unmet_orders": 1300,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 7850,
+        "unmet_orders": 150,
+        "production_lost_to_shock": 150
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 7850,
+        "unmet_orders": 950,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 7850,
+        "unmet_orders": 1750,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 7400,
+        "unmet_orders": 600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 7400,
+        "unmet_orders": 1400,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 300,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 7400,
+        "unmet_orders": 2200,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 8300,
+        "unmet_orders": 500,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 8300,
+        "unmet_orders": 1300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 8600,
+        "unmet_orders": 200,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 0,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 8600,
+        "unmet_orders": 1000,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 8000,
+        "unmet_orders": 800,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 8000,
+        "unmet_orders": 1600,
+        "production_lost_to_shock": 600
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 8000,
+        "unmet_orders": 0,
+        "production_lost_to_shock": 0
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 8150,
+        "unmet_orders": 650,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 3,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 8150,
+        "unmet_orders": 1450,
+        "production_lost_to_shock": 450
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 0,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 100,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1000,
+        "production": 7700,
+        "unmet_orders": 300,
+        "production_lost_to_shock": 300
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1100,
+        "production": 7700,
+        "unmet_orders": 1100,
+        "production_lost_to_shock": 900
+      },
+      {
+        "opening_stock": 600,
+        "qualification_delay_months": 6,
+        "replacement_capacity_per_month": 150,
+        "monthly_demand": 1200,
+        "production": 7700,
+        "unmet_orders": 1900,
+        "production_lost_to_shock": 900
+      }
+    ],
+    "production_lost_range": [
+      0,
+      900
+    ]
   }
 }

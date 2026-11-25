@@ -1,5 +1,9 @@
 {
   "_doc": "How each 'estimate' chokepoint figure was derived, and its limits. Keyed by the same chain slug as chokepoint_map.json. Rendered as a clickable note on every estimate tag (chokepoint map + chain pages) so a reader can see exactly what stands behind the number and where it is uncertain. 'kind' is the derivation type: computed (we did the arithmetic from primary numbers) | reported (a specific figure published by an authoritative agency/industry body, just not USGS) | reconciled (our central value across conflicting sources) | assessment (our qualitative judgement, no single published share) | count (a count of suppliers/units, not a market share). 'human_check':true flags figures where an outside expert check would most help.",
+  "heat-pump": {
+    "kind": "reported",
+    "text": "The IEA Heat Pump Monitor 2026, p. 32, estimates that China held about 90% of global rotary compressor manufacturing capacity in 2024 across applications. Scroll capacity is more geographically dispersed. This is a compressor capacity statistic by location. Access for EU lines depends on design compatibility, qualified suppliers and available deliveries."
+  },
   "aluminium": {
     "kind": "reported",
     "text": "International Aluminium Institute (IAI): China's share of world primary aluminium smelting, ~59%. Limit: IAI aggregates member and estimated output — it is not a customs or USGS figure, and smelter output is a different position from bauxite mining or alumina refining."
