@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from string import Template
 
-from compressor_supply import evaluate
+from compressor_supply import evaluate, evaluate_recovery
 
 HERE = Path(__file__).resolve().parent
 INPUTS = HERE / "evidence_inputs.json"
@@ -30,6 +30,36 @@ def render(data, trade):
     result = data["model_results"]
     target = data["benchmarks"]["eu_assembly"]
     global_capacity = data["benchmarks"]["global_final_assembly"]
+    review = data["second_review"]
+    commission = review["commission_capacity"]
+    recovery = review["backlog_results"]
+    first_case = recovery["cases"][0]
+    recovery_months = recovery["through_month"] - point["months"]
+    initial_backlog = first_case["backlog_at_initial_horizon"]
+    extra_units = (initial_backlog + recovery_months - 1) // recovery_months
+    capacity_crosswalk = rows((
+        (
+            f'European Commission (2025), {commission["reference_year"]}',
+            f'About {commission["existing_gw_thermal"]} GW thermal',
+            "Heat-pump final assembly. The section discusses residential hydronic equipment. "
+            "The estimate does not give a technology breakdown or a kW-per-unit conversion.",
+            f'More than {commission["announced_expansion_gw_thermal_lower_bound"]} GW thermal '
+            "of expansions reported separately.",
+        ),
+        (
+            f'JRC (2025), {target["vintage"]}',
+            f'{target["units_per_year"] / 1e6:g} million units per year, or '
+            f'{target["reported_gw_thermal_per_year"]} GW thermal',
+            f'Mixed heat-pump types. Plant compilation with estimates for missing capacity. '
+            f'Uses {target["assumed_average_kw_thermal"]} kW per unit.',
+            "Figure 28 separates planned plants from the estimate for existing factories.",
+        ),
+    ))
+    recovery_rows = rows((
+        case["label"], case["assumptions"]["extra_receipts"], case["cancelled_orders"],
+        case["peak_backlog"], f'{case["production"]:,}', case["closing_backlog"],
+        case["clearance_month"] or "Still open",
+    ) for case in recovery["cases"])
     scenarios = {case["id"]: case for case in result["scenarios"]}
     base_case = scenarios["shock"]
     changes = {
@@ -65,6 +95,17 @@ def render(data, trade):
     lead = snapshot["exporters"][0]
     values = {
         "title": escape(TITLE), "deck": escape(DECK), "date": data["date"],
+        "review_date": review["date"],
+        "capacity_crosswalk": capacity_crosswalk,
+        "compressor_configuration": escape(review["compressor"]["configuration"]),
+        "jrc_followup": links[review["jrc_source"]],
+        "recovery_rows": recovery_rows,
+        "regular_receipts": f'{point["normal_domestic_receipts"] + point["normal_import_receipts"]:,}',
+        "recovery_first": point["months"] + 1, "recovery_last": recovery["through_month"],
+        "delivered_initial": f'{first_case["delivered_by_initial_horizon"]:,}',
+        "example_cancellations": max(case["cancelled_orders"] for case in recovery["cases"]),
+        "initial_backlog": initial_backlog, "required_extra": extra_units * point["compressors_per_unit"],
+        "recovery_rate": f'{point["monthly_demand"] + extra_units:,}',
         "world_gw": global_capacity["global_gw_per_year"],
         "region_rows": rows((region, f"{share}%") for region, share in global_capacity["share_pct"].items()),
         "rotary_share": data["benchmarks"]["rotary_compressors"]["china_share_pct"],
@@ -109,8 +150,8 @@ def build():
         "chokepoint": {
             "product": "Heat pumps", "stage": "Compatible compressors", "mechanism": "capability",
             "physics": "Compressor supply depends on the refrigerant, operating range, drive and qualification",
-            "holder": "China (rotary)", "share": "About 90% of rotary capacity (2024)",
-            "control": "—", "conf": "estimate", "research": True,
+            "holder": "Depends on the design", "share": "—",
+            "control": "—", "conf": "snapshot", "research": True,
         },
         "assembly_comparison": {
             "status": "Calculated with 2025 mixed-technology capacity held constant",
@@ -119,6 +160,8 @@ def build():
         },
         "model_results": evaluate(data["model"]),
     })
+    review = data["second_review"]
+    review["backlog_results"] = evaluate_recovery(data["model"]["point"], review["backlog"])
     article = render(data, trade)
     (HERE / "out" / "heat_pump_chain.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

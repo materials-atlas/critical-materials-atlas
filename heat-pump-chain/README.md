@@ -59,3 +59,19 @@ point settings. The evidence JSON carries all combinations and each
 intervention’s monthly balances. These calculations use assumed deliveries,
 compatibility and qualification times. Procurement data, plant availability,
 installation and operating costs would be needed to assess an actual shock.
+
+## Follow-up on delayed orders, 25 November 2026
+
+The dated addendum extends the original disruption case to month 12. It
+retains orders that cannot be met in a month. Each month closes with
+opening backlog plus new orders, minus deliveries and any cancellations.
+Deliveries use the same assembly and compressor limits as the first
+model. Each completed heat pump counts as one delivery.
+
+Normal compressor receipts resume after the original interruption. Extra
+qualified receipts begin in month nine. The cancellation case removes
+orders at the end of month eight, up to the number still unfilled. The
+evidence JSON records each monthly stock and backlog balance under
+\`second_review.backlog_results\`. The model continues to count open orders
+at the end of month 12. Procurement volumes, qualification times and
+cancellations are hypothetical.

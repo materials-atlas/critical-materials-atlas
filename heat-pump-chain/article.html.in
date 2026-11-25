@@ -24,6 +24,8 @@
 <article>
   <p>The European Commission reports spare heat-pump assembly capacity, especially for hydronic units, alongside gaps in compressor and four-way valve production. The IEA finds that rotary compressor capacity is highly concentrated globally, while scroll compressor capacity is more geographically diverse. The question is how much factory output a disruption would put at risk for a line that needs a specific compressor. $commission2026. $rotary.</p>
 
+  <p class="note"><a href="#second-review">Follow-up on capacity and delayed deliveries</a></p>
+
   <h2>Assembly, component supply and installation</h2>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Heat-pump evidence by stage">
     <table>
@@ -101,6 +103,40 @@ $loss_grid
       </table>
     </div>
   </div>
+
+  <section id="second-review">
+    <h2>Follow-up on capacity and delayed deliveries</h2>
+    <p class="note"><time datetime="$review_date">25 November 2026</time></p>
+    <p>The model illustrates how stock, supplier approval and compatible components affect one factory line during an assumed interruption. Plant purchasing records and qualified spare capacity would be needed to estimate an actual shortfall.</p>
+
+    <h3>How the EU capacity estimates were made</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="EU heat-pump capacity estimates by source">
+      <table>
+        <caption>Published estimates of EU final assembly capacity</caption>
+        <thead><tr><th scope="col">Source and year measured</th><th scope="col">Existing capacity</th><th scope="col">Coverage and conversion</th><th scope="col">Announced capacity</th></tr></thead>
+        <tbody>
+$capacity_crosswalk
+        </tbody>
+      </table>
+    </div>
+    <p>The public sources do not give a common plant list and a common conversion to thermal GW. The gap between the estimates cannot be apportioned to expansion, technology mix or assumptions. The comparison of $eu_nameplate_gw GW with $flat_gw GW and $growth_gw GW above uses the JRC study’s own assumptions for both assembly capacity and deployment. $commission2025. $jrc_followup.</p>
+
+    <h3>The compressor in the follow-up case</h3>
+    <p>The hypothetical EU-27 residential air-to-water line uses $compressor_configuration. A supplier disclosure documents a residential system with this configuration. The scenario assumes exposure to a China-origin import route. The IEA’s share for global rotary capacity gives no sourcing or availability estimate for this scroll design. Actual purchases, inventories and approval times are unknown. $copeland. $rotary.</p>
+
+    <h3>When delayed orders can be filled</h3>
+    <p><strong>Modelled.</strong> The follow-up keeps the original disruption and orders for the first $months months. All cases deliver $delivered_initial units in that period. Unfilled orders carry forward. Monthly new orders stay at $monthly_demand. From month $recovery_first to month $recovery_last, the cases vary extra qualified deliveries above the restored $regular_receipts regular monthly receipts. The cancellation case removes $example_cancellations orders at the end of month $months. Each completed unit counts as one delivery.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Modelled deliveries and backlog">
+      <table class="numbers">
+        <caption>Modelled deliveries, cancellations and backlog, in units</caption>
+        <thead><tr><th scope="col">Case</th><th scope="col">Extra compressors per month</th><th scope="col">Cancelled orders</th><th scope="col">Peak month-end backlog</th><th scope="col">Delivered by month $recovery_last</th><th scope="col">Backlog at month $recovery_last</th><th scope="col">Month backlog clears</th></tr></thead>
+        <tbody>
+$recovery_rows
+        </tbody>
+      </table>
+    </div>
+    <p>In the case without cancellations, $initial_backlog orders remain at the end of month $months. Regular receipts cover new orders, so the backlog persists when those receipts resume. Clearing it by month $recovery_last with a constant extra supply would require $required_extra additional compatible compressors and enough headroom to assemble $recovery_rate units per month. The assumed line can assemble $monthly_assembly. Orders still open at the end of the model may be filled later. Only the cancellation case explicitly removes orders. The <a href="out/heat_pump_chain.json">evidence JSON</a> gives the monthly balance for each case.</p>
+  </section>
 
   <h2>Evidence and reproduction</h2>
   <p>The <a href="PRODUCTION.md">claim register</a> records how the pilot’s claims were checked and how this analysis relates to the IEA and JRC studies. The <a href="README.md">methods and commands</a>, <a href="evidence_inputs.json">inputs</a>, <a href="out/heat_pump_chain.json">calculated evidence</a> and <a href="out/heat_pump_trade.json">trade data</a> are available for reproduction.</p>

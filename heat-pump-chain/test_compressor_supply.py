@@ -5,9 +5,10 @@ import json
 from pathlib import Path
 import unittest
 
-from compressor_supply import compare, evaluate, simulate
+from compressor_supply import compare, evaluate, evaluate_recovery, simulate
 
-MODEL = json.loads(Path(__file__).with_name("evidence_inputs.json").read_text(encoding="utf-8"))["model"]
+INPUTS = json.loads(Path(__file__).with_name("evidence_inputs.json").read_text(encoding="utf-8"))
+MODEL = INPUTS["model"]
 
 
 class CompressorSupplyTests(unittest.TestCase):
@@ -35,6 +36,38 @@ class CompressorSupplyTests(unittest.TestCase):
                                   "qualified": 0, "stock": 0})
         self.assertEqual(result["production_lost_range"], [0, 900])
         self.assertEqual(len(result["sensitivity"]), 81)
+
+    def test_followup_conserves_stock_and_orders(self):
+        cases = evaluate_recovery(MODEL["point"], INPUTS["second_review"]["backlog"])["cases"]
+        self.assertEqual([case["production"] for case in cases], [11700, 12000, 12000, 11900])
+        self.assertEqual([case["clearance_month"] for case in cases], [None, 11, 10, 10])
+        self.assertEqual([case["closing_backlog"] for case in cases], [300, 0, 0, 0])
+        for case in cases:
+            self.assertEqual(case["delivered_by_initial_horizon"], 7700)
+            self.assertEqual(case["peak_backlog"], 300)
+            for row in case["monthly"]:
+                self.assertEqual(
+                    row["opening_stock"] + row["total_receipts"] - row["production"],
+                    row["ending_stock"],
+                )
+                self.assertEqual(
+                    row["opening_backlog"] + row["new_orders"] - row["production"] - row["cancelled_orders"],
+                    row["closing_backlog"],
+                )
+                if row["month"] <= 8:
+                    self.assertEqual(row["extra_receipts"], 0)
+
+    def test_constant_supply_for_month_twelve_clearance(self):
+        inputs = {
+            "through_month": 12,
+            "cases": [
+                {"label": "Below equality", "extra_receipts": 74, "cancellations": 0},
+                {"label": "Equality", "extra_receipts": 75, "cancellations": 0},
+            ],
+        }
+        cases = evaluate_recovery(MODEL["point"], inputs)["cases"]
+        self.assertEqual([case["closing_backlog"] for case in cases], [4, 0])
+        self.assertEqual(cases[1]["clearance_month"], 12)
 
     def test_exposure_cannot_exceed_imports(self):
         with self.assertRaisesRegex(ValueError, "cannot exceed"):

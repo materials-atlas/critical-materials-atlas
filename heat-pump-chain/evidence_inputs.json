@@ -44,6 +44,10 @@
     "baci": {
       "title": "CEPII, BACI V202601",
       "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html"
+    },
+    "jrc_comparison": {
+      "title": "JRC Figure 28 and Tables 5 and 6",
+      "url": "https://publications.jrc.ec.europa.eu/repository/bitstream/JRC144191/JRC144191_01.pdf"
     }
   },
   "benchmarks": {
@@ -156,5 +160,45 @@
         1200
       ]
     }
+  },
+  "second_review": {
+    "date": "2026-11-25",
+    "commission_capacity": {
+      "source": "commission2025",
+      "reference_year": 2023,
+      "existing_gw_thermal": 24,
+      "announced_expansion_gw_thermal_lower_bound": 30
+    },
+    "compressor": {
+      "configuration": "a variable-speed R290 scroll compressor and matching drive and controller",
+      "example_source": "copeland",
+      "exposure_basis": "Assumed China-origin route. The supplier example establishes the configuration only."
+    },
+    "backlog": {
+      "through_month": 12,
+      "cases": [
+        {
+          "label": "Regular receipts resume",
+          "extra_receipts": 0,
+          "cancellations": 0
+        },
+        {
+          "label": "Extra qualified supply",
+          "extra_receipts": 100,
+          "cancellations": 0
+        },
+        {
+          "label": "More qualified supply",
+          "extra_receipts": 200,
+          "cancellations": 0
+        },
+        {
+          "label": "Extra supply and cancellations",
+          "extra_receipts": 100,
+          "cancellations": 100
+        }
+      ]
+    },
+    "jrc_source": "jrc_comparison"
   }
 }

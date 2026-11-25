@@ -54,3 +54,23 @@ A second reading of the cited sources before publication found nothing wrong and
   "on track" wording is in the executive summary); the JRC gives 77 GW. The page now states the gap.
 - JRC names neodymium in brushless DC motors that some heat pumps use, not specifically in compressor motors.
 - Not retrievable for this check: Implementing Regulation 2026/2486 (EUR-Lex blocks automated reading; no archived copy).
+
+## Capacity and recovery follow-up, 25 November 2026
+
+- The [Commission's competitiveness report, section 3.6](https://publications.europa.eu/resource/cellar/13267a9f-f429-11ef-b7db-01aa75ed71a1.0001.03/DOC_1)
+  gives about 24 GW thermal of existing EU final assembly in 2023 and reports more than 30 GW of announced expansions separately.
+  The section discusses residential hydronic heat pumps. It gives no product breakdown, plant list or average equipment rating for
+  the 24 GW estimate.
+- The [JRC report, Figure 28 and Tables 5 and 6](https://publications.jrc.ec.europa.eu/repository/bitstream/JRC144191/JRC144191_01.pdf)
+  uses 7.7 million units per year and 10 kW thermal per unit to estimate 77 GW thermal of capacity in 2025. It covers mixed heat-pump
+  technologies. Its plant compilation estimates missing capacity and shows planned capacity separately. The two reports give too few
+  comparable details to recover a common estimate. The comparison with 66 and 100 GW uses the JRC deployment framework.
+- A [supplier case](https://www.copeland.com/en-de/products-solutions/compression-technologies-systems/heat-pump-systems) documents the
+  use of a variable-speed R290 scroll compressor and matching controls in residential air-to-water equipment. The follow-up uses this
+  configuration as an illustrative line. Its assumed exposure to an import route, volumes and qualification delay come from the scenario.
+  The [IEA rotary capacity statistic](https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf#page=32)
+  applies across rotary applications and gives no estimate of exposure for that scroll design. The map leaves the holder design-dependent.
+- The follow-up carries unmet orders through month 12. Regular receipts alone leave 300 open orders. An extra 100 or 200 qualified
+  compressors per month from month nine clears the backlog in month 11 or month 10, respectively, assuming all orders are kept.
+  A separate cancellation case removes 100 orders in month eight. The model is an auditable illustration of supply, stock and supplier
+  qualification. It needs plant records and independent HVAC manufacturing review for empirical validation.
