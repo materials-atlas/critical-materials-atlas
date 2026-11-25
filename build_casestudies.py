@@ -135,7 +135,7 @@ out = f'''<!doctype html>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Validation · known chains</div>
-  <h1>Does it survive chains experts know cold?</h1>
+  <h1>Checks against well-documented supply chains</h1>
   <p class="deck">A method is only as trustworthy as its behaviour on cases people already understand. Here the atlas's own live figures are put beside the authoritative USGS/IEA picture for five chains — and the one place they diverged is shown openly, not hidden.</p>
 </div></section>
 <article style="max-width:1000px">

@@ -198,7 +198,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · mine vs furnace · the refining wedge</div>
-  <h1>Control moved from the mine to the furnace</h1>
+  <h1>Concentration has shifted from mining to refining</h1>
   <p class="deck">@@LI_DECK@@ Every metal is traded twice: once as ore or concentrate, and again as refined or first-processed metal. When the refined stage is more geographically concentrated than the ore, control has moved from the mine to the furnace: the chokepoint is who processes, not who digs. This page measures both stages from the same bilateral-trade source and ranks where that wedge is widest. <span class="dist">This page measures the mine-vs-furnace wedge (the finding); <a href="refiners">who actually refines</a> maps the specific plants (the roster).</span></p>
 </div></section>
 <article style="max-width:1040px">

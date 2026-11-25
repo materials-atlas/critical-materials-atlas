@@ -103,7 +103,7 @@ out = f'''<!doctype html>
   <span><a href="brief.pdf">⬇ PDF</a> &nbsp; <a href="./">interactive atlas →</a></span></div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Key findings · one page</div>
-  <h1>Where critical materials really come from — and how the squeeze tightened</h1>
+  <h1>Where critical materials come from, and how concentration changed</h1>
   <p>critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Critical Materials Atlas · public data only · {yrs[0]}–{yrs[-1]}</p>
 </div></section>
 <main id="main">

@@ -224,7 +224,7 @@ def main():
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · network position</div>
-  <h1>The trade routes concentration misses</h1>
+  <h1>Trade routes that concentration measures miss</h1>
   <p class="deck">Top-exporter share tells you how <i>concentrated</i> a material's trade is. It says nothing about who sits <i>on the routes</i>. Treating each material's bilateral flows as a directed network shows the brokers and processing hubs that the customs ledger hides. A node-removal test shows how far the network fragments without them.</p>
 </div></section>
 <article style="max-width:1000px">

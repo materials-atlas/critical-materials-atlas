@@ -252,9 +252,9 @@ for o in _overlap:
 HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How robust is that? — the scorecard under uncertainty · Critical Materials Atlas</title>
+<title>Uncertainty in the risk scores · Critical Materials Atlas</title>
 <meta name="description" content="The hardest-cases scorecard uses hard thresholds. This propagates uncertainty through all five axes with 20,000 Monte-Carlo draws per material, turning binary pass/fail into a probability gradient — and showing the 'only gallium and germanium' result has soft edges.">
-<meta property="og:title" content="The hardest cases, under uncertainty — probabilities, not a cliff">
+<meta property="og:title" content="Uncertainty in the risk scores">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -288,7 +288,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Rigor · uncertainty propagation</div>
-  <h1>How robust is that?</h1>
+  <h1>Uncertainty in the risk scores</h1>
   <p class="deck">The <a href="synthesis.html" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard uses hard cutoffs, and pass/fail hides a metal that sits just under a cutoff. This page puts an uncertainty on every input and runs the scorecard 20,000 times. The pass/fail line becomes a probability, and the &ldquo;only gallium and germanium&rdquo; headline is shown with its uncertainty.</p>
 </div></section>
 <article style="max-width:1040px">

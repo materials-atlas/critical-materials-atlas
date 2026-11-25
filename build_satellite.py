@@ -171,7 +171,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · from orbit</div>
-  <h1>Mining is visible from orbit — 145 countries, owing nothing to any statistic</h1>
+  <h1>Mining seen from satellites in 145 countries, independent of official statistics</h1>
   <p class="deck">The other pages measure concentration from trade and production statistics. This one adds an independent physical view: where mining marks the ground, seen from space. It uses 44,929 mapped mine polygons across 145 countries, set beside the atlas&rsquo;s critical-material producers, with flagship mines matched to their satellite footprints. A companion page maps <a href="mining-expansion" style="color:#fff;text-decoration:underline">where mining is physically expanding &rarr;</a>.</p>
 </div></section>
 <article style="max-width:1060px">

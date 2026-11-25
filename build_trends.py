@@ -159,7 +159,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Time · 2002&ndash;2024</div>
-  <h1>Twenty-two years, drawn</h1>
+  <h1>Concentration trends over 22 years</h1>
   <p class="deck">A continuous measured trade series back to 2002 means the concentration picture is no longer a snapshot. Pick a material to see how its exporters and its concentration changed. A second chart shows China&rsquo;s export share rising across the main chains.</p>
 </div></section>
 <article style="max-width:1040px">

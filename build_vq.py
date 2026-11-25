@@ -143,7 +143,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · value vs volume</div>
-  <h1>The concentration is real, not a price mirage</h1>
+  <h1>Concentration holds in tonnes as well as in value</h1>
   <p class="deck">Trade value is price &times; quantity, so a concentration measured in dollars could be a price effect. Mostly it is not. Measured in physical <b>tonnes</b>, the export concentration <b>holds for __HOLD__ materials</b> — only __NINF__ (__INF__) are meaningfully inflated by high prices, and __NMORE__ are actually <i>more</i> concentrated in tonnes than in dollars. The chokepoints are concentrations of quantity, not of price, and the <a href="findings">origin gap</a> shows the same robustness.</p>
 </div></section>
 <article style="max-width:1040px">

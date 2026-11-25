@@ -165,7 +165,7 @@ PAGE = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · importer-side exposure</div>
-  <h1>South Korea is the most locked-in — 47% of its supply runs through one source</h1>
+  <h1>South Korea is the most dependent: 47% of its supply comes from one source</h1>
   <p class="deck">The global pages say who holds each chokepoint. This page shows, for every importing country and material by material, how much of its supply runs through the dominant producer and how single-sourced it is. These are two different vulnerabilities. <b>Capture</b> is systemic: the country buys from the world&rsquo;s chokepoint leader, so an export ban hits it. <b>Lock-in</b> is specific to the country: it depends on one supplier, even if that supplier is not the global leader. Click any country to see its worst exposures and who holds the leverage.</p>
 </div></section>
 <article style="max-width:1180px">

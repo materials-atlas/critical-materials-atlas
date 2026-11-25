@@ -135,7 +135,7 @@ out = f'''<!doctype html>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · economic complexity</div>
-  <h1>The competitiveness lens fails exactly where it matters</h1>
+  <h1>Where economic-complexity measures fall short</h1>
   <p class="deck">Economic-complexity analysis (Balassa revealed comparative advantage) ranks which countries export each material competitively. The count ranges from ~8 countries (lithium, beryllium, strontium) to 52, and that top score is a warning. Rare-earth magnets, among the most China-refined materials in the world, have the highest export-ubiquity of all, because dozens of countries re-export them. RCA counts shippers, not refiners, so it reads the most concentrated chains as the most diverse. Economic complexity is the wrong instrument for supply-chain risk, and this page shows where it breaks, which is why it is run here.</p>
 </div></section>
 <article style="max-width:1000px">

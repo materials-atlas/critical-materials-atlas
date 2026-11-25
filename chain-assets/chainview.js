@@ -159,7 +159,7 @@
     var _prof = CHAIN2PROFILE[_folder];
     var profLink = _prof ? '<br><b>This material:</b> <a href="../profile-' + _prof + '">' + esc(_prof.charAt(0).toUpperCase() + _prof.slice(1)) + ' profile (reserves &middot; mine &middot; refine &middot; trade)</a> &nbsp;&middot;&nbsp; <a href="../risk">supply-risk index</a>' : '';
     var strip = '<div class="panel" style="margin-top:1.6rem"><h3 style="margin-top:0">Explore the layer</h3><p style="margin:0;line-height:1.9">' +
-      '<a href="../value-chains">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map">The Chokepoint Map</a>' +
+      '<a href="../value-chains">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map">Chokepoint map</a>' +
       profLink +
       (rel.length ? '<br><b>Related chains:</b> ' + rel.join(' &nbsp;·&nbsp; ') : '') + '</p></div>';
     document.querySelector('article').insertAdjacentHTML('beforeend', strip);

@@ -473,9 +473,9 @@ if baci:
 HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Are by-product metals really more volatile? &mdash; a regression test &middot; Critical Materials Atlas</title>
+<title>Are by-product metal prices more volatile? · Critical Materials Atlas</title>
 <meta name="description" content="By-product metals are famously more price-volatile than primary ones — and they are. But on 24 years of real USGS prices the gap is fully accounted for by market size: small PRIMARY metals like rare earths, tantalum and beryllium swing just as hard, and companionality cannot explain those. Smallness alone is sufficient.">
-<meta property="og:title" content="Are by-product metals really more volatile? A regression test">
+<meta property="og:title" content="Are by-product metal prices more volatile?">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -505,7 +505,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; falsification &middot; regression</div>
-  <h1>Are by-product metals really more volatile?</h1>
+  <h1>Are by-product metal prices more volatile?</h1>
   <p class="deck">Yes, but not for the usual reason. On 24 years of real prices, the volatility of by-product metals is fully accounted for by how small their markets are. Small primary metals (rare earths, tantalum, beryllium) swing just as hard, and companionality cannot explain those. A price is volatile because its market is small, not because its supply is tied to a host metal.</p>
 </div></section>
 <article style="max-width:1040px">

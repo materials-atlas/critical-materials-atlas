@@ -97,9 +97,9 @@ print('  axis totals:', axis_totals)
 HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The hardest cases — where every safeguard fails at once · Critical Materials Atlas</title>
+<title>Materials where most mitigations fail · Critical Materials Atlas</title>
 <meta name="description" content="Criticality isn't one number — it's a stack of independent failures: can't scale (by-product), can't diversify (concentrated), can't recycle, surging demand, and a physically tiny market. This scorecard finds the handful of materials that trip nearly all five.">
-<meta property="og:title" content="The hardest cases: metals where every safeguard fails at once">
+<meta property="og:title" content="Materials where most mitigations fail">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -132,7 +132,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Synthesis · the whole argument</div>
-  <h1>The hardest cases</h1>
+  <h1>Materials where most mitigations fail</h1>
   <p class="deck">Twelve layers lead to one conclusion. &ldquo;Critical&rdquo; is not a single score; it is a stack of independent failures. A metal may be impossible to <a href="companionality.html" style="color:#fff;text-decoration:underline">scale</a>, diversify or <a href="recycling.html" style="color:#fff;text-decoration:underline">recycle</a>, its <a href="demand.html" style="color:#fff;text-decoration:underline">demand</a> may be rising fast, and its market may be too <a href="production.html" style="color:#fff;text-decoration:underline">thin</a> to have any slack. Most materials trip one or two of these. A few trip nearly all, and for those there is no way out.</p>
 </div></section>
 <article style="max-width:1040px">

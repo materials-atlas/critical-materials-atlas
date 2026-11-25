@@ -197,7 +197,7 @@ out = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Origin trace — Critical Materials Atlas</title>
 <meta name="description" content="Tracing the refiner layer: re-attributing each country's critical-material imports from the apparent supplier to the likely true mine origin, and how much of supply is hidden behind refiners.">
-<meta property="og:title" content="Origin trace — what's hidden behind the refiner">
+<meta property="og:title" content="Origin trace: where the refiners’ ore comes from">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -209,7 +209,7 @@ out = f'''<!doctype html>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · origin tracing</div>
-  <h1>What's hidden behind the refiner</h1>
+  <h1>Where the refiners’ ore comes from</h1>
   <p class="deck">The origin gap, traced as a first-order estimate. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to a likely mine origin, showing how much of a nation's critical-material supply is sourced via a refiner rather than the producer its customs data names.</p>
 </div></section>
 <article style="max-width:1000px">

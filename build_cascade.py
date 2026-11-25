@@ -201,9 +201,9 @@ HTML = r'''<!doctype html>
   <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
-  <nav class="related" aria-label="Related pages"><span>Related</span><a href="companionality">Hostage metals</a><a href="scenarios">Scenarios</a><a href="host-shock">Host shock</a><a href="methodology">Methodology</a></nav>
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="companionality">Metals recovered only as by-products</a><a href="scenarios">Scenarios</a><a href="host-shock">Host shock</a><a href="methodology">Methodology</a></nav>
   <div class="eyebrow">Method · systemic · cascade</div>
-  <h1>The shock, and its echo</h1>
+  <h1>How a supply shock spreads along the chain</h1>
   <p class="deck">A shock to a producer country does not stop at what it mines. Where a lost material is a <a href="host-shock.html" style="color:#fff;text-decoration:underline">host</a>, the by-product <a href="companionality.html" style="color:#fff;text-decoration:underline">companions</a> recovered from it fall too: a shock to Congo&rsquo;s copper is also a cobalt shock. This page follows a country&rsquo;s shock through production, the companion links and trade, and scores which producer is the most systemic single point of failure.</p>
 </div></section>
 <article style="max-width:1040px">
@@ -240,7 +240,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="net-demand.html">Net demand</a><br><a href="scenarios.html">Scenarios</a></div>
+  <div><h4>Navigate</h4><a href="companionality.html">Metals recovered only as by-products</a><br><a href="host-shock.html">Host shock</a><br><a href="net-demand.html">Net demand</a><br><a href="scenarios.html">Scenarios</a></div>
   <div><h4>Sources</h4>USGS production shares × companionality × reconciled net trade</div>
   <div class="fineprint">Structural first-and-second-order cascade from public data. Price feedback tested across an elasticity band (China stays the top point of failure), but it is still a map of contagion, not a calibrated forecast.</div>
 </div></footer>

@@ -189,7 +189,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · the squeeze</div>
-  <h1>The squeeze falls on gallium, germanium, vanadium</h1>
+  <h1>Demand pressure is highest for gallium, germanium and vanadium</h1>
   __EVLINE__
   <p class="deck">Lithium demand could rise 5.9&times; by 2040, the largest multiple here. Demand growth alone does not make the squeeze. Crossed with supply that cannot respond, the structural squeeze falls on gallium, germanium and vanadium: high demand, and no way to add supply quickly. The other pages here measure supply. This one measures demand: which technologies (batteries, magnets, chips, solar, the grid) pull hardest on each material, and how fast that pull is growing. Demand growth is then crossed with <a href="companionality" style="color:#fff;text-decoration:underline">supply elasticity</a>. That separates the materials whose supply cannot respond from those that need more mines.</p>
 </div></section>

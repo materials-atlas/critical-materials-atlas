@@ -175,7 +175,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · net trade</div>
-  <h1>Who really pulls the metal</h1>
+  <h1>Which end uses drive demand for each metal</h1>
   <p class="deck">The <a href="bloc-demand.html" style="color:#fff;text-decoration:underline">demand-by-bloc</a> page notes a flaw: gross imports count the metal China buys to refine and ship straight back out. This page nets it out. Imports minus exports removes the trans-shipment hubs and shows the refiner-exporters as net suppliers, not demanders, of the metals they dominate.</p>
 </div></section>
 <article style="max-width:1040px">

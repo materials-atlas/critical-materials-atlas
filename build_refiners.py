@@ -72,9 +72,9 @@ DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP
 HTML = '''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Who actually refines — Critical Materials Atlas</title>
+<title>Who refines each material · Critical Materials Atlas</title>
 <meta name="description" content="A capability map, not an export map: fusing the trade feedstock signature (imports ore, exports refined) with BGS/USGS physical output to show who actually turns ore into refined metal across all the critical materials tracked here, 2018-2024.">
-<meta property="og:title" content="Who actually refines — capability map">
+<meta property="og:title" content="Who refines each material">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -156,7 +156,7 @@ HTML = '''<!doctype html>
 <section class="hero"><div class="wrap">
   <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="product-space">Product space</a><a href="complexity">Complexity</a></nav>
   <div class="eyebrow">Method · capability, not exports</div>
-  <h1>Who actually refines</h1>
+  <h1>Who refines each material</h1>
   <p class="deck">The refiner is not the miner, and the exporter is not always the refiner either. This page is a capability map: for each material it combines two measures to show which countries turn ore into refined metal. The first is the trade feedstock signature: a country that imports ore and exports refined product is transforming it, and this signal survives export controls. The second is BGS/USGS physical output, which catches the refiner that absorbs its own output. China, for example, refines large volumes but consumes them at home, so they never show up in refined exports.</p>
 </div></section>
 <main id="main">

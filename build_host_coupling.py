@@ -341,7 +341,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; mechanism &middot; falsification</div>
-  <h1>No — the companion doesn&rsquo;t follow its host</h1>
+  <h1>By-product metals do not follow their host metal’s output</h1>
   <p class="deck">The atlas&rsquo;s <a href="price-squeeze" style="color:#fff;text-decoration:underline">price test</a> claimed that a by-product metal&rsquo;s price direction is set by its host&rsquo;s cycle. That is a mechanism, and a mechanism can be checked. Tested properly, it is not there. The apparent link (mean correlation 0.27) is the shared commodity cycle; once a partial correlation removes it, the link falls to 0.03. Of 18 pairs, only one survives (bismuth&larr;lead). The finding has been withdrawn. Companions track the commodity cycle in general, not the metal they are mined with.</p>
 </div></section>
 <article style="max-width:1040px">

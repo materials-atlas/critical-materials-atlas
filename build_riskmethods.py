@@ -177,7 +177,7 @@ out = f'''<!doctype html>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · risk assessment</div>
-  <h1>Three ways to score the risk — letting the data, not me, decide</h1>
+  <h1>Three established ways to score supply risk</h1>
   <p class="deck">The transparent supply-risk index uses weights chosen by the atlas. This page computes three established alternatives from the criticality literature on the same public data: a data-driven composite (entropy-TOPSIS), a governance-weighted geopolitical indicator (GeoPolRisk), and a probabilistic supply-at-risk with tail metrics.</p>
 </div></section>
 <article style="max-width:1040px">
