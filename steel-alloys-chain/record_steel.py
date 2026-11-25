@@ -17,6 +17,7 @@ INPUTS = HERE / "evidence_inputs.json"
 TEMPLATE = HERE / "article.html.in"
 EXPOSURE = HERE / "out" / "steel_exposure.json"
 TRADE = HERE / "out" / "steel_trade.json"
+CONTENT = HERE / "content_inputs.json"
 OUT = HERE / "out" / "steel_chain.json"
 ARTICLE = HERE / "steel-alloys-chain.html"
 
@@ -47,6 +48,49 @@ def row(label, cells, numeric=True):
     cls = ' class="n"' if numeric else ""
     return (f'<tr><th scope="row">{escape(str(label))}</th>'
             + "".join(f"<td{cls}>{escape(str(c))}</td>" for c in cells) + "</tr>")
+
+
+def contained_metal(exposure, content, mine):
+    """Restate 2024 trade in contained metal, with a low and a high figure where an origin's content is not measured."""
+    by_code = exposure["exporters_by_code"]["codes"]
+    groups = {"ferroniobium": ("niobium", ["720293"]), "ferrovanadium": ("vanadium", ["720292"]), "ferrochromium": ("chromium", ["720241", "720249"]),
+              "ferromanganese": ("manganese", ["720211", "720219", "720230"]), "ferronickel": ("nickel", ["720260"]),
+              "ferromolybdenum": ("molybdenum", ["720270"]), "manganese_ore": ("manganese", ["260200"])}
+    ore = content["manganese_ore_grade_2023"]
+    out = {}
+    for key, (metal, codes) in groups.items():
+        gross, low, high, measured = {}, {}, {}, 0.0
+        for code in codes:
+            for exporter, tonnes in by_code[code].items():
+                if key == "manganese_ore":
+                    known = exporter in ore["origins"]
+                    lo = hi = ore["origins"].get(exporter, ore["world"])
+                else:
+                    spec = content["codes"][code]
+                    rec = spec["origins"].get(exporter)
+                    known = rec is not None
+                    lo, hi = (rec.get("range", [rec["content"], rec["content"]]) if known else spec["other_origins"])
+                gross[exporter] = gross.get(exporter, 0.0) + tonnes
+                low[exporter] = low.get(exporter, 0.0) + tonnes * lo
+                high[exporter] = high.get(exporter, 0.0) + tonnes * hi
+                measured += tonnes if known else 0.0
+        total_gross, total_low, total_high = sum(gross.values()), sum(low.values()), sum(high.values())
+
+        def share(exporter):
+            """Lowest and highest share of contained metal the exporter can have, given the ranges of the others."""
+            others_low, others_high = total_low - low[exporter], total_high - high[exporter]
+            return [low[exporter] / (low[exporter] + others_high), high[exporter] / (high[exporter] + others_low)]
+
+        ranked = sorted(gross, key=gross.get, reverse=True)[:4]
+        unit = mine[metal]["unit"] if metal in mine else None
+        world = mine[metal]["world"] * (1000 if unit and unit.startswith("thousand") else 1) if metal in mine and "content" in unit else None
+        out[key] = {"metal": metal, "gross_t": total_gross, "contained_t": [total_low, total_high],
+                    "share_of_tonnage_with_measured_content": measured / total_gross,
+                    "exporters": [{"name": e, "gross_share": gross[e] / total_gross, "contained_share": share(e),
+                                   "content": [low[e] / gross[e], high[e] / gross[e]]} for e in ranked],
+                    "mine_output_t": world,
+                    "contained_over_mine_output": [total_low / world, total_high / world] if world else None}
+    return out
 
 
 def evaluate(inputs):
@@ -147,7 +191,43 @@ def evaluate(inputs):
     for ok, message in checks:
         if not ok:
             raise SystemExit("steel-alloys page text no longer matches the data: " + message)
+    content_in = load(CONTENT)
+    contained = contained_metal(exposure, content_in, mine)
+    by_code = exposure["exporters_by_code"]["codes"]
+    # manganese ore: at these grades the trade record for South Africa carries more manganese than USGS has it mining
+    mo = contained["manganese_ore"]
+    sa_ore = by_code["260200"]["South Africa"] * content_in["manganese_ore_grade_2023"]["origins"]["South Africa"]
+    sa_mine = inputs["mine_production_2024"]["manganese"]["rows"]["South Africa"] * 1000
+    mo["south_africa_contained_over_its_mine_output"] = sa_ore / sa_mine
+    mo["contained_over_mine_output"] = [(mo["contained_t"][0] - max(sa_ore - sa_mine, 0)) / mo["mine_output_t"], mo["contained_t"][1] / mo["mine_output_t"]]
+    # how large the US sample is beside what each origin exports, for the two origins the ferrochromium result rests on
+    us41 = content_in["codes"]["720241"]["origins"]
+    sample = {c: us41[c]["gross_t"] / by_code["720241"][c] for c in ("South Africa", "Kazakhstan")}
+    # ferronickel with Indonesian nickel pig iron at 10% nickel, the lowest grade the customs definition admits
+    idt = by_code["720260"]["Indonesia"]
+    fn_c = contained["ferronickel"]
+    others_mid = (fn_c["contained_t"][0] + fn_c["contained_t"][1]) / 2 - idt * sum(content_in["codes"]["720260"]["origins"]["Indonesia"]["range"]) / 2
+    extras = {"us_sample_share_of_exports_720241": sample, "indonesia_share_of_nickel_at_10_per_cent": idt * 0.10 / (idt * 0.10 + others_mid),
+              "ferroniobium_at_documented_range_t": [contained["ferroniobium"]["gross_t"] * v for v in content_in["codes"]["720293"]["documented_range"]]}
+    fcc, fnc = contained["ferrochromium"], contained["ferronickel"]
+    content_checks = [
+        ([e["name"] for e in fcc["exporters"][:2]] == ["South Africa", "Kazakhstan"]
+         and fcc["exporters"][0]["contained_share"][1] < fcc["exporters"][0]["gross_share"]
+         and fcc["exporters"][1]["contained_share"][0] > fcc["exporters"][1]["gross_share"],
+         "ferrochromium: South Africa's share no longer falls, or Kazakhstan's no longer rises, in contained chromium"),
+        (fnc["exporters"][0]["name"] == "Indonesia" and 0.8 < fnc["exporters"][0]["contained_share"][0]
+         and fnc["exporters"][0]["contained_share"][1] < fnc["exporters"][0]["gross_share"],
+         "ferronickel: Indonesia's share in contained nickel has left the range the page describes"),
+        (all(abs(v["exporters"][0]["contained_share"][0] - v["exporters"][0]["gross_share"]) < 0.03 and
+             abs(v["exporters"][0]["contained_share"][1] - v["exporters"][0]["gross_share"]) < 0.03
+             for k, v in contained.items() if k in ("ferroniobium", "ferromanganese", "ferromolybdenum")),
+         "an alloy described as little changed by the conversion now changes by more than three points"),
+    ]
+    for ok, message in content_checks:
+        if not ok:
+            raise SystemExit("steel-alloys page text no longer matches the data: " + message)
     return {"trade_year": int(year), "base_year": int(base), "mine_2024": mine, "trade_by_weight": trade, "ferroniobium_detail": nb_detail,
+            "contained_metal_2024": contained, "contained_metal_notes": extras,
             "chromium": chromium, "nickel": nickel,
             "base_inputs": base_inputs, "revisions_of_2024": revisions}
 
@@ -292,6 +372,53 @@ def render(inputs, r):
               "astm_a572": "ASTM A572/A572M", "baker": "Baker (2015)", "wco_ch72": "WCO, HS 2017, Chapter 72", "wco_ch26": "WCO, HS 2017, Chapter 26",
               "wco_ch27": "WCO, HS 2017, Chapter 27", "baci": "CEPII BACI V202601"}
     values.update({"s_" + k: link(src, k, v) for k, v in labels.items()})
+    cm = r["contained_metal_2024"]
+
+    def span(pair, f):
+        a, b = f(pair[0]), f(pair[1])
+        return a if a == b else f"{a} to {b}"
+
+    content_rows = []
+    for key in ("ferroniobium", "ferrovanadium", "ferrochromium", "ferromanganese", "ferronickel", "ferromolybdenum", "manganese_ore"):
+        c = cm[key]
+        lead = c["exporters"][0]
+        content_rows.append(row(trade[key]["label"], [
+            f'{c["gross_t"] / 1000:,.0f}', span(c["contained_t"], lambda v: f"{v / 1000:,.0f}") + " of " + c["metal"],
+            pct(c["share_of_tonnage_with_measured_content"]), f'{lead["name"]} {pct(lead["gross_share"])}', span(lead["contained_share"], pct),
+            span(c["contained_over_mine_output"], pct) if c["contained_over_mine_output"] else "—"]))
+    fcc, fnc, fvc, fmc, nbc, moc = (cm[k] for k in ("ferrochromium", "ferronickel", "ferrovanadium", "manganese_ore", "ferroniobium", "ferromolybdenum"))
+    cinp = load(CONTENT)
+    cr41 = cinp["codes"]["720241"]["origins"]
+    values.update({
+        "content_rows": "\n".join(content_rows),
+        "c_sa_gross": pct(fcc["exporters"][0]["gross_share"]), "c_sa_cont": span(fcc["exporters"][0]["contained_share"], pct),
+        "c_kz_gross": pct(fcc["exporters"][1]["gross_share"]), "c_kz_cont": span(fcc["exporters"][1]["contained_share"], pct),
+        "c_sa_grade": pct(cr41["South Africa"]["content"]), "c_kz_grade": pct(cr41["Kazakhstan"]["content"]),
+        "c_id_gross": pct(fnc["exporters"][0]["gross_share"]), "c_id_cont": span(fnc["exporters"][0]["contained_share"], pct),
+        "c_id_usgs": pct(cinp["codes"]["720260"]["origins"]["Indonesia"]["content"], 1), "c_id_company": pct(cinp["codes"]["720260"]["origins"]["Indonesia"]["range"][0], 1),
+        "c_id_at10": pct(r["contained_metal_notes"]["indonesia_share_of_nickel_at_10_per_cent"]),
+        "c_sa_sample": pct(r["contained_metal_notes"]["us_sample_share_of_exports_720241"]["South Africa"]),
+        "c_kz_sample": pct(r["contained_metal_notes"]["us_sample_share_of_exports_720241"]["Kazakhstan"]),
+        "c_nb_t": f'{nbc["contained_t"][0] / 1000:,.0f}', "c_nb_range": span(r["contained_metal_notes"]["ferroniobium_at_documented_range_t"], lambda v: f"{v / 1000:,.0f}"),
+        "c_mn_sa": f'{fmc["south_africa_contained_over_its_mine_output"]:.1f}',
+        "c_fm_lead": pct(cm["ferromanganese"]["exporters"][0]["gross_share"]), "c_fm_cont": span(cm["ferromanganese"]["exporters"][0]["contained_share"], pct),
+        "c_mo_lead": pct(moc["exporters"][0]["gross_share"]), "c_mo_cont": span(moc["exporters"][0]["contained_share"], pct),
+        "c_fv_cont": span(fvc["exporters"][0]["contained_share"], pct),
+        "s_icda_fc": link(cinp["sources"], "icda_ferrochrome", "International Chromium Development Association, ferrochrome"),
+        "s_pp1802m": link(cinp["sources"], "usgs_pp1802m", "USGS Professional Paper 1802-M"),
+        "c_ni_other": span(cinp["codes"]["720260"]["other_origins"], pct),
+        "c_ni_t": span(fnc["contained_t"], lambda v: f"{v / 1e6:.1f}"), "c_ni_mine": span(fnc["contained_over_mine_output"], pct),
+        "c_v_t": span(fvc["contained_t"], lambda v: f"{v / 1000:,.0f}"), "c_v_mine": span(fvc["contained_over_mine_output"], pct),
+        "c_mn_ore_mine": span(fmc["contained_over_mine_output"], pct), "c_nb_mine": span(nbc["contained_over_mine_output"], pct),
+        "c_ga_gross": pct(next(e for e in fmc["exporters"] if e["name"] == "Gabon")["gross_share"]),
+        "c_ga_cont": pct(next(e for e in fmc["exporters"] if e["name"] == "Gabon")["contained_share"][0]),
+        "c_gh_gross": pct(next(e for e in fmc["exporters"] if e["name"] == "Ghana")["gross_share"]),
+        "c_gh_cont": pct(next(e for e in fmc["exporters"] if e["name"] == "Ghana")["contained_share"][0]),
+        "s_census": link(cinp["sources"], "census", "US Census Bureau, import records by tariff line"),
+        "s_usgs_indonesia": link(cinp["sources"], "usgs_indonesia", "USGS Minerals Yearbook 2024, Indonesia"),
+        "s_nickel_industries": link(cinp["sources"], "nickel_industries", "Nickel Industries, Annual Report 2024"),
+        "s_usgs_manganese": link(cinp["sources"], "usgs_manganese", "USGS Minerals Yearbook 2023, manganese"),
+    })
     return Template(TEMPLATE.read_text(encoding="utf-8")).substitute(values)
 
 
@@ -312,6 +439,7 @@ def build():
         },
         "sources": inputs["sources"],
         "inputs": {k: inputs[k] for k in inputs if k not in ("sources", "version", "note")},
+        "content_inputs": load(CONTENT),
         "results": results,
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

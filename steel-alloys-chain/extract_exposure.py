@@ -70,6 +70,12 @@ def main():
                 markets[market] = rec
             res[key] = {"world": world, "world_leader": leader, "markets": markets}
         out["by_year"][str(year)] = res
+        if year == YEARS[-1]:
+            # tonnage by exporter for each six-digit code, for converting gross weight to contained metal
+            by_code = df.groupby(["k", "exporter"])["q"].sum()
+            out["exporters_by_code"] = {"year": year, "codes": {
+                code: {name: round(float(t)) for name, t in by_code[code].sort_values(ascending=False).items() if t >= 1}
+                for code in codes}}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8", newline="\n") as handle:
         json.dump(out, handle, ensure_ascii=False, indent=1)

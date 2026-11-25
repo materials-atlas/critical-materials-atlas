@@ -1,0 +1,830 @@
+{
+ "checked": "2026-11-25",
+ "note": "Metal content of traded ferroalloys by origin. For most alloys the content is measured: US customs records both gross weight and contained metal for each tariff line and country, and the figure here is contained weight divided by gross weight for US imports from that origin, in 2024 where the flow was at least the threshold tonnage and otherwise in the latest such year from 2022 to 2025. It is a measurement of what the United States imported, applied here to what that origin shipped to everyone. Origins with no flow above the threshold in any of the four years take the range of the measured origins for that code, except where a note says otherwise.",
+ "sources": {
+  "census": {
+   "title": "US Census Bureau, International Trade data, imports for consumption by 10-digit tariff line, first and second quantity",
+   "url": "https://www.census.gov/data/developers/data-sets/international-trade.html"
+  },
+  "usgs_indonesia": {
+   "title": "USGS Minerals Yearbook 2024, volume III, Indonesia, production table",
+   "url": "https://pubs.usgs.gov/myb/vol3/2024/myb3-2024-indonesia.pdf"
+  },
+  "nickel_industries": {
+   "title": "Nickel Industries Limited, Annual Report 2024",
+   "url": "https://announcements.asx.com.au/asxpdf/20250417/pdf/06hvkg1xblklkw.pdf"
+  },
+  "usgs_manganese": {
+   "title": "USGS Minerals Yearbook 2023, Manganese, table 6",
+   "url": "https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-manganese.xlsx"
+  },
+  "usgs_vanadium": {
+   "title": "USGS Minerals Yearbook 2023, Vanadium",
+   "url": "https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-vanadium.pdf"
+  },
+  "icda_ferrochrome": {
+   "title": "International Chromium Development Association, Ferrochrome",
+   "url": "https://www.icdacr.com/about-chrome/ferrochrome/"
+  },
+  "usgs_pp1802m": {
+   "title": "USGS Professional Paper 1802-M (2017), Niobium and Tantalum",
+   "url": "https://pubs.usgs.gov/pp/1802/m/pp1802m.pdf"
+  },
+  "usgs_ferroalloys": {
+   "title": "USGS Minerals Yearbook 2022, Ferroalloys, table 7",
+   "url": "https://www.usgs.gov/centers/national-minerals-information-center/ferroalloys-statistics-and-information"
+  }
+ },
+ "codes": {
+  "720241": {
+   "metal": "chromium",
+   "threshold_t": 1000,
+   "origins": {
+    "South Africa": {
+     "content": 0.4892,
+     "year": 2024,
+     "gross_t": 177863,
+     "range_2022_2025": [
+      0.4886,
+      0.495
+     ]
+    },
+    "Kazakhstan": {
+     "content": 0.6941,
+     "year": 2024,
+     "gross_t": 41612,
+     "range_2022_2025": [
+      0.6854,
+      0.6941
+     ]
+    },
+    "Zimbabwe": {
+     "content": 0.555,
+     "year": 2023,
+     "gross_t": 34424,
+     "range_2022_2025": [
+      0.555,
+      0.5641
+     ]
+    },
+    "Albania": {
+     "content": 0.6781,
+     "year": 2024,
+     "gross_t": 29315,
+     "range_2022_2025": [
+      0.6642,
+      0.6828
+     ]
+    },
+    "Russia": {
+     "content": 0.614,
+     "year": 2022,
+     "gross_t": 20511,
+     "range_2022_2025": [
+      0.614,
+      0.614
+     ]
+    },
+    "Finland": {
+     "content": 0.5217,
+     "year": 2024,
+     "gross_t": 19997,
+     "range_2022_2025": [
+      0.5217,
+      0.5436
+     ]
+    },
+    "Turkey": {
+     "content": 0.6732,
+     "year": 2023,
+     "gross_t": 15482,
+     "range_2022_2025": [
+      0.6457,
+      0.6732
+     ]
+    },
+    "India": {
+     "content": 0.6347,
+     "year": 2024,
+     "gross_t": 8969,
+     "range_2022_2025": [
+      0.6001,
+      0.6347
+     ]
+    },
+    "Brazil": {
+     "content": 0.5522,
+     "year": 2024,
+     "gross_t": 4697,
+     "range_2022_2025": [
+      0.5479,
+      0.5522
+     ]
+    },
+    "Sweden": {
+     "content": 0.6641,
+     "year": 2024,
+     "gross_t": 4260,
+     "range_2022_2025": [
+      0.6641,
+      0.6738
+     ]
+    },
+    "Switzerland": {
+     "content": 0.6743,
+     "year": 2022,
+     "gross_t": 1788,
+     "range_2022_2025": [
+      0.6743,
+      0.6743
+     ]
+    },
+    "Oman": {
+     "content": 0.6046,
+     "year": 2024,
+     "gross_t": 1200,
+     "range_2022_2025": [
+      0.6046,
+      0.6222
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.5491,
+    "gross_t": 288581
+   },
+   "other_origins": [
+    0.4892,
+    0.6941
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720249": {
+   "metal": "chromium",
+   "threshold_t": 1000,
+   "origins": {
+    "Kazakhstan": {
+     "content": 0.7137,
+     "year": 2024,
+     "gross_t": 16335,
+     "range_2022_2025": [
+      0.7104,
+      0.7196
+     ]
+    },
+    "Russia": {
+     "content": 0.6749,
+     "year": 2022,
+     "gross_t": 10846,
+     "range_2022_2025": [
+      0.6749,
+      0.6749
+     ]
+    },
+    "Germany": {
+     "content": 0.6973,
+     "year": 2024,
+     "gross_t": 10123,
+     "range_2022_2025": [
+      0.6878,
+      0.7031
+     ]
+    },
+    "India": {
+     "content": 0.5627,
+     "year": 2024,
+     "gross_t": 4126,
+     "range_2022_2025": [
+      0.5627,
+      0.5948
+     ]
+    },
+    "China": {
+     "content": 0.7492,
+     "year": 2022,
+     "gross_t": 2468,
+     "range_2022_2025": [
+      0.7492,
+      0.7492
+     ]
+    },
+    "Japan": {
+     "content": 0.6895,
+     "year": 2024,
+     "gross_t": 2118,
+     "range_2022_2025": [
+      0.6835,
+      0.7104
+     ]
+    },
+    "Brazil": {
+     "content": 0.6145,
+     "year": 2024,
+     "gross_t": 1645,
+     "range_2022_2025": [
+      0.6046,
+      0.6331
+     ]
+    },
+    "Turkey": {
+     "content": 0.6993,
+     "year": 2024,
+     "gross_t": 1490,
+     "range_2022_2025": [
+      0.6959,
+      0.6993
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.6849,
+    "gross_t": 36008
+   },
+   "other_origins": [
+    0.5627,
+    0.7492
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720211": {
+   "metal": "manganese",
+   "threshold_t": 1000,
+   "origins": {
+    "Malaysia": {
+     "content": 0.7614,
+     "year": 2024,
+     "gross_t": 96814,
+     "range_2022_2025": [
+      0.7576,
+      0.7614
+     ]
+    },
+    "Australia": {
+     "content": 0.7609,
+     "year": 2024,
+     "gross_t": 53180,
+     "range_2022_2025": [
+      0.7609,
+      0.7693
+     ]
+    },
+    "India": {
+     "content": 0.7512,
+     "year": 2024,
+     "gross_t": 25926,
+     "range_2022_2025": [
+      0.6429,
+      0.7512
+     ]
+    },
+    "South Africa": {
+     "content": 0.7799,
+     "year": 2024,
+     "gross_t": 19751,
+     "range_2022_2025": [
+      0.7609,
+      0.7799
+     ]
+    },
+    "Russia": {
+     "content": 0.7633,
+     "year": 2022,
+     "gross_t": 16942,
+     "range_2022_2025": [
+      0.7633,
+      0.7633
+     ]
+    },
+    "South Korea": {
+     "content": 0.76,
+     "year": 2023,
+     "gross_t": 5000,
+     "range_2022_2025": [
+      0.76,
+      0.76
+     ]
+    },
+    "France": {
+     "content": 0.7548,
+     "year": 2024,
+     "gross_t": 4265,
+     "range_2022_2025": [
+      0.7478,
+      0.7548
+     ]
+    },
+    "United Kingdom": {
+     "content": 0.7582,
+     "year": 2022,
+     "gross_t": 3127,
+     "range_2022_2025": [
+      0.7582,
+      0.7582
+     ]
+    },
+    "Spain": {
+     "content": 0.7649,
+     "year": 2025,
+     "gross_t": 2101,
+     "range_2022_2025": [
+      0.7649,
+      0.7649
+     ]
+    },
+    "Norway": {
+     "content": 0.766,
+     "year": 2024,
+     "gross_t": 1598,
+     "range_2022_2025": [
+      0.76,
+      0.786
+     ]
+    },
+    "Zambia": {
+     "content": 0.7557,
+     "year": 2023,
+     "gross_t": 1479,
+     "range_2022_2025": [
+      0.7557,
+      0.7557
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.7613,
+    "gross_t": 203031
+   },
+   "other_origins": [
+    0.7512,
+    0.7799
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720219": {
+   "metal": "manganese",
+   "threshold_t": 1000,
+   "origins": {
+    "Norway": {
+     "content": 0.8089,
+     "year": 2024,
+     "gross_t": 59793,
+     "range_2022_2025": [
+      0.8089,
+      0.8126
+     ]
+    },
+    "South Korea": {
+     "content": 0.8235,
+     "year": 2023,
+     "gross_t": 28794,
+     "range_2022_2025": [
+      0.8114,
+      0.8235
+     ]
+    },
+    "South Africa": {
+     "content": 0.8083,
+     "year": 2024,
+     "gross_t": 24741,
+     "range_2022_2025": [
+      0.796,
+      0.8083
+     ]
+    },
+    "India": {
+     "content": 0.7988,
+     "year": 2024,
+     "gross_t": 14046,
+     "range_2022_2025": [
+      0.7988,
+      0.8094
+     ]
+    },
+    "Mexico": {
+     "content": 0.7978,
+     "year": 2023,
+     "gross_t": 5304,
+     "range_2022_2025": [
+      0.7951,
+      0.7978
+     ]
+    },
+    "Malaysia": {
+     "content": 0.7377,
+     "year": 2023,
+     "gross_t": 2244,
+     "range_2022_2025": [
+      0.7377,
+      0.7377
+     ]
+    },
+    "Vietnam": {
+     "content": 0.8437,
+     "year": 2025,
+     "gross_t": 1676,
+     "range_2022_2025": [
+      0.8437,
+      0.8437
+     ]
+    },
+    "Japan": {
+     "content": 0.8064,
+     "year": 2024,
+     "gross_t": 1386,
+     "range_2022_2025": [
+      0.806,
+      0.8077
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.8082,
+    "gross_t": 101836
+   },
+   "other_origins": [
+    0.7377,
+    0.8437
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720230": {
+   "metal": "manganese",
+   "threshold_t": 1000,
+   "origins": {
+    "Georgia": {
+     "content": 0.6822,
+     "year": 2024,
+     "gross_t": 80030,
+     "range_2022_2025": [
+      0.6822,
+      0.7218
+     ]
+    },
+    "Malaysia": {
+     "content": 0.6748,
+     "year": 2024,
+     "gross_t": 71861,
+     "range_2022_2025": [
+      0.6552,
+      0.6748
+     ]
+    },
+    "Australia": {
+     "content": 0.6686,
+     "year": 2024,
+     "gross_t": 64777,
+     "range_2022_2025": [
+      0.6318,
+      0.6686
+     ]
+    },
+    "South Africa": {
+     "content": 0.649,
+     "year": 2024,
+     "gross_t": 50680,
+     "range_2022_2025": [
+      0.649,
+      0.6496
+     ]
+    },
+    "Mexico": {
+     "content": 0.6328,
+     "year": 2024,
+     "gross_t": 32286,
+     "range_2022_2025": [
+      0.6328,
+      0.6425
+     ]
+    },
+    "Norway": {
+     "content": 0.6444,
+     "year": 2024,
+     "gross_t": 20660,
+     "range_2022_2025": [
+      0.6226,
+      0.6444
+     ]
+    },
+    "India": {
+     "content": 0.7055,
+     "year": 2024,
+     "gross_t": 14002,
+     "range_2022_2025": [
+      0.5642,
+      0.7055
+     ]
+    },
+    "Angola": {
+     "content": 0.6581,
+     "year": 2025,
+     "gross_t": 5939,
+     "range_2022_2025": [
+      0.6581,
+      0.6581
+     ]
+    },
+    "Brazil": {
+     "content": 0.65,
+     "year": 2024,
+     "gross_t": 4400,
+     "range_2022_2025": [
+      0.65,
+      0.6519
+     ]
+    },
+    "France": {
+     "content": 0.6811,
+     "year": 2024,
+     "gross_t": 2221,
+     "range_2022_2025": [
+      0.6811,
+      0.6811
+     ]
+    },
+    "Spain": {
+     "content": 0.6561,
+     "year": 2025,
+     "gross_t": 1609,
+     "range_2022_2025": [
+      0.6507,
+      0.6561
+     ]
+    },
+    "Hong Kong": {
+     "content": 0.659,
+     "year": 2025,
+     "gross_t": 1350,
+     "range_2022_2025": [
+      0.659,
+      0.659
+     ]
+    },
+    "Zambia": {
+     "content": 0.6509,
+     "year": 2024,
+     "gross_t": 1297,
+     "range_2022_2025": [
+      0.6509,
+      0.6509
+     ]
+    },
+    "United Kingdom": {
+     "content": 0.65,
+     "year": 2022,
+     "gross_t": 1200,
+     "range_2022_2025": [
+      0.65,
+      0.65
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.6666,
+    "gross_t": 343636
+   },
+   "other_origins": [
+    0.6328,
+    0.7055
+   ],
+   "dropped_as_anomalies": {
+    "Russia": 0.1836
+   }
+  },
+  "720260": {
+   "metal": "nickel",
+   "threshold_t": 1000,
+   "origins": {
+    "Brazil": {
+     "content": 0.2551,
+     "year": 2024,
+     "gross_t": 34480,
+     "range_2022_2025": [
+      0.2551,
+      0.2891
+     ]
+    },
+    "New Caledonia": {
+     "content": 0.2056,
+     "year": 2024,
+     "gross_t": 10809,
+     "range_2022_2025": [
+      0.2056,
+      0.267
+     ]
+    },
+    "South Korea": {
+     "content": 0.26,
+     "year": 2022,
+     "gross_t": 6410,
+     "range_2022_2025": [
+      0.26,
+      0.26
+     ]
+    },
+    "Colombia": {
+     "content": 0.3137,
+     "year": 2024,
+     "gross_t": 4702,
+     "range_2022_2025": [
+      0.2618,
+      0.3195
+     ]
+    },
+    "North Macedonia": {
+     "content": 0.2188,
+     "year": 2022,
+     "gross_t": 4013,
+     "range_2022_2025": [
+      0.2188,
+      0.2188
+     ]
+    },
+    "Guatemala": {
+     "content": 0.4039,
+     "year": 2022,
+     "gross_t": 3788,
+     "range_2022_2025": [
+      0.4039,
+      0.4039
+     ]
+    },
+    "Dominican Rep.": {
+     "content": 0.3648,
+     "year": 2022,
+     "gross_t": 3013,
+     "range_2022_2025": [
+      0.3648,
+      0.3648
+     ]
+    },
+    "France": {
+     "content": 0.2357,
+     "year": 2022,
+     "gross_t": 2122,
+     "range_2022_2025": [
+      0.2357,
+      0.2357
+     ]
+    },
+    "Indonesia": {
+     "content": 0.1459,
+     "year": 2024,
+     "gross_t": 11101000,
+     "range": [
+      0.122,
+      0.1459
+     ],
+     "basis": "USGS production estimates for Indonesia, 2024: nickel pig iron 11,000,000 t gross with 1,600,000 t of nickel, and ferronickel 101,000 t gross with 20,103 t of nickel. Both nickel pig iron figures are USGS estimates. The low end, 12.2%, is the nickel grade one producer reports for its own nickel pig iron in 2024. Not measured on trade: the United States imports none."
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.25,
+    "gross_t": 50060
+   },
+   "other_origins": [
+    0.2056,
+    0.4039
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720270": {
+   "metal": "molybdenum",
+   "threshold_t": 500,
+   "origins": {
+    "Chile": {
+     "content": 0.6851,
+     "year": 2024,
+     "gross_t": 5388,
+     "range_2022_2025": [
+      0.6767,
+      0.6934
+     ]
+    },
+    "South Korea": {
+     "content": 0.6509,
+     "year": 2024,
+     "gross_t": 2123,
+     "range_2022_2025": [
+      0.6509,
+      0.6672
+     ]
+    },
+    "United Kingdom": {
+     "content": 0.6559,
+     "year": 2024,
+     "gross_t": 533,
+     "range_2022_2025": [
+      0.6559,
+      0.6559
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.6742,
+    "gross_t": 8076
+   },
+   "other_origins": [
+    0.6509,
+    0.6851
+   ],
+   "dropped_as_anomalies": {}
+  },
+  "720292": {
+   "metal": "vanadium",
+   "threshold_t": 500,
+   "origins": {
+    "Canada": {
+     "content": 0.775,
+     "year": 2024,
+     "gross_t": 1510,
+     "range_2022_2025": [
+      0.775,
+      0.8016
+     ]
+    },
+    "Austria": {
+     "content": 0.7939,
+     "year": 2024,
+     "gross_t": 658,
+     "range_2022_2025": [
+      0.7939,
+      0.8018
+     ]
+    }
+   },
+   "all_us_imports_2024": {
+    "content": 0.7483,
+    "gross_t": 2436
+   },
+   "other_origins": [
+    0.45,
+    0.8
+   ],
+   "dropped_as_anomalies": {},
+   "other_origins_basis": "USGS Minerals Yearbook 2023, Vanadium: \"FeV was available as alloys containing either 45%-to-50% or 80% vanadium.\""
+  },
+  "720293": {
+   "metal": "niobium",
+   "origins": {},
+   "other_origins": [
+    0.65,
+    0.65
+   ],
+   "other_origins_basis": "USGS: \"Contained weight calculated assuming 65% contained Nb\" (Minerals Yearbook 2022, Ferroalloys, table 7, footnote 2). An assumption, not a measurement; US customs records no content for ferroniobium. USGS Professional Paper 1802-M gives the range: ferroniobium \"contains 60 to 70 percent niobium\".",
+   "documented_range": [
+    0.6,
+    0.7
+   ]
+  }
+ },
+ "manganese_ore_grade_2023": {
+  "note": "Manganese content of ore produced, by country: USGS world table, manganese content divided by gross weight. Other origins take the world figure.",
+  "origins": {
+   "Australia": 0.4124,
+   "Brazil": 0.3625,
+   "China": 0.1143,
+   "Côte d'Ivoire": 0.4002,
+   "Egypt": 0.3333,
+   "Gabon": 0.4504,
+   "Georgia": 0.3806,
+   "Ghana": 0.2725,
+   "Guyana": 0.381,
+   "India": 0.2502,
+   "Indonesia": 0.3415,
+   "Iran": 0.2694,
+   "Kazakhstan": 0.3333,
+   "Malaysia": 0.2701,
+   "Mexico": 0.3944,
+   "Morocco": 0.4419,
+   "Myanmar": 0.2991,
+   "Namibia": 0.3333,
+   "Nigeria": 0.3684,
+   "Oman": 0.2667,
+   "Romania": 0.25,
+   "South Africa": 0.3826,
+   "Thailand": 0.3333,
+   "Turkey": 0.3529,
+   "Ukraine": 0.351,
+   "Vietnam": 0.4304,
+   "World": 0.3476,
+   "Zambia": 0.4386
+  },
+  "world": 0.3476,
+  "source": "usgs_manganese"
+ },
+ "ferrochromium_grades_icda": {
+  "charge_chrome": [
+   0.45,
+   0.56
+  ],
+  "high_carbon": [
+   0.6,
+   0.7
+  ],
+  "quote": "Charge chrome typically contains 45-56% of chromium and 3-7% of silicon While HC FeCr typically contains 60-70% in chromium content and 1-3% silicon",
+  "source": "icda_ferrochrome"
+ },
+ "chromium_ore": {
+  "note": "Not converted. USGS gives only grade bands for chromite, and the content implied by US import records for South African ore is not credible."
+ }
+}

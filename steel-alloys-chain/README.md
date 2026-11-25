@@ -9,7 +9,8 @@ Run `python steel-alloys-chain/record_steel.py` from the repository root. The bu
 - `evidence_inputs.json`: USGS tables and quotations, company and association figures, as transcribed and checked on 25 November 2026, with source links;
 - `article.html.in`: the page text;
 - `out/steel_exposure.json`: trade by weight and each market's suppliers, written by `extract_exposure.py` from the local BACI extract;
-- `out/steel_trade.json`: trade by value, written by `extract_baci.py`.
+- `out/steel_trade.json`: trade by value, written by `extract_baci.py`;
+- `content_inputs.json`: metal content of each alloy by origin, from US import records and USGS tables.
 
 It writes the page and `out/steel_chain.json` (inputs, results and the chokepoint-map entry).
 
@@ -20,6 +21,7 @@ It writes the page and `out/steel_chain.json` (inputs, results and the chokepoin
 - A market's share from the leading world exporter = that exporter's tonnage in the market's imports divided by the market's total imports. The EU is the 27 member states as one market; trade between them is left out.
 - China's 2023 ferrochromium share divides the USGS country figure by the USGS world total. The 2025 figure sums the regional figures of the industry association, which prints no total.
 - Grams of niobium per tonne of steel = per cent by weight times 10,000.
+- Contained metal = tonnage by origin and six-digit code times that origin's content. Where an origin has no figure, the low and high cases use the lowest and highest measured contents for the code. A leading exporter's share of contained metal is given as a range: its low case against the others' high case, and the reverse.
 
 The builder stops if country rows do not add to the world totals, or if any sentence that states a result in
 words no longer matches the data.

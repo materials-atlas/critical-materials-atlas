@@ -58,6 +58,31 @@ the ferrovanadium sentence now names the three leading exporters; three table ce
 exporter"; the re-export note was added; the niobium paragraph states its units and the third producer; contrary
 chromium figures were added; and the coal sentence gives the Australian table's different ranking.
 
+## Contained metal · added 25 November 2026
+
+The conversion of alloy tonnage to metal content, listed as not done at the first review, was added.
+
+- Source of content by origin: US Census Bureau import records, which give gross weight and contained metal for each
+  ten-digit tariff line and country. `content_inputs.json` holds contained weight divided by gross weight for each
+  six-digit code and origin, for 2024 where the flow was at least 1,000 tonnes (500 for ferrovanadium and
+  ferromolybdenum), otherwise the latest such year from 2022 to 2025. One record more than 15 points from the middle
+  value for its code (Russia, ferrosilicomanganese, 2022) is left out as a reporting anomaly.
+- Applied to: BACI 2024 exports by origin and six-digit code (`out/steel_exposure.json`, block `exporters_by_code`).
+  An origin without a measurement takes the lowest and highest measured contents for the code, which gives the ranges.
+- Not customs measurements: Indonesian ferronickel (USGS production estimates, 14.6%; one producer's reported grade of
+  12.2% as the low end), ferroniobium (the USGS assumption of 65%), ferrovanadium from unmeasured origins (the two grades
+  USGS describes, 45% to 80%), manganese ore (USGS manganese content of production by country, 2023).
+- Result stated: South Africa 53% of ferrochromium tonnage and 46% to 47% of the chromium; Kazakhstan 22% and 27%;
+  Indonesia 93% of ferronickel tonnage and 85% to 89% of the nickel. Other leading shares move by under three points.
+- Limits: the grade an origin ships to the United States is assumed for all its exports, and the US sample is small
+  (about 4% of South Africa's ferrochromium exports, under 3% of Kazakhstan's). The two measured ferrochromium contents
+  agree with the industry association's ranges for charge chrome and high-carbon ferrochromium. For ferronickel, US import
+  grades differ from an origin's production average. Chromium ore is not converted. For manganese ore the comparison with
+  mining is rough: at USGS grades South Africa's recorded exports carry more manganese than its USGS mine output.
+- A second reading against the import records, same day, reproduced every input and table cell. It found a country-name
+  mismatch (Myanmar and Burma) that changed four figures by up to one point, and several sentences that claimed more
+  than the records give; all were corrected before publication.
+
 ## Not found or not opened
 
 - OECD, Annual market and policy report on steelmaking raw materials, 2025 edition: the document would not open. A
@@ -71,6 +96,6 @@ chromium figures were added; and the coal sentence gives the Australian table's 
 
 ## Not done
 
-- No metal-content conversion of ferroalloy tonnage.
+- No metal-content conversion of chromium ore.
 - No estimate of the effect of an interruption, and no substitution model.
 - No expert review.
