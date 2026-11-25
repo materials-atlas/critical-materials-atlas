@@ -111,3 +111,15 @@ footer.siteftr .fineprint{grid-column:1/-1;border-top:1px solid rgba(255,255,255
 .hero [style*="color:#fff"],.hero [style*="color: #fff"],.hero [style*="color:white"]{color:var(--navy)!important}
 .hero a[style*="color:#fff"],.hero a[style*="color: #fff"],.hero a[style*="color:white"]{color:var(--accent)!important}
 @media(max-width:760px){ main{overflow-wrap:anywhere} .bgrid{grid-template-columns:1fr!important} .grid2{grid-template-columns:1fr!important} .preview{flex-wrap:wrap} #fby{display:flex;flex-wrap:wrap;gap:.5rem} }
+
+/* ---- Calm pass, 25 Nov 2026 (review: the homepage reads calm, the other pages did not).
+   Same look as the homepage: quiet labels, no coloured boxes, one ink colour for figures, no shadows.
+   !important only where ~20 pages restate these rules in their own <style>. ---- */
+.hero .eyebrow,.eyebrow{font-size:.85rem!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;color:var(--mut)!important}
+.callout,.callout.hot{background:transparent!important;border:0!important;border-left:2px solid var(--line-strong)!important;border-radius:0!important;padding:.15rem 0 .15rem 1rem!important}
+.callout b,.callout strong{font-weight:600;color:inherit}
+.card,.card:hover{box-shadow:none!important}
+.card{border-radius:6px}
+.card .cg b{color:inherit}
+.stat .n,.stat .n *{color:var(--navy)!important}
+main b,main strong{font-weight:600}

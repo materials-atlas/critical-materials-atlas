@@ -332,7 +332,7 @@ function card(r){
     <div class="hhibar" title="export concentration (HHI) before → after removing the leader">
       <span class="track"><span class="b4" style="width:${Math.min(100,r.hhi_before/HHIMAX*100)}%"></span><span class="af" style="width:${Math.min(100,r.hhi_after/HHIMAX*100)}%;background:${af}"></span></span>
     </div>
-    <div class="met" style="margin-top:-2px">HHI <b>${r.hhi_before.toFixed(2)}</b> → <b style="color:${af}">${r.hhi_after.toFixed(2)}</b> ${worse?'⚠ worse':''} · new leader ${flag(r.new_leader)}${r.new_leader_name}</div>
+    <div class="met" style="margin-top:-2px">HHI <b>${r.hhi_before.toFixed(2)}</b> → <b style="color:${af}">${r.hhi_after.toFixed(2)}</b> ${worse?'(worse)':''} · new leader ${flag(r.new_leader)}${r.new_leader_name}</div>
     <div><div class="lbl">Coverage if survivors scale up</div>${cov}</div>
     ${strand?`<div class="stranded"><b>Most stranded:</b> ${strand}</div>`:''}
     <div class="verdict ${r.kind}">${r.verdict}</div>

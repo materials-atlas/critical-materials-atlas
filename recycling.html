@@ -128,9 +128,9 @@ Promise.all([fetch('out/recycling.json').then(r=>r.json()),
   const byName={}; S.rows.forEach(r=>byName[r.title]=r);
   function cardList(names){return names.map(n=>{const r=byName[n]||{};return '<div style="margin:.4rem 0"><span class="mm">'+n+'</span><div class="why">'+(r.dissipation_note||'')+'</div></div>';}).join('');}
   document.getElementById('split').innerHTML=
-    '<div class="card perm"><h4>⛔ Trapped forever &mdash; dissipated ('+S.trapped_permanent.length+')</h4>'+cardList(S.trapped_permanent)+
+    '<div class="card perm"><h4>Lost in use, dissipated ('+S.trapped_permanent.length+')</h4>'+cardList(S.trapped_permanent)+
       '<div class="fix"><b>Lever:</b> none on the supply side &mdash; only <i>design out</i> the dissipative use, or substitute. Recycling policy cannot help.</div></div>'+
-    '<div class="card rec"><h4>🔓 Trapped for now &mdash; recoverable ('+S.trapped_recoverable.length+')</h4>'+cardList(S.trapped_recoverable)+
+    '<div class="card rec"><h4>Not yet recovered, recoverable ('+S.trapped_recoverable.length+')</h4>'+cardList(S.trapped_recoverable)+
       '<div class="fix"><b>Lever:</b> collection + recovery from manufacturing scrap and end-products. The metal is there &mdash; the barrier is economics and infrastructure, not physics.</div></div>';
 });
 </script>

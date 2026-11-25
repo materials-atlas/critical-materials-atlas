@@ -29,4 +29,23 @@ def add(html):
     """Put the calm banner at the end of <head>, once; an older copy is replaced."""
     import re
     html = re.sub(r'<style id="calm-hero">.*?</style>', '', html, flags=re.S)
-    return html.replace('</head>', CALM_HERO + '</head>', 1)
+    return add_calm(html.replace('</head>', CALM_HERO + '</head>', 1))
+
+
+# The calm pass (25 Nov 2026), for the pages that do not load assets/site.css. Same rules as the
+# "Calm pass" block at the end of assets/site.css; keep the two in step.
+CALM_PASS = ('<style id="calm-pass">'
+  '.eyebrow,.hero .eyebrow{font-size:.85rem!important;font-weight:500!important;letter-spacing:0!important;'
+  'text-transform:none!important;color:#667179!important}'
+  '.callout,.callout.hot,.intro{background:transparent!important;border:0!important;'
+  'border-left:2px solid #ccd5d3!important;border-radius:0!important;padding:.15rem 0 .15rem 1rem!important}'
+  '.card,.card:hover{box-shadow:none!important}'
+  'main b,main strong,article b,article strong{font-weight:600}'
+  '</style>')
+
+
+def add_calm(html):
+    """The calm pass at the end of <head>, once; an older copy is replaced."""
+    import re
+    html = re.sub(r'<style id="calm-pass">.*?</style>', '', html, flags=re.S)
+    return html.replace('</head>', CALM_PASS + '</head>', 1)

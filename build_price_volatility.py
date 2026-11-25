@@ -697,7 +697,7 @@ Promise.all([fetch('out/price_volatility.json').then(r=>r.json()),
   const tb=document.querySelector('#tab tbody');
   S.wide_rows.forEach(r=>{
     const tr=document.createElement('tr');
-    tr.innerHTML='<td><b>'+r.usgs+'</b>'+(r.contested?' <span title="primary/by-product class genuinely argued over" style="color:#b07a18">⚠</span>':'')+'</td>'+
+    tr.innerHTML='<td><b>'+r.usgs+'</b>'+(r.contested?' <span class="note" title="whether it is a primary metal or a by-product is disputed">(disputed)</span>':'')+'</td>'+
       '<td style="color:'+(r.byproduct?'#c0392b':'#0e7c74')+';font-weight:600">'+(r.byproduct?'by-product':'primary')+'</td>'+
       '<td class="n">'+r.volatility+'</td>'+
       '<td class="n">'+(r.production_t?Math.round(r.production_t).toLocaleString():'—')+'</td>'+

@@ -297,7 +297,7 @@ HTML = r'''<!doctype html>
   <div id="scale"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Every material — tonnes, and the three sources side by side</h2>
-  <p class="muted" style="margin-top:0">Top producer as each compilation counts it. <span class="ok">✓ all three</span> = USGS, World Mining Data and BGS name the same leader; <span class="no">✗ split</span> = they don&rsquo;t (the disagreement is the interesting row).</p>
+  <p class="muted" style="margin-top:0">Top producer as each compilation counts it. <span class="ok">All three agree</span> = USGS, World Mining Data and BGS name the same leader; <span class="no">Split</span> = they don&rsquo;t (the disagreement is the interesting row).</p>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th class="n">world 2024 (t)</th><th>USGS top</th><th>World Mining Data top</th><th>BGS top <span style="font-weight:500;color:var(--mut)">(of reporters)</span></th><th>sources agree?</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">What this changes for the atlas</h2>
@@ -355,8 +355,8 @@ Promise.all([fetch('out/production.json').then(r=>r.json()),
   const cell=(name,share,yr)=> name? name+' <span class="muted">'+(share!=null?share+'%':'')+(yr&&yr!=2024?" '"+String(yr).slice(2):'')+'</span>' : '<span class="muted">—</span>';
   S.rows.forEach(r=>{
     let agree;
-    if(r.bgs_top_iso){ agree=r.all_three_agree?'<span class="ok">✓ all three</span>':'<span class="no">✗ split</span>'; }
-    else { agree=r.same_top_producer?'<span class="ok">✓ two</span> <span class="muted">(no BGS)</span>':'<span class="no">✗ split</span>'; }
+    if(r.bgs_top_iso){ agree=r.all_three_agree?'<span class="ok">All three agree</span>':'<span class="no">Split</span>'; }
+    else { agree=r.same_top_producer?'<span class="ok">Two agree</span> <span class="muted">(no BGS)</span>':'<span class="no">Split</span>'; }
     const tr=document.createElement('tr');
     tr.innerHTML='<td><b>'+r.title+'</b></td><td class="n">'+f(r.world_tonnes)+'</td>'+
       '<td>'+cell(r.usgs_top_name,r.usgs_top_share)+'</td>'+

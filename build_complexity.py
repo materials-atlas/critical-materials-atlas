@@ -18,6 +18,7 @@ this is the TRADE stage; mine share is shown alongside for contrast. Public data
 
 Writes out/complexity.json + complexity.html.  Run:  python build_complexity.py
 """
+from shared_code import MARK as SHARED_MARK
 import json, os, html
 import numpy as np
 
@@ -104,7 +105,7 @@ for r in mat_rows:
     nb = ', '.join(f'{t} <span style="color:#9aa6ad">{p:.2f}</span>' for p, t in r['related']) or '—'
     ucol = '#c0392b' if r['ubiquity'] <= 8 else '#b35e16' if r['ubiquity'] <= 16 else '#3f9b46'
     mr.append(
-        f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
+        f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{SHARED_MARK if r["shared"] else ""}</td>'
         f'<td class="n" style="font-weight:700;color:{ucol}" title="number of countries with revealed comparative advantage (RCA>=1) in exporting it">{r["ubiquity"]}</td>'
         f'<td>{flag(r["mine_top"])} {e(cname(r["mine_top"])) if r["mine_top"] else "—"}</td>'
         f'<td style="font-size:.86rem">{nb}</td></tr>')

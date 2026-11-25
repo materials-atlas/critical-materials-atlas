@@ -192,7 +192,7 @@ const _physOrder=D.ranking.map(r=>r.label).concat(Object.keys(D.physical).filter
 for(const lab of _physOrder){
   const rk={label:lab}; const p=D.physical[lab]; if(!p) continue;
   const card=document.createElement('div'); card.className='pcard';
-  let h=`<h3>${p.name}<span class="pl">⛏ ${flag(p.mine_leader).trim()} · ⚗ ${flag(p.refine_leader).trim()}</span></h3>`;
+  let h=`<h3>${p.name}<span class="pl">mine ${flag(p.mine_leader).trim()} · refinery ${flag(p.refine_leader).trim()}</span></h3>`;
   for(const r of p.rows){
     h+=`<div class="prow"><span class="pw" title="${r.iso}">${flag(r.iso).trim()}</span>`+
        `<span class="pbars"><span class="pbar pmine" title="mine ${r.mine}%"><i style="width:${Math.min(100,r.mine)}%"></i></span>`+
@@ -285,8 +285,8 @@ if(rt&&D.rob.rows){
   rt.innerHTML='<tr style="text-align:left;border-bottom:1px solid var(--line)"><th>Refined code</th><th>BACI (CEPII)</th><th>raw Comtrade</th><th>Harvard (B-Y)</th></tr>'+
     D.rob.rows.map(r=>`<tr style="border-bottom:1px solid var(--bg-soft)"><td>${r.code}</td>`+
       `<td><b>${r.baci_top}</b> ${r.baci_share}%</td>`+
-      `<td>${r.comtrade_top?flag(r.comtrade_top).trim()+' '+r.comtrade_share+'%'+(r.comtrade_match?'':' ⚠'):'—'}</td>`+
-      `<td>${r.harvard_top?flag(r.harvard_top).trim()+' '+r.harvard_share+'%'+(r.recon_match?'':' ⚠'):'—'}</td></tr>`).join('');
+      `<td>${r.comtrade_top?flag(r.comtrade_top).trim()+' '+r.comtrade_share+'%'+(r.comtrade_match?'':' (differs)'):'—'}</td>`+
+      `<td>${r.harvard_top?flag(r.harvard_top).trim()+' '+r.harvard_share+'%'+(r.recon_match?'':' (differs)'):'—'}</td></tr>`).join('');
 }
 const pcol={'clean':'#0b6f66','refined':'#6b7681','shared':'#b4291f','by-product':'#a5641a','mine':'#6b7681'};
 function pc(f){for(const k in pcol) if(f.startsWith(k)) return pcol[k]; return '#6b7681';}

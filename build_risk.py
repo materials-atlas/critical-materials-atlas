@@ -13,6 +13,7 @@ always shown next to the score so a reader can audit (or reweight) it.
 
 Writes out/risk.json (consumed by the atlas + profiles) and risk.html (the league table).
 """
+from shared_code import MARK as SHARED_MARK
 import json, os, html
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -139,7 +140,7 @@ def main():
                      if rk else f'<td class="n" style="color:#9aa6ad">{i}</td>')
         body.append(
             f'<tr>{rank_cell}'
-            f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
+            f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{SHARED_MARK if r["shared"] else ""}</td>'
             f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc_disp}</td>'
             f'{rcell}{scell}'
             f'<td style="width:34%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')

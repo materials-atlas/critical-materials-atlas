@@ -355,7 +355,7 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
   }).join('');
   // per-axis probability heatmap
   const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
-  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/^Can.t /,'✗ ').replace(/ \(.*\)/,'')+'</th>').join('')+'<th>P(hard)</th></tr>';
+  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/ \(.*\)/,'')+'</th>').join('')+'<th>P(hard)</th></tr>';
   S.rows.filter(r=>r.e_count>=1.5).forEach(r=>{
     const cells=AX.map(a=>{
       const p=r.p_axis[a.key];

@@ -24,6 +24,7 @@ low-governance jurisdictions, which fall). Public data; deterministic.
 
 Writes out/criticality.json + criticality.html.  Run:  python build_criticality.py  (needs out/wgi.json)
 """
+from shared_code import MARK as SHARED_MARK
 import json, os, html
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -153,7 +154,7 @@ for i, r in enumerate(rows, 1):
     ours = f'{r["ours"]}' if r['ours'] is not None else '—'
     mr.append(
         f'<tr><td class="n" style="color:#9aa6ad">{i}</td>'
-        f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
+        f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{SHARED_MARK if r["shared"] else ""}</td>'
         f'<td class="n" style="font-weight:800;color:#15323a">{r["eu_score"]:.0f}</td>'
         f'<td class="n">{r["graedel"]:.0f}</td>'
         f'<td class="n" style="color:#9aa6ad">{ours}</td>'

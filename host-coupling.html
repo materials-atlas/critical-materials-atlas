@@ -103,7 +103,7 @@ fetch('out/host_coupling.json').then(r=>r.json()).then(S=>{
     const pw=Math.abs(r.best_partial)*50, pl=r.best_partial>=0?50:50-pw;
     const rw=Math.abs(r.best_raw)*50, rl=r.best_raw>=0?50:50-rw;
     const col=r.host_specific?'#0e7c74':'#c9d2d0';
-    return '<div class="cbar"><div class="nm">'+(r.atlas_material?'★ ':'')+r.title+'</div>'+
+    return '<div class="cbar"><div class="nm">'+r.title+'</div>'+
       '<div class="track"><div class="zero"></div>'+
       '<div class="fill" style="left:'+rl+'%;width:'+rw+'%;background:#dde5e3" title="raw r='+r.best_raw+' (mostly the macro cycle)"></div>'+
       '<div class="fill" style="left:'+pl+'%;width:'+pw+'%;background:'+col+';opacity:.95" title="partial r='+r.best_partial+'"></div></div>'+
@@ -115,7 +115,7 @@ fetch('out/host_coupling.json').then(r=>r.json()).then(S=>{
   S.rows.forEach(r=>{
     const v=r.host_specific?'<b style="color:#0e7c74">host link survives the control</b>':'not distinguishable from zero';
     const tr=document.createElement('tr');
-    tr.innerHTML='<td><b>'+(r.atlas_material?'★ ':'')+r.title+'</b></td><td class="muted">'+r.best_host+'</td>'+
+    tr.innerHTML='<td><b>'+r.title+'</b></td><td class="muted">'+r.best_host+'</td>'+
       '<td class="n nsig">'+r.best_raw.toFixed(2)+'</td>'+
       '<td class="n"><span class="'+(r.host_specific?'sig':'nsig')+'">'+r.best_partial.toFixed(2)+'</span></td>'+
       '<td class="n muted" style="font-size:.78rem">'+r.ci_lo.toFixed(2)+' … '+r.ci_hi.toFixed(2)+'</td>'+
@@ -128,7 +128,7 @@ fetch('out/host_coupling.json').then(r=>r.json()).then(S=>{
   S.quantity_test.forEach(q=>{
     const good=q.beta_host_output<0;
     const tr=document.createElement('tr');
-    tr.innerHTML='<td><b>'+(q.atlas_material?'★ ':'')+q.title+'</b></td><td class="muted">'+q.host+'</td>'+
+    tr.innerHTML='<td><b>'+q.title+'</b></td><td class="muted">'+q.host+'</td>'+
       '<td class="n"><span style="color:'+(good?'#0e7c74':'#c0392b')+'">'+f(q.beta_host_output)+'</span></td>'+
       '<td class="n"><span class="'+(q.p<0.05?'sig':'nsig')+'">'+q.p.toFixed(3)+'</span></td>'+
       '<td class="n muted">'+f(q.beta_cycle)+'</td>'+

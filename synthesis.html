@@ -80,7 +80,7 @@ fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
   document.getElementById('keyline').innerHTML='<b>The through-line:</b> the metals that fail on every axis &mdash; '+top+' &mdash; are exactly the ones the whole atlas kept surfacing: invisible to satellites, locked as by-products, gated by one country, unrecycled, and physically tiny. They are not &ldquo;critical&rdquo; because a list says so; they are critical because every independent escape route is closed at the same time.';
   // heatmap
   const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
-  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/^Can.t /,'✗ ').replace(/ \(.*\)/,'')+'</th>').join('')+'<th>fails</th></tr>';
+  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/ \(.*\)/,'')+'</th>').join('')+'<th>fails</th></tr>';
   S.rows.forEach(r=>{
     const cells=AX.map(a=>{
       const f=r.flags[a.key], det=r.detail[a.key];

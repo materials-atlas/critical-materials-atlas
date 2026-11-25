@@ -492,8 +492,8 @@ function showCountry(iso){
     const m=ch.miners[iso];
     const oreRCA=set.has(ch.ore_id), refRCA=set.has(ch.refined_id);
     if(!m && !oreRCA && !refRCA) continue;
-    rows+=`<tr><td>${ch.mat}</td><td class="r">${m?m.mine+'%':(oreRCA?'✓':'·')}</td>`+
-          `<td class="r">${m&&m.refine?m.refine+'%':(refRCA?'✓':'·')}</td>`+
+    rows+=`<tr><td>${ch.mat}</td><td class="r">${m?m.mine+'%':(oreRCA?'RCA&gt;1':'·')}</td>`+
+          `<td class="r">${m&&m.refine?m.refine+'%':(refRCA?'RCA&gt;1':'·')}</td>`+
           `<td class="r">${m?m.density.toFixed(2):'·'}</td></tr>`;
   }
   // per-country validation: did THIS country's density-near downstream products actually materialise 2002->2024?
@@ -566,5 +566,6 @@ function syncURL(){ const p=new URLSearchParams(); const m=msel.property("value"
   <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
 </div></footer></body></html>'''
 out = os.path.join(ROOT, 'product-space.html')
-open(out, 'w', encoding='utf-8').write(HTML.replace('D3_INLINE', D3JS).replace('DATA_PLACEHOLDER', DATA))
+from site_style import add_calm   # calm pass, 25 Nov 2026 (this page does not load assets/site.css)
+open(out, 'w', encoding='utf-8').write(add_calm(HTML.replace('D3_INLINE', D3JS).replace('DATA_PLACEHOLDER', DATA)))
 print('WROTE', out)

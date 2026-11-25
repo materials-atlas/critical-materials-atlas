@@ -28,7 +28,7 @@ if SHARED != {'gallium', 'germanium', 'hafnium'}:
                      'the three materials before building' % sorted(SHARED))
 
 CODE = '811292'
-NOTE = ('⛓ Gallium, germanium and hafnium are read from one customs code in the world trade file '
+NOTE = ('Gallium, germanium and hafnium are read from one customs code in the world trade file '
         '(HS 811292, which also holds unwrought indium, niobium, rhenium and vanadium). Their trade '
         'figures are the same basket, not three results.')
-MARK = ' <span title="trade read from a customs code shared by gallium, germanium and hafnium (HS 811292)" style="color:#b07a18">⛓</span>'
+MARK = ' <span class="note" title="trade read from a customs code shared by gallium, germanium and hafnium (HS 811292)">(shared code)</span>'

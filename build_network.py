@@ -24,6 +24,7 @@ and we report how far the network fragments when that one node is removed.
 
 Writes out/network.json + network.html.  Public data only; deterministic; reproducible.
 """
+from shared_code import MARK as SHARED_MARK
 import json, os, html, glob
 import networkx as nx
 
@@ -198,7 +199,7 @@ def main():
         same = cp['c'] == te['c']
         fragtxt = f'{cp["frag"]:.0f}%' if cp['frag'] is not None else '—'
         matrows.append(
-            f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
+            f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{SHARED_MARK if r["shared"] else ""}</td>'
             f'<td>{flag(te["c"])} {e(cname(te["c"]))} <span style="color:#9aa6ad">{te["share"]:.0f}%</span></td>'
             f'<td>{flag(cp["c"])} {e(cname(cp["c"]))} '
             f'<span style="color:#9aa6ad">{cp["exp_share"]:.0f}% exp · {cp["through"]:.0f}% through</span></td>'

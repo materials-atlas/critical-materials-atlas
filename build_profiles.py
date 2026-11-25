@@ -186,13 +186,13 @@ def bars(items, cls, n=12, source=None):
         if source == 'refined' and n_src < 3:
             # IEA only details refining for the 6 energy-transition minerals; for the rest the source
             # reports only the leading refiner, so the remainder is genuinely NOT published — say so.
-            rlabel = '🌍 Rest — not separately reported'
+            rlabel = 'Rest, not separately reported'
         elif source == 'refined':
             # we have a real multi-country breakdown (IEA / copper / bauxite); the remainder is a small tail
-            rlabel = '🌍 Other countries'
+            rlabel = 'Other countries'
         else:
             # USGS mine/reserve layers list the top producers; the remainder is not verified to be all small
-            rlabel = '🌍 Others (not detailed)'
+            rlabel = 'Others, not detailed'
         out.append(f'<div class="barrow"><span class="bc" style="color:var(--faint)">{rlabel}</span>'
                    f'<span class="bw"><span class="bf" style="width:{max(2,min(100,rest)):.0f}%;background:#39414b"></span></span>'
                    f'<span class="bv" style="color:var(--faint)">{rest:.0f}%</span></div>')
@@ -222,28 +222,28 @@ def layer_para(m, layer, nm):
                  if m.get('label') in MINED_SRC else 'USGS 2024 · 2023 production')
     src = {'reserves': 'USGS 2024 · reserves as of 2023',
            'mined': mined_src,
-           'refined': (tagify(e(m['refined_source'])) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
+           'refined': (tagify(e(m['refined_source'])) if m.get('refined_source') else 'leading refiner only; no fuller breakdown is published')}[layer]
 
     if layer == 'reserves':
-        b = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — the long-run ceiling on "
-             "supply, distinct from what is actually produced today.")
+        b = ("<b>Reserves</b> are the deposits known to exist and worth mining at current prices. They set the "
+             "long-run ceiling on supply, which is not the same as what is produced today.")
         if not reserves:
-            b += f" USGS does not publish country-level reserves for {nm} — typically because it is a by-product of another ore or is drawn from an effectively unlimited source (e.g. quartz, seawater), so a national reserve map does not apply."
+            b += f" USGS does not publish country-level reserves for {nm}. That is usual for a by-product of another ore, or for a material drawn from an almost unlimited source such as quartz or seawater."
         else:
             b += f" {Nm}'s reserves are {_conc(reserves)}: {_cc(reserves[0])} holds the most ({reserves[0]['v']}%)"
             b += f", ahead of {_cc(reserves[1])} ({reserves[1]['v']}%)" if len(reserves) > 1 else ""
             b += f" and {_cc(reserves[2])} ({reserves[2]['v']}%)." if len(reserves) > 2 else "."
             if rl:
-                fr = ('scarcity is not the binding constraint — access, capital and processing capacity are' if rl >= 40
-                      else 'the horizon is genuinely finite, so recycling and new discoveries will decide long-run supply' if rl < 25
-                      else 'there is only a moderate runway before fresh capacity must come online')
-                b += f" At today's extraction rate the known reserves would last roughly {rl} years, so {fr}."
+                fr = ('access, capital and processing capacity limit supply more than the size of the deposits' if rl >= 40
+                      else 'recycling and new discoveries will decide long-run supply' if rl < 25
+                      else 'new capacity has to come online within that time')
+                b += f" At today's extraction rate the known reserves would last about {rl} years, so {fr}."
             if mined and reserves[0]['c'] != mined[0]['c']:
-                b += (f" Tellingly, the country sitting on the most ore ({_cc(reserves[0])}) is not the one extracting it "
-                      f"({_cc(mined[0])}) — geology sets the ceiling, but capacity and policy decide who actually supplies the market.")
+                b += (f" The country with the most ore ({_cc(reserves[0])}) is not the one mining the most "
+                      f"({_cc(mined[0])}). Geology sets the ceiling; capacity and policy decide who supplies the market.")
     elif layer == 'mined':
-        b = ("<b>Mining</b> is where ore leaves the ground — the stage most people equate with &ldquo;the source&rdquo;, "
-             "though it is rarely where the supply risk actually concentrates.")
+        b = ("<b>Mining</b> is where ore leaves the ground. It is often taken to be the source, but supply risk is "
+             "often more concentrated at later stages.")
         if not mined:
             b += f" Mine-production shares are not separately reported for {nm}."
         else:
@@ -254,30 +254,30 @@ def layer_para(m, layer, nm):
                       "others) as Congolese coltan re-exported across the border, so DRC&rsquo;s true share is higher and part "
                       "of Rwanda&rsquo;s &ldquo;mine production&rdquo; is an origin artefact rather than a measured mine.")
             if mined[0]['v'] >= 50:
-                b += " That is effectively a single-country dependence — one government's policy or one region's disruption can move the entire upstream."
+                b += " One country supplies half or more of the ore, so its policy, or a disruption there, can move world supply."
             if reserves and mined[0]['c'] != reserves[0]['c']:
                 rs = _share(reserves, mined[0]['c'])
-                b += (f" It out-produces reserve-richer {_cc(reserves[0])}" + (f" while holding just {rs}% of reserves itself" if rs else "")
-                      + " — supply power at this stage is built on installed capacity, not geology.")
+                b += (f" It mines more than {_cc(reserves[0])}, which has larger reserves" + (f", while holding {rs}% of reserves itself" if rs else "")
+                      + ". At this stage, supply depends on installed capacity more than on geology.")
             if ec:
-                b += f" And the tap is politically live: {e(ec)}."
+                b += f" Export controls apply: {e(ec)}."
     else:  # refined
-        b = ("<b>Refining / processing</b> converts ore into the metal or compound buyers actually purchase; it concentrates "
-             "in fewer hands than mining and sits at the buyer's doorstep, which is why it is usually the true chokepoint.")
+        b = ("<b>Refining and processing</b> turn ore into the metal or compound that buyers purchase. This stage is "
+             "often more concentrated than mining.")
         if not refined:
-            b += f" A country-level processing breakdown is not publicly reported for {nm} — only the leading refiner is known, which itself signals how opaque this stage is."
+            b += f" A country breakdown of processing is not published for {nm}; only the leading refiner is known."
         else:
-            b += f" {_cc(refined[0])} processes {refined[0]['v']}% — {_conc(refined)}."
+            b += f" {_cc(refined[0])} processes {refined[0]['v']}%; processing is {_conc(refined)}."
             if mined and refined[0]['c'] != mined[0]['c']:
-                b += (f" So although {_cc(mined[0])} mines the most, {e(cname(refined[0]['c']))} controls processing: the dependency "
-                      "the mine map hides, and the reason import-origin statistics misread the real source.")
+                b += (f" {_cc(mined[0])} mines the most, but {e(cname(refined[0]['c']))} leads processing. A map of mines "
+                      "alone does not show this dependence.")
             elif mined and refined[0]['c'] == mined[0]['c']:
-                b += f" {e(cname(refined[0]['c']))} leads both mining and refining, so its grip is structural rather than a pure processing gate."
+                b += f" {e(cname(refined[0]['c']))} leads both mining and refining."
             if ec:
-                b += f" This leverage is not hypothetical — {e(ec)}."
+                b += f" Export controls apply: {e(ec)}."
             if rec is not None or sub or nir:
                 subw = 'scarce' if sub == 'high' else 'readily available' if sub == 'low' else 'only partial'
-                mit = f" On the buffers: {rec}% of supply is recovered from end-of-life recycling and substitutes are {subw}" if rec is not None else f" Substitutes are {subw}"
+                mit = f" {rec}% of supply comes from end-of-life recycling, and substitutes are {subw}" if rec is not None else f" Substitutes are {subw}"
                 mit += f", while the US imports {e(nir)} of what it consumes." if nir else "."
                 b += mit
     return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
@@ -415,10 +415,10 @@ def page(m):
         te_mine = mined.get(te, 0.0)
         tm = mi['c'] if mi else None
         if tm and te == tm:                       # exporter IS the lead miner — genuine concentration
-            deck = f'{e(cname(te))} leads both the mining and the export of {e(title.lower())} — a genuine, not an accounting, concentration.'
+            deck = f'{e(cname(te))} leads both the mining and the export of {e(title.lower())}.'
         elif tm and te_mine < 8:                   # refiner/hub: exports a lot, mines ~none
-            deck = (f'Exported mainly by {e(cname(te))} ({tes:.0f}% of world trade), which mines almost none of it — '
-                    f'the source is {e(cname(tm))} ({mi["v"]:.0f}% of mine output). The origin gap: +{gap:.0f} points.')
+            deck = (f'Exported mainly by {e(cname(te))} ({tes:.0f}% of world trade), which mines almost none of it. '
+                    f'The largest miner is {e(cname(tm))} ({mi["v"]:.0f}% of mine output). Gap: {gap:.0f} points.')
         elif tm:                                   # exporter is a real producer, just not the largest miner
             deck = (f'{e(cname(te))} leads exports of {e(title.lower())} ({tes:.0f}% of trade) and is itself a major miner '
                     f'({te_mine:.0f}% of output); the largest miner, {e(cname(tm))} ({mi["v"]:.0f}%), exports far less.')
@@ -428,14 +428,14 @@ def page(m):
         deck = (f'Where {e(title.lower())} is mined and refined. Its world trade is recorded under a customs code shared '
                 f'with other minor metals, so the trade figures on this page are for that basket, not for this material.')
     else:
-        deck = f'Where {e(title.lower())} is mined, refined, and traded — from public data.'
+        deck = f'Where {e(title.lower())} is mined, refined and traded, from public data.'
 
     # at-a-glance stats
     stats = []
     if RISK.get(label): stats.append((f'{RISK[label]["score"]}<span style="color:var(--faint);font-weight:600">/100</span>', 'supply-risk index'))
     if m.get('reserve_life'): stats.append((f'{m["reserve_life"]}<span style="color:var(--faint);font-weight:600"> yr</span>', 'reserve life (reserves ÷ mining)'))
-    if m.get('host'): stats.append(('<span style="color:#7a5cff">⚗ by-product</span>', f'of {m["host"]}'))      # _stat escapes it once
-    if m.get('export_control'): stats.append(('<span style="color:#e0703c">⚠ controlled</span>', e(m['export_control'])))
+    if m.get('host'): stats.append(('by-product', f'of {m["host"]}'))      # _stat escapes it once
+    if m.get('export_control'): stats.append(('export controls', e(m['export_control'])))
     if m.get('net_import_reliance'): stats.append((e(m['net_import_reliance']), 'US import reliance'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))
     if mi: stats.append((f'{flag(mi["c"])} {cname(mi["c"])}',
@@ -460,10 +460,10 @@ def page(m):
     host_callout = ''
     if m.get('host'):
         h = e(m['host'])
-        host_callout = (f'<div class="callout" style="border-color:#7a5cff55"><b>⚗ A by-product, not a primary metal.</b> '
-                        f'{e(title)} is not mined for its own sake — it is recovered as a by-product of <b>{h}</b>. '
-                        f'So its supply tracks the <b>{h}</b> market, not its own price: a shortage can’t quickly pull more '
-                        f'out of the ground, because miners dig for {h}, not for this. That inelastic supply is a core, often-missed supply-risk driver.</div>')
+        host_callout = (f'<div class="callout"><b>A by-product, not a primary metal.</b> '
+                        f'{e(title)} is not mined for its own sake. It is recovered as a by-product of {h}, so its supply follows '
+                        f'the {h} market rather than its own price. A shortage does little to raise output, because miners '
+                        f'decide how much {h} to extract, not how much of this.</div>')
 
     gap_callout = ''
     if og and mi and og[0] != mi['c'] and og[2] > 8:
@@ -473,13 +473,13 @@ def page(m):
             gap_callout = (f'<div class="callout hot"><b>The origin gap.</b> {e(title)} is exported mainly by '
                 f'<b>{flag(te)} {e(cname(te))}</b> ({tes:.0f}% of world trade) but mined mainly in '
                 f'<b>{flag(mi["c"])} {e(cname(mi["c"]))}</b> ({mi["v"]:.0f}%), while {e(cname(te))} mines almost none of it. '
-                f'Taken at face value, import-origin statistics point to {e(cname(te))} as the source; one layer upstream, '
-                f'the real dependence is on {e(cname(mi["c"]))}. Gap: <b>+{gap:.0f} points</b>.</div>')
+                f'Import statistics name {e(cname(te))} as the origin; the ore comes mainly from '
+                f'{e(cname(mi["c"]))}. Gap: {gap:.0f} points.</div>')
         else:
-            gap_callout = (f'<div class="callout"><b>Exporter ≠ largest miner.</b> {e(title)} is exported mainly by '
+            gap_callout = (f'<div class="callout"><b>The largest exporter is not the largest miner.</b> {e(title)} is exported mainly by '
                 f'<b>{flag(te)} {e(cname(te))}</b> ({tes:.0f}% of trade), which is itself a major miner ({te_mine:.0f}% of output). '
-                f'The largest miner, <b>{flag(mi["c"])} {e(cname(mi["c"]))}</b> ({mi["v"]:.0f}%), exports far less — so the trade '
-                f'ledger still overstates {e(cname(te))}\'s share of the underlying <i>source</i>. Gap: <b>+{gap:.0f} points</b>.</div>')
+                f'The largest miner, <b>{flag(mi["c"])} {e(cname(mi["c"]))}</b> ({mi["v"]:.0f}%), exports far less. Trade '
+                f'figures therefore overstate {e(cname(te))}\'s share of the ore itself. Gap: {gap:.0f} points.</div>')
 
     trend_block = ''
     te_t = og[0] if og else None
@@ -490,7 +490,7 @@ def page(m):
             trend_block = (f'<div class="callout"><b>{e(cname(te_t))}</b>’s share of world {e(title.lower())} exports, '
                 f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{series[0]:.0f}% {arrow} {series[-1]:.0f}%</b>{sparkline(series)}</div>')
 
-    shared_flag = ('<div class="callout" style="border-color:#c08a2b66"><b>⛓ Trade shown under HS 811292 — a shared code.</b> '
+    shared_flag = ('<div class="callout"><b>Trade shown under HS 811292, a shared code.</b> '
                    'In the world trade file, gallium, germanium and hafnium are all read from this one 6-digit line, which '
                    'also holds unwrought indium, niobium, rhenium and vanadium. The trade tables on this page are therefore '
                    '<b>the same on all three profiles and cannot be separated</b>: every seller, buyer and concentration '
@@ -545,7 +545,7 @@ def page(m):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} — Critical Materials Atlas</title>
 <meta name="description" content="{e(title)}: where it is mined, refined, traded and held in reserve. {e(deck)}">
-<meta property="og:title" content="{e(title)} — where it really comes from">
+<meta property="og:title" content="{e(title)}: where it is mined, refined and traded">
 <meta property="og:description" content="{e(deck)}">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -565,19 +565,19 @@ def page(m):
   {host_callout}
   {gap_callout}
   {trend_block}
-  <h2>The chain — from the ground to the buyer</h2>
-  <p class="note" style="margin-top:-.3rem">A critical material passes through distinct stages, and the country that leads each stage is often <i>different</i> — that gap is what this atlas exists to show. Each layer comes from a different public source with its own vintage, labelled below; shares are % of the world total.</p>
-  <h3>● Reserves — where it could come from</h3>
+  <h2>From the ground to the buyer</h2>
+  <p class="note" style="margin-top:-.3rem">A material passes through several stages, and a different country often leads each one. Each layer comes from a different public source with its own vintage, labelled below; shares are % of the world total.</p>
+  <h3>Reserves</h3>
   {layer_para(m, 'reserves', nm)}{layer_year_slider(m['label'], RESERVES_YEARS, 'res', bars(m.get('reserves'), 'res'))}
-  <h3>● Mined — where it is dug up today</h3>
+  <h3>Mining</h3>
   {layer_para(m, 'mined', nm)}{layer_year_slider(m['label'], MINED_YEARS, 'ore', bars(m.get('mined'), 'ore'))}
-  <h3>● Refined / processed — where it becomes usable metal</h3>
+  <h3>Refining and processing</h3>
   {layer_para(m, 'refined', nm)}{layer_year_slider(m['label'], REFINED_YEARS, 'ref', bars(m.get('refined'), 'ref', source='refined'))}
-  <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
-  <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
-  <h2>● Traded — who ships it</h2>
+  <h3>Recycling and substitutes (EU CRM)</h3>
+  <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (', a real secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else '. There is almost no end-of-life recycling to fall back on in a disruption.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (': few or no alternatives.' if m.get('substitutability')=='high' else (': good alternatives exist.' if m.get('substitutability')=='low' else ': partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
+  <h2>Trade</h2>
   {shared_flag}
-  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. Pick a year below — <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025 a nowcast, 2026 a directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
+  <p class="note" style="margin:.15rem 0 .5rem">Bilateral trade in the traded form, reconciled from UN Comtrade and CEPII BACI. Pick a year below: <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025 a nowcast, 2026 a directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
   {trade_block}
   {note_block}
   <div class="btnrow">
@@ -586,7 +586,7 @@ def page(m):
     <a class="btn ghost" href="methodology.html">Methodology</a>
   </div>
   <p class="note">Every figure on this page is computed from <a href="out/data.json">out/data.json</a> and
-  <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> by <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/build_profiles.py">build_profiles.py</a> — no hand-entered numbers.</p>
+  <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> by <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/build_profiles.py">build_profiles.py</a>, with no hand-entered numbers.</p>
 </article>
 {FOOTER}
 </body></html>'''
@@ -601,7 +601,7 @@ def index_page():
         gaptxt = ''
         gv = -1
         if label in SHARED_HS6:
-            gaptxt = 'trade read from a customs code shared by several minor metals ⛓'
+            gaptxt = 'trade read from a customs code shared by several minor metals'
         elif og and mi and og[0] != mi['c']:
             te, tes, gap, mined = og
             gv = gap
@@ -618,7 +618,7 @@ def index_page():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Material profiles — Critical Materials Atlas</title>
 <meta name="description" content="A profile for each of the critical raw materials: mined, refined, traded, reserves, and the origin gap.">
-<meta property="og:title" content="Critical material profiles — where each really comes from">
+<meta property="og:title" content="Critical material profiles: where each is mined, refined and traded">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -628,7 +628,7 @@ def index_page():
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Reference · {len(MATS)} materials tracked here</div>
   <h1>Material profiles</h1>
-  <p class="deck">One page per material — where it is mined, refined, traded and held in reserve, and how far its trade origin sits from its mine. Sorted by origin gap.</p>
+  <p class="deck">One page per material: where it is mined, refined, traded and held in reserve, and how far its trade origin sits from its mine. Sorted by origin gap.</p>
 </div></section>
 <article style="max-width:1100px">
   <p style="color:#667179"><a href="countries.html">Browse by country →</a></p>
@@ -727,7 +727,7 @@ def country_page(iso, rows):
             (f'<tr><td>{BASKET_LINKS}</td>' if r['basket'] else
              f'<tr><td><a href="profile-{e(m["label"])}.html">{e(strip(m["title"]))}</a></td>') +
             f'<td>{flag(r["top"])} {e(cname(r["top"]))}'
-            + (' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>' if ismine else '')
+            + (' <span class="note" title="this source is also the lead miner, a genuine origin">(also mines)</span>' if ismine else '')
             + f'</td><td class="n">{r["topshare"]:.0f}%</td>'
             f'<td class="n" style="color:{hcol};font-weight:600">{r["hhi"]:.2f}</td>'
             + ('<td class="n" style="color:#888">–</td>' if r['basket'] else
@@ -761,14 +761,14 @@ def country_page(iso, rows):
 </div></section>
 <section class="stats"><div class="wrap">{stat_html}</div></section>
 <article style="max-width:960px">
-  <div class="callout"><b>How to read this.</b> Each row is where {e(name)} <i>imports</i> a material from — the
-  immediate customs origin, sorted by single-supplier concentration. <b>⛏</b> marks a top source that is also
-  the material's lead miner (a genuine origin); without it, the supplier is a refiner or hub and the real
-  mine sits further upstream (open the material's profile to see where).</p></div>
+  <div class="callout"><b>How to read this.</b> Each row is where {e(name)} imports a material from: the
+  immediate customs origin, sorted by single-supplier concentration. “(also mines)” marks a top source that is also
+  the material's lead miner. Without it, the supplier is a refiner or a trading hub, and the
+  mine is further upstream (open the material's profile to see where).</p></div>
   <div class="callout"><b>Import-vulnerability index ({vuln}/100).</b> A value-weighted average, across {e(name)}’s
   imports, of each material’s <a href="risk.html">supply-risk index</a> &times; how concentrated {e(name)}’s
   own sourcing of it is. High when it buys intrinsically risky materials from a single supplier; lower when
-  it diversifies. The <b>risk</b> column below is the material’s own score — multiply it by the country’s
+  it diversifies. The risk column below is the material’s own score; multiply it by the country’s
   share to see where {e(name)} is most exposed.</div>
   {ctrend}
   <table>
@@ -811,7 +811,7 @@ def countries_index(items):
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Reference · by country</div>
   <h1>Dependency by country</h1>
-  <p class="deck">Where each major economy sources its critical materials — and how exposed it is. The <b>import-vulnerability index</b> (0–100) value-weights each material’s supply-risk by how concentrated the country’s sourcing of it is. Ranked most-exposed first.</p>
+  <p class="deck">Where each major economy sources its critical materials, and how exposed it is. The <b>import-vulnerability index</b> (0–100) value-weights each material’s supply-risk by how concentrated the country’s sourcing of it is. Ranked most-exposed first.</p>
 </div></section>
 <article style="max-width:1100px">
   <p style="color:#667179"><a href="profiles.html">← Browse by material instead</a></p>
