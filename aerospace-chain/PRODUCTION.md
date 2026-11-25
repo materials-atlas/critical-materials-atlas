@@ -63,3 +63,23 @@ Two locators fixed:
 
 - FAA Airworthiness Directive 2024-05-11 covers PW1100G and PW1400G engines only; other variants fall under separate directives.
 - The JetBlue text is under "Recent Developments: Pratt & Whitney" in the 10-Q, not an "Operational Update" section.
+
+## Follow-up on capacity and disruption, 25 November 2026
+
+The study and evidence reviewed here are pinned at [the prior release][reviewed-release]. The source check described above
+covered the country shares and capacity in JRC Figure 5 and the Annex 1 assumption for China. The follow-up recalculates
+both published HHIs and the monthly stock and supply balances, and checks the civil case statements against [Boeing],
+[JetBlue] and the [FAA directive]. Boeing's report is a company-level material sourcing case. JetBlue's grounding count is
+a reported operational outcome. Its shop-visit duration was an expectation. The FAA directive establishes the inspection
+and replacement requirements for the models it covers.
+
+The 2024 trade values and ratios can be checked against the published [BACI extract][old-trade]. Rebuilding the trade
+series and the all-exporter HHI would require the complete bilateral files. Approved supplier, stock and throughput data
+for particular engine programmes are still unavailable.
+
+| ID | Follow-up result | Scope |
+| --- | --- | --- |
+| A24 | **Modelled.** Apply access fractions to the displayed 2023 JRC aviation-grade shares. Halving each share leaves the country HHI at 3,014. Omitting two segments leaves 58% of the displayed capacity and raises the HHI to about 5,856. | Access fractions are hypothetical. The included capacity is an estimate based on rounded shares. The calculation gives no estimate of actual buyer access or programme qualification. [JRC] |
+| A25 | **Modelled.** In the original eight cases, shortening the delivery wait from nine to three months reduces unmet units by an average of 105. Raising replacement from 10 to 25 units per month reduces the unmet total by an average of 90. Adding 75 units of stock reduces it by 75. | Each average weights the four matched comparisons equally. The result compares the stated input changes. The model contains no probabilities, programme calibration or causal estimate for either historical case. |
+
+[reviewed-release]: https://github.com/materials-atlas/critical-materials-atlas/blob/ac6f0abb4eda3305332ea307b64f378b5a4dc43d/aerospace-chain/aerospace-chain.html

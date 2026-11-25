@@ -267,5 +267,274 @@
       "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
     }
+  },
+  "second_review": {
+    "date": "2026-11-25",
+    "reviewed_commit": "ac6f0abb4eda3305332ea307b64f378b5a4dc43d",
+    "kind": "Modelled",
+    "capacity_source": "JRC Figure 5, aviation-grade titanium sponge operating capacity, 2023",
+    "scope": "Illustrative weights on displayed country shares. No approval, spare capacity, or trade access is observed.",
+    "accessibility": [
+      {
+        "id": "all",
+        "case": "All displayed capacity",
+        "assumed_access_pct_by_country": {
+          "China": 100,
+          "Japan": 100,
+          "Russia": 100,
+          "Kazakhstan": 100
+        },
+        "share_of_capacity_included_pct": 100.0,
+        "capacity_included_kt_per_year": 157.0,
+        "included_country_shares_pct": {
+          "China": 12.0,
+          "Japan": 41.0,
+          "Russia": 30.0,
+          "Kazakhstan": 17.0
+        },
+        "country_hhi": 3014.0
+      },
+      {
+        "id": "half_all",
+        "case": "Half of each country's capacity included",
+        "assumed_access_pct_by_country": {
+          "China": 50,
+          "Japan": 50,
+          "Russia": 50,
+          "Kazakhstan": 50
+        },
+        "share_of_capacity_included_pct": 50.0,
+        "capacity_included_kt_per_year": 78.5,
+        "included_country_shares_pct": {
+          "China": 12.0,
+          "Japan": 41.0,
+          "Russia": 30.0,
+          "Kazakhstan": 17.0
+        },
+        "country_hhi": 3014.0
+      },
+      {
+        "id": "half_japan",
+        "case": "Half of Japan's capacity included",
+        "assumed_access_pct_by_country": {
+          "China": 100,
+          "Japan": 50,
+          "Russia": 100,
+          "Kazakhstan": 100
+        },
+        "share_of_capacity_included_pct": 79.5,
+        "capacity_included_kt_per_year": 124.815,
+        "included_country_shares_pct": {
+          "China": 15.0943,
+          "Japan": 25.7862,
+          "Russia": 37.7358,
+          "Kazakhstan": 21.3836
+        },
+        "country_hhi": 2774.02
+      },
+      {
+        "id": "no_china",
+        "case": "China segment omitted",
+        "assumed_access_pct_by_country": {
+          "China": 0,
+          "Japan": 100,
+          "Russia": 100,
+          "Kazakhstan": 100
+        },
+        "share_of_capacity_included_pct": 88.0,
+        "capacity_included_kt_per_year": 138.16,
+        "included_country_shares_pct": {
+          "China": 0.0,
+          "Japan": 46.5909,
+          "Russia": 34.0909,
+          "Kazakhstan": 19.3182
+        },
+        "country_hhi": 3706.1
+      },
+      {
+        "id": "no_russia",
+        "case": "Russia segment omitted",
+        "assumed_access_pct_by_country": {
+          "China": 100,
+          "Japan": 100,
+          "Russia": 0,
+          "Kazakhstan": 100
+        },
+        "share_of_capacity_included_pct": 70.0,
+        "capacity_included_kt_per_year": 109.9,
+        "included_country_shares_pct": {
+          "China": 17.1429,
+          "Japan": 58.5714,
+          "Russia": 0.0,
+          "Kazakhstan": 24.2857
+        },
+        "country_hhi": 4314.29
+      },
+      {
+        "id": "no_china_russia",
+        "case": "China and Russia segments omitted",
+        "assumed_access_pct_by_country": {
+          "China": 0,
+          "Japan": 100,
+          "Russia": 0,
+          "Kazakhstan": 100
+        },
+        "share_of_capacity_included_pct": 58.0,
+        "capacity_included_kt_per_year": 91.06,
+        "included_country_shares_pct": {
+          "China": 0.0,
+          "Japan": 70.6897,
+          "Russia": 0.0,
+          "Kazakhstan": 29.3103
+        },
+        "country_hhi": 5856.12
+      }
+    ],
+    "matched_effects": [
+      {
+        "factor": "months_before_deliveries",
+        "label": "Shorten the wait for alternatives",
+        "unit": "months",
+        "initial_setting": 9,
+        "changed_setting": 3,
+        "mean_reduction": 105,
+        "min_reduction": 60,
+        "max_reduction": 150,
+        "matches": [
+          {
+            "held_constant": {
+              "opening_stock": 0,
+              "replacement_units_per_month": 10
+            },
+            "unmet_initial": 270,
+            "unmet_after_change": 210,
+            "reduction": 60
+          },
+          {
+            "held_constant": {
+              "opening_stock": 0,
+              "replacement_units_per_month": 25
+            },
+            "unmet_initial": 225,
+            "unmet_after_change": 75,
+            "reduction": 150
+          },
+          {
+            "held_constant": {
+              "opening_stock": 75,
+              "replacement_units_per_month": 10
+            },
+            "unmet_initial": 195,
+            "unmet_after_change": 135,
+            "reduction": 60
+          },
+          {
+            "held_constant": {
+              "opening_stock": 75,
+              "replacement_units_per_month": 25
+            },
+            "unmet_initial": 150,
+            "unmet_after_change": 0,
+            "reduction": 150
+          }
+        ]
+      },
+      {
+        "factor": "replacement_units_per_month",
+        "label": "Raise the replacement rate",
+        "unit": "units per month",
+        "initial_setting": 10,
+        "changed_setting": 25,
+        "mean_reduction": 90,
+        "min_reduction": 45,
+        "max_reduction": 135,
+        "matches": [
+          {
+            "held_constant": {
+              "opening_stock": 0,
+              "months_before_deliveries": 3
+            },
+            "unmet_initial": 210,
+            "unmet_after_change": 75,
+            "reduction": 135
+          },
+          {
+            "held_constant": {
+              "opening_stock": 0,
+              "months_before_deliveries": 9
+            },
+            "unmet_initial": 270,
+            "unmet_after_change": 225,
+            "reduction": 45
+          },
+          {
+            "held_constant": {
+              "opening_stock": 75,
+              "months_before_deliveries": 3
+            },
+            "unmet_initial": 135,
+            "unmet_after_change": 0,
+            "reduction": 135
+          },
+          {
+            "held_constant": {
+              "opening_stock": 75,
+              "months_before_deliveries": 9
+            },
+            "unmet_initial": 195,
+            "unmet_after_change": 150,
+            "reduction": 45
+          }
+        ]
+      },
+      {
+        "factor": "opening_stock",
+        "label": "Add opening stock",
+        "unit": "units",
+        "initial_setting": 0,
+        "changed_setting": 75,
+        "mean_reduction": 75,
+        "min_reduction": 75,
+        "max_reduction": 75,
+        "matches": [
+          {
+            "held_constant": {
+              "months_before_deliveries": 3,
+              "replacement_units_per_month": 10
+            },
+            "unmet_initial": 210,
+            "unmet_after_change": 135,
+            "reduction": 75
+          },
+          {
+            "held_constant": {
+              "months_before_deliveries": 3,
+              "replacement_units_per_month": 25
+            },
+            "unmet_initial": 75,
+            "unmet_after_change": 0,
+            "reduction": 75
+          },
+          {
+            "held_constant": {
+              "months_before_deliveries": 9,
+              "replacement_units_per_month": 10
+            },
+            "unmet_initial": 270,
+            "unmet_after_change": 195,
+            "reduction": 75
+          },
+          {
+            "held_constant": {
+              "months_before_deliveries": 9,
+              "replacement_units_per_month": 25
+            },
+            "unmet_initial": 225,
+            "unmet_after_change": 150,
+            "reduction": 75
+          }
+        ]
+      }
+    ]
   }
 }

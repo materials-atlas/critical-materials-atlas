@@ -1,11 +1,13 @@
 """Build the public civil aero-engine research note from pinned estimates and BACI context."""
 from __future__ import annotations
 
+from collections import defaultdict
 import csv
 from html import escape
 from itertools import product
 import json
 from pathlib import Path
+from statistics import mean
 from string import Template
 
 HERE = Path(__file__).parent
@@ -99,6 +101,17 @@ SCENARIO_INPUTS = {
 }
 
 
+# These fractions are assumptions, not observations of access or approval.
+ACCESS_CASES = (
+    ("all", "All displayed capacity", 100, {}),
+    ("half_all", "Half of each country's capacity included", 50, {}),
+    ("half_japan", "Half of Japan's capacity included", 100, {"Japan": 50}),
+    ("no_china", "China segment omitted", 100, {"China": 0}),
+    ("no_russia", "Russia segment omitted", 100, {"Russia": 0}),
+    ("no_china_russia", "China and Russia segments omitted", 100, {"China": 0, "Russia": 0}),
+)
+
+
 def concentration(shares):
     ranked = sorted((share or 0 for share in shares), reverse=True)
     return {
@@ -168,6 +181,58 @@ def scenarios():
             "unmet_units": periods[-1]["cumulative_unmet"],
         })
     return results, paths
+
+
+def accessibility(capacity):
+    shares = {row["geography"]: row["aviation_grade"]
+              for row in capacity["shares_pct"] if row["aviation_grade"] is not None}
+    total_capacity = capacity["total_kt_per_year"]["aviation_grade"]
+    cases = []
+    for case_id, name, default, overrides in ACCESS_CASES:
+        weights = {country: overrides.get(country, default) for country in shares}
+        included = {country: share * weights[country] / 100 for country, share in shares.items()}
+        pool = sum(included.values())
+        accessible_shares = {country: quantity * 100 / pool
+                             for country, quantity in included.items()} if pool else {}
+        cases.append({
+            "id": case_id, "case": name, "assumed_access_pct_by_country": weights,
+            "share_of_capacity_included_pct": round(pool, 4),
+            "capacity_included_kt_per_year": round(total_capacity * pool / 100, 4),
+            "included_country_shares_pct": {country: round(share, 4)
+                                            for country, share in accessible_shares.items()},
+            "country_hhi": concentration(accessible_shares.values())["hhi"] if pool else None,
+        })
+    return cases
+
+
+def matched_effects(results):
+    stock = SCENARIO_INPUTS["opening_stock_options"]
+    wait = SCENARIO_INPUTS["months_before_deliveries_options"]
+    rate = SCENARIO_INPUTS["replacement_per_month_options"]
+    factors = (
+        ("opening_stock", "Add opening stock", "units", min(stock), max(stock)),
+        ("months_before_deliveries", "Shorten the wait for alternatives", "months", max(wait), min(wait)),
+        ("replacement_units_per_month", "Raise the replacement rate", "units per month", min(rate), max(rate)),
+    )
+    effects = []
+    for factor, label, unit, before, after in factors:
+        controls = tuple(key for key, *_ in factors if key != factor)
+        groups = defaultdict(dict)
+        for row in results:
+            groups[tuple(row[key] for key in controls)][row[factor]] = row["unmet_units"]
+        matches = [
+            {"held_constant": dict(zip(controls, key, strict=True)),
+             "unmet_initial": outcomes[before], "unmet_after_change": outcomes[after],
+             "reduction": outcomes[before] - outcomes[after]}
+            for key, outcomes in groups.items()
+        ]
+        reductions = [match["reduction"] for match in matches]
+        effects.append({
+            "factor": factor, "label": label, "unit": unit, "initial_setting": before,
+            "changed_setting": after, "mean_reduction": mean(reductions),
+            "min_reduction": min(reductions), "max_reduction": max(reductions), "matches": matches,
+        })
+    return sorted(effects, key=lambda row: row["mean_reduction"], reverse=True)
 
 
 def import_export_ratio(items):
@@ -245,6 +310,33 @@ def trade_table(trade, year):
         ), attrs=f' data-trade-code="{escape(code)}"', row_header=False)
 
 
+def render_followup(review):
+    access = review["accessibility"]
+    effects = review["matched_effects"]
+    by_id = {case["id"]: case for case in access}
+    full, half = by_id["all"], by_id["half_all"]
+    half_japan, restricted = by_id["half_japan"], by_id["no_china_russia"]
+    effect_rows = "\n".join(table_row((
+        row["label"], f'{row["initial_setting"]} to {row["changed_setting"]} {row["unit"]}',
+        f'{row["mean_reduction"]:g}', f'{row["min_reduction"]} to {row["max_reduction"]}'
+        if row["min_reduction"] != row["max_reduction"] else f'{row["min_reduction"]} in every case',
+    )) for row in effects)
+    return {
+        "review_date": review["date"],
+        "access_rows": "\n".join(table_row((
+            case["case"], f'{case["share_of_capacity_included_pct"]:g}%',
+            f'{case["capacity_included_kt_per_year"]:,.1f}',
+            f'{case["country_hhi"]:,.0f}' if case["country_hhi"] is not None else "None",
+        )) for case in access),
+        "full_capacity_hhi": f'{full["country_hhi"]:,.0f}',
+        "half_capacity": f'{half["capacity_included_kt_per_year"]:,.1f}',
+        "half_japan_hhi": f'{half_japan["country_hhi"]:,.0f}',
+        "restricted_pool": f'{restricted["share_of_capacity_included_pct"]:g}%',
+        "restricted_hhi": f'{restricted["country_hhi"]:,.0f}',
+        "effect_rows": effect_rows,
+    }
+
+
 def render(data, trade):
     capacity = data["titanium_capacity"]
     results = data["supply_sensitivity"]["results"]
@@ -264,6 +356,7 @@ def render(data, trade):
         value = f"{ratio:.{digits}f}" if ratio is not None else "unavailable in the published country totals"
         ratios_shown.append(f"HS {code}, {value}")
     values = {
+        **render_followup(data["second_review"]),
         "title": escape(TITLE), "deck": escape(DECK), "version": VERSION,
         "hhi_all": f'{capacity["all_qualities"]["hhi"]:,.0f}',
         "hhi_aviation": f'{capacity["aviation_grade"]["hhi"]:,.0f}',
@@ -316,6 +409,15 @@ def build():
     trade = json.loads((OUT / "aerospace_trade.json").read_text(encoding="utf-8"))
     results, paths = scenarios()
     data = evidence(trade, results)
+    data["second_review"] = {
+        "date": "2026-11-25",
+        "reviewed_commit": "ac6f0abb4eda3305332ea307b64f378b5a4dc43d",
+        "kind": "Modelled",
+        "capacity_source": "JRC Figure 5, aviation-grade titanium sponge operating capacity, 2023",
+        "scope": "Illustrative weights on displayed country shares. No approval, spare capacity, or trade access is observed.",
+        "accessibility": accessibility(data["titanium_capacity"]),
+        "matched_effects": matched_effects(results),
+    }
     article = render(data, trade)
     (HERE / "aerospace-chain.html").write_text(article, encoding="utf-8", newline="\n")
     (OUT / "aerospace_chain.json").write_text(

@@ -1,5 +1,7 @@
 # Aerospace-chain interpretation notes
 
+25 November 2026. These notes preserve the original pilot's interpretation. The [claim register](PRODUCTION.md) records the later withdrawals and corrections. See the [civil aero-engine study](aerospace-chain.html#second-review) for the follow-up on access and disruption.
+
 ## The claim the pilot makes
 
 For jet propulsion, a critical-minerals list read at the mine misidentifies the

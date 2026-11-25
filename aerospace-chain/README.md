@@ -16,3 +16,18 @@ BACI archives.
 
 The [August 2026 reference library](library.md) retains its original entries
 with a dated note linking readers to the revised findings.
+
+## Follow-up on capacity and disruption, 25 November 2026
+
+The same builder adds the follow-up to the article and stores its
+calculations in the evidence JSON under \`second_review\`. Apply each
+assumed access fraction to the corresponding displayed aviation-grade
+share. Sum the included shares to get the fraction of capacity in scope.
+Divide by that sum to get new country shares and recompute the HHI.
+Only countries with a displayed aviation-grade share enter the scenarios.
+
+The comparison of inventory, delivery timing and replacement rates uses
+the existing scenario results. Change one factor and pair cases with
+the other two factors held constant. Report the mean and range of the
+differences in total unmet units. The cases have equal weights. The
+original scenario inputs, results and monthly CSV retain their values.

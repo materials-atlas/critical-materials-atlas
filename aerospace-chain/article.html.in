@@ -32,6 +32,8 @@
 <article>
   <p><strong>Abstract.</strong> We ask where supply for civil aero-engines is concentrated, which alternatives can meet the requirements of a particular programme, and what allows a buyer to keep producing during a disruption. Recalculating the European Commission Joint Research Centre’s estimates for 2023 gives a country Herfindahl–Hirschman Index (HHI) of $hhi_all for all titanium sponge capacity and $hhi_aviation for aviation-grade capacity, a $hhi_change reduction. The leading country shifts from China to Japan. Supplier approval, uncommitted capacity and stocks determine whether this different supplier geography can help a particular buyer. Public evidence supports testing these constraints for individual programmes.</p>
 
+  <p class="note"><a href="#second-review">Follow-up on capacity and disruption</a></p>
+
   <h2 id="titanium">Aviation-grade capacity has a different geography</h2>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Titanium sponge operating capacity">
     <table class="shares">
@@ -114,6 +116,52 @@ $history_rows
 
   <h2>What would establish a binding constraint?</h2>
   <p>The titanium comparison establishes a change in geography and concentration with grade. The cases show why usable inventory and qualified throughput matter for different outcomes. Estimating production lost or time to recover for a specific civil engine programme would require approved supplier and ownership records, available capacity by part, usable stocks and dated order or delivery data. The public series here cannot supply those inputs.</p>
+  <section id="second-review">
+    <h2>Follow-up on capacity and disruption</h2>
+    <p class="note"><time datetime="$review_date">25 November 2026</time></p>
+
+    <h3>Access can change the amount and concentration of supply</h3>
+    <p><strong>Modelled.</strong> Apply the stated access fraction to each country’s share in JRC Figure 5. Keep the full displayed share wherever a case leaves it unchanged. Add the included shares to estimate the size of the remaining pool. Divide each included amount by that total, then square and sum the new percentage shares to get the country HHI. These examples vary assumed access for a hypothetical civil buyer. The inputs give no estimate of export availability, programme approval or spare production capacity. $jrc</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Illustrative access to aviation-grade sponge capacity">
+      <table>
+        <caption>Share and size of the included pool, based on the JRC’s rounded 2023 aviation-grade capacity estimates.</caption>
+        <thead><tr><th scope="col">Assumed access</th><th scope="col">Share of capacity included</th><th scope="col">Included capacity (kt/year)</th><th scope="col">Country HHI</th></tr></thead>
+        <tbody>
+$access_rows
+        </tbody>
+      </table>
+    </div>
+    <p>Halving every share cuts the included pool to $half_capacity kt per year and leaves the HHI at $full_capacity_hhi because every country’s relative share stays the same. Including half of Japan’s displayed capacity brings the HHI down to $half_japan_hhi as the remaining shares become more even. Omitting the China and Russia segments leaves $restricted_pool of the displayed capacity and raises the index to $restricted_hhi. Whether the remaining capacity can meet a particular order still depends on approvals, spare capacity and delivery schedules.</p>
+
+    <h3>Earlier deliveries reduce the modelled shortfall</h3>
+    <p><strong>Modelled.</strong> Each comparison changes one input in the existing $months-month scenario and holds the other two fixed. The table gives the mean and range across the four matched comparisons for each input. The mean gives equal weight to each comparison.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Matched effects on unmet requirements">
+      <table>
+        <caption>Reduction in total unmet units across the matched scenarios.</caption>
+        <thead><tr><th scope="col">Change</th><th scope="col">Settings compared</th><th scope="col">Mean reduction</th><th scope="col">Range of reductions</th></tr></thead>
+        <tbody>
+$effect_rows
+        </tbody>
+      </table>
+    </div>
+    <p>Shortening the delivery wait has the largest mean effect over these settings. Its benefit is larger when the alternative supplier can replace the full monthly loss. Extra stock reduces more of the shortfall than earlier deliveries when the replacement rate is low. The ranking applies to the tested changes in volumes and timing. The <a href="out/aerospace_chain.json">evidence JSON</a> records the access fractions and every matched comparison.</p>
+
+    <h3>What each source establishes</h3>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Findings and open questions">
+      <table>
+        <thead><tr><th scope="col">Evidence</th><th scope="col">Finding</th><th scope="col">What remains to be measured</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">JRC capacity estimates</th><td>Geography and country concentration change with sponge grade.</td><td>Approved plants, accessible volumes, uncommitted capacity and independent supply routes by programme.</td></tr>
+          <tr><th scope="row">Boeing’s titanium sourcing</th><td>The aircraft manufacturer reported continuity after it suspended Russian titanium purchases. It used inventory and alternative suppliers.</td><td>Stock coverage, qualified volumes and switching time for individual programmes.</td></tr>
+          <tr><th scope="row">JetBlue’s engine availability</th><td>The airline reported grounded aircraft while inspections and other reliability issues limited engine availability. The shop-visit duration in its filing was an expectation.</td><td>Actual shop turnaround, spare engine availability and the contribution of each cause to downtime.</td></tr>
+          <tr><th scope="row">Inventory and replacement scenarios</th><td>Changing usable stock and deliveries changes unmet requirements for the same assumed interruption.</td><td>Buyer records for qualified deliveries, usable stocks and deferred or lost output.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Boeing documents a material-sourcing response at an aircraft manufacturer. JetBlue documents engine availability during airline operations. Ranking constraints along an engine supply chain would require comparable evidence for the same programme and outcome. $boeing $jetblue</p>
+    <p>The JRC estimates titanium capacity by grade. USGS reports mineral production and describes recovery from scrap. The Atlas adds comparable concentration calculations from the JRC shares and applies explicit assumptions about access and replacement. A measured estimate of disruption exposure would require approved supplier and buyer records. $jrc $usgs_rhenium</p>
+  </section>
+
   <h2>Sources and reproduction</h2>
   <ul class="source-list">
 $source_items
