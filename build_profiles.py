@@ -220,6 +220,11 @@ def layer_para(m, layer, nm):
     rec, sub = m.get('recycling'), m.get('substitutability')
     mined_src = ('BGS World Mineral Statistics · mine production, 2000–2024 (USGS-validated)'
                  if m.get('label') in MINED_SRC else 'USGS 2024 · 2023 production')
+    if m.get('label') == 'platinum' and 'platinum' in MINED_SRC:
+        # BGS has no platinum-only line: out/mined_years.json['platinum'] is 'platinum group metals, mine'
+        # (build_bgs_mined.py), all six metals added together. Say so instead of "USGS-validated" (25 Nov 2026).
+        mined_src = ('Year series: BGS World Mineral Statistics, all six platinum-group metals combined, 2000–2024. '
+                     'BGS publishes no platinum-only series, so these shares differ from the platinum figure above')
     src = {'reserves': 'USGS 2024 · reserves as of 2023',
            'mined': mined_src,
            'refined': (tagify(e(m['refined_source'])) if m.get('refined_source') else 'leading refiner only; no fuller breakdown is published')}[layer]
