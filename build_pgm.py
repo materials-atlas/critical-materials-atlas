@@ -25,7 +25,10 @@ PT_SA = round(prod['platinum']['wmd_top_share']) if prod.get('platinum') else 70
 PD_RU = round(prod['palladium']['wmd_top_share']) if prod.get('palladium') else 41  # Russia, palladium
 
 # stated constants (with ranges) — literature (USGS MCS PGM, Johnson Matthey PGM Market Report)
-RESERVES_SA = {'low': 70, 'central': 90, 'high': 91}       # South Africa share of world PGM reserves (USGS)
+# South Africa's share of world PGM reserves, USGS Mineral Commodity Summaries. Corrected 25 Nov 2026 (was 70 / 90 / 91,
+# which no USGS edition supports): 2025 edition 63,000 of 'more than 81,000' t = 78%; 2026 edition 63,000 of the
+# 76,200 t listed by country = 83% (Russia's reserves were revised from 16,000 to 11,000 t).
+RESERVES_SA = {'low': 78, 'central': 83, 'high': 83}
 # mine split of PGM output by mass (Johnson Matthey; Bushveld is Pt-rich, Norilsk Pd-rich -> global mix)
 SPLIT = {'platinum': 38, 'palladium': 39, 'rhodium': 8, 'other (Ru/Ir/Os)': 15}
 AUTOCAT = {'low': 60, 'central': 68, 'high': 80}           # share of PGM demand in autocatalysts
