@@ -7745,14 +7745,20 @@
   },
   "pgm-catalyst-chain/record_pgm.py": {
    "reads": [
-    "out/mined_years.json"
+    "out/mined_years.json",
+    "pgm-catalyst-chain/",
+    "pgm-catalyst-chain/article.html.in",
+    "pgm-catalyst-chain/evidence_inputs.json",
+    "pgm-catalyst-chain/out/pgm_trade.json"
    ],
    "writes": [
-    "pgm-catalyst-chain/out/pgm_chain.json"
+    "pgm-catalyst-chain/out/pgm_chain.json",
+    "pgm-catalyst-chain/pgm-catalyst-chain.html"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "31f386d78675050f"
+   "code_sha": "b3aa837a61fa3a27",
+   "restored": 2
   },
   "phosphate-food-chain/extract_baci.py": {
    "reads": [
@@ -7792,14 +7798,22 @@
   },
   "phosphate-food-chain/record_phosphate.py": {
    "reads": [
-    "out/mined_years.json"
+    "phosphate-food-chain/",
+    "phosphate-food-chain/article.html.in",
+    "phosphate-food-chain/out/phosphate_comext.json",
+    "phosphate-food-chain/out/phosphate_faostat.json",
+    "phosphate-food-chain/out/phosphate_trade.json",
+    "phosphate-food-chain/products.csv",
+    "phosphate-food-chain/usgs_2025.csv"
    ],
    "writes": [
-    "phosphate-food-chain/out/phosphate_chain.json"
+    "phosphate-food-chain/out/phosphate_chain.json",
+    "phosphate-food-chain/phosphate-food-chain.html"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "480a0a0c72e9a7d9"
+   "code_sha": "e2f7c63d98664e4b",
+   "restored": 2
   },
   "rare-earths-chain/record_rare_earths.py": {
    "reads": [],

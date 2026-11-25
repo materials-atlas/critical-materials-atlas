@@ -1,329 +1,1491 @@
 {
-  "title": "Phosphate → fertilizer → food chain",
-  "chokepoint": {
-    "product": "Fertilizer / food",
-    "stage": "Reserves",
-    "mechanism": "geological",
-    "physics": "~68% of world reserves are in Morocco (though only ~13% of current production); no substitute for phosphorus",
-    "holder": "Morocco",
-    "share": "~68% reserves",
-    "control": "—",
-    "conf": "measured"
-  },
+  "title": "Phosphate reserves and fertilizer supply",
+  "h1": "Phosphate reserves and fertilizer supply",
+  "deck": "Morocco leads in reported phosphate-rock reserves. China leads in mining. Import dependence varies by fertilizer and market.",
   "published": true,
-  "related": [
-    {
-      "href": "../ammonia-chain/ammonia-chain",
-      "label": "Ammonia / nitrogen chain"
-    }
-  ],
-  "accent": "#6f7c3c",
-  "eyebrow": "Product-chain pilot · food security",
-  "h1": "For food, the mine is the chokepoint",
-  "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 68% of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
-  "byline": "reserves ≠ production ≠ fertilizer ≠ food — but for phosphorus there is no plan B",
-  "correction": "The atlas's usual finding — 'the refiner is not the source' — inverts for phosphorus. There is no synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base itself is the chokepoint, and it is extraordinarily concentrated.",
-  "stats": [
-    {
-      "v": "~68%",
-      "l": "of world phosphate-rock reserves are in Morocco (but only ~13% of current output)",
-      "conf": "measured"
-    },
-    {
-      "v": "China",
-      "l": "the largest producer (then Morocco, US, Russia)",
-      "conf": "measured"
-    },
-    {
-      "v": "47.8 Mt",
-      "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028",
-      "conf": "measured"
-    },
-    {
-      "v": "0",
-      "l": "substitutes for phosphorus in growing food",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "Phosphate-rock mine production shifted to China, 2000–2024",
-    "conf": "measured",
-    "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output moved to China, but the long-run RESERVE base (~68%) stayed in Morocco — production and reserves point to different countries.",
-    "series": [
+  "version": "2026-11-25",
+  "chokepoint": {
+    "product": "Phosphate fertilizer",
+    "stage": "Reserve concentration",
+    "mechanism": "geological",
+    "physics": "Reserves, mine output and fertilizer origins differ. The binding stage remains untested.",
+    "holder": "Morocco (USGS reserves)",
+    "share": "68.5% of reserves",
+    "control": "—",
+    "conf": "snapshot",
+    "research": true
+  },
+  "sources": {
+    "usgs": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf",
+    "usgs_geography": "https://pubs.usgs.gov/myb/vol3/2019/myb3-2019-morocco-western-sahara.pdf",
+    "baci": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+    "comext": "https://ec.europa.eu/eurostat/databrowser/view/DS-045409/default/table?lang=en",
+    "faostat": "https://www.fao.org/faostat/en/#data/RFN",
+    "faostat_method": "https://files-faostat.fao.org/production/RFN/RFN_EN_README.pdf",
+    "hs2017": "https://unstats.un.org/unsd/trade/events/2017/suzhou/presentations/Agenda%20item%2017%20%28a%29%20-%20WCO.pdf",
+    "dap_grade": "https://www.cropnutrition.com/resource-library/diammonium-phosphate-dap-data-sheet/",
+    "map_grade": "https://www.cropnutrition.com/resource-library/monoammonium-phosphate-map/",
+    "hirner": "https://doi.org/10.1016/j.resourpol.2026.106064",
+    "raddant": "https://doi.org/10.3390/resources14100151",
+    "barbieri": "https://doi.org/10.1038/s41893-021-00816-1"
+  },
+  "upstream": {
+    "rows": [
       {
-        "label": "China",
-        "points": [
-          {
-            "y": 2000,
-            "v": 14
-          },
-          {
-            "y": 2005,
-            "v": 19
-          },
-          {
-            "y": 2010,
-            "v": 36
-          },
-          {
-            "y": 2015,
-            "v": 52
-          },
-          {
-            "y": 2020,
-            "v": 40
-          },
-          {
-            "y": 2021,
-            "v": 43
-          },
-          {
-            "y": 2022,
-            "v": 45
-          },
-          {
-            "y": 2023,
-            "v": 44
-          },
-          {
-            "y": 2024,
-            "v": 44
-          }
-        ]
+        "country": "United States",
+        "production_2024_kt": 19400,
+        "production_2025_kt": 20000,
+        "reserves_kt": 1000000,
+        "kind": "named",
+        "reserves_share": 0.0136986301369863,
+        "production_2025_share": 0.08
       },
       {
-        "label": "United States",
-        "points": [
-          {
-            "y": 2000,
-            "v": 21
-          },
-          {
-            "y": 2005,
-            "v": 22
-          },
-          {
-            "y": 2010,
-            "v": 14
-          },
-          {
-            "y": 2015,
-            "v": 10
-          },
-          {
-            "y": 2020,
-            "v": 11
-          },
-          {
-            "y": 2021,
-            "v": 9
-          },
-          {
-            "y": 2022,
-            "v": 8
-          },
-          {
-            "y": 2023,
-            "v": 8
-          },
-          {
-            "y": 2024,
-            "v": 8
-          }
-        ]
+        "country": "Algeria",
+        "production_2024_kt": 2000,
+        "production_2025_kt": 2000,
+        "reserves_kt": 2200000,
+        "kind": "named",
+        "reserves_share": 0.030136986301369864,
+        "production_2025_share": 0.008
       },
       {
-        "label": "Morocco",
-        "points": [
-          {
-            "y": 2000,
-            "v": 16
-          },
-          {
-            "y": 2005,
-            "v": 18
-          },
-          {
-            "y": 2010,
-            "v": 14
-          },
-          {
-            "y": 2015,
-            "v": 10
-          },
-          {
-            "y": 2020,
-            "v": 18
-          },
-          {
-            "y": 2021,
-            "v": 16
-          },
-          {
-            "y": 2022,
-            "v": 13
-          },
-          {
-            "y": 2023,
-            "v": 12
-          },
-          {
-            "y": 2024,
-            "v": 14
-          }
+        "country": "Australia",
+        "production_2024_kt": 2500,
+        "production_2025_kt": 2500,
+        "reserves_kt": 800000,
+        "kind": "named",
+        "reserves_share": 0.010958904109589041,
+        "production_2025_share": 0.01
+      },
+      {
+        "country": "Brazil",
+        "production_2024_kt": 5300,
+        "production_2025_kt": 5000,
+        "reserves_kt": 1600000,
+        "kind": "named",
+        "reserves_share": 0.021917808219178082,
+        "production_2025_share": 0.02
+      },
+      {
+        "country": "China",
+        "production_2024_kt": 105000,
+        "production_2025_kt": 110000,
+        "reserves_kt": 3400000,
+        "kind": "named",
+        "reserves_share": 0.04657534246575343,
+        "production_2025_share": 0.44
+      },
+      {
+        "country": "Egypt",
+        "production_2024_kt": 5300,
+        "production_2025_kt": 5500,
+        "reserves_kt": 2800000,
+        "kind": "named",
+        "reserves_share": 0.038356164383561646,
+        "production_2025_share": 0.022
+      },
+      {
+        "country": "Finland",
+        "production_2024_kt": 974,
+        "production_2025_kt": 980,
+        "reserves_kt": 1000000,
+        "kind": "named",
+        "reserves_share": 0.0136986301369863,
+        "production_2025_share": 0.00392
+      },
+      {
+        "country": "India",
+        "production_2024_kt": 1700,
+        "production_2025_kt": 1500,
+        "reserves_kt": 31000,
+        "kind": "named",
+        "reserves_share": 0.00042465753424657536,
+        "production_2025_share": 0.006
+      },
+      {
+        "country": "Israel",
+        "production_2024_kt": 2380,
+        "production_2025_kt": 2400,
+        "reserves_kt": 60000,
+        "kind": "named",
+        "reserves_share": 0.0008219178082191781,
+        "production_2025_share": 0.0096
+      },
+      {
+        "country": "Jordan",
+        "production_2024_kt": 11500,
+        "production_2025_kt": 12000,
+        "reserves_kt": 820000,
+        "kind": "named",
+        "reserves_share": 0.011232876712328766,
+        "production_2025_share": 0.048
+      },
+      {
+        "country": "Kazakhstan",
+        "production_2024_kt": 1700,
+        "production_2025_kt": 1900,
+        "reserves_kt": 260000,
+        "kind": "named",
+        "reserves_share": 0.003561643835616438,
+        "production_2025_share": 0.0076
+      },
+      {
+        "country": "Mexico",
+        "production_2024_kt": 365,
+        "production_2025_kt": 450,
+        "reserves_kt": 30000,
+        "kind": "named",
+        "reserves_share": 0.00041095890410958907,
+        "production_2025_share": 0.0018
+      },
+      {
+        "country": "Morocco",
+        "production_2024_kt": 35300,
+        "production_2025_kt": 36000,
+        "reserves_kt": 50000000,
+        "kind": "named",
+        "reserves_share": 0.684931506849315,
+        "production_2025_share": 0.144
+      },
+      {
+        "country": "Peru",
+        "production_2024_kt": 4800,
+        "production_2025_kt": 4800,
+        "reserves_kt": 210000,
+        "kind": "named",
+        "reserves_share": 0.0028767123287671234,
+        "production_2025_share": 0.0192
+      },
+      {
+        "country": "Russia",
+        "production_2024_kt": 14400,
+        "production_2025_kt": 14000,
+        "reserves_kt": 2400000,
+        "kind": "named",
+        "reserves_share": 0.03287671232876712,
+        "production_2025_share": 0.056
+      },
+      {
+        "country": "Saudi Arabia",
+        "production_2024_kt": 10000,
+        "production_2025_kt": 10000,
+        "reserves_kt": 1000000,
+        "kind": "named",
+        "reserves_share": 0.0136986301369863,
+        "production_2025_share": 0.04
+      },
+      {
+        "country": "Senegal",
+        "production_2024_kt": 2800,
+        "production_2025_kt": 2800,
+        "reserves_kt": 50000,
+        "kind": "named",
+        "reserves_share": 0.0006849315068493151,
+        "production_2025_share": 0.0112
+      },
+      {
+        "country": "South Africa",
+        "production_2024_kt": 2220,
+        "production_2025_kt": 2200,
+        "reserves_kt": 1500000,
+        "kind": "named",
+        "reserves_share": 0.02054794520547945,
+        "production_2025_share": 0.0088
+      },
+      {
+        "country": "Syria",
+        "production_2024_kt": 800,
+        "production_2025_kt": 800,
+        "reserves_kt": 250000,
+        "kind": "named",
+        "reserves_share": 0.003424657534246575,
+        "production_2025_share": 0.0032
+      },
+      {
+        "country": "Togo",
+        "production_2024_kt": 1560,
+        "production_2025_kt": 1600,
+        "reserves_kt": 30000,
+        "kind": "named",
+        "reserves_share": 0.00041095890410958907,
+        "production_2025_share": 0.0064
+      },
+      {
+        "country": "Tunisia",
+        "production_2024_kt": 3280,
+        "production_2025_kt": 3300,
+        "reserves_kt": 2500000,
+        "kind": "named",
+        "reserves_share": 0.03424657534246575,
+        "production_2025_share": 0.0132
+      },
+      {
+        "country": "Turkey",
+        "production_2024_kt": 1220,
+        "production_2025_kt": 1200,
+        "reserves_kt": 71000,
+        "kind": "named",
+        "reserves_share": 0.0009726027397260274,
+        "production_2025_share": 0.0048
+      },
+      {
+        "country": "Uzbekistan",
+        "production_2024_kt": 950,
+        "production_2025_kt": 950,
+        "reserves_kt": 100000,
+        "kind": "named",
+        "reserves_share": 0.0013698630136986301,
+        "production_2025_share": 0.0038
+      },
+      {
+        "country": "Vietnam",
+        "production_2024_kt": 3000,
+        "production_2025_kt": 3000,
+        "reserves_kt": 30000,
+        "kind": "named",
+        "reserves_share": 0.00041095890410958907,
+        "production_2025_share": 0.012
+      },
+      {
+        "country": "Other countries",
+        "production_2024_kt": 769,
+        "production_2025_kt": 770,
+        "reserves_kt": 800000,
+        "kind": "other"
+      },
+      {
+        "country": "World total (rounded)",
+        "production_2024_kt": 239000,
+        "production_2025_kt": 250000,
+        "reserves_kt": 73000000,
+        "kind": "total"
+      }
+    ],
+    "summary": {
+      "reserves_kt": {
+        "published_total_kt": 73000000,
+        "row_total_kt": 72942000,
+        "other_kt": 800000,
+        "hhi_points": [
+          4784.427182316911,
+          4785.630068786439
         ]
+      },
+      "production_2025_kt": {
+        "published_total_kt": 250000,
+        "row_total_kt": 245650,
+        "other_kt": 770,
+        "hhi_points": [
+          2382.2507395007337,
+          2382.3489929743955
+        ]
+      }
+    }
+  },
+  "comext_partners": {
+    "AE": "United Arab Emirates",
+    "AL": "Albania",
+    "AM": "Armenia",
+    "AO": "Angola",
+    "AR": "Argentina",
+    "AU": "Australia",
+    "BA": "Bosnia and Herzegovina",
+    "BD": "Bangladesh",
+    "BH": "Bahrain",
+    "BO": "Bolivia, Plurinational State of",
+    "BR": "Brazil",
+    "BW": "Botswana",
+    "BY": "Belarus (Belorussia)",
+    "CA": "Canada",
+    "CH": "Switzerland (incl. Liechtenstein 'LI' -> 1994)",
+    "CI": "Côte d’Ivoire (Ivory Coast)",
+    "CL": "Chile",
+    "CM": "Cameroon",
+    "CN": "China",
+    "CO": "Colombia",
+    "CR": "Costa Rica",
+    "CU": "Cuba",
+    "DO": "Dominican Republic",
+    "DZ": "Algeria",
+    "EC": "Ecuador",
+    "EG": "Egypt",
+    "EXT_EU27_2020": "Extra-EU27 (from 2020)",
+    "FO": "Faroe Islands",
+    "GB": "United Kingdom",
+    "GE": "Georgia",
+    "GM": "Gambia",
+    "GT": "Guatemala",
+    "HK": "Hong Kong",
+    "HN": "Honduras",
+    "ID": "Indonesia (incl. East Timor 'TP' from 1977 -> 2000)",
+    "IL": "Israel (incl. West Bank and Gaza Strip 'XP' -> 1994)",
+    "IN": "India",
+    "IQ": "Iraq",
+    "IR": "Iran, Islamic Republic of",
+    "IS": "Iceland",
+    "JO": "Jordan",
+    "JP": "Japan",
+    "KE": "Kenya",
+    "KR": "Korea, Republic of (South Korea)",
+    "KZ": "Kazakhstan",
+    "LB": "Lebanon",
+    "LK": "Sri Lanka",
+    "MA": "Morocco",
+    "MD": "Moldova, Republic of",
+    "MG": "Madagascar",
+    "MK": "North Macedonia",
+    "MU": "Mauritius",
+    "MX": "Mexico",
+    "MY": "Malaysia",
+    "MZ": "Mozambique",
+    "NA": "Namibia",
+    "NC": "New Caledonia",
+    "NG": "Nigeria",
+    "NI": "Nicaragua",
+    "NO": "Norway (incl. Svalbard and Jan Mayen 'SJ' -> 1994 and again from 1997)",
+    "NZ": "New Zealand",
+    "PA": "Panama (incl. Panama Canal Zone 'PZ' from 1981)",
+    "PE": "Peru",
+    "PK": "Pakistan",
+    "PY": "Paraguay",
+    "QW": "Countries and territories not specified within the framework of extra-Union trade",
+    "RU": "Russian Federation (Russia)",
+    "SA": "Saudi Arabia",
+    "SG": "Singapore",
+    "SN": "Senegal",
+    "SY": "Syrian Arab Republic (Syria)",
+    "TG": "Togo",
+    "TH": "Thailand",
+    "TN": "Tunisia",
+    "TR": "Türkiye",
+    "TW": "Taiwan",
+    "UA": "Ukraine",
+    "US": "United States (incl. Navassa Island (part of 'UM') from 1995 -> 2000)",
+    "UY": "Uruguay",
+    "UZ": "Uzbekistan",
+    "VN": "Viet Nam (incl. North Viet Nam 'VD' from 1977)",
+    "XK": "Kosovo",
+    "XS": "Serbia",
+    "ZA": "South Africa (incl. Namibia 'NA' -> 1989)"
+  },
+  "eu_imports": {
+    "2023": {
+      "Rock": {
+        "total_kg": 2397219553,
+        "total_eur": 455396614,
+        "named_kg": {
+          "RU": 529973420,
+          "LB": 407203668,
+          "MA": 403560820,
+          "EG": 370868449,
+          "DZ": 315908931,
+          "SN": 132133660,
+          "ZA": 106217809,
+          "IL": 54798580,
+          "TN": 36435262,
+          "BR": 20137127,
+          "SY": 12930000,
+          "JO": 3554931,
+          "IN": 1817949,
+          "TG": 350704,
+          "GB": 309731,
+          "CN": 275864,
+          "US": 264926,
+          "ID": 198738,
+          "NO": 156512,
+          "NI": 45000,
+          "SA": 39234,
+          "MK": 24000,
+          "CL": 4080,
+          "UZ": 3345,
+          "TR": 2680,
+          "CH": 1779,
+          "AU": 1266,
+          "CA": 995,
+          "MX": 43,
+          "XS": 25,
+          "PE": 10,
+          "KR": 6,
+          "VN": 5,
+          "NG": 1,
+          "TH": 1,
+          "GT": 1,
+          "TW": 1,
+          "KE": 0
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          1532.2824200522011,
+          1532.2824200522011
+        ]
+      },
+      "Acid": {
+        "total_kg": 1010148179,
+        "total_eur": 772095849,
+        "named_kg": {
+          "MA": 492600790,
+          "IL": 276977239,
+          "TN": 92991115,
+          "CN": 44551137,
+          "LB": 40258290,
+          "XS": 36768095,
+          "ZA": 13651790,
+          "CH": 5884323,
+          "US": 2155984,
+          "TR": 1417771,
+          "GB": 1207189,
+          "VN": 654631,
+          "KZ": 323542,
+          "JO": 138015,
+          "TW": 122865,
+          "IN": 114103,
+          "IS": 80244,
+          "HK": 74300,
+          "BA": 68440,
+          "MY": 25602,
+          "SG": 25484,
+          "CR": 23580,
+          "NO": 20433,
+          "KR": 3683,
+          "JP": 3247,
+          "EG": 1950,
+          "BR": 1890,
+          "FO": 1272,
+          "AE": 310,
+          "MU": 287,
+          "SA": 254,
+          "AU": 194,
+          "CA": 124,
+          "SN": 3,
+          "XK": 3,
+          "IR": 0,
+          "MX": 0
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          3265.4510898900294,
+          3265.4510898900294
+        ]
+      },
+      "DAP": {
+        "total_kg": 1440355585,
+        "total_eur": 795335523,
+        "named_kg": {
+          "MA": 812478956,
+          "RU": 367494948,
+          "EG": 119385587,
+          "TN": 89285907,
+          "JO": 37267500,
+          "TR": 9903050,
+          "US": 2200692,
+          "CN": 1858866,
+          "GB": 399965,
+          "MX": 80000,
+          "CH": 51,
+          "GM": 50,
+          "SA": 6,
+          "NO": 4,
+          "XS": 3
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          3947.196218183716,
+          3947.196218183716
+        ]
+      },
+      "MAP and mixes": {
+        "total_kg": 433187941,
+        "total_eur": 249408526,
+        "named_kg": {
+          "MA": 184019372,
+          "RU": 167067807,
+          "CN": 28574786,
+          "EG": 18105640,
+          "US": 17926767,
+          "BY": 6592000,
+          "XS": 5466643,
+          "IL": 2299350,
+          "TN": 1827050,
+          "KZ": 684000,
+          "GB": 369299,
+          "HK": 198000,
+          "JO": 30000,
+          "SG": 24000,
+          "AU": 1166,
+          "IS": 983,
+          "MX": 920,
+          "KR": 100,
+          "TR": 34,
+          "BR": 23,
+          "CH": 1
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          3374.4997006350686,
+          3374.4997006350686
+        ]
+      },
+      "Superphosphates": {
+        "total_kg": 339445539,
+        "total_eur": 143297151,
+        "named_kg": {
+          "MA": 150571830,
+          "IL": 109872460,
+          "EG": 42788137,
+          "TN": 13974000,
+          "LB": 11304580,
+          "TR": 5700000,
+          "XS": 2434250,
+          "DZ": 2000000,
+          "ID": 275000,
+          "CN": 233760,
+          "GB": 191813,
+          "CH": 98500,
+          "NO": 823,
+          "US": 331,
+          "MX": 30,
+          "JP": 13,
+          "CA": 12
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          3205.977004521183,
+          3205.977004521183
+        ]
+      },
+      "Other finished": {
+        "total_kg": 1906079726,
+        "total_eur": 875903006,
+        "named_kg": {
+          "RU": 750222969,
+          "NO": 388052750,
+          "MA": 293497471,
+          "XS": 144489664,
+          "GB": 74606954,
+          "UZ": 62787527,
+          "KZ": 35485146,
+          "TN": 28540310,
+          "EG": 26696432,
+          "BY": 22010500,
+          "SA": 21998930,
+          "TR": 20416667,
+          "IL": 9806535,
+          "KR": 5593644,
+          "JO": 4728327,
+          "CN": 4268703,
+          "LB": 3335400,
+          "US": 2840228,
+          "CH": 2121645,
+          "ID": 1093203,
+          "JP": 943627,
+          "MX": 628869,
+          "CA": 372128,
+          "IQ": 161250,
+          "AE": 157388,
+          "UA": 90671,
+          "ZA": 41026,
+          "IN": 30221,
+          "CO": 25075,
+          "NZ": 23904,
+          "VN": 16464,
+          "TH": 9116,
+          "MY": 4080,
+          "SG": 3661,
+          "BR": 2931,
+          "TW": 1418,
+          "BA": 1243,
+          "MK": 735,
+          "MD": 337,
+          "AR": 336,
+          "EC": 312,
+          "DZ": 198,
+          "AU": 72,
+          "CL": 71,
+          "PE": 70,
+          "GT": 42,
+          "HN": 10,
+          "KE": 9,
+          "DO": 2,
+          "HK": 1,
+          "BD": 1,
+          "CR": 1,
+          "LK": 1,
+          "PK": 0
+        },
+        "unnamed_kg": {
+          "QW": 971451
+        },
+        "hhi_points": [
+          2296.3939428728418,
+          2300.4085238009866
+        ]
+      }
+    },
+    "2024": {
+      "Rock": {
+        "total_kg": 3504519135,
+        "total_eur": 576190717,
+        "named_kg": {
+          "MA": 994906966,
+          "RU": 793293481,
+          "EG": 455434832,
+          "SN": 368719887,
+          "DZ": 351395065,
+          "LB": 236820779,
+          "ZA": 190359784,
+          "JO": 76727843,
+          "TN": 24990144,
+          "XS": 7738292,
+          "TG": 2410644,
+          "GB": 1227304,
+          "US": 193841,
+          "ID": 132207,
+          "CN": 83894,
+          "CH": 69028,
+          "MX": 5033,
+          "CA": 3901,
+          "TR": 2180,
+          "SA": 1158,
+          "MZ": 921,
+          "AU": 743,
+          "KR": 730,
+          "KZ": 272,
+          "NO": 146,
+          "BR": 16,
+          "PE": 14,
+          "IN": 10,
+          "TW": 9,
+          "AE": 6,
+          "AO": 2,
+          "BH": 2,
+          "JP": 1,
+          "TH": 0,
+          "GT": 0
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          1779.0013861658304,
+          1779.0013861658304
+        ]
+      },
+      "Acid": {
+        "total_kg": 1194794560,
+        "total_eur": 798637145,
+        "named_kg": {
+          "MA": 632983328,
+          "IL": 337826470,
+          "TN": 66259122,
+          "LB": 51583625,
+          "XS": 41684624,
+          "ZA": 32227227,
+          "CN": 22050416,
+          "CH": 5853043,
+          "US": 1800105,
+          "GB": 1587079,
+          "TW": 387740,
+          "TR": 197300,
+          "SA": 110630,
+          "NO": 104716,
+          "IN": 35412,
+          "VN": 26400,
+          "CR": 23580,
+          "JO": 15000,
+          "CA": 13972,
+          "HK": 9256,
+          "JP": 6214,
+          "IS": 4585,
+          "DZ": 3900,
+          "MX": 268,
+          "BR": 244,
+          "SG": 133,
+          "AE": 80,
+          "KR": 44,
+          "AU": 33,
+          "CO": 7,
+          "UA": 3,
+          "MY": 2,
+          "BD": 1,
+          "NG": 1,
+          "AL": 0,
+          "IR": 0,
+          "RU": 0
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          3678.710277956881,
+          3678.710277956881
+        ]
+      },
+      "DAP": {
+        "total_kg": 1599890528,
+        "total_eur": 895485759,
+        "named_kg": {
+          "MA": 924610105,
+          "RU": 410476480,
+          "TN": 99265210,
+          "EG": 96935374,
+          "TR": 32303827,
+          "JO": 31300000,
+          "CN": 2577682,
+          "US": 2252756,
+          "GB": 127940,
+          "MX": 40000,
+          "CH": 786,
+          "IN": 201,
+          "CA": 141,
+          "GM": 25,
+          "UA": 1
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          4081.3389405038106,
+          4081.3389405038106
+        ]
+      },
+      "MAP and mixes": {
+        "total_kg": 603443338,
+        "total_eur": 363389831,
+        "named_kg": {
+          "MA": 295260467,
+          "RU": 205483925,
+          "CN": 24556277,
+          "EG": 24238240,
+          "BY": 14960000,
+          "US": 12521737,
+          "TN": 8379701,
+          "NO": 7856000,
+          "XS": 4225600,
+          "IL": 3543750,
+          "AE": 1801080,
+          "GB": 330477,
+          "TR": 198809,
+          "CH": 53778,
+          "PY": 28670,
+          "IN": 3352,
+          "MX": 1464,
+          "KR": 5,
+          "KZ": 3,
+          "EC": 1,
+          "VN": 1
+        },
+        "unnamed_kg": {
+          "QW": 1
+        },
+        "hhi_points": [
+          3601.302816953491,
+          3601.302833170184
+        ]
+      },
+      "Superphosphates": {
+        "total_kg": 401075721,
+        "total_eur": 153125210,
+        "named_kg": {
+          "MA": 147805840,
+          "IL": 120232479,
+          "EG": 86719774,
+          "LB": 24386980,
+          "TN": 18483940,
+          "GB": 1786992,
+          "XS": 1558757,
+          "CN": 75002,
+          "CH": 23625,
+          "US": 2115,
+          "IN": 200,
+          "BR": 9,
+          "TR": 6,
+          "AO": 2
+        },
+        "unnamed_kg": {},
+        "hhi_points": [
+          2782.808783918979,
+          2782.808783918979
+        ]
+      },
+      "Other finished": {
+        "total_kg": 2930000146,
+        "total_eur": 1168991873,
+        "named_kg": {
+          "RU": 1252904504,
+          "NO": 562701446,
+          "MA": 452068909,
+          "XS": 188665161,
+          "CN": 115394956,
+          "GB": 85617131,
+          "BY": 46361500,
+          "KZ": 45154002,
+          "UZ": 45009380,
+          "SA": 25000000,
+          "TR": 22366247,
+          "ZA": 21008554,
+          "EG": 18510500,
+          "TN": 16683902,
+          "IL": 15095872,
+          "SN": 4058134,
+          "CH": 3995952,
+          "US": 3475207,
+          "CL": 1800040,
+          "JP": 871205,
+          "MX": 586530,
+          "JO": 559157,
+          "CA": 374544,
+          "UA": 234822,
+          "BA": 182260,
+          "DZ": 168000,
+          "KR": 167181,
+          "AE": 156677,
+          "IN": 97484,
+          "BR": 84671,
+          "GE": 60001,
+          "CO": 58356,
+          "AL": 45074,
+          "MU": 43650,
+          "NZ": 23701,
+          "EC": 23035,
+          "AU": 21463,
+          "ID": 21233,
+          "IQ": 18100,
+          "KE": 15460,
+          "TW": 3296,
+          "SG": 3181,
+          "MD": 898,
+          "MK": 423,
+          "MY": 168,
+          "BW": 57,
+          "AR": 51,
+          "NC": 50,
+          "PE": 44,
+          "GT": 24,
+          "PK": 23,
+          "CI": 12,
+          "CU": 9,
+          "HN": 8,
+          "PA": 5,
+          "UY": 4,
+          "AM": 3,
+          "HK": 3,
+          "BO": 2,
+          "VN": 2,
+          "MG": 2,
+          "DO": 2,
+          "TH": 1,
+          "NA": 1,
+          "CM": 0
+        },
+        "unnamed_kg": {
+          "QW": 307876
+        },
+        "hhi_points": [
+          2511.023587214108,
+          2511.922343361395
+        ]
+      }
+    }
+  },
+  "p_fraction_in_p2o5": 0.4364268173626792,
+  "grade_illustration_2024": [
+    {
+      "dap_fraction": 0.46,
+      "map_mix_fraction": 0.46,
+      "elemental_p_t": 442333.23389386246
+    },
+    {
+      "dap_fraction": 0.46,
+      "map_mix_fraction": 0.52,
+      "elemental_p_t": 458134.7652215855
+    }
+  ],
+  "faostat_balance": {
+    "2023": {
+      "production_t": 1385837.68,
+      "agricultural_use_t": 1880395.0,
+      "imports_t": 1484031.9,
+      "exports_t": 863552.77,
+      "world_agricultural_use_t": 41567884.0,
+      "net_imports_t": 620479.1299999999,
+      "apparent_supply_t": 2006316.8099999998,
+      "supply_less_agricultural_use_t": 125921.80999999982,
+      "net_import_share_of_apparent_supply": 0.3092627878644948
+    },
+    "2024": {
+      "production_t": 1401388.88,
+      "agricultural_use_t": 1883055.0,
+      "imports_t": 1823907.57,
+      "exports_t": 936284.95,
+      "world_agricultural_use_t": 43922745.0,
+      "net_imports_t": 887622.6200000001,
+      "apparent_supply_t": 2289011.5,
+      "supply_less_agricultural_use_t": 405956.5,
+      "net_import_share_of_apparent_supply": 0.387775517947376
+    }
+  },
+  "stress_test": {
+    "year": 2024,
+    "origin": "MA",
+    "lost_fraction_of_origin": 0.5,
+    "baseline_kg": 1599890528,
+    "lost_kg": 462305052.5,
+    "rows": [
+      {
+        "replacement_fraction": 0,
+        "remaining_gap_kg": 462305052.5,
+        "gap_share_of_baseline_imports": 0.28896042848501696
+      },
+      {
+        "replacement_fraction": 0.5,
+        "remaining_gap_kg": 231152526.25,
+        "gap_share_of_baseline_imports": 0.14448021424250848
+      },
+      {
+        "replacement_fraction": 1,
+        "remaining_gap_kg": 0.0,
+        "gap_share_of_baseline_imports": 0.0
       }
     ]
   },
-  "hops": [
-    {
-      "n": "1 · Phosphate rock",
-      "t": "the only significant source of phosphorus; reserves ~68% Morocco"
-    },
-    {
-      "n": "2 · Acid & fertilizer",
-      "t": "phosphoric acid → DAP/MAP; Morocco (OCP) is also a top processor"
-    },
-    {
-      "n": "3 · The three nutrients",
-      "t": "P (Morocco), K / potash (Canada, Russia, Belarus), N (natural gas)"
-    },
-    {
-      "n": "4 · Food",
-      "t": "non-substitutable, finite, poorly recycled — the demand cannot be switched off"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · Reserves are even more concentrated than production",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "Phosphate-rock reserves",
-          "max": 1.0,
-          "note": "USGS. Morocco (incl. Western Sahara) holds ~50 of ~74 billion t — about 68% of world reserves. Reserves are the long-run ceiling; they are far more concentrated than current output (Morocco is ~13% of it).",
-          "bars": [
-            {
-              "label": "Morocco",
-              "value": 0.68
-            },
-            {
-              "label": "Rest of world",
-              "value": 0.32
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Production is more spread — for now",
-          "text": "China is currently the largest producer of phosphate rock, ahead of Morocco, the United States and Russia. But several producers mine from limited reserves and restrict exports to protect domestic fertilizer supply; over the long run, output gravitates toward where the rock actually is.",
-          "flag": "reserves are the ceiling, not output"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The chokepoint does not move downstream — it stays at the resource",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Why phosphorus is the exception",
-          "text": "In the tech chains, the bottleneck migrates to a furnace, a fab or a magnet. Phosphorus cannot do that: there is no synthetic substitute and no alternative ore. Morocco's OCP has also moved downstream into phosphoric acid and finished fertilizer, so it holds both the reserve base AND a large share of processing — concentration at two stages at once.",
-          "note": "USGS.",
-          "flag": "an inversion of the atlas thesis"
-        },
-        {
-          "kind": "big",
-          "h3": "The demand that cannot be switched off",
-          "big": "47.8 Mt/yr",
-          "text": "P₂O₅ contained in fertilizer used worldwide, rising toward ~52 Mt by 2028. Every tonne of it ultimately traces to phosphate rock; there is no recycling loop at scale to relieve it.",
-          "note": "USGS. Fertilizer is the overwhelming end use of phosphate rock."
-        }
-      ]
-    },
-    {
-      "h2": "3 · The other two nutrients are locked up too (N-P-K)",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "Each fertilizer nutrient has its own concentration",
-          "cards": [
-            {
-              "t": "P — Phosphorus",
-              "d": "Phosphate rock, ~68% of reserves in Morocco. No substitute. The subject of this chain."
-            },
-            {
-              "t": "K — Potassium",
-              "d": "Potash, dominated by Canada, Russia and Belarus. Russia + Belarus supply was disrupted after 2022 sanctions."
-            },
-            {
-              "t": "N — Nitrogen",
-              "d": "Fixed from the air by Haber-Bosch, but powered by natural gas — so nitrogen fertilizer tracks the price and security of gas."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "h2": "4 · Finite, non-substitutable, barely recycled",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "The long-run risk is different from a chokepoint",
-          "text": "Phosphorus is not scarce this decade, but it is finite, non-substitutable and lost to runoff rather than recycled — so the security question is less 'who can cut supply tomorrow' and more 'who owns the only resource, and how efficiently is it used'. Recovery from wastewater and manure exists but is nowhere near the scale of demand.",
-          "note": "USGS; fertilizer-efficiency literature.",
-          "flag": "a resource question, not a refining one"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI shows the traded forms — phosphate rock, DAP/MAP fertilizer and potash — as a consistent monetary series. Export restrictions (China, Russia) and captive domestic use mean trade shares understate where the resource actually sits; read them as availability, not reserves.",
-  "method": [
-    {
-      "stage": "Reserves",
-      "lens": "USGS reserve estimates",
-      "why": "the long-run ceiling — the right lens when there is no substitute"
-    },
-    {
-      "stage": "Production",
-      "lens": "USGS mine output",
-      "why": "current flow, distinct from reserves and often export-restricted"
-    },
-    {
-      "stage": "Nutrients",
-      "lens": "per-nutrient production concentration",
-      "why": "N, P and K each have a different geography"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI rock + fertilizer + potash",
-      "why": "availability of the traded form, not the resource base"
-    }
-  ],
-  "sources": {
-    "usgs_phosphate": {
-      "title": "USGS Mineral Commodity Summaries 2026 — Phosphate Rock",
-      "year": 2026,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf"
-    },
-    "usgs_phosphate25": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Phosphate Rock",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf"
-    },
-    "usgs_potash": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Potash",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-potash.pdf"
-    },
-    "usgs_nitrogen": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Nitrogen (Fixed) — Ammonia",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-nitrogen.pdf"
-    },
-    "baci": {
-      "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+  "baci_legacy": {
+    "year": 2024,
+    "products": {
+      "251010": {
+        "hs": "HS17",
+        "world_usd": 3352214626,
+        "world_tonnes": 25153880.2,
+        "n_flows": 388,
+        "china_export_share": 0.0058,
+        "export_hhi": 0.1537,
+        "exporters": [
+          {
+            "iso": "JO",
+            "name": "Jordan",
+            "value_usd": 810333582,
+            "share": 0.2417
+          },
+          {
+            "iso": "MA",
+            "name": "Morocco",
+            "value_usd": 785274850,
+            "share": 0.2343
+          },
+          {
+            "iso": "PE",
+            "name": "Peru",
+            "value_usd": 525907118,
+            "share": 0.1569
+          },
+          {
+            "iso": "EG",
+            "name": "Egypt",
+            "value_usd": 231999977,
+            "share": 0.0692
+          },
+          {
+            "iso": "TG",
+            "name": "Togo",
+            "value_usd": 200739803,
+            "share": 0.0599
+          },
+          {
+            "iso": "ZA",
+            "name": "South Africa",
+            "value_usd": 193035422,
+            "share": 0.0576
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 121224486,
+            "share": 0.0362
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 102225091,
+            "share": 0.0305
+          }
+        ],
+        "importers": [
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 1110069799,
+            "share": 0.3311
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 330168560,
+            "share": 0.0985
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 258259366,
+            "share": 0.077
+          },
+          {
+            "iso": "MX",
+            "name": "Mexico",
+            "value_usd": 173928783,
+            "share": 0.0519
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 162649736,
+            "share": 0.0485
+          },
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 149864268,
+            "share": 0.0447
+          },
+          {
+            "iso": "TR",
+            "name": "Türkiye",
+            "value_usd": 139910654,
+            "share": 0.0417
+          },
+          {
+            "iso": "BE",
+            "name": "Belgium",
+            "value_usd": 131996885,
+            "share": 0.0394
+          }
+        ]
+      },
+      "310530": {
+        "hs": "HS17",
+        "world_usd": 10474214847,
+        "world_tonnes": 18140104.7,
+        "n_flows": 977,
+        "china_export_share": 0.2406,
+        "export_hhi": 0.1975,
+        "exporters": [
+          {
+            "iso": "MA",
+            "name": "Morocco",
+            "value_usd": 3067540320,
+            "share": 0.2929
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2519721675,
+            "share": 0.2406
+          },
+          {
+            "iso": "SA",
+            "name": "Saudi Arabia",
+            "value_usd": 2246772390,
+            "share": 0.2145
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 736121787,
+            "share": 0.0703
+          },
+          {
+            "iso": "JO",
+            "name": "Jordan",
+            "value_usd": 320067057,
+            "share": 0.0306
+          },
+          {
+            "iso": "EG",
+            "name": "Egypt",
+            "value_usd": 227585993,
+            "share": 0.0217
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 227318806,
+            "share": 0.0217
+          },
+          {
+            "iso": "AU",
+            "name": "Australia",
+            "value_usd": 225625003,
+            "share": 0.0215
+          }
+        ],
+        "importers": [
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 2796014551,
+            "share": 0.2669
+          },
+          {
+            "iso": "BD",
+            "name": "Bangladesh",
+            "value_usd": 1219798600,
+            "share": 0.1165
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 796747184,
+            "share": 0.0761
+          },
+          {
+            "iso": "PK",
+            "name": "Pakistan",
+            "value_usd": 589218750,
+            "share": 0.0563
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 460347611,
+            "share": 0.044
+          },
+          {
+            "iso": "MX",
+            "name": "Mexico",
+            "value_usd": 275876917,
+            "share": 0.0263
+          },
+          {
+            "iso": "TR",
+            "name": "Türkiye",
+            "value_usd": 231362325,
+            "share": 0.0221
+          },
+          {
+            "iso": "FR",
+            "name": "France",
+            "value_usd": 211336308,
+            "share": 0.0202
+          }
+        ]
+      },
+      "310540": {
+        "hs": "HS17",
+        "world_usd": 9103082033,
+        "world_tonnes": 13765253.7,
+        "n_flows": 1156,
+        "china_export_share": 0.1198,
+        "export_hhi": 0.1927,
+        "exporters": [
+          {
+            "iso": "MA",
+            "name": "Morocco",
+            "value_usd": 3040326876,
+            "share": 0.334
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 1865048885,
+            "share": 0.2049
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1140038757,
+            "share": 0.1252
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1090667107,
+            "share": 0.1198
+          },
+          {
+            "iso": "SA",
+            "name": "Saudi Arabia",
+            "value_usd": 824917573,
+            "share": 0.0906
+          },
+          {
+            "iso": "MX",
+            "name": "Mexico",
+            "value_usd": 182214463,
+            "share": 0.02
+          },
+          {
+            "iso": "EG",
+            "name": "Egypt",
+            "value_usd": 117468570,
+            "share": 0.0129
+          },
+          {
+            "iso": "BG",
+            "name": "Bulgaria",
+            "value_usd": 74364493,
+            "share": 0.0082
+          }
+        ],
+        "importers": [
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 2529903067,
+            "share": 0.2779
+          },
+          {
+            "iso": "AU",
+            "name": "Australia",
+            "value_usd": 1297918274,
+            "share": 0.1426
+          },
+          {
+            "iso": "CA",
+            "name": "Canada",
+            "value_usd": 1211577520,
+            "share": 0.1331
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1076148800,
+            "share": 0.1182
+          },
+          {
+            "iso": "AR",
+            "name": "Argentina",
+            "value_usd": 446497679,
+            "share": 0.049
+          },
+          {
+            "iso": "ZA",
+            "name": "South Africa",
+            "value_usd": 199141380,
+            "share": 0.0219
+          },
+          {
+            "iso": "PY",
+            "name": "Paraguay",
+            "value_usd": 151287186,
+            "share": 0.0166
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 136469374,
+            "share": 0.015
+          }
+        ]
+      },
+      "310420": {
+        "hs": "HS17",
+        "world_usd": 18274107258,
+        "world_tonnes": 63349339.4,
+        "n_flows": 1740,
+        "china_export_share": 0.0047,
+        "export_hhi": 0.2148,
+        "exporters": [
+          {
+            "iso": "CA",
+            "name": "Canada",
+            "value_usd": 6728423983,
+            "share": 0.3682
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 4607864453,
+            "share": 0.2522
+          },
+          {
+            "iso": "DE",
+            "name": "Germany",
+            "value_usd": 1073470089,
+            "share": 0.0587
+          },
+          {
+            "iso": "BY",
+            "name": "Belarus",
+            "value_usd": 1066146213,
+            "share": 0.0583
+          },
+          {
+            "iso": "IL",
+            "name": "Israel",
+            "value_usd": 971687438,
+            "share": 0.0532
+          },
+          {
+            "iso": "LA",
+            "name": "Lao People's Dem. Rep.",
+            "value_usd": 821810627,
+            "share": 0.045
+          },
+          {
+            "iso": "JO",
+            "name": "Jordan",
+            "value_usd": 723046620,
+            "share": 0.0396
+          },
+          {
+            "iso": "UZ",
+            "name": "Uzbekistan",
+            "value_usd": 615438448,
+            "share": 0.0337
+          }
+        ],
+        "importers": [
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 3904433303,
+            "share": 0.2137
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 3628419747,
+            "share": 0.1986
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3550397960,
+            "share": 0.1943
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 1060900147,
+            "share": 0.0581
+          },
+          {
+            "iso": "ID",
+            "name": "Indonesia",
+            "value_usd": 976540606,
+            "share": 0.0534
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 507143529,
+            "share": 0.0278
+          },
+          {
+            "iso": "PL",
+            "name": "Poland",
+            "value_usd": 367214394,
+            "share": 0.0201
+          },
+          {
+            "iso": "BE",
+            "name": "Belgium",
+            "value_usd": 352762744,
+            "share": 0.0193
+          }
+        ]
+      },
+      "280470": {
+        "hs": "HS17",
+        "world_usd": 762648415,
+        "world_tonnes": 199826.9,
+        "n_flows": 353,
+        "china_export_share": 0.0158,
+        "export_hhi": 0.3547,
+        "exporters": [
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 373968792,
+            "share": 0.4904
+          },
+          {
+            "iso": "KZ",
+            "name": "Kazakhstan",
+            "value_usd": 245443645,
+            "share": 0.3218
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 70481478,
+            "share": 0.0924
+          },
+          {
+            "iso": "PL",
+            "name": "Poland",
+            "value_usd": 31006128,
+            "share": 0.0407
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 12014186,
+            "share": 0.0158
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 6536125,
+            "share": 0.0086
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 6047065,
+            "share": 0.0079
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 5624534,
+            "share": 0.0074
+          }
+        ],
+        "importers": [
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 157262704,
+            "share": 0.2062
+          },
+          {
+            "iso": "DE",
+            "name": "Germany",
+            "value_usd": 115859876,
+            "share": 0.1519
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 91371563,
+            "share": 0.1198
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 70486052,
+            "share": 0.0924
+          },
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 61860905,
+            "share": 0.0811
+          },
+          {
+            "iso": "CZ",
+            "name": "Czechia",
+            "value_usd": 53620359,
+            "share": 0.0703
+          },
+          {
+            "iso": "PL",
+            "name": "Poland",
+            "value_usd": 46527070,
+            "share": 0.061
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 35155972,
+            "share": 0.0461
+          }
+        ]
+      }
     }
   }
 }

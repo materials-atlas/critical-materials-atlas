@@ -1,20 +1,29 @@
-# PGM / catalyst chain pilot (unpublished)
+# Platinum, palladium and rhodium have different supply maps
 
-Platinum, palladium and rhodium from a two-country mine base (South Africa + Russia)
-through refining to autocatalysts, plus the recycling loop that relieves the
-chokepoint and the EV transition that threatens the demand. Isolated on
-`wip/value-chains`; not linked from the live Atlas.
+The [research note](pgm-catalyst-chain.html) sets out mine production, recycling, demand and customs
+coverage for each metal separately. The [claim register](PRODUCTION.md) records the audit of the previous
+page.
 
-## The finding
-- ~90% of world PGM reserves are in South Africa's Bushveld Complex; the only other
-  large primary source is Russia (palladium, Norilsk).
-- Autocatalysts are the dominant use; fuel cells (platinum) are a growth hedge.
-- Recycling of spent converters returns a large, growing secondary supply — the
-  relief valve most critical materials lack.
-- The bigger risk is demand: battery-electric vehicles remove the autocatalyst.
+Run `python pgm-catalyst-chain/record_pgm.py` from the repository root. The builder needs no network
+access. It reads:
 
-## Files
-- `record_pgm.py` → `out/pgm_chain.json`.
-- `extract_baci.py` → `out/pgm_trade.json` (HS 711011/711021/711031/711510).
-- `pgm-catalyst-chain.html` — research page (generic renderer).
-- `NOTES.md`, `PRODUCTION.md`.
+- `evidence_inputs.json`: the USGS and Johnson Matthey tables as transcribed and checked on 25 November 2026, with source links;
+- `article.html.in`: the page text;
+- `out/pgm_trade.json`: the frozen BACI extract written by `extract_baci.py`;
+- the atlas's `out/mined_years.json`, for the BGS all-PGM series quoted in the correction.
+
+It writes the page and `out/pgm_chain.json` (inputs, results and the chokepoint-map entry).
+
+## Calculations
+
+- USGS shares divide each country's 2024 mine production by the published world total. No 2025 shares are shown because USGS rounds the 2025 totals to two figures.
+- Reserve shares are of the countries listed (76,200 tonnes); USGS prints the world figure as "more than 76,000".
+- The concentration index (HHI) is given as a range: the grouped "other countries" row counted as fully dispersed, or as one producer.
+- Johnson Matthey figures are stored in thousand troy ounces and shown in tonnes (1,000 oz = 0.0311035 t).
+- Recycled share = open-market recycling divided by primary plus recycled supply.
+- Supply screen = half of a country's 2025 primary sales divided by 2025 demand.
+- Demand screen = 2025 movement in stocks plus the assumed cut in automotive demand.
+
+The builder stops if the Johnson Matthey sector figures do not add to the published totals, if the six
+flagged trade records no longer explain the palladium tonnage outliers, or if the summary sentence on a
+quarter-lower automotive demand no longer matches the screen.

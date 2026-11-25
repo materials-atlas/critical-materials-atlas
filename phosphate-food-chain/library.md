@@ -2,6 +2,8 @@
 
 Phosphate is a geological chokepoint — ~70% of world reserves are in Morocco, and there is no substitute for phosphorus in agriculture. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
 
+**25 November 2026 correction.** The pilot’s inference that phosphate-rock reserves set the binding constraint is superseded. The revised study compares reserve location, mine output and product-level import origins. [Revised note](phosphate-food-chain.html)
+
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Phosphate Rock](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf) — USGS (2026). World phosphate-rock production and reserves; Morocco holds the dominant share of reserves.
 - [USGS Mineral Commodity Summaries 2025 — Potash](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-potash.pdf) — USGS (2025). The K in NPK fertilizer — companion nutrient supply.

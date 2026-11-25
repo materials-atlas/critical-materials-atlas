@@ -1,0 +1,95 @@
+{
+  "version": "2026-11-25",
+  "sources": {
+    "mcs2026": {"title": "USGS Mineral Commodity Summaries 2026, Platinum-Group Metals", "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf", "vintage": "February 2026"},
+    "mcs2025": {"title": "USGS Mineral Commodity Summaries 2025, Platinum-Group Metals", "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf", "vintage": "January 2025"},
+    "mcs2022": {"title": "USGS Mineral Commodity Summaries 2022, Platinum-Group Metals", "url": "https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-platinum.pdf", "vintage": "January 2022"},
+    "mcs2017": {"title": "USGS Mineral Commodity Summaries 2017, Platinum-Group Metals", "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2017-plati.pdf", "vintage": "January 2017"},
+    "mcs2012": {"title": "USGS Mineral Commodity Summaries 2012, Platinum-Group Metals", "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2012-plati.pdf", "vintage": "January 2012"},
+    "mcs2007": {"title": "USGS Mineral Commodity Summaries 2007, Platinum-Group Metals", "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/platimcs07.pdf", "vintage": "January 2007"},
+    "mcs2002": {"title": "USGS Mineral Commodity Summaries 2002, Platinum-Group Metals", "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/550302.pdf", "vintage": "January 2002"},
+    "jm2026": {"title": "Johnson Matthey, PGM Market Report, May 2026", "url": "https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports", "vintage": "May 2026"},
+    "ipa_recycling": {"title": "International Platinum Group Metals Association, Mining and recycling", "url": "https://ipa-news.com/index/about-pgms/mining-und-recycling/", "vintage": "read 25 November 2026"},
+    "ipa_rhodium": {"title": "International Platinum Group Metals Association, Rhodium fact sheet, May 2026", "url": "https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-rhodium-factsheet.pdf", "vintage": "May 2026"},
+    "ipa_palladium": {"title": "International Platinum Group Metals Association, Palladium fact sheet, May 2026", "url": "https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-palladium-factsheet.pdf", "vintage": "May 2026"},
+    "usgs_pp1802": {"title": "USGS Professional Paper 1802-N, Platinum-Group Elements", "url": "https://pubs.usgs.gov/pp/1802/n/pp1802n.pdf", "vintage": "2017"},
+    "wco_ch71": {"title": "World Customs Organization, HS 2017, Chapter 71", "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1471_2017e.pdf", "vintage": "HS 2017"},
+    "wco_2022": {"title": "World Customs Organization, HS 2022 correlation table I", "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2022/table-i_en.pdf?la=en", "vintage": "HS 2022"},
+    "bgs": {"title": "British Geological Survey, World Mineral Statistics", "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/", "vintage": "series to 2024"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37", "vintage": "January 2026"}
+  },
+  "usgs_mcs2026": {
+    "unit": "kilograms of metal content",
+    "note": "The 2025 column is estimated. The Russia row is estimated in both years. World totals are rounded by USGS.",
+    "countries": {
+      "South Africa": {"pd_2024": 82600, "pd_2025": 70000, "pt_2024": 126000, "pt_2025": 120000, "reserves": 63000000},
+      "Russia": {"pd_2024": 89000, "pd_2025": 84000, "pt_2024": 22000, "pt_2025": 20000, "reserves": 11000000},
+      "Zimbabwe": {"pd_2024": 15200, "pd_2025": 15000, "pt_2024": 18400, "pt_2025": 18000, "reserves": 1300000},
+      "Canada": {"pd_2024": 17000, "pd_2025": 16000, "pt_2024": 5700, "pt_2025": 5000, "reserves": 310000},
+      "United States": {"pd_2024": 10200, "pd_2025": 6200, "pt_2024": 3010, "pt_2025": 1800, "reserves": 590000},
+      "Other countries": {"pd_2024": 2870, "pd_2025": 2900, "pt_2024": 3860, "pt_2025": 3900, "reserves": null}
+    },
+    "world": {"pd_2024": 217000, "pd_2025": 190000, "pt_2024": 179000, "pt_2025": 170000, "reserves_at_least": 76000000},
+    "recycling_2025_kg": {"world_pd_pt_from_scrap": 140000, "us_converters_pd": 50000, "us_converters_pt": 8600}
+  },
+  "usgs_mcs2025_estimates_for_2024": {
+    "South Africa": {"pd": 72000, "pt": 120000}, "Russia": {"pd": 75000, "pt": 18000}, "world": {"pd": 190000, "pt": 170000},
+    "reserves": {"Russia": 16000000, "United States": 820000, "world_at_least": 81000000}
+  },
+  "usgs_history": [
+    {"year": 2000, "source": "mcs2002", "pt": {"South Africa": 114000, "Russia": 30000, "world": 155000}, "pd": {"South Africa": 55900, "Russia": 94000, "world": 174000}},
+    {"year": 2005, "source": "mcs2007", "pt": {"South Africa": 169000, "Russia": 30000, "world": 217000}, "pd": {"South Africa": 84900, "Russia": 97400, "world": 219000}},
+    {"year": 2010, "source": "mcs2012", "pt": {"South Africa": 148000, "Russia": 25100, "world": 192000}, "pd": {"South Africa": 82200, "Russia": 84700, "world": 202000}},
+    {"year": 2015, "source": "mcs2017", "pt": {"South Africa": 139000, "Russia": 22000, "world": 189000}, "pd": {"South Africa": 83000, "Russia": 81000, "world": 216000}},
+    {"year": 2020, "source": "mcs2022", "pt": {"South Africa": 112000, "Russia": 23000, "world": 166000}, "pd": {"South Africa": 73500, "Russia": 93000, "world": 217000}},
+    {"year": 2024, "source": "mcs2026", "pt": {"South Africa": 126000, "Russia": 22000, "world": 179000}, "pd": {"South Africa": 82600, "Russia": 89000, "world": 217000}}
+  ],
+  "jm_2025": {
+    "unit": "thousand troy ounces",
+    "definitions": "Primary supply is producer sales, allocated to the region where mining took place. Secondary supply is open-loop recycling only. Demand is net of closed-loop recycling. A negative movement in stocks is a market deficit.",
+    "metals": {
+      "Platinum": {
+        "primary": {"South Africa": 3957, "Russia": 650, "North America": 224, "Zimbabwe": 513, "Others": 213},
+        "secondary": {"Automotive": 1132, "Electrical and other": 85, "Jewellery": 330},
+        "demand": {"Automotive": 3329, "Jewellery": 1507, "Investment": 556, "Industrial": 2627},
+        "total_demand": 8019, "movement_in_stocks": -915, "pages": "27-28"
+      },
+      "Palladium": {
+        "primary": {"South Africa": 2246, "Russia": 2950, "North America": 712, "Zimbabwe": 422, "Others": 259},
+        "secondary": {"Automotive": 2657, "Electrical and other": 467, "Jewellery": 11},
+        "demand": {"Automotive": 8227, "Jewellery": 83, "Investment": 382, "Industrial": 1448},
+        "total_demand": 10140, "movement_in_stocks": -416, "pages": "29-30"
+      },
+      "Rhodium": {
+        "primary": {"South Africa": 566, "Russia": 68, "North America": 15, "Zimbabwe": 45, "Others": 7},
+        "secondary": {"Automotive": 312},
+        "demand": {"Automotive": 899, "Industrial": 164},
+        "total_demand": 1063, "movement_in_stocks": -50, "pages": "31-32"
+      }
+    }
+  },
+  "scenarios": {
+    "supply_cut_fraction": 0.5,
+    "automotive_demand_cuts": [0.1, 0.25, 0.5]
+  },
+  "trade_checks": {
+    "code": "711021",
+    "checked": "2026-11-25",
+    "note": "Six bilateral records in the BACI extract carry a weight about a thousand times what their value implies (about USD 0.01 per gram, when palladium traded at several dollars per gram).",
+    "records": [
+      {"year": 2002, "exporter": "United Kingdom", "importer": "Canada", "tonnes": 1937.847, "usd_thousand": 21076.951},
+      {"year": 2002, "exporter": "South Africa", "importer": "Canada", "tonnes": 730.268, "usd_thousand": 8400.225},
+      {"year": 2002, "exporter": "Belgium", "importer": "Canada", "tonnes": 387.277, "usd_thousand": 3899.062},
+      {"year": 2002, "exporter": "Russia", "importer": "Canada", "tonnes": 279.299, "usd_thousand": 2046.658},
+      {"year": 2002, "exporter": "Norway", "importer": "Canada", "tonnes": 146.185, "usd_thousand": 1900.226},
+      {"year": 2009, "exporter": "United Kingdom", "importer": "Cyprus", "tonnes": 4848.960, "usd_thousand": 77946.291}
+    ]
+  },
+  "trade_boundaries": {
+    "711011": "Platinum only, unwrought or in powder form. Refined metal moves through refining and trading hubs, so exporters are not the mine base.",
+    "711021": "Palladium, unwrought or in powder form. Includes re-shipment through hubs; tonnage in 2002 and 2009 is unreliable (see text).",
+    "711031": "Rhodium, unwrought or in powder form. A small market with large price swings, so value shares move with price.",
+    "711510": "Catalysts in the form of wire cloth or grill, of any platinum-group metal. Industrial gauzes, not vehicle catalytic converters."
+  },
+  "bgs_all_pgm_note": "The atlas's BGS mine series stored under the label platinum is the BGS line 'platinum group metals, mine', which sums all six metals."
+}

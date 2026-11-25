@@ -1,121 +1,265 @@
-"""Evidence JSON for the unpublished phosphate → fertilizer → food chain pilot.
-Uniform chain schema. Public sources only. Run: python record_phosphate.py
-"""
-from __future__ import annotations
-import json, os
+"""Rebuild the phosphate research note from pinned public inputs."""
+from collections import Counter
+import csv
+from html import escape
+import json
+from pathlib import Path
+from string import Template
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "phosphate_chain.json")
-MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
-
-def hist_points(material, country):
-    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
-    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
-
-
-SRC = {
-    "usgs_phosphate": {"title": "USGS Mineral Commodity Summaries 2026 — Phosphate Rock", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf"},
-    "usgs_phosphate25": {"title": "USGS Mineral Commodity Summaries 2025 — Phosphate Rock", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf"},
-    "usgs_potash": {"title": "USGS Mineral Commodity Summaries 2025 — Potash", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-potash.pdf"},
-    "usgs_nitrogen": {"title": "USGS Mineral Commodity Summaries 2025 — Nitrogen (Fixed) — Ammonia", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-nitrogen.pdf"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+HERE = Path(__file__).resolve().parent
+OUT = HERE / "out"
+DATE = "2026-11-25"
+TITLE = "Phosphate reserves and fertilizer supply"
+DECK = "Morocco leads in reported phosphate-rock reserves. China leads in mining. Import dependence varies by fertilizer and market."
+YEAR = "2024"
+GROUPS = ("Rock", "Acid", "DAP", "MAP and mixes", "Superphosphates", "Other finished")
+P_IN_P2O5 = 2 * 30.973761998 / (2 * 30.973761998 + 5 * 15.999)
+SOURCES = {
+    "usgs": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf",
+    "usgs_geography": "https://pubs.usgs.gov/myb/vol3/2019/myb3-2019-morocco-western-sahara.pdf",
+    "baci": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+    "comext": "https://ec.europa.eu/eurostat/databrowser/view/DS-045409/default/table?lang=en",
+    "faostat": "https://www.fao.org/faostat/en/#data/RFN",
+    "faostat_method": "https://files-faostat.fao.org/production/RFN/RFN_EN_README.pdf",
+    "hs2017": "https://unstats.un.org/unsd/trade/events/2017/suzhou/presentations/Agenda%20item%2017%20%28a%29%20-%20WCO.pdf",
+    "dap_grade": "https://www.cropnutrition.com/resource-library/diammonium-phosphate-dap-data-sheet/",
+    "map_grade": "https://www.cropnutrition.com/resource-library/monoammonium-phosphate-map/",
+    "hirner": "https://doi.org/10.1016/j.resourpol.2026.106064",
+    "raddant": "https://doi.org/10.3390/resources14100151",
+    "barbieri": "https://doi.org/10.1038/s41893-021-00816-1",
+}
+LEGACY_BOUNDS = {
+    "251010": "Unground natural phosphates. Ground material is under 251020.",
+    "310530": "DAP. The series measures trade value.",
+    "310540": "MAP and specified MAP–DAP mixtures. Grades vary.",
+    "310420": "Potassium chloride. Comparator for potassium.",
+    "280470": "Elemental phosphorus. Separate industrial product.",
 }
 
-CHAIN = {
-    "title": "Phosphate → fertilizer → food chain",
-    "chokepoint": {"product": "Fertilizer / food", "stage": "Reserves", "mechanism": "geological", "physics": "~68% of world reserves are in Morocco (though only ~13% of current production); no substitute for phosphorus", "holder": "Morocco", "share": "~68% reserves", "control": "—", "conf": "measured"},
-    "published": True,
-    "related": [{"href": "../ammonia-chain/ammonia-chain", "label": "Ammonia / nitrogen chain"}],
-    "accent": "#6f7c3c",
-    "eyebrow": "Product-chain pilot · food security",
-    "h1": "For food, the mine is the chokepoint",
-    "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the "
-            "exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 68% "
-            "of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
-    "byline": "reserves ≠ production ≠ fertilizer ≠ food — but for phosphorus there is no plan B",
-    "correction": "The atlas's usual finding — 'the refiner is not the source' — inverts for phosphorus. There is no "
-                  "synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base "
-                  "itself is the chokepoint, and it is extraordinarily concentrated.",
-    "stats": [
-        {"v": "~68%", "l": "of world phosphate-rock reserves are in Morocco (but only ~13% of current output)", "conf": "measured"},
-        {"v": "China", "l": "the largest producer (then Morocco, US, Russia)", "conf": "measured"},
-        {"v": "47.8 Mt", "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028", "conf": "measured"},
-        {"v": "0", "l": "substitutes for phosphorus in growing food", "conf": "measured"},
-    ],
-    "history": {
-        "title": "Phosphate-rock mine production shifted to China, 2000–2024",
-        "conf": "measured",
-        "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose "
-                "from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output "
-                "moved to China, but the long-run RESERVE base (~68%) stayed in Morocco — production and reserves point "
-                "to different countries.",
-        "series": [
-            {"label": "China", "points": hist_points("phosphate", "CN")},
-            {"label": "United States", "points": hist_points("phosphate", "US")},
-            {"label": "Morocco", "points": hist_points("phosphate", "MA")},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Phosphate rock", "t": "the only significant source of phosphorus; reserves ~68% Morocco"},
-        {"n": "2 · Acid & fertilizer", "t": "phosphoric acid → DAP/MAP; Morocco (OCP) is also a top processor"},
-        {"n": "3 · The three nutrients", "t": "P (Morocco), K / potash (Canada, Russia, Belarus), N (natural gas)"},
-        {"n": "4 · Food", "t": "non-substitutable, finite, poorly recycled — the demand cannot be switched off"},
-    ],
-    "sections": [
-        {"h2": "1 · Reserves are even more concentrated than production", "panels": [
-            {"kind": "bars", "h3": "Phosphate-rock reserves", "max": 1.0, "note":
-                "USGS. Morocco (incl. Western Sahara) holds ~50 of ~74 billion t — about 68% of world reserves. Reserves "
-                "are the long-run ceiling; they are far more concentrated than current output (Morocco is ~13% of it).", "bars": [
-                {"label": "Morocco", "value": 0.68},
-                {"label": "Rest of world", "value": 0.32},
-            ]},
-            {"kind": "text", "h3": "Production is more spread — for now",
-             "text": "China is currently the largest producer of phosphate rock, ahead of Morocco, the United States "
-                     "and Russia. But several producers mine from limited reserves and restrict exports to protect "
-                     "domestic fertilizer supply; over the long run, output gravitates toward where the rock actually is.",
-             "flag": "reserves are the ceiling, not output"},
-        ]},
-        {"h2": "2 · The chokepoint does not move downstream — it stays at the resource", "panels": [
-            {"kind": "text", "h3": "Why phosphorus is the exception",
-             "text": "In the tech chains, the bottleneck migrates to a furnace, a fab or a magnet. Phosphorus cannot "
-                     "do that: there is no synthetic substitute and no alternative ore. Morocco's OCP has also moved "
-                     "downstream into phosphoric acid and finished fertilizer, so it holds both the reserve base AND "
-                     "a large share of processing — concentration at two stages at once.",
-             "note": "USGS.", "flag": "an inversion of the atlas thesis"},
-            {"kind": "big", "h3": "The demand that cannot be switched off", "big": "47.8 Mt/yr",
-             "text": "P₂O₅ contained in fertilizer used worldwide, rising toward ~52 Mt by 2028. Every tonne of it "
-                     "ultimately traces to phosphate rock; there is no recycling loop at scale to relieve it.",
-             "note": "USGS. Fertilizer is the overwhelming end use of phosphate rock."},
-        ]},
-        {"h2": "3 · The other two nutrients are locked up too (N-P-K)", "panels": [
-            {"kind": "cards", "h3": "Each fertilizer nutrient has its own concentration", "cards": [
-                {"t": "P — Phosphorus", "d": "Phosphate rock, ~68% of reserves in Morocco. No substitute. The subject of this chain."},
-                {"t": "K — Potassium", "d": "Potash, dominated by Canada, Russia and Belarus. Russia + Belarus supply was disrupted after 2022 sanctions."},
-                {"t": "N — Nitrogen", "d": "Fixed from the air by Haber-Bosch, but powered by natural gas — so nitrogen fertilizer tracks the price and security of gas."},
-            ]},
-        ]},
-        {"h2": "4 · Finite, non-substitutable, barely recycled", "panels": [
-            {"kind": "text", "h3": "The long-run risk is different from a chokepoint",
-             "text": "Phosphorus is not scarce this decade, but it is finite, non-substitutable and lost to runoff "
-                     "rather than recycled — so the security question is less 'who can cut supply tomorrow' and more "
-                     "'who owns the only resource, and how efficiently is it used'. Recovery from wastewater and "
-                     "manure exists but is nowhere near the scale of demand.",
-             "note": "USGS; fertilizer-efficiency literature.", "flag": "a resource question, not a refining one"},
-        ]},
-    ],
-    "trade_intro": "BACI shows the traded forms — phosphate rock, DAP/MAP fertilizer and potash — as a consistent "
-                   "monetary series. Export restrictions (China, Russia) and captive domestic use mean trade shares "
-                   "understate where the resource actually sits; read them as availability, not reserves.",
-    "method": [
-        {"stage": "Reserves", "lens": "USGS reserve estimates", "why": "the long-run ceiling — the right lens when there is no substitute"},
-        {"stage": "Production", "lens": "USGS mine output", "why": "current flow, distinct from reserves and often export-restricted"},
-        {"stage": "Nutrients", "lens": "per-nutrient production concentration", "why": "N, P and K each have a different geography"},
-        {"stage": "Trade", "lens": "BACI rock + fertilizer + potash", "why": "availability of the traded form, not the resource base"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— phosphate/food chain, Morocco ~68% reserves, no substitute")
+def read_json(filename):
+    return json.loads((OUT / filename).read_text(encoding="utf-8"))
+
+
+def read_csv(filename):
+    with (HERE / filename).open(encoding="utf-8", newline="") as file:
+        return list(csv.DictReader(file))
+
+
+def concentration(masses, total):
+    """HHI in points. Assign the unresolved mass to the top origin for the upper bound."""
+    residual = total - sum(masses)
+    if residual < 0:
+        raise ValueError("Named flows exceed the reported total.")
+    if total == 0:
+        return [None, None]
+    squares = sum(mass**2 for mass in masses)
+    top = max(masses, default=0)
+    scale = 10000 / total**2
+    return [squares * scale, (squares + 2 * top * residual + residual**2) * scale]
+
+
+def upstream():
+    rows = [{k: int(v) if k.endswith("_kt") else v for k, v in r.items()} for r in read_csv("usgs_2025.csv")]
+    world = next(r for r in rows if r["kind"] == "total")
+    countries = [r for r in rows if r["kind"] == "named"]
+    other = next(r for r in rows if r["kind"] == "other")
+    fields = ("reserves_kt", "production_2025_kt")
+    values = {}
+    for field in fields:
+        named = [r[field] for r in countries]
+        summed = sum(named) + other[field]
+        hhi = sum((v / summed)**2 for v in named) * 10000
+        values[field] = {
+            "published_total_kt": world[field], "row_total_kt": summed, "other_kt": other[field],
+            "hhi_points": [hhi, hhi + (other[field] / summed)**2 * 10000],
+        }
+    for r in countries:
+        for field in fields:
+            r[field.removesuffix("_kt") + "_share"] = r[field] / world[field]
+    return {"rows": rows, "summary": values}
+
+
+def group_eu_imports(data, products):
+    lookup = {row["cn8"]: row["group"] for row in products}
+    all_years = {}
+    for year in sorted({str(r["year"]) for r in data["rows"]}):
+        by_code = {code: [] for code in lookup}
+        for row in data["rows"]:
+            if str(row["year"]) == year:
+                by_code[row["cn8"]].append(row)
+        result = {}
+        for group in GROUPS:
+            named_kg = Counter()
+            total_kg = 0
+            total_eur = 0
+            residual_codes = Counter()
+            for code, rows in by_code.items():
+                if lookup[code] != group:
+                    continue
+                total = next(row for row in rows if row["kind"] == "total")
+                details = [r for r in rows if r["kind"] != "total"]
+                for field in ("mass_kg", "eur"):
+                    if total[field] != sum(row.get(field, 0) for row in details):
+                        raise ValueError(f"Comext {field} did not reconcile for {year}/{code}.")
+                total_kg += total["mass_kg"]
+                total_eur += total["eur"]
+                for row in details:
+                    if "mass_kg" in row:
+                        bucket = named_kg if row["kind"] == "named" else residual_codes
+                        bucket[row["origin"]] += row["mass_kg"]
+            origin_kg = dict(named_kg.most_common())
+            result[group] = {
+                "total_kg": total_kg, "total_eur": total_eur, "named_kg": origin_kg,
+                "unnamed_kg": dict(residual_codes),
+                "hhi_points": concentration(list(origin_kg.values()), total_kg),
+            }
+        all_years[year] = result
+    return all_years
+
+
+def nutrient_balance(snapshot):
+    categories = {"production_t": ("5707", "5510"), "agricultural_use_t": ("5707", "5157"),
+                  "imports_t": ("57070", "5610"), "exports_t": ("57070", "5910"),
+                  "world_agricultural_use_t": ("5000", "5157")}
+    years = {}
+    for year in sorted({str(r["year"]) for r in snapshot["rows"]}):
+        values = {(r["area_code"], r["element_code"]): r["p2o5_t"]
+                  for r in snapshot["rows"] if str(r["year"]) == year}
+        row = {key: values[code] for key, code in categories.items()}
+        row["net_imports_t"] = row["imports_t"] - row["exports_t"]
+        row["apparent_supply_t"] = row["production_t"] + row["net_imports_t"]
+        row["supply_less_agricultural_use_t"] = row["apparent_supply_t"] - row["agricultural_use_t"]
+        row["net_import_share_of_apparent_supply"] = (
+            row["net_imports_t"] / row["apparent_supply_t"] if row["apparent_supply_t"] > 0 else None
+        )
+        years[year] = row
+    return years
+
+
+def grade_illustration(groups, products):
+    nominal = {r["group"]: float(r["nominal_p2o5_fraction"]) for r in products if r["nominal_p2o5_fraction"]}
+    return [
+        {"dap_fraction": nominal["DAP"], "map_mix_fraction": fraction,
+         "elemental_p_t": (groups["DAP"]["total_kg"] * nominal["DAP"]
+                           + groups["MAP and mixes"]["total_kg"] * fraction) / 1000 * P_IN_P2O5}
+        for fraction in (nominal["DAP"], nominal["MAP and mixes"])
+    ]
+
+
+def stress_test(dap):
+    # Keep the experiment within one customs product and one year of reported imports.
+    origin, origin_kg = next(iter(dap["named_kg"].items()))
+    lost = origin_kg / 2
+    return {
+        "year": int(YEAR), "origin": origin, "lost_fraction_of_origin": .5,
+        "baseline_kg": dap["total_kg"], "lost_kg": lost,
+        "rows": [{"replacement_fraction": r, "remaining_gap_kg": lost * (1 - r),
+                  "gap_share_of_baseline_imports": lost * (1 - r) / dap["total_kg"]} for r in (0, .5, 1)],
+    }
+
+
+def build_evidence():
+    comext, faostat = read_json("phosphate_comext.json"), read_json("phosphate_faostat.json")
+    products = read_csv("products.csv")
+    eu = group_eu_imports(comext, products)
+    legacy = read_json("phosphate_trade.json")
+    latest = str(legacy["years"][-1])
+    return {
+        "title": TITLE, "h1": TITLE, "deck": DECK, "published": True, "version": DATE,
+        "chokepoint": {
+            "product": "Phosphate fertilizer", "stage": "Reserve concentration",
+            "mechanism": "geological", "physics": "Reserves, mine output and fertilizer origins differ. The binding stage remains untested.",
+            "holder": "Morocco (USGS reserves)", "share": "68.5% of reserves", "control": "—",
+            "conf": "snapshot", "research": True,
+        },
+        "sources": SOURCES, "upstream": upstream(),
+        "comext_partners": comext["partners"], "eu_imports": eu,
+        "p_fraction_in_p2o5": P_IN_P2O5,
+        "grade_illustration_2024": grade_illustration(eu[YEAR], products),
+        "faostat_balance": nutrient_balance(faostat),
+        "stress_test": stress_test(eu[YEAR]["DAP"]),
+        "baci_legacy": {"year": int(latest), "products": legacy["years_data"][latest]},
+    }
+
+
+def tr(head, *cells, attrs=""):
+    return (f"<tr{attrs}><th scope=\"row\">{escape(str(head))}</th>"
+            + "".join(f"<td>{escape(str(cell))}</td>" for cell in cells) + "</tr>")
+
+
+def hhi_label(bounds):
+    low, high = (round(n) for n in bounds)
+    return f"{low:,}" if low == high else f"{low:,} to {high:,}"
+
+
+def tonnes(kg):
+    return f"{kg / 1000:,.0f}"
+
+
+def render(data, trade):
+    all_eu = data["eu_imports"]
+    eu = all_eu[YEAR]
+    usgs = data["upstream"]
+    places = {row["country"]: row for row in usgs["rows"] if row["kind"] == "named"}
+    fao = data["faostat_balance"]
+    scenario = data["stress_test"]
+    partner = data["comext_partners"]
+    morocco = places["Morocco"]
+    china = places["China"]
+    dap = eu["DAP"]
+    trade_rows = []
+    for code, row in data["baci_legacy"]["products"].items():
+        lead = row["exporters"][0]
+        trade_rows.append(tr(f"{trade['codes'][code]['title']} ({code})",
+                             f"USD {row['world_usd'] / 1e6:,.1f}m", f"{lead['name']} · {lead['share']:.1%}",
+                             LEGACY_BOUNDS[code], attrs=f' data-trade-code="{code}"'))
+    values = {
+        "title": TITLE, "deck": DECK, "date": DATE, **data["sources"],
+        "ma_reserve": f"{morocco['reserves_share']:.1%}", "ma_mine": f"{morocco['production_2025_share']:.1%}",
+        "cn_mine": f"{china['production_2025_share']:.1%}", "cn_reserve": f"{china['reserves_share']:.1%}",
+        "ma_dap": f"{dap['named_kg']['MA'] / dap['total_kg']:.1%}",
+        "ma_rock": f"{eu['Rock']['named_kg']['MA'] / eu['Rock']['total_kg']:.1%}",
+        "reserve_hhi": hhi_label(usgs["summary"]["reserves_kt"]["hhi_points"]),
+        "mine_hhi": hhi_label(usgs["summary"]["production_2025_kt"]["hhi_points"]),
+        "mine_rows": "\n".join(
+            tr(r["country"], f"{r['reserves_kt'] / 1000:,.2f}", f"{r['reserves_share']:.1%}",
+               f"{r['production_2025_kt'] / 1000:,.2f}", f"{r['production_2025_share']:.1%}")
+            for r in sorted(places.values(), key=lambda r: -r["reserves_kt"])
+        ),
+        "trade_rows": "\n".join(trade_rows), "trade_year": data["baci_legacy"]["year"],
+        "eu_rows": "\n".join(
+            tr(group, tonnes(g["total_kg"]), partner[next(iter(g["named_kg"]))].split(" (")[0],
+               f"{max(g['named_kg'].values()) / g['total_kg']:.1%}", hhi_label(g["hhi_points"]),
+               hhi_label(all_eu["2023"][group]["hhi_points"]),
+               f"{sum(g['unnamed_kg'].values()) / g['total_kg']:.2%}")
+            for group, g in eu.items()
+        ),
+        "fao_rows": "\n".join(
+            tr(year, *(f"{r[k] / 1e6:.3f}" for k in ("production_t", "imports_t", "exports_t", "apparent_supply_t",
+                                                    "agricultural_use_t", "supply_less_agricultural_use_t")),
+               f"{r['net_import_share_of_apparent_supply']:.1%}") for year, r in fao.items()
+        ),
+        "grade_low": f"{data['grade_illustration_2024'][0]['elemental_p_t']:,.0f}",
+        "grade_high": f"{data['grade_illustration_2024'][1]['elemental_p_t']:,.0f}",
+        "scenario_rows": "\n".join(
+            tr(f"{r['replacement_fraction']:.0%}", tonnes(r["remaining_gap_kg"]), f"{r['gap_share_of_baseline_imports']:.1%}")
+            for r in scenario["rows"]
+        ),
+        "scenario_origin": partner[scenario["origin"]].split(" (")[0],
+        "scenario_lost": tonnes(scenario["lost_kg"]),
+        "scenario_baseline": tonnes(scenario["baseline_kg"]),
+    }
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
+
+
+def build():
+    data = build_evidence()
+    html = render(data, read_json("phosphate_trade.json"))
+    (OUT / "phosphate_chain.json").write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+                                              encoding="utf-8", newline="\n")
+    (HERE / "phosphate-food-chain.html").write_text(html, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    build()

@@ -1,283 +1,604 @@
 {
   "title": "PGM / catalyst chain",
-  "chokepoint": {
-    "product": "Autocatalysts",
-    "stage": "Bushveld",
-    "mechanism": "geological",
-    "physics": "The platinum-group ore is in South Africa's Bushveld Complex (~83% of world PGM reserves); SA leads platinum (~71% of mine output) but palladium is Russia-led",
-    "holder": "South Africa",
-    "share": "~83% reserves",
-    "control": "—",
-    "conf": "measured"
-  },
+  "h1": "Platinum, palladium and rhodium have different supply maps",
+  "deck": "South Africa supplies most platinum and rhodium, and Russia leads in palladium. Recycling and vehicle demand also differ by metal, so one figure for the group hides the exposure.",
   "published": true,
-  "related": [
-    {
-      "href": "../electrolyser-chain/electrolyser-chain",
-      "label": "Electrolyser chain"
-    },
-    {
-      "href": "../aerospace-chain/aerospace-chain",
-      "label": "Aerospace chain"
-    }
-  ],
-  "accent": "#5a6472",
-  "eyebrow": "Product-chain pilot · catalysts & emissions",
-  "h1": "Two countries mine it, and its own scrap saves it",
-  "deck": "Platinum, palladium and rhodium clean car exhaust, drive chemical and refining catalysts, and coat fuel cells. Their mine supply comes from essentially two places — South Africa and Russia — but unlike most critical materials, a large share is recovered by recycling spent catalytic converters.",
-  "byline": "mine (South Africa + Russia) ≠ refined ≠ autocatalyst ≠ the scrap that comes back",
-  "correction": "PGMs break the pattern twice. The supply chokepoint is geological, not downstream — one province (South Africa's Bushveld) and one Russian producer. But the biggest risk is not a supply cut; it is recycling relieving supply, and the EV transition removing the autocatalyst demand altogether.",
-  "stats": [
-    {
-      "v": "~83%",
-      "l": "of world PGM reserves are in South Africa (the Bushveld Complex)",
-      "conf": "measured"
-    },
-    {
-      "v": "SA + RU",
-      "l": "essentially the only two large mine sources",
-      "conf": "measured"
-    },
-    {
-      "v": "autocatalysts",
-      "l": "the dominant use of platinum, palladium and rhodium",
-      "conf": "measured"
-    },
-    {
-      "v": "~1/4+",
-      "l": "of supply comes back as recycled catalytic-converter scrap",
-      "conf": "estimate"
-    }
-  ],
-  "history": {
-    "title": "Platinum mine production: a two-country base, 2000–2024",
+  "version": "2026-11-25",
+  "chokepoint": {
+    "product": "Autocatalysts and other PGM catalysts",
+    "stage": "Mine supply, by metal",
+    "mechanism": "geological",
+    "physics": "The ore is concentrated in South Africa's Bushveld Complex and Russia's Norilsk deposits, and the metals are mined together",
+    "holder": "South Africa; Russia for palladium",
+    "share": "83% of reserves; 70% of platinum and 41% (Russia) of palladium mine output (2024)",
+    "control": "—",
     "conf": "measured",
-    "note": "BGS/USGS (mine production %), from the atlas's own data. South Africa held ~57-60% throughout; Russia's share fell from ~46% in 2000 to ~24%. Together they are still essentially the whole mine base — the concentration is geological and stable, not a moving downstream chokepoint.",
-    "series": [
-      {
-        "label": "South Africa",
-        "points": [
-          {
-            "y": 2000,
-            "v": 47
-          },
-          {
-            "y": 2005,
-            "v": 58
-          },
-          {
-            "y": 2010,
-            "v": 60
-          },
-          {
-            "y": 2015,
-            "v": 60
-          },
-          {
-            "y": 2020,
-            "v": 55
-          },
-          {
-            "y": 2021,
-            "v": 61
-          },
-          {
-            "y": 2022,
-            "v": 57
-          },
-          {
-            "y": 2023,
-            "v": 57
-          },
-          {
-            "y": 2024,
-            "v": 57
-          }
-        ]
-      },
-      {
-        "label": "Russia",
-        "points": [
-          {
-            "y": 2000,
-            "v": 46
-          },
-          {
-            "y": 2005,
-            "v": 32
-          },
-          {
-            "y": 2010,
-            "v": 30
-          },
-          {
-            "y": 2015,
-            "v": 22
-          },
-          {
-            "y": 2020,
-            "v": 27
-          },
-          {
-            "y": 2021,
-            "v": 22
-          },
-          {
-            "y": 2022,
-            "v": 25
-          },
-          {
-            "y": 2023,
-            "v": 24
-          },
-          {
-            "y": 2024,
-            "v": 24
-          }
-        ]
-      }
-    ]
+    "research": true
   },
-  "hops": [
-    {
-      "n": "1 · Mine",
-      "t": "South Africa (platinum, rhodium) + Russia (palladium) — a two-country base"
-    },
-    {
-      "n": "2 · Refine",
-      "t": "complex separation of six co-occurring metals; few refiners"
-    },
-    {
-      "n": "3 · Use",
-      "t": "autocatalysts above all; fuel cells, chemical/refining catalysts, jewellery"
-    },
-    {
-      "n": "4 · Loop",
-      "t": "recycling of spent converters returns a large secondary supply"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The mine base is two countries",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "Each metal, and who mines it",
-          "cards": [
-            {
-              "t": "Platinum",
-              "d": "South Africa dominates mine supply (~71% of world output); the Bushveld Complex holds the bulk of world reserves."
-            },
-            {
-              "t": "Palladium",
-              "d": "Russia (Norilsk Nickel) and South Africa co-lead; US palladium imports run ~32% Russia, ~32% South Africa."
-            },
-            {
-              "t": "Rhodium",
-              "d": "A South-African by-product of platinum mining; supply is small, concentrated and famously volatile in price."
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Concentration by geology, not by refining",
-          "text": "Unlike gallium or germanium, PGMs are not a processing chokepoint — they are a geological one. About 83% of world PGM reserves sit in South Africa's Bushveld Complex, and the only other large primary source is Russia. The six PGMs co-occur, so they are separated together in a handful of complex refineries.",
-          "flag": "a geological chokepoint"
-        }
-      ]
-    },
-    {
-      "h2": "2 · What they do",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "Uses",
-          "cards": [
-            {
-              "t": "Autocatalysts",
-              "d": "The dominant use — oxidation catalysts in car and truck exhaust systems. This single application sets most PGM demand."
-            },
-            {
-              "t": "Fuel cells",
-              "d": "Platinum is the catalyst in PEM fuel cells — a growth use if hydrogen mobility scales (see the hydrogen chain)."
-            },
-            {
-              "t": "Chemical & refining",
-              "d": "PGM catalysts in petroleum reforming, nitric-acid and specialty chemistry; also glass and electronics."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "h2": "3 · The relief valve: PGMs come back",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Secondary supply",
-          "big": "a quarter+ of supply",
-          "text": "Recycling of spent catalytic converters, jewellery and electronics returns a large, growing share of world PGM supply. Where phosphorus is lost to runoff, PGMs sit in a durable stock in use and are economically worth recovering — so the mine chokepoint is partly self-relieving.",
-          "note": "USGS: recycled material provides a significant proportion of total supply."
-        },
-        {
-          "kind": "text",
-          "h3": "Why that matters for the risk read",
-          "text": "A two-country mine base looks alarming until you add the scrap loop: a supply shock is cushioned by an above-ground stock that grows every year the car fleet turns over. The recycling capability itself — collection, sampling, smelting — becomes a stage worth watching.",
-          "flag": "stock-in-use is a hidden reserve"
-        }
-      ]
-    },
-    {
-      "h2": "4 · The real threat is demand, not supply",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "The EV transition removes the main use",
-          "text": "Battery-electric vehicles have no exhaust and no autocatalyst. As they take share, the dominant source of PGM demand shrinks — a structural demand cliff rather than a supply cut. Platinum has a partial hedge (fuel cells, hydrogen, industrial use); palladium and rhodium, tied tightly to petrol autocatalysts, are more exposed.",
-          "note": "USGS World Minerals Outlook.",
-          "flag": "demand destruction, not a chokepoint"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI shows unwrought and semi-manufactured PGM trade, but refined metal, catalyst articles and recycled flows move through a few hubs (UK, Switzerland, Germany) that refine or trade rather than mine. Read exporter shares as trading/refining hubs, not the mine base.",
-  "method": [
-    {
-      "stage": "Mine",
-      "lens": "USGS reserves & mine production",
-      "why": "the geological base — two countries"
-    },
-    {
-      "stage": "Use",
-      "lens": "end-use demand split",
-      "why": "autocatalysts dominate; the demand is the risk"
-    },
-    {
-      "stage": "Recycling",
-      "lens": "secondary-supply share",
-      "why": "the relief valve most critical materials lack"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI unwrought PGM",
-      "why": "trading/refining hubs, not the mine base"
-    }
-  ],
   "sources": {
-    "usgs_pgm": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf"
+    "mcs2026": {
+      "title": "USGS Mineral Commodity Summaries 2026, Platinum-Group Metals",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_outlook": {
-      "title": "USGS World Minerals Outlook — palladium & platinum through 2029 (SIR 2025-5021)",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/publication/sir20255021/full"
+    "mcs2025": {
+      "title": "USGS Mineral Commodity Summaries 2025, Platinum-Group Metals",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf",
+      "vintage": "January 2025"
+    },
+    "mcs2022": {
+      "title": "USGS Mineral Commodity Summaries 2022, Platinum-Group Metals",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-platinum.pdf",
+      "vintage": "January 2022"
+    },
+    "mcs2017": {
+      "title": "USGS Mineral Commodity Summaries 2017, Platinum-Group Metals",
+      "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2017-plati.pdf",
+      "vintage": "January 2017"
+    },
+    "mcs2012": {
+      "title": "USGS Mineral Commodity Summaries 2012, Platinum-Group Metals",
+      "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2012-plati.pdf",
+      "vintage": "January 2012"
+    },
+    "mcs2007": {
+      "title": "USGS Mineral Commodity Summaries 2007, Platinum-Group Metals",
+      "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/platimcs07.pdf",
+      "vintage": "January 2007"
+    },
+    "mcs2002": {
+      "title": "USGS Mineral Commodity Summaries 2002, Platinum-Group Metals",
+      "url": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/550302.pdf",
+      "vintage": "January 2002"
+    },
+    "jm2026": {
+      "title": "Johnson Matthey, PGM Market Report, May 2026",
+      "url": "https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports",
+      "vintage": "May 2026"
+    },
+    "ipa_recycling": {
+      "title": "International Platinum Group Metals Association, Mining and recycling",
+      "url": "https://ipa-news.com/index/about-pgms/mining-und-recycling/",
+      "vintage": "read 25 November 2026"
+    },
+    "ipa_rhodium": {
+      "title": "International Platinum Group Metals Association, Rhodium fact sheet, May 2026",
+      "url": "https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-rhodium-factsheet.pdf",
+      "vintage": "May 2026"
+    },
+    "ipa_palladium": {
+      "title": "International Platinum Group Metals Association, Palladium fact sheet, May 2026",
+      "url": "https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-palladium-factsheet.pdf",
+      "vintage": "May 2026"
+    },
+    "usgs_pp1802": {
+      "title": "USGS Professional Paper 1802-N, Platinum-Group Elements",
+      "url": "https://pubs.usgs.gov/pp/1802/n/pp1802n.pdf",
+      "vintage": "2017"
+    },
+    "wco_ch71": {
+      "title": "World Customs Organization, HS 2017, Chapter 71",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1471_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_2022": {
+      "title": "World Customs Organization, HS 2022 correlation table I",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2022/table-i_en.pdf?la=en",
+      "vintage": "HS 2022"
+    },
+    "bgs": {
+      "title": "British Geological Survey, World Mineral Statistics",
+      "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/",
+      "vintage": "series to 2024"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+      "vintage": "January 2026"
+    }
+  },
+  "inputs": {
+    "usgs_mcs2026": {
+      "unit": "kilograms of metal content",
+      "note": "The 2025 column is estimated. The Russia row is estimated in both years. World totals are rounded by USGS.",
+      "countries": {
+        "South Africa": {
+          "pd_2024": 82600,
+          "pd_2025": 70000,
+          "pt_2024": 126000,
+          "pt_2025": 120000,
+          "reserves": 63000000
+        },
+        "Russia": {
+          "pd_2024": 89000,
+          "pd_2025": 84000,
+          "pt_2024": 22000,
+          "pt_2025": 20000,
+          "reserves": 11000000
+        },
+        "Zimbabwe": {
+          "pd_2024": 15200,
+          "pd_2025": 15000,
+          "pt_2024": 18400,
+          "pt_2025": 18000,
+          "reserves": 1300000
+        },
+        "Canada": {
+          "pd_2024": 17000,
+          "pd_2025": 16000,
+          "pt_2024": 5700,
+          "pt_2025": 5000,
+          "reserves": 310000
+        },
+        "United States": {
+          "pd_2024": 10200,
+          "pd_2025": 6200,
+          "pt_2024": 3010,
+          "pt_2025": 1800,
+          "reserves": 590000
+        },
+        "Other countries": {
+          "pd_2024": 2870,
+          "pd_2025": 2900,
+          "pt_2024": 3860,
+          "pt_2025": 3900,
+          "reserves": null
+        }
+      },
+      "world": {
+        "pd_2024": 217000,
+        "pd_2025": 190000,
+        "pt_2024": 179000,
+        "pt_2025": 170000,
+        "reserves_at_least": 76000000
+      },
+      "recycling_2025_kg": {
+        "world_pd_pt_from_scrap": 140000,
+        "us_converters_pd": 50000,
+        "us_converters_pt": 8600
+      }
+    },
+    "usgs_mcs2025_estimates_for_2024": {
+      "South Africa": {
+        "pd": 72000,
+        "pt": 120000
+      },
+      "Russia": {
+        "pd": 75000,
+        "pt": 18000
+      },
+      "world": {
+        "pd": 190000,
+        "pt": 170000
+      },
+      "reserves": {
+        "Russia": 16000000,
+        "United States": 820000,
+        "world_at_least": 81000000
+      }
+    },
+    "usgs_history": [
+      {
+        "year": 2000,
+        "source": "mcs2002",
+        "pt": {
+          "South Africa": 114000,
+          "Russia": 30000,
+          "world": 155000
+        },
+        "pd": {
+          "South Africa": 55900,
+          "Russia": 94000,
+          "world": 174000
+        }
+      },
+      {
+        "year": 2005,
+        "source": "mcs2007",
+        "pt": {
+          "South Africa": 169000,
+          "Russia": 30000,
+          "world": 217000
+        },
+        "pd": {
+          "South Africa": 84900,
+          "Russia": 97400,
+          "world": 219000
+        }
+      },
+      {
+        "year": 2010,
+        "source": "mcs2012",
+        "pt": {
+          "South Africa": 148000,
+          "Russia": 25100,
+          "world": 192000
+        },
+        "pd": {
+          "South Africa": 82200,
+          "Russia": 84700,
+          "world": 202000
+        }
+      },
+      {
+        "year": 2015,
+        "source": "mcs2017",
+        "pt": {
+          "South Africa": 139000,
+          "Russia": 22000,
+          "world": 189000
+        },
+        "pd": {
+          "South Africa": 83000,
+          "Russia": 81000,
+          "world": 216000
+        }
+      },
+      {
+        "year": 2020,
+        "source": "mcs2022",
+        "pt": {
+          "South Africa": 112000,
+          "Russia": 23000,
+          "world": 166000
+        },
+        "pd": {
+          "South Africa": 73500,
+          "Russia": 93000,
+          "world": 217000
+        }
+      },
+      {
+        "year": 2024,
+        "source": "mcs2026",
+        "pt": {
+          "South Africa": 126000,
+          "Russia": 22000,
+          "world": 179000
+        },
+        "pd": {
+          "South Africa": 82600,
+          "Russia": 89000,
+          "world": 217000
+        }
+      }
+    ],
+    "jm_2025": {
+      "unit": "thousand troy ounces",
+      "definitions": "Primary supply is producer sales, allocated to the region where mining took place. Secondary supply is open-loop recycling only. Demand is net of closed-loop recycling. A negative movement in stocks is a market deficit.",
+      "metals": {
+        "Platinum": {
+          "primary": {
+            "South Africa": 3957,
+            "Russia": 650,
+            "North America": 224,
+            "Zimbabwe": 513,
+            "Others": 213
+          },
+          "secondary": {
+            "Automotive": 1132,
+            "Electrical and other": 85,
+            "Jewellery": 330
+          },
+          "demand": {
+            "Automotive": 3329,
+            "Jewellery": 1507,
+            "Investment": 556,
+            "Industrial": 2627
+          },
+          "total_demand": 8019,
+          "movement_in_stocks": -915,
+          "pages": "27-28"
+        },
+        "Palladium": {
+          "primary": {
+            "South Africa": 2246,
+            "Russia": 2950,
+            "North America": 712,
+            "Zimbabwe": 422,
+            "Others": 259
+          },
+          "secondary": {
+            "Automotive": 2657,
+            "Electrical and other": 467,
+            "Jewellery": 11
+          },
+          "demand": {
+            "Automotive": 8227,
+            "Jewellery": 83,
+            "Investment": 382,
+            "Industrial": 1448
+          },
+          "total_demand": 10140,
+          "movement_in_stocks": -416,
+          "pages": "29-30"
+        },
+        "Rhodium": {
+          "primary": {
+            "South Africa": 566,
+            "Russia": 68,
+            "North America": 15,
+            "Zimbabwe": 45,
+            "Others": 7
+          },
+          "secondary": {
+            "Automotive": 312
+          },
+          "demand": {
+            "Automotive": 899,
+            "Industrial": 164
+          },
+          "total_demand": 1063,
+          "movement_in_stocks": -50,
+          "pages": "31-32"
+        }
+      }
+    },
+    "scenarios": {
+      "supply_cut_fraction": 0.5,
+      "automotive_demand_cuts": [
+        0.1,
+        0.25,
+        0.5
+      ]
+    },
+    "trade_checks": {
+      "code": "711021",
+      "checked": "2026-11-25",
+      "note": "Six bilateral records in the BACI extract carry a weight about a thousand times what their value implies (about USD 0.01 per gram, when palladium traded at several dollars per gram).",
+      "records": [
+        {
+          "year": 2002,
+          "exporter": "United Kingdom",
+          "importer": "Canada",
+          "tonnes": 1937.847,
+          "usd_thousand": 21076.951
+        },
+        {
+          "year": 2002,
+          "exporter": "South Africa",
+          "importer": "Canada",
+          "tonnes": 730.268,
+          "usd_thousand": 8400.225
+        },
+        {
+          "year": 2002,
+          "exporter": "Belgium",
+          "importer": "Canada",
+          "tonnes": 387.277,
+          "usd_thousand": 3899.062
+        },
+        {
+          "year": 2002,
+          "exporter": "Russia",
+          "importer": "Canada",
+          "tonnes": 279.299,
+          "usd_thousand": 2046.658
+        },
+        {
+          "year": 2002,
+          "exporter": "Norway",
+          "importer": "Canada",
+          "tonnes": 146.185,
+          "usd_thousand": 1900.226
+        },
+        {
+          "year": 2009,
+          "exporter": "United Kingdom",
+          "importer": "Cyprus",
+          "tonnes": 4848.96,
+          "usd_thousand": 77946.291
+        }
+      ]
+    }
+  },
+  "results": {
+    "reserve_sum_kg": 76200000,
+    "usgs_shares_2024": {
+      "South Africa": {
+        "pt_2024": 0.7039106145251397,
+        "pd_2024": 0.38064516129032255,
+        "reserves": 0.8267716535433071
+      },
+      "Russia": {
+        "pt_2024": 0.12290502793296089,
+        "pd_2024": 0.41013824884792627,
+        "reserves": 0.14435695538057744
+      },
+      "Zimbabwe": {
+        "pt_2024": 0.10279329608938548,
+        "pd_2024": 0.07004608294930875,
+        "reserves": 0.01706036745406824
+      },
+      "Canada": {
+        "pt_2024": 0.031843575418994415,
+        "pd_2024": 0.07834101382488479,
+        "reserves": 0.004068241469816273
+      },
+      "United States": {
+        "pt_2024": 0.01681564245810056,
+        "pd_2024": 0.047004608294930875,
+        "reserves": 0.007742782152230971
+      },
+      "Other countries": {
+        "pt_2024": 0.021564245810055865,
+        "pd_2024": 0.013225806451612903,
+        "reserves": null
+      }
+    },
+    "hhi_2024": {
+      "platinum": [
+        5225,
+        5229
+      ],
+      "palladium": [
+        3264,
+        3265
+      ]
+    },
+    "history": [
+      {
+        "year": 2000,
+        "source": "mcs2002",
+        "pt_sa": 0.7354838709677419,
+        "pt_ru": 0.1935483870967742,
+        "pd_ru": 0.5402298850574713,
+        "pd_sa": 0.32126436781609197
+      },
+      {
+        "year": 2005,
+        "source": "mcs2007",
+        "pt_sa": 0.7788018433179723,
+        "pt_ru": 0.1382488479262673,
+        "pd_ru": 0.44474885844748857,
+        "pd_sa": 0.38767123287671235
+      },
+      {
+        "year": 2010,
+        "source": "mcs2012",
+        "pt_sa": 0.7708333333333334,
+        "pt_ru": 0.13072916666666667,
+        "pd_ru": 0.4193069306930693,
+        "pd_sa": 0.4069306930693069
+      },
+      {
+        "year": 2015,
+        "source": "mcs2017",
+        "pt_sa": 0.7354497354497355,
+        "pt_ru": 0.1164021164021164,
+        "pd_ru": 0.375,
+        "pd_sa": 0.38425925925925924
+      },
+      {
+        "year": 2020,
+        "source": "mcs2022",
+        "pt_sa": 0.6746987951807228,
+        "pt_ru": 0.13855421686746988,
+        "pd_ru": 0.42857142857142855,
+        "pd_sa": 0.3387096774193548
+      },
+      {
+        "year": 2024,
+        "source": "mcs2026",
+        "pt_sa": 0.7039106145251397,
+        "pt_ru": 0.12290502793296089,
+        "pd_ru": 0.41013824884792627,
+        "pd_sa": 0.38064516129032255
+      }
+    ],
+    "balance_2025": {
+      "Platinum": {
+        "primary": 5557,
+        "secondary": 1547,
+        "combined": 7104,
+        "demand": 8019,
+        "movement_in_stocks": -915,
+        "primary_share": {
+          "South Africa": 0.7120748605362606,
+          "Russia": 0.11696958790714414,
+          "North America": 0.04030951952492352,
+          "Zimbabwe": 0.09231599784056145,
+          "Others": 0.038330034191110314
+        },
+        "secondary_share_of_supply": 0.21776463963963963,
+        "automotive_share_of_secondary": 0.7317388493859082,
+        "automotive_share_of_demand": 0.4151390447686744,
+        "deficit_share_of_demand": 0.11410400299289188
+      },
+      "Palladium": {
+        "primary": 6589,
+        "secondary": 3135,
+        "combined": 9724,
+        "demand": 10140,
+        "movement_in_stocks": -416,
+        "primary_share": {
+          "South Africa": 0.3408711488845045,
+          "Russia": 0.4477158901198968,
+          "North America": 0.10805888602215814,
+          "Zimbabwe": 0.0640461375018971,
+          "Others": 0.03930793747154348
+        },
+        "secondary_share_of_supply": 0.3223981900452489,
+        "automotive_share_of_secondary": 0.8475279106858055,
+        "automotive_share_of_demand": 0.8113412228796845,
+        "deficit_share_of_demand": 0.041025641025641026
+      },
+      "Rhodium": {
+        "primary": 701,
+        "secondary": 312,
+        "combined": 1013,
+        "demand": 1063,
+        "movement_in_stocks": -50,
+        "primary_share": {
+          "South Africa": 0.8074179743223966,
+          "Russia": 0.09700427960057062,
+          "North America": 0.021398002853067047,
+          "Zimbabwe": 0.06419400855920114,
+          "Others": 0.009985734664764621
+        },
+        "secondary_share_of_supply": 0.3079960513326752,
+        "automotive_share_of_secondary": 1.0,
+        "automotive_share_of_demand": 0.845719661335842,
+        "deficit_share_of_demand": 0.047036688617121354
+      }
+    },
+    "supply_screen": {
+      "South Africa": {
+        "Platinum": 0.24672652450430227,
+        "Palladium": 0.11074950690335306,
+        "Rhodium": 0.2662276575729069
+      },
+      "Russia": {
+        "Platinum": 0.040528744232447934,
+        "Palladium": 0.14546351084812623,
+        "Rhodium": 0.03198494825964252
+      }
+    },
+    "demand_screen_koz": {
+      "0.0": {
+        "Platinum": -915.0,
+        "Palladium": -416.0,
+        "Rhodium": -50.0
+      },
+      "0.1": {
+        "Platinum": -582.0999999999999,
+        "Palladium": 406.70000000000005,
+        "Rhodium": 39.900000000000006
+      },
+      "0.25": {
+        "Platinum": -82.75,
+        "Palladium": 1640.75,
+        "Rhodium": 174.75
+      },
+      "0.5": {
+        "Platinum": 749.5,
+        "Palladium": 3697.5,
+        "Rhodium": 399.5
+      }
+    },
+    "palladium_tonnage_check": {
+      "reported": {
+        "2002": 3923.1,
+        "2009": 5254.5
+      },
+      "without_flagged_records": {
+        "2002": 442.2,
+        "2009": 405.5
+      },
+      "other_years_range": [
+        334.5,
+        508.7
+      ]
+    },
+    "bgs_all_pgm_shares": {
+      "2000": {
+        "South Africa": 47,
+        "Russia": 46
+      },
+      "2024": {
+        "South Africa": 57,
+        "Russia": 24
+      }
     }
   }
 }

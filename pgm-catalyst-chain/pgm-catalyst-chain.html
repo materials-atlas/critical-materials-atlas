@@ -1,26 +1,178 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/pgm-catalyst-chain/pgm-catalyst-chain">
-<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="noindex,nofollow"><title>From ore to catalysts — Critical Materials Atlas</title><meta name="description" content="platinum, palladium and rhodium from a two-country mine base (South Africa + Russia), 2000–2024 history, the recycling loop and the EV demand cliff."><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"></head><body>
+<title>Platinum, palladium and rhodium have different supply maps — Critical Materials Atlas</title><meta name="description" content="South Africa supplies most platinum and rhodium, and Russia leads in palladium. Recycling and vehicle demand also differ by metal, so one figure for the group hides the exposure.">
+<meta property="og:title" content="Platinum, palladium and rhodium have different supply maps"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #15323a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
 <main id="main">
-<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Platinum-group metals · Research note</div>
+  <h1>Platinum, palladium and rhodium have different supply maps</h1>
+  <p class="deck">South Africa supplies most platinum and rhodium, and Russia leads in palladium. Recycling and vehicle demand also differ by metal, so one figure for the group hides the exposure.</p>
+  <p class="byline">Evidence review · <time datetime="2026-11-25">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
 <article>
-<div class="callout hot" id="correction"></div>
-<div class="stats" id="stats"></div>
-<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
-<div id="history-wrap"></div>
-<div id="sections"></div>
-<h2>Customs records are context, not capability</h2>
-<p id="trade-intro"></p>
-<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0" aria-label="trade year"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
-<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
-<p id="conflegend" class="conflegend"></p>
-<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+  <p>Platinum, palladium and rhodium are mined together, refined together and used mainly in vehicle exhaust catalysts. They are often treated as one material. This note sets out what public sources show for each metal separately: where it is mined, how much comes back from recycling, how much of its demand is automotive, and what the customs records can and cannot show.</p>
+  <p><strong>Finding.</strong> In 2025 South Africa supplied 71% of primary platinum and 81% of primary rhodium, but 34% of primary palladium, where Russia led with 45%. Vehicles took 42% of platinum demand, 81% of palladium demand and 85% of rhodium demand. All three markets drew down stocks in 2025. A single figure for the group hides these differences. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a>.</p>
+
+  <h2>Mine production differs by metal</h2>
+  <p>USGS publishes mine production for platinum and palladium by country, and reserves for the group as a whole. South Africa mined 70% of the world's platinum in 2024 and Russia 12%. For palladium the order is reversed: Russia 41%, South Africa 38%. Zimbabwe, Canada and the United States supplied most of the rest. USGS gives no mine production by country for rhodium. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS, 2026 edition</a>.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Mine production and reserves by country">
+    <table>
+      <caption>Mine production in tonnes of metal, and reserves of all platinum-group metals. USGS, 2026 edition. The 2025 column is an estimate.</caption>
+      <thead><tr><th scope="col">Country</th><th scope="col" class="n">Platinum 2024</th><th scope="col" class="n">Share</th><th scope="col" class="n">Platinum 2025</th><th scope="col" class="n">Palladium 2024</th><th scope="col" class="n">Share</th><th scope="col" class="n">Palladium 2025</th><th scope="col" class="n">Reserves</th><th scope="col" class="n">Share of listed reserves</th></tr></thead>
+      <tbody>
+<tr><th scope="row">South Africa</th><td class="n">126.0</td><td class="n">70.4%</td><td class="n">120.0</td><td class="n">82.6</td><td class="n">38.1%</td><td class="n">70.0</td><td class="n">63,000</td><td class="n">82.7%</td></tr>
+<tr><th scope="row">Russia</th><td class="n">22.0</td><td class="n">12.3%</td><td class="n">20.0</td><td class="n">89.0</td><td class="n">41.0%</td><td class="n">84.0</td><td class="n">11,000</td><td class="n">14.4%</td></tr>
+<tr><th scope="row">Zimbabwe</th><td class="n">18.4</td><td class="n">10.3%</td><td class="n">18.0</td><td class="n">15.2</td><td class="n">7.0%</td><td class="n">15.0</td><td class="n">1,300</td><td class="n">1.7%</td></tr>
+<tr><th scope="row">Canada</th><td class="n">5.7</td><td class="n">3.2%</td><td class="n">5.0</td><td class="n">17.0</td><td class="n">7.8%</td><td class="n">16.0</td><td class="n">310</td><td class="n">0.4%</td></tr>
+<tr><th scope="row">United States</th><td class="n">3.0</td><td class="n">1.7%</td><td class="n">1.8</td><td class="n">10.2</td><td class="n">4.7%</td><td class="n">6.2</td><td class="n">590</td><td class="n">0.8%</td></tr>
+<tr><th scope="row">Other countries</th><td class="n">3.9</td><td class="n">2.2%</td><td class="n">3.9</td><td class="n">2.9</td><td class="n">1.3%</td><td class="n">2.9</td><td class="n">not available</td><td class="n"></td></tr>
+<tr><th scope="row">World</th><td class="n">179</td><td class="n"></td><td class="n">170</td><td class="n">217</td><td class="n"></td><td class="n">190</td><td class="n">more than 76,000</td><td class="n"></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Shares for 2024 use the published world totals. USGS rounds the 2025 world totals to two figures, so no 2025 shares are shown. The Russian figures are USGS estimates in both years. The world reserve figure is published as “more than 76,000 tonnes”; reserve shares are of the countries listed, which sum to 76,200 tonnes. The country concentration index (HHI, zero to 10,000) for 2024 mine output is 5,225 to 5,229 for platinum and 3,264 to 3,265 for palladium. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS, 2026 edition</a>.</p>
+  <p>Reserves are an estimate of what can be mined economically under current conditions, and they are revised. Between the 2025 and 2026 editions USGS cut its Russian reserve figure from 16,000 to 11,000 tonnes and its world figure from “more than 81,000” to “more than 76,000” tonnes. It also revised 2024 mine production upward for both leading producers: palladium from an estimated 190 to 217 tonnes worldwide, and platinum from 170 to 179 tonnes. <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf">USGS, 2025 edition</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS, 2026 edition</a>.</p>
+
+  <h2>The shares have been stable since 2000</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Mine production shares since 2000">
+    <table>
+      <caption>Share of world mine production. Each year is taken from the USGS edition published two years later, where it is no longer an estimate.</caption>
+      <thead><tr><th scope="col">Year</th><th scope="col" class="n">Platinum · South Africa</th><th scope="col" class="n">Platinum · Russia</th><th scope="col" class="n">Palladium · Russia</th><th scope="col" class="n">Palladium · South Africa</th><th scope="col">USGS edition</th></tr></thead>
+      <tbody>
+<tr><th scope="row">2000</th><td class="n">73.5%</td><td class="n">19.4%</td><td class="n">54.0%</td><td class="n">32.1%</td><td>January 2002</td></tr>
+<tr><th scope="row">2005</th><td class="n">77.9%</td><td class="n">13.8%</td><td class="n">44.5%</td><td class="n">38.8%</td><td>January 2007</td></tr>
+<tr><th scope="row">2010</th><td class="n">77.1%</td><td class="n">13.1%</td><td class="n">41.9%</td><td class="n">40.7%</td><td>January 2012</td></tr>
+<tr><th scope="row">2015</th><td class="n">73.5%</td><td class="n">11.6%</td><td class="n">37.5%</td><td class="n">38.4%</td><td>January 2017</td></tr>
+<tr><th scope="row">2020</th><td class="n">67.5%</td><td class="n">13.9%</td><td class="n">42.9%</td><td class="n">33.9%</td><td>January 2022</td></tr>
+<tr><th scope="row">2024</th><td class="n">70.4%</td><td class="n">12.3%</td><td class="n">41.0%</td><td class="n">38.1%</td><td>February 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>South Africa's share of platinum stayed between 67% and 78% over the period. Russia's share of palladium fell from 54% in 2000 to 41% in 2024, and South Africa's rose from 32% to 38%. The two countries together mined 83% of platinum and 79% of palladium in 2024, so other producers supply about a fifth. <a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/550302.pdf">USGS 2002</a>. <a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/platimcs07.pdf">USGS 2007</a>. <a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2012-plati.pdf">USGS 2012</a>. <a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2017-plati.pdf">USGS 2017</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-platinum.pdf">USGS 2022</a>. <a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS 2026</a>.</p>
+  <p><strong>Correction, 25 November 2026.</strong> The previous version of this page showed a chart titled “Platinum mine production” with South Africa at 47% in 2000 and 57% in 2024. That series is the British Geological Survey line for all six platinum-group metals added together, not platinum. It remains a valid measure of the group: South Africa 47% and Russia 46% in 2000, and 57% and 24% in 2024. The text beside it said South Africa held “57–60% throughout”, which did not match its own first value. <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/">British Geological Survey, World Mineral Statistics</a>.</p>
+
+  <h2>Supply and demand in 2025, metal by metal</h2>
+  <p>Johnson Matthey publishes a yearly balance for each metal. Its supply figures are producer sales, allocated to the region where the metal was mined, so they differ from USGS mine output. Its recycling figures count only metal that returns to the open market. Metal that an industrial user recycles and keeps is netted out of demand instead. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a>.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Supply and demand by metal in 2025">
+    <table>
+      <caption>Tonnes of metal, 2025. Johnson Matthey, May 2026. Converted from thousand troy ounces, so a figure can differ by 0.1 from the tonnes printed in the report.</caption>
+      <thead><tr><th scope="col">Measure</th><th scope="col" class="n">Platinum</th><th scope="col" class="n">Palladium</th><th scope="col" class="n">Rhodium</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Primary supply (producer sales)</th><td class="n">172.8</td><td class="n">204.9</td><td class="n">21.8</td></tr>
+<tr><th scope="row">of which South Africa</th><td class="n">71.2%</td><td class="n">34.1%</td><td class="n">80.7%</td></tr>
+<tr><th scope="row">of which Russia</th><td class="n">11.7%</td><td class="n">44.8%</td><td class="n">9.7%</td></tr>
+<tr><th scope="row">of which Zimbabwe</th><td class="n">9.2%</td><td class="n">6.4%</td><td class="n">6.4%</td></tr>
+<tr><th scope="row">of which North America</th><td class="n">4.0%</td><td class="n">10.8%</td><td class="n">2.1%</td></tr>
+<tr><th scope="row">Recycled supply (open market)</th><td class="n">48.1</td><td class="n">97.5</td><td class="n">9.7</td></tr>
+<tr><th scope="row">Recycled share of supply</th><td class="n">21.8%</td><td class="n">32.2%</td><td class="n">30.8%</td></tr>
+<tr><th scope="row">Demand</th><td class="n">249.4</td><td class="n">315.4</td><td class="n">33.1</td></tr>
+<tr><th scope="row">Automotive share of demand</th><td class="n">41.5%</td><td class="n">81.1%</td><td class="n">84.6%</td></tr>
+<tr><th scope="row">Movement in stocks (negative = deficit)</th><td class="n">-28.5</td><td class="n">-12.9</td><td class="n">-1.6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>All three markets were in deficit in 2025: demand exceeded supply and stocks fell. The automotive share of demand is the main difference between the metals. Platinum has large jewellery, industrial and investment uses. Palladium and rhodium depend on vehicles for more than four-fifths of demand. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a>.</p>
+
+  <h2>What recycling adds, and when</h2>
+  <p>Recycling supplied 22% of platinum, 32% of palladium and 31% of rhodium reaching the market in 2025. Most of it is scrap from vehicles: 73% of recycled platinum, 85% of recycled palladium and all of the recycled rhodium that Johnson Matthey reports. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a>.</p>
+  <p>Metal inside vehicles on the road is not a stock that can be drawn on in a supply interruption. It returns when vehicles are scrapped, which the industry association puts at 15 to 18 years after sale, and only where converters are collected and processed. Johnson Matthey reports that recycling in Europe, North America and Japan was unusually weak in 2023 and 2024 because owners kept vehicles longer. The amount recycled in a year therefore follows past vehicle sales and scrappage, not the current price or a current shortage. <a href="https://ipa-news.com/index/about-pgms/mining-und-recycling/">International Platinum Group Metals Association</a>. <a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a>.</p>
+
+  <h2>Two screens of exposure</h2>
+  <p><strong class="note">Modelled.</strong> The first screen removes half of one country's primary sales for a year and holds everything else at its 2025 value. It gives the lost metal as a share of 2025 demand, before any use of stocks or extra recycling. It carries no probability.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Supply interruption screen">
+    <table>
+      <caption>Modelled. Metal lost if half of a country's 2025 primary sales did not arrive, as a share of 2025 demand.</caption>
+      <thead><tr><th scope="col">Interruption</th><th scope="col" class="n">Platinum</th><th scope="col" class="n">Palladium</th><th scope="col" class="n">Rhodium</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Half of South African primary sales</th><td class="n">24.7%</td><td class="n">11.1%</td><td class="n">26.6%</td></tr>
+<tr><th scope="row">Half of Russian primary sales</th><td class="n">4.1%</td><td class="n">14.5%</td><td class="n">3.2%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A South African interruption weighs most on platinum and rhodium. A Russian interruption weighs most on palladium. For comparison, the 2025 deficits were 11.4% of demand for platinum, 4.1% for palladium and 4.7% for rhodium.</p>
+  <p><strong class="note">Modelled.</strong> The second screen lowers automotive demand and holds supply and all other demand at their 2025 values. It shows the resulting market balance. Battery-electric vehicles need no exhaust catalyst, so this is the direction of the long-run change, but the size and timing of any fall are not estimated here.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Automotive demand screen">
+    <table>
+      <caption>Modelled. Market balance in tonnes if automotive demand were lower and nothing else changed. A negative value is a deficit.</caption>
+      <thead><tr><th scope="col">Automotive demand</th><th scope="col" class="n">Platinum</th><th scope="col" class="n">Palladium</th><th scope="col" class="n">Rhodium</th></tr></thead>
+      <tbody>
+<tr><th scope="row">As in 2025</th><td class="n">-28.5</td><td class="n">-12.9</td><td class="n">-1.6</td></tr>
+<tr><th scope="row">10% lower</th><td class="n">-18.1</td><td class="n">+12.6</td><td class="n">+1.2</td></tr>
+<tr><th scope="row">25% lower</th><td class="n">-2.6</td><td class="n">+51.0</td><td class="n">+5.4</td></tr>
+<tr><th scope="row">50% lower</th><td class="n">+23.3</td><td class="n">+115.0</td><td class="n">+12.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>With automotive demand a quarter lower, palladium and rhodium would move into surplus and platinum would stay close to balance. The screen leaves out two effects that work in the other direction. The three metals come out of the same ore, so a mine that cut output because palladium was in surplus would also produce less platinum and rhodium. And vehicle scrap is most of the recycled supply, so fewer combustion vehicles would later mean less recycled metal. Neither effect is measured here. <a href="https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-rhodium-factsheet.pdf">IPA rhodium fact sheet</a>. <a href="https://pubs.usgs.gov/pp/1802/n/pp1802n.pdf">USGS Professional Paper 1802-N</a>.</p>
+
+  <h2>What the customs records cover</h2>
+  <p>The trade table uses four customs codes. Three cover unwrought metal or powder, one each for platinum, palladium and rhodium. The fourth, 711510, covers catalysts in the form of wire cloth or grill of any platinum-group metal, which are industrial gauzes. Vehicle catalytic converters are not in any of the four. Before 2022 they were classified with other gas-filtering equipment under 842139, and a separate code, 842132, exists only from the 2022 nomenclature. Catalysts on a support are classified under 3815. The table therefore shows trade in refined metal, much of it passing through refining and trading hubs, and says nothing about where converters are made. <a href="https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1471_2017e.pdf">WCO, HS 2017, Chapter 71</a>. <a href="https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2022/table-i_en.pdf?la=en">WCO, HS 2022 correlation table</a>.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">2024</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>World exports by customs code. The latest year in the extract is 2024. Values are nominal US dollars.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+<tr data-trade-code="711011"><td>Platinum, unwrought or in powder form (711011)</td><td>USD 14.7 billion</td><td>South Africa · 36%</td><td>Platinum only, unwrought or in powder form. Refined metal moves through refining and trading hubs, so exporters are not the mine base.</td></tr>
+<tr data-trade-code="711021"><td>Palladium, unwrought or in powder form (711021)</td><td>USD 13.5 billion</td><td>South Africa · 25%</td><td>Palladium, unwrought or in powder form. Includes re-shipment through hubs; tonnage in 2002 and 2009 is unreliable (see text).</td></tr>
+<tr data-trade-code="711031"><td>Rhodium, unwrought or in powder form (711031)</td><td>USD 7.3 billion</td><td>South Africa · 37%</td><td>Rhodium, unwrought or in powder form. A small market with large price swings, so value shares move with price.</td></tr>
+<tr data-trade-code="711510"><td>Catalysts of platinum (wire cloth / grill) (711510)</td><td>USD 0.7 billion</td><td>Germany · 49%</td><td>Catalysts in the form of wire cloth or grill, of any platinum-group metal. Industrial gauzes, not vehicle catalytic converters.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p><strong>Tonnage check.</strong> The extract records 3,923 tonnes of palladium trade in 2002 and 5,254 tonnes in 2009, against 334 to 509 tonnes in the other years. Six bilateral records explain the difference: five imports into Canada in 2002 and one shipment from the United Kingdom to Cyprus in 2009. Each carries a weight about a thousand times what its value implies, at around one US cent per gram when palladium traded at several dollars per gram. Without them the totals are 442 tonnes for 2002 and 406 tonnes for 2009. This page uses trade values only. The tonnage series should not be used for those two years. <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601</a>.</p>
+
+  <h2>What remains open</h2>
+  <p>Mine shares, recycling shares and automotive shares are measured. Three questions that matter for supply security are not. The first is how mine economics link the metals: whether lower palladium demand would cut platinum and rhodium output. The second is refining capacity by country, which the public sources do not give. The third is how recycled supply will change as the vehicle fleet changes. Rhodium, iridium and ruthenium have no published mine production by country in the USGS series, so their supply geography rests on producer-sales estimates.</p>
+
+  <h2>Revision note · 25 November 2026</h2>
+  <p>The previous overview treated the three metals as one material. It said that two countries were “essentially the only” mine sources, that recycled metal supplied “a quarter or more” of supply and cushioned supply shocks as a hidden reserve, and that the real threat was a collapse in vehicle demand. This revision gives each metal's figures, corrects the mislabelled history chart, replaces the reserve-cushion claim with what the recycling figures measure, and replaces the demand claim with a labelled screen. The <a href="PRODUCTION.md">claim register</a> lists each change.</p>
+
+  <h2>Sources and downloads</h2>
+  <ul>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf">USGS Mineral Commodity Summaries 2026, Platinum-Group Metals</a> · February 2026</li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf">USGS Mineral Commodity Summaries 2025, Platinum-Group Metals</a> · January 2025</li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-platinum.pdf">USGS Mineral Commodity Summaries 2022, Platinum-Group Metals</a> · January 2022</li>
+    <li><a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2017-plati.pdf">USGS Mineral Commodity Summaries 2017, Platinum-Group Metals</a> · January 2017</li>
+    <li><a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/mcs-2012-plati.pdf">USGS Mineral Commodity Summaries 2012, Platinum-Group Metals</a> · January 2012</li>
+    <li><a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/platimcs07.pdf">USGS Mineral Commodity Summaries 2007, Platinum-Group Metals</a> · January 2007</li>
+    <li><a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/platinum/550302.pdf">USGS Mineral Commodity Summaries 2002, Platinum-Group Metals</a> · January 2002</li>
+    <li><a href="https://matthey.com/products-and-markets/pgms-and-circularity/pgm-markets/pgm-market-reports">Johnson Matthey, PGM Market Report, May 2026</a> · May 2026</li>
+    <li><a href="https://ipa-news.com/index/about-pgms/mining-und-recycling/">International Platinum Group Metals Association, Mining and recycling</a> · read 25 November 2026</li>
+    <li><a href="https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-rhodium-factsheet.pdf">International Platinum Group Metals Association, Rhodium fact sheet, May 2026</a> · May 2026</li>
+    <li><a href="https://ipa-news.com/assets/pdfs/factsheets/2026-05-ipa-palladium-factsheet.pdf">International Platinum Group Metals Association, Palladium fact sheet, May 2026</a> · May 2026</li>
+    <li><a href="https://pubs.usgs.gov/pp/1802/n/pp1802n.pdf">USGS Professional Paper 1802-N, Platinum-Group Elements</a> · 2017</li>
+    <li><a href="https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1471_2017e.pdf">World Customs Organization, HS 2017, Chapter 71</a> · HS 2017</li>
+    <li><a href="https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2022/table-i_en.pdf?la=en">World Customs Organization, HS 2022 correlation table I</a> · HS 2022</li>
+    <li><a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/">British Geological Survey, World Mineral Statistics</a> · series to 2024</li>
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a> · January 2026</li>
+  </ul>
+  <p>The <a href="PRODUCTION.md">claim register</a> records the audit of the previous page. The <a href="README.md">methods and rebuild commands</a>, the <a href="evidence_inputs.json">transcribed source tables</a>, the <a href="out/pgm_chain.json">evidence and calculations</a> and the <a href="out/pgm_trade.json">frozen trade extract</a> give the underlying data. The earlier <a href="library">source library</a> is kept as a dated record.</p>
 </article>
 </main>
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">A research layer of the Critical Materials Atlas — each chain shows its own sources and confidence tags.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
-<script>window.CHAIN_DATA='out/pgm_chain.json';window.CHAIN_TRADE='out/pgm_trade.json';</script>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../electrolyser-chain/electrolyser-chain">Electrolyser chain</a><br><a href="../profile-platinum">Platinum profile</a><br><a href="../profile-palladium">Palladium profile</a></div><div><h4>Evidence</h4><a href="out/pgm_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/pgm_trade.json';</script>
 <script src="../chain-assets/chainview.js"></script>
-</body></html>
+</body>
+</html>

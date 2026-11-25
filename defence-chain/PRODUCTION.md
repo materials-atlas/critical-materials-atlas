@@ -45,3 +45,21 @@ note. A defence-production risk assessment would require different evidence.
 [MOFCOM 46]: https://www.mofcom.gov.cn/zfxxgk/gkml/art/2024/art_99f5d51bbe6a412ca309d5818c4dee52.html
 [MOFCOM 59]: https://aqygzj.mofcom.gov.cn/qdml/art/2026/art_98ae61c2a60f43638304f2e6a43f952f.html
 [UN HS 2017]: https://unstats.un.org/unsd/classifications/Econ/Detail/EN/2089/811292
+
+## Review corrections, 25 November 2026
+
+A second reading of every cited source before publication found no wrong claim. MOFCOM announcement 59 of 2026 (published
+24 November 2026) was read in Chinese: it suspends the second paragraph of announcement 46 of 2024 from 28 November 2026 to
+27 January 2027, as announcement 72 of 2025 had done to 27 November 2026. Four wordings were tightened:
+
+- Neither suspension notice mentions the first paragraph of announcement 46 or the licensing rules; that they remain in force
+  is a reading of the three texts together, and the page now says so. The tracker no longer calls the suspended paragraph
+  "the US-specific paragraph", since the first paragraph is US-specific too. Announcement 46 also has an unnumbered third
+  paragraph (liability of third-country parties who pass items to the US), not suspended and not discussed on the page.
+- Antimony: USGS revised 2023 itself to 58.8% (62,300 of 106,000 t) in its 2025 edition, so the pilot's 48% was superseded for
+  2023 as well. The page now says so.
+- Germanium: the USGS 77% for 2023 rests on an assumed world total of 200 t carried over from 2020 (Open-File Report 2026-1018,
+  Table 3, footnote 4). Both it and the IEA's 94% (2025) are refining-stage figures.
+- Row D09 above: "presumption of denial" fits the Chinese text of the second paragraph; the first paragraph is an outright
+  prohibition for US military users and uses.
+- The chart was redrawn in the atlas's colours; its data are unchanged.

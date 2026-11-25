@@ -19,3 +19,5 @@ refining one.
 Reserves as the ceiling where no substitute exists; production distinct from reserves;
 per-nutrient concentration shown separately; trade as availability; show the recycling
 gap rather than imply a loop that does not exist at scale.
+
+**25 November 2026 correction.** The pilot’s inference that phosphate-rock reserves set the binding constraint is superseded. The revised study compares reserve location, mine output and product-level import origins. [Revised note](phosphate-food-chain.html)
