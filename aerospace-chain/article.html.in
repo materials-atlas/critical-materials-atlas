@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/aerospace-chain/aerospace-chain">
+<title>$title — Critical Materials Atlas</title><meta name="description" content="$deck">
+<meta property="og:title" content="$title"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #35617f; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  .shares meter { width: 100%; max-width: 14rem; display: block; accent-color: var(--acc); }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Civil aviation · Research note</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$version">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p><strong>Abstract.</strong> We ask where supply for civil aero-engines is concentrated, which alternatives can meet the requirements of a particular programme, and what allows a buyer to keep producing during a disruption. Recalculating the European Commission Joint Research Centre’s estimates for 2023 gives a country Herfindahl–Hirschman Index (HHI) of $hhi_all for all titanium sponge capacity and $hhi_aviation for aviation-grade capacity, a $hhi_change reduction. The leading country shifts from China to Japan. Supplier approval, uncommitted capacity and stocks determine whether this different supplier geography can help a particular buyer. Public evidence supports testing these constraints for individual programmes.</p>
+
+  <h2 id="titanium">Aviation-grade capacity has a different geography</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Titanium sponge operating capacity">
+    <table class="shares">
+      <caption><strong>Source estimates.</strong> Global titanium sponge operating capacity by quality in 2023. Shares are rounded as shown in JRC Figure 5.</caption>
+      <thead><tr><th scope="col">Geography</th><th scope="col">All qualities</th><th scope="col">Aviation grade</th></tr></thead>
+      <tbody>
+$capacity_rows
+      </tbody>
+      <tfoot><tr><th scope="row">Global capacity</th><td>$all_kt kt per year</td><td>$aviation_kt kt per year</td></tr><tr><th scope="row">Country HHI</th><td>$hhi_all</td><td>$hhi_aviation</td></tr></tfoot>
+    </table>
+  </div>
+  <p><strong>Calculated.</strong> Aviation grade represents about $capacity_fraction of total sponge capacity. The largest two country shares fall from $top_two_all for all qualities to $top_two_aviation for aviation grade. We square the reported percentage shares and sum them to compute the Herfindahl–Hirschman Index (HHI) on a 0–10,000 scale. The all-quality “Other” value is the residual to 100% from the rounded labels. A dash indicates that the chart shows no aviation-grade segment. It contributes zero to this calculation only.</p>
+  <p>The JRC estimated China’s aviation-grade capacity assuming that domestic output met 30% of Chinese aerospace demand. Its estimates cover a material category. Critical rotating parts can require a higher grade than airframes or non-rotating parts, and each buyer still needs to know which material routes are approved, deliverable and able to take additional orders. A lower country HHI alone gives no estimate of how much a buyer could obtain or how quickly. $jrc</p>
+  <p><strong>Separate production benchmark.</strong> USGS estimates China produced $china_output_kt kt of about $world_output_kt kt of titanium sponge globally in $output_year, or $china_output_share. In its $import_period US sponge import series, Japan supplied $japan_import_share, Saudi Arabia $saudi_import_share and Kazakhstan $kazakh_import_share. The import series covers sponge across grades and uses. $usgs_titanium</p>
+
+  <h2 id="methods">What each stage can tell us</h2>
+  <p>Two material routes feed the engine programme. Titanium sponge passes through melting and mill or forged products on the way to qualified titanium parts. Primary and recovered rhenium can enter nickel superalloys used in some hot-section parts. Engines bring these parts together with many other inputs. Airframe sourcing appears below as a comparator.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Stage evidence and missing measures">
+    <table>
+      <thead><tr><th scope="col">Stage</th><th scope="col">Available evidence and unit</th><th scope="col">What would establish a bottleneck</th></tr></thead>
+      <tbody>
+$stage_rows
+      </tbody>
+    </table>
+  </div>
+  <p>For a programme-specific test, identify the approved part or grade and the plant and owner supplying it in the same period. Confirm technical eligibility and the programme holder’s approval before looking at independent sources, uncommitted output, inventory and delivery timing. A country, a plant and a joint venture count different things. For engine market concentration, define the segment and the measure, such as delivered engines, then count each joint-venture programme once. Under FAA guidance, production approval holders are responsible for the conformity of their suppliers’ parts, including those from lower-tier suppliers. $faa_quality</p>
+  <p><strong>Rhenium.</strong> USGS estimates $rhenium_world_t t of world mine-linked recovery in $rhenium_year, including $rhenium_chile_t t in Chile ($rhenium_chile_share). The estimate for Chile includes material recovered from imported residues. Primary recovery generally accompanies copper and molybdenum production. Industry estimates cited by USGS put secondary output at $rhenium_secondary_range t that year, excluding recovery from catalysts reused in a closed loop. Commercial scrap recovery already supplies some new melts. These totals give no share of spare capacity or a particular programme’s supply. $usgs_rhenium</p>
+
+  <h2 id="cases">Two documented responses</h2>
+  <div class="split">
+    <section class="panel">
+      <h3>Titanium sourcing after 2022</h3>
+      <p><strong>Reported outcome.</strong> Boeing suspended titanium purchases from Russia in 2022. It reported that existing inventory and alternative sources kept the suspension from disrupting its operations that year. Its filing says qualifying alternative sources for major raw materials can take a year or more. The buyer’s stocks and alternatives explain why a loss of supply need not interrupt production immediately. The filing provides neither stock volumes nor approval dates by engine programme. $boeing</p>
+    </section>
+    <section class="panel">
+      <h3>Engine inspections and shop capacity</h3>
+      <p><strong>Reported outcome.</strong> The FAA required inspections and accelerated part replacements on affected commercial geared turbofan engines in 2024. JetBlue reported $grounded aircraft grounded for lack of engines at mid-2025, citing both required inspections and other reliability issues. It expected removed engines to take about $shop_days days per shop visit. The grounding count is reported and the shop duration was an estimate. This case concerns engine and maintenance availability. The disclosures give no market share or capacity estimate for a single-crystal blade caster. $faa_ad $jetblue</p>
+    </section>
+  </div>
+
+  <h2 id="scenarios">How long can inventory bridge a supply gap?</h2>
+  <p><strong>Modelled.</strong> A hypothetical civil buyer needs $demand units of one qualified input every month and loses a supplier delivering $loss units per month for $months months. The model varies opening stock, how soon alternative deliveries begin, and how much usable supply arrives. The delays and volumes are illustrative. Boeing’s disclosure identifies the mechanisms but gives too little data to calibrate these inputs to its experience.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Modelled sensitivity to stock, timing and supply">
+    <table>
+      <caption>Inputs and unmet requirements over $months months, in units of the same qualified input.</caption>
+      <thead><tr><th scope="col">Opening stock (units)</th><th scope="col">Months before alternatives arrive</th><th scope="col">New deliveries (units/month)</th><th scope="col">First shortage (month)</th><th scope="col">Unmet units</th></tr></thead>
+      <tbody>
+$scenario_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Each month the buyer draws the smaller of its stock and the remaining gap. Unmet requirements are summed without backorders, stock replenishment or a gradual ramp. With $buffer stock units and full replacement, the $short_delay-month delay leaves $early_shortfall unmet units. The $long_delay-month delay leaves $late_shortfall unmet units. If the replacement rate remains below the lost rate, the gap continues after deliveries resume. <a href="out/aerospace_supply_scenarios.csv">Download the monthly supply, stock and shortage paths (CSV)</a>.</p>
+
+  <h2 id="trade">Customs records describe traded products</h2>
+  <p>BACI counts annual traded value across borders. HS 810820 covers unwrought titanium and powders, including sponge and ingots. HS 841112 covers turbojets traded as goods within its thrust category. Neither heading identifies engine programmes, approvals, plant output or the ownership of each shipment. $baci</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">$trade_year</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Aerospace customs trade">
+      <table>
+        <caption>CEPII BACI V202601. The most recent year in this extract is $trade_year.</caption>
+        <thead><tr><th scope="col">Traded product</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p>The $trade_year US imports-to-exports ratios by value were $us_ratios. These ratios describe the US trade balance in the headings. Consumption and domestic production would be needed to estimate import reliance. The extract records a country exporter HHI of $engine_export_hhi for HS 841112, which measures the distribution of export value across countries.</p>
+  <details><summary>China’s export share of unwrought titanium and powders by year</summary>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="China’s annual export shares">
+      <table>
+        <caption>Share of world export value, HS 810820. The extract uses HS02 up to 2016 and HS17 from 2017.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Share</th></tr></thead>
+        <tbody>
+$history_rows
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <h2>What would establish a binding constraint?</h2>
+  <p>The titanium comparison establishes a change in geography and concentration with grade. The cases show why usable inventory and qualified throughput matter for different outcomes. Estimating production lost or time to recover for a specific civil engine programme would require approved supplier and ownership records, available capacity by part, usable stocks and dated order or delivery data. The public series here cannot supply those inputs.</p>
+  <h2>Sources and reproduction</h2>
+  <ul class="source-list">
+$source_items
+  </ul>
+  <p><a href="PRODUCTION.md">Claim register and evidence gaps</a> · <a href="out/aerospace_chain.json">Evidence JSON</a> · <a href="out/aerospace_trade.json">Trade JSON</a> · <a href="record_aerospace.py">Calculation and page builder</a></p>
+  <p class="note">Related study · <a href="../titanium-chain/titanium-chain">Titanium supply chain</a> · <a href="../rhenium-chain/rhenium-chain">Rhenium supply chain</a> · <a href="library">August 2026 research library</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/aerospace_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

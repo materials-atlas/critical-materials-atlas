@@ -53,3 +53,7 @@ A jet engine turns nickel, cobalt, rhenium, hafnium and titanium into superalloy
 - Hafnium (used with rhenium in single-crystal alloys) is under-covered here beyond the one JRC line (France ~49% of EU supply); worth a dedicated pass: "hafnium supply chain zirconium co-product nuclear aerospace criticality."
 - Engine-OEM market-share figures are all secondary/trade-press (Mordor Intelligence, Simple Flying, GlobeNewswire) with no primary regulatory or antitrust-filing source found; a next search could target FAA/EASA type-certificate holder counts or company 10-K segment disclosures for a harder primary number.
 - (none found; suggested search: "IEA Advanced Materials for Clean Energy aerospace superalloys" for an IEA-specific angle, since no IEA hit surfaced in this pass.)
+
+## Evidence note — 25 November 2026
+
+The revised civil aero-engine study corrects the downstream concentration claim and the rhenium share in the August 2026 library. The JRC’s 2023 estimates put country concentration lower for aviation-grade than for all-quality titanium sponge capacity. USGS attributes about 37% of 2025 mine-linked rhenium recovery to Chile, including recovered material from imported residues. See the [revised study](aerospace-chain.html) and [claim register](PRODUCTION.md) for definitions and sources.

@@ -3775,13 +3775,20 @@
    "restored": 1
   },
   "aerospace-chain/record_aerospace.py": {
-   "reads": [],
+   "reads": [
+    "aerospace-chain/",
+    "aerospace-chain/article.html.in",
+    "aerospace-chain/out/aerospace_trade.json",
+    "aerospace-chain/record_aerospace.py"
+   ],
    "writes": [
-    "aerospace-chain/out/aerospace_chain.json"
+    "aerospace-chain/aerospace-chain.html",
+    "aerospace-chain/out/aerospace_chain.json",
+    "aerospace-chain/out/aerospace_supply_scenarios.csv"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "c9fc3530d36de560"
+   "secs": 0.4,
+   "code_sha": "fd58f3dc4406d10a"
   },
   "aluminium-chain/extract_baci.py": {
    "reads": [
