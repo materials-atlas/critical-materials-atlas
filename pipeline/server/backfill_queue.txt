@@ -3,6 +3,6 @@
 # Each line = arguments to reconcile/pull_comtrade_bulk.py (--quota-exit and --max-minutes are added).
 # A finished job stays harmless: its UN listings are cached, so it costs no quota and fetches nothing.
 # Added 24 Nov 2026.
---tariffline --freq A --year-min 2000 --all-codes          # yearly tariff lines (national codes, transport mode, customs procedure)
---type S --freq A --cl EB --year-min 2000 --all-codes      # services trade by partner (EBOPS), yearly
+# DONE 25 Nov 2026 (4,351 files), now in the nightly keep-fresh: --tariffline --freq A --year-min 2000 --all-codes  # yearly tariff lines (national codes, transport mode, customs procedure)
+# DONE 25 Nov 2026 (4,350 files; the UN 404s 6 files of reporter 841, 2012-17), now in the keep-fresh: --type S --freq A --cl EB --year-min 2000 --all-codes  # services trade by partner (EBOPS), yearly
 --tariffline --freq M --year-min 2000 --all-codes          # monthly tariff lines

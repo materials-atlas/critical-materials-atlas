@@ -130,6 +130,10 @@ def _server_steps(corpus):
         codes.append(_run_in([DL, '--all-codes', '--recheck', '24', '--quota-exit'], corpus, cpy, root))
         codes.append(_run_in([DL, '--all-codes', '--freq', 'A', '--cl', 'HS', '--recheck', '3',
                               '--quota-exit'], corpus, cpy, root))
+        # Keep-fresh for the sets finished by the backfill queue (25 Nov 2026): 3 listing calls each.
+        # Logged but not counted as refresh steps: a skipped recheck must not fail the atlas build.
+        for extra in (['--tariffline', '--freq', 'A'], ['--type', 'S', '--freq', 'A', '--cl', 'EB']):
+            _run_in([DL, '--all-codes'] + extra + ['--recheck', '3', '--quota-exit'], corpus, cpy, root)
     codes.append(_run_in(['reconcile/extract_comtrade_crm.py'], REPO, PY,
                          {'CMA_BULK_DIR': os.path.join(corpus, 'raw', 'comtrade_bulk')}))
     codes.append(_run(['pipeline/refresh.py', 'all', '--periods', '3']))
