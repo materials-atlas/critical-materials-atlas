@@ -1,0 +1,1702 @@
+{
+ "source": "CEPII BACI V202601, based on UN Comtrade",
+ "unit": "tonnes (customs net weight)",
+ "nomenclature": {
+  "2002": "HS02",
+  "2003": "HS02",
+  "2004": "HS02",
+  "2005": "HS02",
+  "2006": "HS02",
+  "2007": "HS02",
+  "2008": "HS02",
+  "2009": "HS02",
+  "2010": "HS02",
+  "2011": "HS02",
+  "2012": "HS02",
+  "2013": "HS02",
+  "2014": "HS02",
+  "2015": "HS02",
+  "2016": "HS02",
+  "2017": "HS17",
+  "2018": "HS17",
+  "2019": "HS17",
+  "2020": "HS17",
+  "2021": "HS17",
+  "2022": "HS17",
+  "2023": "HS17",
+  "2024": "HS17"
+ },
+ "stages": {
+  "bauxite": {
+   "label": "Bauxite",
+   "codes": [
+    "260600"
+   ]
+  },
+  "alumina": {
+   "label": "Alumina",
+   "codes": [
+    "281820"
+   ]
+  },
+  "unwrought": {
+   "label": "Unwrought aluminium",
+   "codes": [
+    "760110",
+    "760120"
+   ]
+  },
+  "semis": {
+   "label": "Semi-finished aluminium (bars, wire, plate, foil, tubes)",
+   "codes": [
+    "760410",
+    "760421",
+    "760429",
+    "760511",
+    "760519",
+    "760521",
+    "760529",
+    "760611",
+    "760612",
+    "760691",
+    "760692",
+    "760711",
+    "760719",
+    "760720",
+    "760810",
+    "760820"
+   ]
+  }
+ },
+ "series": {
+  "bauxite": [
+   {
+    "year": 2002,
+    "world_tonnes": 18870046,
+    "n_flows": 447,
+    "flows_without_weight": 0.0045,
+    "export_hhi": 2978,
+    "import_hhi": 1073,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.4814,
+    "china_exports": 574461,
+    "china_imports": 402739,
+    "guinea_exports": 9084347,
+    "indonesia_exports": 1141329,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2003,
+    "world_tonnes": 22881756,
+    "n_flows": 482,
+    "flows_without_weight": 0.0124,
+    "export_hhi": 2596,
+    "import_hhi": 904,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.4294,
+    "china_exports": 765815,
+    "china_imports": 633911,
+    "guinea_exports": 9826047,
+    "indonesia_exports": 1306637,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2004,
+    "world_tonnes": 29558594,
+    "n_flows": 578,
+    "flows_without_weight": 0.0017,
+    "export_hhi": 2205,
+    "import_hhi": 845,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.3697,
+    "china_exports": 939726,
+    "china_imports": 887864,
+    "guinea_exports": 10927802,
+    "indonesia_exports": 1570613,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2005,
+    "world_tonnes": 34737433,
+    "n_flows": 617,
+    "flows_without_weight": 0.0016,
+    "export_hhi": 1883,
+    "import_hhi": 753,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.3314,
+    "china_exports": 1019350,
+    "china_imports": 2158528,
+    "guinea_exports": 11511282,
+    "indonesia_exports": 2733847,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2006,
+    "world_tonnes": 48595655,
+    "n_flows": 622,
+    "flows_without_weight": 0.008,
+    "export_hhi": 1486,
+    "import_hhi": 1227,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.2609,
+    "china_exports": 1114071,
+    "china_imports": 9334414,
+    "guinea_exports": 12679640,
+    "indonesia_exports": 9226174,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2007,
+    "world_tonnes": 63425387,
+    "n_flows": 714,
+    "flows_without_weight": 0.0182,
+    "export_hhi": 1541,
+    "import_hhi": 1842,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.2529,
+    "china_exports": 1128938,
+    "china_imports": 22988357,
+    "guinea_exports": 12579085,
+    "indonesia_exports": 16037917,
+    "guinea_to_china": 37
+   },
+   {
+    "year": 2008,
+    "world_tonnes": 66895155,
+    "n_flows": 711,
+    "flows_without_weight": 0.0211,
+    "export_hhi": 1712,
+    "import_hhi": 1941,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.2668,
+    "china_exports": 1103346,
+    "china_imports": 25246474,
+    "guinea_exports": 16192407,
+    "indonesia_exports": 17849877,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2009,
+    "world_tonnes": 46479467,
+    "n_flows": 635,
+    "flows_without_weight": 0.0173,
+    "export_hhi": 2187,
+    "import_hhi": 2319,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.312,
+    "china_exports": 459357,
+    "china_imports": 19893673,
+    "guinea_exports": 13948753,
+    "indonesia_exports": 14500496,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2010,
+    "world_tonnes": 65254555,
+    "n_flows": 722,
+    "flows_without_weight": 0.0111,
+    "export_hhi": 2408,
+    "import_hhi": 2825,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.3924,
+    "china_exports": 683913,
+    "china_imports": 32631611,
+    "guinea_exports": 15668810,
+    "indonesia_exports": 25605850,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2011,
+    "world_tonnes": 83846973,
+    "n_flows": 711,
+    "flows_without_weight": 0.0084,
+    "export_hhi": 2763,
+    "import_hhi": 3535,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.4621,
+    "china_exports": 660521,
+    "china_imports": 48043478,
+    "guinea_exports": 15773806,
+    "indonesia_exports": 38745752,
+    "guinea_to_china": 0
+   },
+   {
+    "year": 2012,
+    "world_tonnes": 77834554,
+    "n_flows": 756,
+    "flows_without_weight": 0.0093,
+    "export_hhi": 2278,
+    "import_hhi": 3098,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.3726,
+    "china_exports": 586210,
+    "china_imports": 40812859,
+    "guinea_exports": 18170917,
+    "indonesia_exports": 29004936,
+    "guinea_to_china": 51413
+   },
+   {
+    "year": 2013,
+    "world_tonnes": 113585164,
+    "n_flows": 735,
+    "flows_without_weight": 0.0,
+    "export_hhi": 2785,
+    "import_hhi": 4684,
+    "leading_exporter": "Indonesia",
+    "leading_exporter_share": 0.4699,
+    "china_exports": 611419,
+    "china_imports": 76337635,
+    "guinea_exports": 18624886,
+    "indonesia_exports": 53375812,
+    "guinea_to_china": 829282
+   },
+   {
+    "year": 2014,
+    "world_tonnes": 61554176,
+    "n_flows": 724,
+    "flows_without_weight": 0.0262,
+    "export_hhi": 1897,
+    "import_hhi": 3071,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.2962,
+    "china_exports": 755952,
+    "china_imports": 32892838,
+    "guinea_exports": 16925275,
+    "indonesia_exports": 4679102,
+    "guinea_to_china": 184934
+   },
+   {
+    "year": 2015,
+    "world_tonnes": 96153167,
+    "n_flows": 874,
+    "flows_without_weight": 0.016,
+    "export_hhi": 1783,
+    "import_hhi": 3857,
+    "leading_exporter": "Malaysia",
+    "leading_exporter_share": 0.2621,
+    "china_exports": 714876,
+    "china_imports": 57874690,
+    "guinea_exports": 19409828,
+    "indonesia_exports": 113,
+    "guinea_to_china": 329846
+   },
+   {
+    "year": 2016,
+    "world_tonnes": 54994991,
+    "n_flows": 712,
+    "flows_without_weight": 0.0126,
+    "export_hhi": 1917,
+    "import_hhi": 2403,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.2965,
+    "china_exports": 653402,
+    "china_imports": 24947834,
+    "guinea_exports": 16308612,
+    "indonesia_exports": 20,
+    "guinea_to_china": 2218090
+   },
+   {
+    "year": 2017,
+    "world_tonnes": 95947406,
+    "n_flows": 673,
+    "flows_without_weight": 0.0119,
+    "export_hhi": 2596,
+    "import_hhi": 5123,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.4124,
+    "china_exports": 611279,
+    "china_imports": 68053936,
+    "guinea_exports": 39568478,
+    "indonesia_exports": 1480673,
+    "guinea_to_china": 27589160
+   },
+   {
+    "year": 2018,
+    "world_tonnes": 111392307,
+    "n_flows": 721,
+    "flows_without_weight": 0.0055,
+    "export_hhi": 2861,
+    "import_hhi": 5720,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.4442,
+    "china_exports": 633930,
+    "china_imports": 83731760,
+    "guinea_exports": 49482980,
+    "indonesia_exports": 8030557,
+    "guinea_to_china": 38153380
+   },
+   {
+    "year": 2019,
+    "world_tonnes": 134341875,
+    "n_flows": 718,
+    "flows_without_weight": 0.007,
+    "export_hhi": 2962,
+    "import_hhi": 5769,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.449,
+    "china_exports": 547821,
+    "china_imports": 101529559,
+    "guinea_exports": 60314098,
+    "indonesia_exports": 14886086,
+    "guinea_to_china": 44404590
+   },
+   {
+    "year": 2020,
+    "world_tonnes": 148778551,
+    "n_flows": 702,
+    "flows_without_weight": 0.0157,
+    "export_hhi": 3454,
+    "import_hhi": 5721,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.5137,
+    "china_exports": 464745,
+    "china_imports": 111944024,
+    "guinea_exports": 76432487,
+    "indonesia_exports": 18951216,
+    "guinea_to_china": 52734220
+   },
+   {
+    "year": 2021,
+    "world_tonnes": 146256425,
+    "n_flows": 727,
+    "flows_without_weight": 0.0069,
+    "export_hhi": 3572,
+    "import_hhi": 5568,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.5312,
+    "china_exports": 620941,
+    "china_imports": 108491021,
+    "guinea_exports": 77690459,
+    "indonesia_exports": 18731383,
+    "guinea_to_china": 54739270
+   },
+   {
+    "year": 2022,
+    "world_tonnes": 155665904,
+    "n_flows": 722,
+    "flows_without_weight": 0.0083,
+    "export_hhi": 3911,
+    "import_hhi": 6526,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.5705,
+    "china_exports": 625644,
+    "china_imports": 125354876,
+    "guinea_exports": 88801976,
+    "indonesia_exports": 18479751,
+    "guinea_to_china": 70352750
+   },
+   {
+    "year": 2023,
+    "world_tonnes": 152744945,
+    "n_flows": 666,
+    "flows_without_weight": 0.0135,
+    "export_hhi": 6324,
+    "import_hhi": 6463,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.788,
+    "china_exports": 511306,
+    "china_imports": 122101571,
+    "guinea_exports": 120369324,
+    "indonesia_exports": 1870373,
+    "guinea_to_china": 99890928
+   },
+   {
+    "year": 2024,
+    "world_tonnes": 182929197,
+    "n_flows": 656,
+    "flows_without_weight": 0.0137,
+    "export_hhi": 5014,
+    "import_hhi": 7611,
+    "leading_exporter": "Guinea",
+    "leading_exporter_share": 0.6699,
+    "china_exports": 464690,
+    "china_imports": 159365810,
+    "guinea_exports": 122544404,
+    "indonesia_exports": 0,
+    "guinea_to_china": 110091480
+   }
+  ],
+  "alumina": [
+   {
+    "year": 2002,
+    "world_tonnes": 24750436,
+    "n_flows": 1206,
+    "flows_without_weight": 0.0025,
+    "export_hhi": 1778,
+    "import_hhi": 1016,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3771,
+    "china_exports": 469870,
+    "china_imports": 4567596,
+    "guinea_exports": 487135,
+    "indonesia_exports": 94
+   },
+   {
+    "year": 2003,
+    "world_tonnes": 25342282,
+    "n_flows": 1306,
+    "flows_without_weight": 0.0031,
+    "export_hhi": 1794,
+    "import_hhi": 1072,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3763,
+    "china_exports": 108081,
+    "china_imports": 5533529,
+    "guinea_exports": 578766,
+    "indonesia_exports": 46
+   },
+   {
+    "year": 2004,
+    "world_tonnes": 27684242,
+    "n_flows": 1455,
+    "flows_without_weight": 0.0241,
+    "export_hhi": 1382,
+    "import_hhi": 1049,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3088,
+    "china_exports": 88303,
+    "china_imports": 5895239,
+    "guinea_exports": 739710,
+    "indonesia_exports": 37
+   },
+   {
+    "year": 2005,
+    "world_tonnes": 32728913,
+    "n_flows": 1529,
+    "flows_without_weight": 0.019,
+    "export_hhi": 1478,
+    "import_hhi": 981,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.333,
+    "china_exports": 99758,
+    "china_imports": 6888948,
+    "guinea_exports": 777398,
+    "indonesia_exports": 83
+   },
+   {
+    "year": 2006,
+    "world_tonnes": 33423402,
+    "n_flows": 1571,
+    "flows_without_weight": 0.0102,
+    "export_hhi": 1302,
+    "import_hhi": 958,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.2995,
+    "china_exports": 120102,
+    "china_imports": 6805753,
+    "guinea_exports": 488806,
+    "indonesia_exports": 125
+   },
+   {
+    "year": 2007,
+    "world_tonnes": 34641478,
+    "n_flows": 1589,
+    "flows_without_weight": 0.0082,
+    "export_hhi": 1721,
+    "import_hhi": 785,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3698,
+    "china_exports": 128131,
+    "china_imports": 5087827,
+    "guinea_exports": 485158,
+    "indonesia_exports": 265
+   },
+   {
+    "year": 2008,
+    "world_tonnes": 35940005,
+    "n_flows": 1679,
+    "flows_without_weight": 0.0125,
+    "export_hhi": 1791,
+    "import_hhi": 781,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.372,
+    "china_exports": 133322,
+    "china_imports": 4575147,
+    "guinea_exports": 562677,
+    "indonesia_exports": 40
+   },
+   {
+    "year": 2009,
+    "world_tonnes": 30276074,
+    "n_flows": 1667,
+    "flows_without_weight": 0.003,
+    "export_hhi": 2107,
+    "import_hhi": 915,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4032,
+    "china_exports": 143258,
+    "china_imports": 5159278,
+    "guinea_exports": 491971,
+    "indonesia_exports": 10
+   },
+   {
+    "year": 2010,
+    "world_tonnes": 30548711,
+    "n_flows": 1761,
+    "flows_without_weight": 0.0119,
+    "export_hhi": 1886,
+    "import_hhi": 799,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3629,
+    "china_exports": 161608,
+    "china_imports": 4343656,
+    "guinea_exports": 554121,
+    "indonesia_exports": 25
+   },
+   {
+    "year": 2011,
+    "world_tonnes": 29041643,
+    "n_flows": 1778,
+    "flows_without_weight": 0.0067,
+    "export_hhi": 1568,
+    "import_hhi": 785,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.2849,
+    "china_exports": 183569,
+    "china_imports": 1961692,
+    "guinea_exports": 507997,
+    "indonesia_exports": 21483
+   },
+   {
+    "year": 2012,
+    "world_tonnes": 35011185,
+    "n_flows": 1836,
+    "flows_without_weight": 0.0098,
+    "export_hhi": 2349,
+    "import_hhi": 778,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4222,
+    "china_exports": 174144,
+    "china_imports": 5014511,
+    "guinea_exports": 215715,
+    "indonesia_exports": 35
+   },
+   {
+    "year": 2013,
+    "world_tonnes": 35299784,
+    "n_flows": 1847,
+    "flows_without_weight": 0.0038,
+    "export_hhi": 2319,
+    "import_hhi": 711,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4221,
+    "china_exports": 182732,
+    "china_imports": 3835163,
+    "guinea_exports": 0,
+    "indonesia_exports": 136
+   },
+   {
+    "year": 2014,
+    "world_tonnes": 36053225,
+    "n_flows": 1851,
+    "flows_without_weight": 0.0059,
+    "export_hhi": 2128,
+    "import_hhi": 755,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3828,
+    "china_exports": 149755,
+    "china_imports": 5118125,
+    "guinea_exports": 0,
+    "indonesia_exports": 263
+   },
+   {
+    "year": 2015,
+    "world_tonnes": 36612525,
+    "n_flows": 2060,
+    "flows_without_weight": 0.0063,
+    "export_hhi": 2266,
+    "import_hhi": 726,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3983,
+    "china_exports": 289801,
+    "china_imports": 4345698,
+    "guinea_exports": 0,
+    "indonesia_exports": 20463
+   },
+   {
+    "year": 2016,
+    "world_tonnes": 37277449,
+    "n_flows": 1944,
+    "flows_without_weight": 0.0072,
+    "export_hhi": 2457,
+    "import_hhi": 690,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4215,
+    "china_exports": 189530,
+    "china_imports": 1011002,
+    "guinea_exports": 0,
+    "indonesia_exports": 129146
+   },
+   {
+    "year": 2017,
+    "world_tonnes": 34357921,
+    "n_flows": 1835,
+    "flows_without_weight": 0.0114,
+    "export_hhi": 2022,
+    "import_hhi": 659,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3534,
+    "china_exports": 207491,
+    "china_imports": 2850539,
+    "guinea_exports": 0,
+    "indonesia_exports": 1020233
+   },
+   {
+    "year": 2018,
+    "world_tonnes": 35363871,
+    "n_flows": 1988,
+    "flows_without_weight": 0.0045,
+    "export_hhi": 2099,
+    "import_hhi": 649,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3996,
+    "china_exports": 1395644,
+    "china_imports": 556322,
+    "guinea_exports": 136302,
+    "indonesia_exports": 847934
+   },
+   {
+    "year": 2019,
+    "world_tonnes": 38595252,
+    "n_flows": 2037,
+    "flows_without_weight": 0.0079,
+    "export_hhi": 2431,
+    "import_hhi": 658,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4436,
+    "china_exports": 497617,
+    "china_imports": 1591489,
+    "guinea_exports": 352813,
+    "indonesia_exports": 1124829
+   },
+   {
+    "year": 2020,
+    "world_tonnes": 37368552,
+    "n_flows": 2021,
+    "flows_without_weight": 0.0109,
+    "export_hhi": 2543,
+    "import_hhi": 686,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.444,
+    "china_exports": 186804,
+    "china_imports": 3751386,
+    "guinea_exports": 397715,
+    "indonesia_exports": 929121
+   },
+   {
+    "year": 2021,
+    "world_tonnes": 35843735,
+    "n_flows": 2138,
+    "flows_without_weight": 0.0136,
+    "export_hhi": 2339,
+    "import_hhi": 672,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4111,
+    "china_exports": 286280,
+    "china_imports": 2544342,
+    "guinea_exports": 425048,
+    "indonesia_exports": 1424662
+   },
+   {
+    "year": 2022,
+    "world_tonnes": 35418130,
+    "n_flows": 2144,
+    "flows_without_weight": 0.0126,
+    "export_hhi": 2494,
+    "import_hhi": 631,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.4235,
+    "china_exports": 1104320,
+    "china_imports": 1984737,
+    "guinea_exports": 64145,
+    "indonesia_exports": 3177067
+   },
+   {
+    "year": 2023,
+    "world_tonnes": 31246097,
+    "n_flows": 2157,
+    "flows_without_weight": 0.0093,
+    "export_hhi": 2145,
+    "import_hhi": 700,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3682,
+    "china_exports": 1408827,
+    "china_imports": 1687623,
+    "guinea_exports": 77654,
+    "indonesia_exports": 2778322
+   },
+   {
+    "year": 2024,
+    "world_tonnes": 37266858,
+    "n_flows": 2156,
+    "flows_without_weight": 0.0218,
+    "export_hhi": 2087,
+    "import_hhi": 662,
+    "leading_exporter": "Australia",
+    "leading_exporter_share": 0.3812,
+    "china_exports": 1905640,
+    "china_imports": 1354606,
+    "guinea_exports": 2756,
+    "indonesia_exports": 4170821
+   }
+  ],
+  "unwrought": [
+   {
+    "year": 2002,
+    "world_tonnes": 17611817,
+    "n_flows": 2715,
+    "flows_without_weight": 0.0018,
+    "export_hhi": 713,
+    "import_hhi": 788,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1827,
+    "china_exports": 673091,
+    "china_imports": 385028,
+    "guinea_exports": 38,
+    "indonesia_exports": 181269
+   },
+   {
+    "year": 2003,
+    "world_tonnes": 17923646,
+    "n_flows": 2772,
+    "flows_without_weight": 0.0018,
+    "export_hhi": 758,
+    "import_hhi": 840,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1878,
+    "china_exports": 947397,
+    "china_imports": 478490,
+    "guinea_exports": 126,
+    "indonesia_exports": 120578
+   },
+   {
+    "year": 2004,
+    "world_tonnes": 19851768,
+    "n_flows": 3025,
+    "flows_without_weight": 0.0026,
+    "export_hhi": 714,
+    "import_hhi": 739,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1855,
+    "china_exports": 1349125,
+    "china_imports": 470754,
+    "guinea_exports": 603,
+    "indonesia_exports": 161027
+   },
+   {
+    "year": 2005,
+    "world_tonnes": 20803699,
+    "n_flows": 3066,
+    "flows_without_weight": 0.0029,
+    "export_hhi": 740,
+    "import_hhi": 777,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1925,
+    "china_exports": 1336823,
+    "china_imports": 351703,
+    "guinea_exports": 0,
+    "indonesia_exports": 179722
+   },
+   {
+    "year": 2006,
+    "world_tonnes": 21973088,
+    "n_flows": 3338,
+    "flows_without_weight": 0.0033,
+    "export_hhi": 669,
+    "import_hhi": 687,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1745,
+    "china_exports": 1167968,
+    "china_imports": 318685,
+    "guinea_exports": 336,
+    "indonesia_exports": 233487
+   },
+   {
+    "year": 2007,
+    "world_tonnes": 21673851,
+    "n_flows": 3541,
+    "flows_without_weight": 0.0034,
+    "export_hhi": 680,
+    "import_hhi": 662,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1733,
+    "china_exports": 1146505,
+    "china_imports": 196356,
+    "guinea_exports": 136,
+    "indonesia_exports": 185483
+   },
+   {
+    "year": 2008,
+    "world_tonnes": 21843784,
+    "n_flows": 3593,
+    "flows_without_weight": 0.0014,
+    "export_hhi": 675,
+    "import_hhi": 750,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1696,
+    "china_exports": 1064204,
+    "china_imports": 221876,
+    "guinea_exports": 241,
+    "indonesia_exports": 158374
+   },
+   {
+    "year": 2009,
+    "world_tonnes": 20097883,
+    "n_flows": 3575,
+    "flows_without_weight": 0.0034,
+    "export_hhi": 674,
+    "import_hhi": 729,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1714,
+    "china_exports": 340283,
+    "china_imports": 1201266,
+    "guinea_exports": 24,
+    "indonesia_exports": 165211
+   },
+   {
+    "year": 2010,
+    "world_tonnes": 23026329,
+    "n_flows": 3743,
+    "flows_without_weight": 0.0024,
+    "export_hhi": 610,
+    "import_hhi": 663,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1506,
+    "china_exports": 578895,
+    "china_imports": 281156,
+    "guinea_exports": 50,
+    "indonesia_exports": 155690
+   },
+   {
+    "year": 2011,
+    "world_tonnes": 23676969,
+    "n_flows": 3653,
+    "flows_without_weight": 0.0041,
+    "export_hhi": 593,
+    "import_hhi": 595,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1497,
+    "china_exports": 744564,
+    "china_imports": 283906,
+    "guinea_exports": 100,
+    "indonesia_exports": 146846
+   },
+   {
+    "year": 2012,
+    "world_tonnes": 22552042,
+    "n_flows": 3726,
+    "flows_without_weight": 0.0086,
+    "export_hhi": 603,
+    "import_hhi": 660,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1558,
+    "china_exports": 637420,
+    "china_imports": 503819,
+    "guinea_exports": 96,
+    "indonesia_exports": 152401
+   },
+   {
+    "year": 2013,
+    "world_tonnes": 23104426,
+    "n_flows": 3758,
+    "flows_without_weight": 0.0051,
+    "export_hhi": 608,
+    "import_hhi": 646,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1551,
+    "china_exports": 539052,
+    "china_imports": 428476,
+    "guinea_exports": 70,
+    "indonesia_exports": 162566
+   },
+   {
+    "year": 2014,
+    "world_tonnes": 23882400,
+    "n_flows": 3782,
+    "flows_without_weight": 0.005,
+    "export_hhi": 604,
+    "import_hhi": 613,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1566,
+    "china_exports": 644477,
+    "china_imports": 296505,
+    "guinea_exports": 0,
+    "indonesia_exports": 90308
+   },
+   {
+    "year": 2015,
+    "world_tonnes": 24368012,
+    "n_flows": 4036,
+    "flows_without_weight": 0.0037,
+    "export_hhi": 611,
+    "import_hhi": 617,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1573,
+    "china_exports": 649756,
+    "china_imports": 214147,
+    "guinea_exports": 0,
+    "indonesia_exports": 71571
+   },
+   {
+    "year": 2016,
+    "world_tonnes": 26034484,
+    "n_flows": 3936,
+    "flows_without_weight": 0.0051,
+    "export_hhi": 594,
+    "import_hhi": 676,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1456,
+    "china_exports": 553387,
+    "china_imports": 277311,
+    "guinea_exports": 0,
+    "indonesia_exports": 78828
+   },
+   {
+    "year": 2017,
+    "world_tonnes": 26525824,
+    "n_flows": 3505,
+    "flows_without_weight": 0.0074,
+    "export_hhi": 574,
+    "import_hhi": 726,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1375,
+    "china_exports": 577556,
+    "china_imports": 176261,
+    "guinea_exports": 0,
+    "indonesia_exports": 80808
+   },
+   {
+    "year": 2018,
+    "world_tonnes": 26529727,
+    "n_flows": 3729,
+    "flows_without_weight": 0.0083,
+    "export_hhi": 530,
+    "import_hhi": 601,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1143,
+    "china_exports": 584666,
+    "china_imports": 166450,
+    "guinea_exports": 0,
+    "indonesia_exports": 111837
+   },
+   {
+    "year": 2019,
+    "world_tonnes": 26211930,
+    "n_flows": 3822,
+    "flows_without_weight": 0.0167,
+    "export_hhi": 539,
+    "import_hhi": 586,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1199,
+    "china_exports": 610330,
+    "china_imports": 297109,
+    "guinea_exports": 0,
+    "indonesia_exports": 71597
+   },
+   {
+    "year": 2020,
+    "world_tonnes": 26799152,
+    "n_flows": 3744,
+    "flows_without_weight": 0.02,
+    "export_hhi": 540,
+    "import_hhi": 554,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1121,
+    "china_exports": 254277,
+    "china_imports": 2049493,
+    "guinea_exports": 0,
+    "indonesia_exports": 173675
+   },
+   {
+    "year": 2021,
+    "world_tonnes": 31907784,
+    "n_flows": 4124,
+    "flows_without_weight": 0.0153,
+    "export_hhi": 540,
+    "import_hhi": 585,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1098,
+    "china_exports": 192873,
+    "china_imports": 3820453,
+    "guinea_exports": 0,
+    "indonesia_exports": 144428
+   },
+   {
+    "year": 2022,
+    "world_tonnes": 30413710,
+    "n_flows": 4336,
+    "flows_without_weight": 0.0118,
+    "export_hhi": 516,
+    "import_hhi": 571,
+    "leading_exporter": "India",
+    "leading_exporter_share": 0.0995,
+    "china_exports": 324607,
+    "china_imports": 1964562,
+    "guinea_exports": 1142,
+    "indonesia_exports": 148789
+   },
+   {
+    "year": 2023,
+    "world_tonnes": 30145032,
+    "n_flows": 4335,
+    "flows_without_weight": 0.0175,
+    "export_hhi": 518,
+    "import_hhi": 568,
+    "leading_exporter": "Russia",
+    "leading_exporter_share": 0.1088,
+    "china_exports": 300033,
+    "china_imports": 2717301,
+    "guinea_exports": 4171,
+    "indonesia_exports": 184406
+   },
+   {
+    "year": 2024,
+    "world_tonnes": 30702394,
+    "n_flows": 4264,
+    "flows_without_weight": 0.0169,
+    "export_hhi": 485,
+    "import_hhi": 557,
+    "leading_exporter": "Canada",
+    "leading_exporter_share": 0.0982,
+    "china_exports": 275838,
+    "china_imports": 3268117,
+    "guinea_exports": 5263,
+    "indonesia_exports": 391015
+   }
+  ],
+  "semis": [
+   {
+    "year": 2002,
+    "world_tonnes": 14410030,
+    "n_flows": 26665,
+    "flows_without_weight": 0.0018,
+    "export_hhi": 577,
+    "import_hhi": 689,
+    "leading_exporter": "Malaysia",
+    "leading_exporter_share": 0.1406,
+    "china_exports": 200475,
+    "china_imports": 525888,
+    "guinea_exports": 52,
+    "indonesia_exports": 41520
+   },
+   {
+    "year": 2003,
+    "world_tonnes": 9988155,
+    "n_flows": 29200,
+    "flows_without_weight": 0.0028,
+    "export_hhi": 548,
+    "import_hhi": 448,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1513,
+    "china_exports": 224361,
+    "china_imports": 505261,
+    "guinea_exports": 0,
+    "indonesia_exports": 26552
+   },
+   {
+    "year": 2004,
+    "world_tonnes": 11469700,
+    "n_flows": 31612,
+    "flows_without_weight": 0.0028,
+    "export_hhi": 503,
+    "import_hhi": 448,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1375,
+    "china_exports": 378969,
+    "china_imports": 558932,
+    "guinea_exports": 0,
+    "indonesia_exports": 36440
+   },
+   {
+    "year": 2005,
+    "world_tonnes": 11932460,
+    "n_flows": 33477,
+    "flows_without_weight": 0.0026,
+    "export_hhi": 513,
+    "import_hhi": 463,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1395,
+    "china_exports": 557027,
+    "china_imports": 574580,
+    "guinea_exports": 218,
+    "indonesia_exports": 60895
+   },
+   {
+    "year": 2006,
+    "world_tonnes": 15246474,
+    "n_flows": 35396,
+    "flows_without_weight": 0.0029,
+    "export_hhi": 500,
+    "import_hhi": 523,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.118,
+    "china_exports": 1212975,
+    "china_imports": 570923,
+    "guinea_exports": 336,
+    "indonesia_exports": 109976
+   },
+   {
+    "year": 2007,
+    "world_tonnes": 13805208,
+    "n_flows": 37063,
+    "flows_without_weight": 0.0029,
+    "export_hhi": 508,
+    "import_hhi": 415,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1298,
+    "china_exports": 1348475,
+    "china_imports": 557391,
+    "guinea_exports": 144,
+    "indonesia_exports": 86297
+   },
+   {
+    "year": 2008,
+    "world_tonnes": 13781356,
+    "n_flows": 37974,
+    "flows_without_weight": 0.0041,
+    "export_hhi": 532,
+    "import_hhi": 376,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1266,
+    "china_exports": 1598596,
+    "china_imports": 532410,
+    "guinea_exports": 240,
+    "indonesia_exports": 70184
+   },
+   {
+    "year": 2009,
+    "world_tonnes": 11380859,
+    "n_flows": 37651,
+    "flows_without_weight": 0.0045,
+    "export_hhi": 513,
+    "import_hhi": 381,
+    "leading_exporter": "Germany",
+    "leading_exporter_share": 0.1249,
+    "china_exports": 1305651,
+    "china_imports": 532014,
+    "guinea_exports": 0,
+    "indonesia_exports": 59424
+   },
+   {
+    "year": 2010,
+    "world_tonnes": 13671923,
+    "n_flows": 38837,
+    "flows_without_weight": 0.0041,
+    "export_hhi": 531,
+    "import_hhi": 380,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.1398,
+    "china_exports": 1911641,
+    "china_imports": 527987,
+    "guinea_exports": 0,
+    "indonesia_exports": 116702
+   },
+   {
+    "year": 2011,
+    "world_tonnes": 15667627,
+    "n_flows": 39399,
+    "flows_without_weight": 0.0054,
+    "export_hhi": 630,
+    "import_hhi": 382,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.1751,
+    "china_exports": 2743366,
+    "china_imports": 517572,
+    "guinea_exports": 0,
+    "indonesia_exports": 137285
+   },
+   {
+    "year": 2012,
+    "world_tonnes": 15232764,
+    "n_flows": 40808,
+    "flows_without_weight": 0.0089,
+    "export_hhi": 642,
+    "import_hhi": 367,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.1741,
+    "china_exports": 2652735,
+    "china_imports": 469991,
+    "guinea_exports": 0,
+    "indonesia_exports": 131439
+   },
+   {
+    "year": 2013,
+    "world_tonnes": 15339558,
+    "n_flows": 41661,
+    "flows_without_weight": 0.0059,
+    "export_hhi": 638,
+    "import_hhi": 348,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.1727,
+    "china_exports": 2649563,
+    "china_imports": 428918,
+    "guinea_exports": 0,
+    "indonesia_exports": 114364
+   },
+   {
+    "year": 2014,
+    "world_tonnes": 16520741,
+    "n_flows": 41665,
+    "flows_without_weight": 0.0076,
+    "export_hhi": 704,
+    "import_hhi": 356,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.196,
+    "china_exports": 3237409,
+    "china_imports": 446376,
+    "guinea_exports": 0,
+    "indonesia_exports": 111669
+   },
+   {
+    "year": 2015,
+    "world_tonnes": 17957723,
+    "n_flows": 43483,
+    "flows_without_weight": 0.0096,
+    "export_hhi": 726,
+    "import_hhi": 368,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2051,
+    "china_exports": 3682607,
+    "china_imports": 426847,
+    "guinea_exports": 37,
+    "indonesia_exports": 118161
+   },
+   {
+    "year": 2016,
+    "world_tonnes": 17908455,
+    "n_flows": 43148,
+    "flows_without_weight": 0.0074,
+    "export_hhi": 691,
+    "import_hhi": 379,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.1924,
+    "china_exports": 3446057,
+    "china_imports": 475919,
+    "guinea_exports": 3,
+    "indonesia_exports": 96226
+   },
+   {
+    "year": 2017,
+    "world_tonnes": 18376142,
+    "n_flows": 38869,
+    "flows_without_weight": 0.0088,
+    "export_hhi": 778,
+    "import_hhi": 395,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2187,
+    "china_exports": 4019766,
+    "china_imports": 375494,
+    "guinea_exports": 0,
+    "indonesia_exports": 125568
+   },
+   {
+    "year": 2018,
+    "world_tonnes": 20404399,
+    "n_flows": 41714,
+    "flows_without_weight": 0.0095,
+    "export_hhi": 821,
+    "import_hhi": 369,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2358,
+    "china_exports": 4810711,
+    "china_imports": 378959,
+    "guinea_exports": 30,
+    "indonesia_exports": 151199
+   },
+   {
+    "year": 2019,
+    "world_tonnes": 19612367,
+    "n_flows": 43173,
+    "flows_without_weight": 0.0107,
+    "export_hhi": 884,
+    "import_hhi": 371,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2497,
+    "china_exports": 4897017,
+    "china_imports": 349873,
+    "guinea_exports": 22,
+    "indonesia_exports": 107284
+   },
+   {
+    "year": 2020,
+    "world_tonnes": 18196847,
+    "n_flows": 41784,
+    "flows_without_weight": 0.0103,
+    "export_hhi": 835,
+    "import_hhi": 355,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2399,
+    "china_exports": 4365621,
+    "china_imports": 407343,
+    "guinea_exports": 10,
+    "indonesia_exports": 133736
+   },
+   {
+    "year": 2021,
+    "world_tonnes": 20599968,
+    "n_flows": 43431,
+    "flows_without_weight": 0.012,
+    "export_hhi": 813,
+    "import_hhi": 356,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2379,
+    "china_exports": 4900603,
+    "china_imports": 481850,
+    "guinea_exports": 145,
+    "indonesia_exports": 94128
+   },
+   {
+    "year": 2022,
+    "world_tonnes": 21406951,
+    "n_flows": 43813,
+    "flows_without_weight": 0.012,
+    "export_hhi": 957,
+    "import_hhi": 373,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2693,
+    "china_exports": 5764246,
+    "china_imports": 452504,
+    "guinea_exports": 356,
+    "indonesia_exports": 92671
+   },
+   {
+    "year": 2023,
+    "world_tonnes": 18907030,
+    "n_flows": 44189,
+    "flows_without_weight": 0.0152,
+    "export_hhi": 884,
+    "import_hhi": 336,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2517,
+    "china_exports": 4759605,
+    "china_imports": 389460,
+    "guinea_exports": 211,
+    "indonesia_exports": 75710
+   },
+   {
+    "year": 2024,
+    "world_tonnes": 20341329,
+    "n_flows": 42383,
+    "flows_without_weight": 0.0138,
+    "export_hhi": 1047,
+    "import_hhi": 330,
+    "leading_exporter": "China",
+    "leading_exporter_share": 0.2861,
+    "china_exports": 5820528,
+    "china_imports": 397913,
+    "guinea_exports": 1,
+    "indonesia_exports": 81946
+   }
+  ]
+ },
+ "latest": {
+  "bauxite": {
+   "year": 2024,
+   "exporters": [
+    {
+     "name": "Guinea",
+     "tonnes": 122544404,
+     "share": 0.6699
+    },
+    {
+     "name": "Australia",
+     "tonnes": 41296601,
+     "share": 0.2258
+    },
+    {
+     "name": "Brazil",
+     "tonnes": 5353923,
+     "share": 0.0293
+    },
+    {
+     "name": "Turkey",
+     "tonnes": 4056191,
+     "share": 0.0222
+    },
+    {
+     "name": "Jamaica",
+     "tonnes": 2093726,
+     "share": 0.0114
+    },
+    {
+     "name": "Laos",
+     "tonnes": 1543551,
+     "share": 0.0084
+    },
+    {
+     "name": "Ghana",
+     "tonnes": 1431844,
+     "share": 0.0078
+    },
+    {
+     "name": "Malaysia",
+     "tonnes": 865761,
+     "share": 0.0047
+    }
+   ],
+   "importers": [
+    {
+     "name": "China",
+     "tonnes": 159365810,
+     "share": 0.8712
+    },
+    {
+     "name": "Ireland",
+     "tonnes": 4592184,
+     "share": 0.0251
+    },
+    {
+     "name": "India",
+     "tonnes": 4105982,
+     "share": 0.0224
+    },
+    {
+     "name": "Canada",
+     "tonnes": 3646877,
+     "share": 0.0199
+    },
+    {
+     "name": "United States",
+     "tonnes": 2924119,
+     "share": 0.016
+    },
+    {
+     "name": "Germany",
+     "tonnes": 2248130,
+     "share": 0.0123
+    }
+   ]
+  },
+  "alumina": {
+   "year": 2024,
+   "exporters": [
+    {
+     "name": "Australia",
+     "tonnes": 14206684,
+     "share": 0.3812
+    },
+    {
+     "name": "Brazil",
+     "tonnes": 7510414,
+     "share": 0.2015
+    },
+    {
+     "name": "Indonesia",
+     "tonnes": 4170821,
+     "share": 0.1119
+    },
+    {
+     "name": "China",
+     "tonnes": 1905640,
+     "share": 0.0511
+    },
+    {
+     "name": "India",
+     "tonnes": 1857842,
+     "share": 0.0499
+    },
+    {
+     "name": "Ireland",
+     "tonnes": 1700193,
+     "share": 0.0456
+    },
+    {
+     "name": "Vietnam",
+     "tonnes": 1192395,
+     "share": 0.032
+    },
+    {
+     "name": "Kazakhstan",
+     "tonnes": 996173,
+     "share": 0.0267
+    }
+   ],
+   "importers": [
+    {
+     "name": "Canada",
+     "tonnes": 5050268,
+     "share": 0.1355
+    },
+    {
+     "name": "Russia",
+     "tonnes": 4525891,
+     "share": 0.1214
+    },
+    {
+     "name": "Bahrain",
+     "tonnes": 3002844,
+     "share": 0.0806
+    },
+    {
+     "name": "United Arab Emirates",
+     "tonnes": 2869775,
+     "share": 0.077
+    },
+    {
+     "name": "Norway",
+     "tonnes": 2535498,
+     "share": 0.068
+    },
+    {
+     "name": "India",
+     "tonnes": 1903217,
+     "share": 0.0511
+    }
+   ]
+  },
+  "unwrought": {
+   "year": 2024,
+   "exporters": [
+    {
+     "name": "Canada",
+     "tonnes": 3013526,
+     "share": 0.0982
+    },
+    {
+     "name": "Russia",
+     "tonnes": 2849428,
+     "share": 0.0928
+    },
+    {
+     "name": "United Arab Emirates",
+     "tonnes": 2781753,
+     "share": 0.0906
+    },
+    {
+     "name": "India",
+     "tonnes": 1968287,
+     "share": 0.0641
+    },
+    {
+     "name": "Malaysia",
+     "tonnes": 1860495,
+     "share": 0.0606
+    },
+    {
+     "name": "Australia",
+     "tonnes": 1550321,
+     "share": 0.0505
+    },
+    {
+     "name": "Norway",
+     "tonnes": 1446585,
+     "share": 0.0471
+    },
+    {
+     "name": "Bahrain",
+     "tonnes": 1346201,
+     "share": 0.0438
+    }
+   ],
+   "importers": [
+    {
+     "name": "United States",
+     "tonnes": 4016295,
+     "share": 0.1308
+    },
+    {
+     "name": "China",
+     "tonnes": 3268117,
+     "share": 0.1064
+    },
+    {
+     "name": "Germany",
+     "tonnes": 2168385,
+     "share": 0.0706
+    },
+    {
+     "name": "Japan",
+     "tonnes": 2107528,
+     "share": 0.0686
+    },
+    {
+     "name": "Malaysia",
+     "tonnes": 1647178,
+     "share": 0.0536
+    },
+    {
+     "name": "South Korea",
+     "tonnes": 1572553,
+     "share": 0.0512
+    }
+   ]
+  },
+  "semis": {
+   "year": 2024,
+   "exporters": [
+    {
+     "name": "China",
+     "tonnes": 5820528,
+     "share": 0.2861
+    },
+    {
+     "name": "Germany",
+     "tonnes": 1953085,
+     "share": 0.096
+    },
+    {
+     "name": "South Korea",
+     "tonnes": 888133,
+     "share": 0.0437
+    },
+    {
+     "name": "United States",
+     "tonnes": 873269,
+     "share": 0.0429
+    },
+    {
+     "name": "Turkey",
+     "tonnes": 835696,
+     "share": 0.0411
+    },
+    {
+     "name": "Italy",
+     "tonnes": 732559,
+     "share": 0.036
+    },
+    {
+     "name": "France",
+     "tonnes": 692427,
+     "share": 0.034
+    },
+    {
+     "name": "Spain",
+     "tonnes": 573022,
+     "share": 0.0282
+    }
+   ],
+   "importers": [
+    {
+     "name": "United States",
+     "tonnes": 1863662,
+     "share": 0.0916
+    },
+    {
+     "name": "Germany",
+     "tonnes": 1682136,
+     "share": 0.0827
+    },
+    {
+     "name": "Mexico",
+     "tonnes": 1174927,
+     "share": 0.0578
+    },
+    {
+     "name": "France",
+     "tonnes": 762940,
+     "share": 0.0375
+    },
+    {
+     "name": "Poland",
+     "tonnes": 734155,
+     "share": 0.0361
+    },
+    {
+     "name": "United Kingdom",
+     "tonnes": 715133,
+     "share": 0.0352
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/aluminium-chain/aluminium-chain">
+<title>$title — Critical Materials Atlas</title><meta name="description" content="$deck">
+<meta property="og:title" content="$title"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #15323a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Aluminium · Research note</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$date">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p>Aluminium is made in three steps. Bauxite is mined, refined into alumina (aluminium oxide), and the alumina is smelted into metal by electrolysis. This note sets out, for each step, where production takes place and how much of it crosses a border. It then checks whether the published tonnages fit together, and what the public sources say about electricity and recycling.</p>
+  <p><strong>Finding.</strong> In 2024 China made $cn_al2o3 of the world's alumina and $cn_al of its primary aluminium, and mined $cn_bx of its bauxite. It supplied $cn_al2o3_ex of the alumina and $cn_al_ex of the unwrought aluminium that were traded, and took $cn_bx_im of bauxite imports. Guinea mined $gn_bx of the world's bauxite and shipped $gn_ex of the bauxite that was traded, $cn_of_gn_exports of it to China. The concentration in metal is a concentration of production inside China. The concentration in trade is at the ore stage, between one exporter and one importer. $mcs_bx $mcs_al $baci</p>
+
+  <h2>Where each stage is produced</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Production by country and stage, 2024">
+    <table>
+      <caption>Production in 2024, million tonnes, and share of the world total. USGS, 2026 edition. Bauxite is in dry tonnes and the world total excludes the United States, whose output is withheld. A dash means USGS reports no output or does not list the country at that stage.</caption>
+      <thead><tr><th scope="col">Country</th><th scope="col" class="n">Bauxite</th><th scope="col" class="n">Share</th><th scope="col" class="n">Alumina</th><th scope="col" class="n">Share</th><th scope="col" class="n">Primary aluminium</th><th scope="col" class="n">Share</th></tr></thead>
+      <tbody>
+$prod_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Bauxite mining has three large producers: Guinea ($gn_bx), Australia ($au_bx) and China ($cn_bx). Refining and smelting have one. No other country reaches 13% of alumina or 6% of primary aluminium. Guinea holds $gn_reserves billion tonnes of bauxite reserves, $gn_reserve_share of the world figure, and refines almost none of its ore. $mcs_bx $mcs_al</p>
+
+  <h2>What is traded at each stage</h2>
+  <p>The table compares production with trade by weight. The concentration index (HHI) runs from zero to 10,000. For production it is given as a range, because USGS groups small producers in one row: the lower figure counts them as fully dispersed and the upper figure as one producer.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Production and trade by stage, 2024">
+    <table>
+      <caption>World production (USGS) and world trade by weight (BACI), $trade_year. Trade is customs net weight.</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col" class="n">Produced, Mt</th><th scope="col" class="n">Leading producer</th><th scope="col" class="n">Production HHI</th><th scope="col" class="n">Traded, Mt</th><th scope="col" class="n">Traded as share of produced</th><th scope="col" class="n">Leading exporter</th><th scope="col" class="n">Export HHI</th><th scope="col" class="n">Leading importer</th></tr></thead>
+      <tbody>
+$stage_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The two measures point in opposite directions along the chain. Bauxite production is the least concentrated of the three stages and bauxite trade the most: $bx_traded of the tonnage mined crossed a border, two exporters (Guinea $gn_ex, Australia $au_ex) supplied nine-tenths of it, and one importer took $cn_bx_im. Alumina and aluminium production are highly concentrated, and their trade is not. $al2o3_traded of alumina was traded, mostly from Australia ($au_al2o3_ex), Brazil ($br_al2o3_ex) and Indonesia ($id_al2o3_ex). The largest exporter of unwrought aluminium, $al_lead, had $al_lead_share of the market. $baci</p>
+  <p class="note">The share of production that is traded is approximate. Customs weight can include moisture and USGS reports dry tonnes. Unwrought aluminium in trade includes alloys and remelted metal, and production is primary metal only.</p>
+
+  <h2>China's place at each stage</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="China's share of production and trade by stage, 2024">
+    <table>
+      <caption>China in $trade_year. Production shares from USGS; trade shares by weight from BACI.</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col" class="n">Share of world production</th><th scope="col" class="n">Share of world exports</th><th scope="col" class="n">Share of world imports</th><th scope="col" class="n">Exports as share of own production</th></tr></thead>
+      <tbody>
+$china_rows
+      </tbody>
+    </table>
+  </div>
+  <p>China exported $cn_al2o3_own of the alumina it made and $cn_al_own of its primary metal in unwrought form, and was the second-largest importer of unwrought aluminium ($cn_al_im of world imports). Its aluminium reaches other countries mainly after further processing. China exported $semis_cn_mt million tonnes of semi-finished aluminium in $trade_year, $semis_cn_share of world exports in those categories, a tonnage equal to $semis_over_primary of its primary output. Semi-finished products also contain recycled metal, so that last figure is a comparison of size and not a share. Aluminium inside finished goods is not counted here. $baci</p>
+
+  <h2>Two-thirds of China's bauxite is imported, most of it from Guinea</h2>
+  <p>China mined $cn_dom million tonnes of bauxite in 2024 and imported $cn_imp million tonnes. Imports were therefore about $cn_imp_share of the ore available to its refineries. Guinea alone shipped $gn_cn million tonnes, $gn_of_cn_imports of China's imports and about $gn_cn_supply of its total supply. The dependence runs both ways: $cn_of_gn_exports of Guinea's exports went to China. $mcs_bx $baci</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Bauxite trade since 2005">
+    <table>
+      <caption>Trade by weight, million tonnes. BACI. The year 2023 is left out for the reason given under the trade table below.</caption>
+      <thead><tr><th scope="col">Year</th><th scope="col" class="n">World bauxite trade</th><th scope="col" class="n">Guinea exports</th><th scope="col" class="n">Guinea share</th><th scope="col" class="n">China imports</th><th scope="col" class="n">China share of imports</th><th scope="col" class="n">Indonesia bauxite exports</th><th scope="col" class="n">Indonesia alumina exports</th></tr></thead>
+      <tbody>
+$series_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Guinea's exports rose from $gn_first_mt million tonnes in $gn_first_year to $gn_last_mt million in $trade_year. China's share of world bauxite imports rose from $cn_first_share to $cn_last_share over the same years. USGS estimates Guinea's 2025 output at $gn_2025 million tonnes, $gn_2025_share of the world total. It also reports that in August 2025 the Guinean government revoked the mining licences of a subsidiary of a United Arab Emirates aluminium producer, after a dispute over building an alumina refinery, and gave the concessions to a state-backed company. $mcs_bx</p>
+  <p><strong>Cross-checks.</strong> The trade database gives China's 2024 bauxite imports as $x_baci_cn million tonnes, of which $x_baci_gn_cn million from Guinea. Shanghai Metals Market, a trade publication, gives $x_cust_cn and $x_cust_gn_cn million. The two agree. Guinea's own figures do not match as closely. Its statistics institute reports bauxite exports of $x_ins_gn million tonnes in 2024, against $x_baci_gn million in the trade database, and gives China's share as $ins_cn_share, apparently by value. The gap changes sign: the institute's figure is $gap_2022 million tonnes below the trade database for 2022 and $gap_2023 million below for 2023, and $gap_2024 million above for 2024. A single cause such as moisture would not do that, and this note does not resolve it. USGS puts Guinea's 2024 output at $gn_dry million dry tonnes, or $gn_wet million tonnes on a wet basis. $smm $ins $myb_gn</p>
+  <p><strong class="note">Modelled.</strong> The screen below removes part of Guinea's 2024 shipments to China for a year and holds everything else fixed. It converts the lost ore to alumina at the ratio implied by China's own 2024 figures, and to metal at the industry survey ratio. It allows for no stocks, no extra supply from Australia or elsewhere, and no change in prices. It carries no probability.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Guinea supply screen">
+    <table>
+      <caption>Modelled. Ore lost if part of Guinea's 2024 shipments to China did not arrive, and what that ore would have made.</caption>
+      <thead><tr><th scope="col">Interruption</th><th scope="col" class="n">Bauxite, Mt</th><th scope="col" class="n">Share of China's bauxite supply</th><th scope="col" class="n">Alumina equivalent, Mt</th><th scope="col" class="n">Share of world alumina</th><th scope="col" class="n">Aluminium equivalent, Mt</th><th scope="col" class="n">Share of world primary aluminium</th></tr></thead>
+      <tbody>
+$screen_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Half of Guinea's shipments is about $half_cn_share of China's bauxite supply. On these assumptions it corresponds to $half_al million tonnes of metal, $half_al_share of world primary output. The screen shows the size of the link and nothing about how likely an interruption is or how long stocks would cover it.</p>
+
+  <h2>Indonesia stopped exporting ore, and its alumina exports have grown</h2>
+  <p>Indonesia banned bauxite exports from $id_ban. USGS reports that its exports fell from about $id_ex_2022 million tonnes in 2022 to about $id_ex_2023 million in 2023, all to China. Its latest yearbook gives output of $id_prod_2022 million tonnes in 2022, $id_prod_2023 million in 2023 and an estimated $id_prod_2024 million in 2024, all of the 2024 output consumed at home. The trade database shows the same break, and no Indonesian bauxite exports in $trade_year. Indonesia's alumina exports were already growing before the ban and reached $id_al2o3_mt million tonnes in $trade_year, $id_al2o3_ex of world alumina trade. That is more than three times the $id_al2o3_usgs million tonnes that USGS estimates Indonesia produced in 2024. The two figures cannot both be right, and the USGS one is an estimate that has not changed since 2022. USGS reports a new one-million-tonne refinery at Mempawah shipping its first alumina in April 2025 and a 500,000-tonne smelter in North Kalimantan due to start by the end of 2025. $myb_id23 $myb_id24 $mcs_bx $mcs_al</p>
+
+  <h2>Do the tonnages fit together?</h2>
+  <p>A chain with fixed chemistry allows a check: the ore mined should be enough for the alumina made, and the alumina enough for the metal. The table gives the ratios implied by the 2024 figures beside published reference values.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Implied conversion ratios, 2024">
+    <table>
+      <caption>Tonnes of input per tonne of output implied by 2024 production and trade, with reference values. World alumina per tonne of aluminium uses the industry series for smelter-grade alumina and primary metal. The industry survey values are for 2019 and include no Chinese plants; the bauxite value covers 35% of world alumina output.</caption>
+      <thead><tr><th scope="col">Ratio</th><th scope="col">Implied, 2024</th><th scope="col">Reference</th></tr></thead>
+      <tbody>
+$ratio_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The alumina and metal figures fit. The world and Chinese ratios are within a few percent of the survey value, so China's refining is about the size its smelters need. The bauxite figures do not fit the simplest rule. World bauxite output of $bx_world_mt million tonnes is $bx_above more than the $bx_rule_mt million tonnes that the USGS rule of two tonnes per tonne of alumina would require. The implied ratio of $bx_ratio is inside the range the OECD gives. Several things can raise it: ore of lower grade, moisture in the reported tonnage, bauxite used for purposes other than metal, and changes in stocks. This note does not measure any of them. One consequence is that a share of bauxite tonnage is not a share of the aluminium the ore contains. $mcs_bx $iai_lci $iai_alumina $oecd</p>
+
+  <h2>Electricity</h2>
+  <p>Smelting used $kwh_world kilowatt-hours of electricity per tonne of aluminium on average in 2025, from $kwh_china in China to $kwh_top in $kwh_top_region. The association's reported total for smelting electricity was $twh_world terawatt-hours in the year. $iai_energy $iai_power</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Smelting electricity by region, 2025">
+    <table>
+      <caption>Electricity used in smelting, kilowatt-hours per tonne of aluminium, 2025. Alternating current, including rectification and smelter auxiliaries, excluding casting and carbon plants. International Aluminium Institute; the world and China figures are part estimated.</caption>
+      <thead><tr><th scope="col">Region</th><th scope="col" class="n">kWh per tonne</th></tr></thead>
+      <tbody>
+$energy_rows
+      </tbody>
+    </table>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Power sources of smelting, 2025">
+    <table>
+      <caption>Sources of the electricity used in smelting, 2025. Shares calculated from the International Aluminium Institute's gigawatt-hour figures. World is its reported total, which covers about $power_coverage of world output. The China figures are its estimates. Oil and other sources are under 1%.</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col" class="n">World</th><th scope="col" class="n">China</th></tr></thead>
+      <tbody>
+$mix_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Coal supplied $coal_world of the smelting electricity in the reported world total and $coal_china in China. Hydropower supplied $hydro_world of the reported total. China accounted for $cn_power_share of the reported electricity and $cn_coal_share of the reported coal-fired electricity. The output not covered is outside China, so China's shares of the true world totals are a little lower. $iai_power</p>
+  <p>The OECD's 2019 study of the industry says energy can be up to $cost_share of the cost of primary aluminium, depending on local power prices. The same study measured government support to $firms large producers at between USD $support_low and $support_high billion over 2013 to 2017. It found that the five largest recipients received 85% of it, most of that at the smelting stage, and that support was especially large in China and the Gulf Cooperation Council countries. Both power costs and public support bear on where smelters are built. This note does not estimate how much of China's share either one explains. $oecd</p>
+  <p>Chinese smelters produced at $util_cn of their year-end capacity in 2024. The world figure was $util_world and the United States figure $util_us. $mcs_al</p>
+
+  <h2>Recycling</h2>
+  <p>The industry association's material-flow model puts recycled metal at $recycled_share of world aluminium production in 2024. This is model output and not a survey. In the United States, metal recovered from old scrap was equal to $us_old_scrap of apparent consumption in 2025. USGS changed that calculation in its 2026 edition to leave out exported scrap, so the figure cannot be compared with earlier editions. The OECD study cites an industry estimate that recycling saves as much as $recycling_saving of the energy used in smelting. $iai_cycle $mcs_al $oecd</p>
+
+  <h2>How firm the production figures are</h2>
+  <p>USGS revised its 2024 bauxite figures heavily between editions. Indonesia went from an estimated $rev_id_old million tonnes to $rev_id_new million, China from $rev_cn_old to $rev_cn_new million, Guinea from $rev_gn_old to $rev_gn_new million, and the world total from $rev_w_old to $rev_w_new million. Guinea's share of 2024 output is $rev_gn_share_old on the earlier figures and $rev_gn_share_new on the later ones. China's share of 2024 primary aluminium is $cn_usgs in the USGS table and $cn_iai in the industry association's series, which gives $cn_iai_2025 for 2025. The association's figure for China is its own estimate from analysts' data. $mcs25_bx $mcs_bx $iai_primary</p>
+
+  <h2>What the customs records cover</h2>
+  <p>The trade table below uses four customs codes and shows values. Bauxite of every grade is one code. Alumina of every grade is one code, so smelter-grade and chemical-grade alumina cannot be separated, and aluminium hydroxide is a different code that is not included. Unwrought aluminium is split into unalloyed metal of at least 99% purity and alloys. Neither is the same as primary metal: remelted metal can be unalloyed and primary metal can be sold as alloy. $wco26 $wco28 $wco76</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">$value_year</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>World exports by customs code, by value. The latest year in the extract is $value_year. Values are nominal US dollars.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p><strong>Tonnage check.</strong> One record in the trade database is out of line. Bauxite from Australia to China is $d_2022 million tonnes in 2022, $d_2023 million in $d_year and $d_2024 million in 2024, at USD $d_p2022, $d_p2023 and $d_p2024 per tonne. The $d_year value is in line with the other years and the weight is not. It lowers the world total for $d_year and raises Guinea's share to $d_share. This page does not use $d_year tonnage shares for bauxite. The record itself is unchanged. $baci</p>
+
+  <h2>What remains open</h2>
+  <p>Production shares and trade shares are measured. Four things are not. The first is the aluminium content of bauxite by origin, which would turn ore tonnage into metal. The second is stocks of bauxite and alumina in China, which decide how long an interruption could be absorbed. The third is how much of the location of smelting is explained by power costs and how much by public support. The fourth is the carbon intensity of the metal by power source. The previous version of this page gave figures for that, and they have not been checked against a source in this review.</p>
+
+  <h2>Revision note · 25 November 2026</h2>
+  <p>The previous overview was headed “Aluminium is congealed electricity”. It gave China's share as rising from about 16% at the mine to about 59% at the smelter, with a chart showing 21%, 58% and 59%, and said smelting went where power was cheapest. It attributed an energy figure of 12 to 15 megawatt-hours per tonne to USGS, whose chapter has no energy figure, and gave coal's share of smelting power as about 57% worldwide and close to 90% in China. This revision uses the published tables for each stage, adds trade by weight, corrects the power figures from the industry association's series, and says what is not established about cause. The <a href="PRODUCTION.md">claim register</a> lists each change.</p>
+
+  <h2>Sources and downloads</h2>
+  <ul>
+$references
+  </ul>
+  <p>The <a href="PRODUCTION.md">claim register</a> records the audit of the previous page. The <a href="README.md">methods and rebuild commands</a>, the <a href="evidence_inputs.json">transcribed source tables</a>, the <a href="out/aluminium_chain.json">evidence and calculations</a>, the <a href="out/aluminium_tonnage.json">trade by weight</a> and the <a href="out/aluminium_trade.json">frozen trade extract by value</a> give the underlying data. The earlier <a href="library">source library</a> is kept as a dated record.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../copper-chain/copper-chain">Copper chain</a><br><a href="../magnesium-chain/magnesium-chain">Magnesium chain</a><br><a href="../grid-chain/grid-chain">Electricity-grid chain</a></div><div><h4>Evidence</h4><a href="out/aluminium_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/aluminium_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

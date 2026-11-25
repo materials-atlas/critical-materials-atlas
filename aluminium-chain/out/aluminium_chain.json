@@ -1,369 +1,1059 @@
 {
   "title": "Aluminium chain",
+  "h1": "Aluminium production is concentrated in China, and bauxite trade in Guinea",
+  "deck": "China made 60% of the world's alumina and primary aluminium in 2024 and exported little of either. Guinea supplied 67% of traded bauxite, and nine-tenths of it went to China.",
+  "published": true,
+  "version": "2026-11-25",
   "chokepoint": {
     "product": "Aluminium metal",
     "stage": "Smelting",
     "mechanism": "thermodynamic",
-    "physics": "Hall–Héroult runs non-stop; a potline freezes solid if power drops — one big unit at cheap power",
+    "physics": "Smelting is continuous electrolysis. It used 13.9 MWh of electricity per tonne of metal on average in 2025",
     "holder": "China",
-    "share": "~59%",
+    "share": "60% of primary aluminium and 60% of alumina (2024); Guinea ships 67% of traded bauxite",
     "control": "—",
     "conf": "estimate"
   },
-  "published": true,
-  "related": [
-    {
-      "href": "../copper-chain/copper-chain",
-      "label": "Copper chain"
-    },
-    {
-      "href": "../magnesium-chain/magnesium-chain",
-      "label": "Magnesium chain"
-    },
-    {
-      "href": "../grid-chain/grid-chain",
-      "label": "Electricity-grid chain"
-    }
-  ],
-  "accent": "#5f7180",
-  "eyebrow": "Product-chain pilot · light metal",
-  "h1": "Aluminium is congealed electricity",
-  "deck": "Bauxite is mined in three places at once — Australia, Guinea and China. But turning it into metal is one of the most electricity-hungry industrial processes there is, so the smelter, not the mine, is the chokepoint — and it went where power was cheapest.",
-  "byline": "bauxite (spread) ≠ alumina ≠ smelting (electricity) ≠ the metal's carbon footprint",
-  "correction": "A bauxite map looks diversified — Australia, Guinea and China each mine about a quarter. But aluminium smelting is ~40% electricity by cost, so it concentrated wherever power was cheap. China's share jumps from ~16% at the mine to ~59% at the smelter.",
-  "stats": [
-    {
-      "v": "16% → 59%",
-      "l": "China's share from bauxite MINING to aluminium SMELTING",
-      "conf": "measured"
-    },
-    {
-      "v": "12–15 MWh",
-      "l": "electricity to smelt one tonne of aluminium",
-      "conf": "measured"
-    },
-    {
-      "v": "GN · AU · CN",
-      "l": "bauxite mining is led by Guinea (~34%), Australia (~24%) and China (~16%)",
-      "conf": "measured"
-    },
-    {
-      "v": "Guinea",
-      "l": "holds the largest bauxite reserves (7.4 bn t)",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "Bauxite mining stays a three-way split, 2019–2024",
-    "conf": "measured",
-    "note": "BGS/USGS mine production, from the atlas's own data. Australia, Guinea and China each mine roughly a quarter of world bauxite — there is no single dominant miner. That is exactly why the story is the smelter, not the mine: China's ~59% comes from processing, not from the rock. (Series is 2019–2024, the comparable window in the local data.)",
-    "series": [
-      {
-        "label": "Australia",
-        "points": [
-          {
-            "y": 2000,
-            "v": 39
-          },
-          {
-            "y": 2005,
-            "v": 34
-          },
-          {
-            "y": 2010,
-            "v": 30
-          },
-          {
-            "y": 2015,
-            "v": 28
-          },
-          {
-            "y": 2020,
-            "v": 29
-          },
-          {
-            "y": 2021,
-            "v": 30
-          },
-          {
-            "y": 2022,
-            "v": 25
-          },
-          {
-            "y": 2023,
-            "v": 25
-          },
-          {
-            "y": 2024,
-            "v": 24
-          }
-        ]
-      },
-      {
-        "label": "Guinea",
-        "points": [
-          {
-            "y": 2000,
-            "v": 13
-          },
-          {
-            "y": 2005,
-            "v": 11
-          },
-          {
-            "y": 2010,
-            "v": 7
-          },
-          {
-            "y": 2015,
-            "v": 7
-          },
-          {
-            "y": 2020,
-            "v": 25
-          },
-          {
-            "y": 2021,
-            "v": 25
-          },
-          {
-            "y": 2022,
-            "v": 26
-          },
-          {
-            "y": 2023,
-            "v": 31
-          },
-          {
-            "y": 2024,
-            "v": 35
-          }
-        ]
-      },
-      {
-        "label": "China",
-        "points": [
-          {
-            "y": 2000,
-            "v": 6
-          },
-          {
-            "y": 2005,
-            "v": 10
-          },
-          {
-            "y": 2010,
-            "v": 16
-          },
-          {
-            "y": 2015,
-            "v": 21
-          },
-          {
-            "y": 2020,
-            "v": 12
-          },
-          {
-            "y": 2021,
-            "v": 11
-          },
-          {
-            "y": 2022,
-            "v": 19
-          },
-          {
-            "y": 2023,
-            "v": 17
-          },
-          {
-            "y": 2024,
-            "v": 16
-          }
-        ]
-      }
-    ]
-  },
-  "hops": [
-    {
-      "n": "1 · Bauxite",
-      "t": "the ore — mined mainly in Guinea (~34%), Australia (~24%) and China (~16%)"
-    },
-    {
-      "n": "2 · Alumina",
-      "t": "Bayer process refines bauxite to aluminium oxide"
-    },
-    {
-      "n": "3 · Smelting",
-      "t": "Hall–Héroult electrolysis — 12–15 MWh/tonne; China ~59%, energy-sited"
-    },
-    {
-      "n": "4 · The metal",
-      "t": "transport, packaging, construction, grid — and a power-dependent carbon footprint"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The mine is spread; the smelter is not",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "China's share along the chain",
-          "conf": "measured",
-          "max": 1.0,
-          "note": "USGS. The single most important number in this chain: China mines about a fifth of world bauxite but smelts nearly three-fifths of the metal. The concentration is built in the smelter, not the ground.",
-          "bars": [
-            {
-              "label": "Bauxite (mine)",
-              "value": 0.21
-            },
-            {
-              "label": "Alumina (refining)",
-              "value": 0.58
-            },
-            {
-              "label": "Aluminium (smelting)",
-              "value": 0.59
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Why it moved downstream",
-          "text": "Bauxite is abundant and heavy, so it is mined near many deposits. But smelting bauxite-derived alumina into metal is electrolysis at industrial scale — the single biggest cost is power. Smelters are therefore built where electricity is cheap and reliable, and over two decades that meant China's coal fleet, plus hydro in Canada, Norway and the Gulf's gas.",
-          "flag": "the chokepoint is the powerline, not the pit"
-        }
-      ]
-    },
-    {
-      "h2": "2 · Aluminium is congealed electricity",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Energy per tonne",
-          "big": "12–15 MWh",
-          "conf": "measured",
-          "text": "the electricity to smelt one tonne of primary aluminium — roughly what an average home uses in a year, per tonne of metal. Because power is such a large share of cost, the aluminium map is really an electricity map: it shows where cheap power was built.",
-          "note": "USGS: newer plants ~12 MWh/t, older ~15 MWh/t."
-        },
-        {
-          "kind": "text",
-          "h3": "The recycling relief",
-          "text": "Recycled (secondary) aluminium needs only about 5% of the electricity of primary smelting, so scrap is a huge, growing part of supply and a genuine relief valve — the metal is infinitely recyclable and worth recovering. As with PGMs, the above-ground stock cushions the mine-and-smelter chokepoint.",
-          "flag": "scrap = ~5% of the energy"
-        }
-      ]
-    },
-    {
-      "h2": "3 · The carbon twist: same metal, very different footprint",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "How the world's smelters are powered",
-          "conf": "estimate",
-          "max": 1.0,
-          "note": "International Aluminium Institute (IAI), latest fuel-mix statistics. Aluminium smelting draws roughly three-fifths of its electricity from COAL worldwide — the single reason the metal's carbon footprint is so power-dependent. China's own smelter fleet is close to 90% coal-fired, while Canada, Norway and Iceland run on hydro. (Figures are IAI industry aggregates, read off their fuel-mix dashboard.)",
-          "bars": [
-            {
-              "label": "Coal",
-              "value": 0.57
-            },
-            {
-              "label": "Hydro",
-              "value": 0.28
-            },
-            {
-              "label": "Natural gas",
-              "value": 0.1
-            },
-            {
-              "label": "Nuclear + other",
-              "value": 0.05
-            }
-          ]
-        },
-        {
-          "kind": "big",
-          "h3": "Carbon per tonne",
-          "big": "~16 t CO₂e",
-          "conf": "estimate",
-          "text": "the IAI global-average cradle-to-gate greenhouse-gas intensity of a tonne of primary aluminium — but the average hides everything. Hydro-powered metal sits near ~4 t CO₂e/t; coal-powered metal runs past ~20 t. Same metal, a 5× spread, set almost entirely by the smelter's powerline.",
-          "note": "IAI GHG-intensity statistics; hydro–coal range is IAI-consistent."
-        },
-        {
-          "kind": "text",
-          "h3": "Coal aluminium vs hydro aluminium",
-          "text": "Because smelting is electricity, a tonne of aluminium's carbon footprint depends almost entirely on the smelter's power source. Chinese coal-powered metal carries several times the CO₂ of hydro-powered metal from Canada, Norway or Iceland. 'Green aluminium' commands a premium, and carbon border adjustments (EU CBAM) turn the power source into a trade variable.",
-          "note": "IAI fuel mix; EU CBAM.",
-          "flag": "the power source is now a trade variable"
-        }
-      ]
-    },
-    {
-      "h2": "4 · Bauxite's own shift — toward Guinea",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "The ore is moving even as the smelter stays",
-          "text": "Guinea holds the world's largest bauxite reserves and its exports to China are climbing, while Indonesia banned raw bauxite exports to force domestic refining. So the upstream is re-sorting — more Guinean ore, more Indonesian alumina — but the electricity-bound smelting chokepoint has not moved with it. Ore geography and smelter geography are two different maps.",
-          "note": "USGS (Bauxite and Alumina).",
-          "flag": "ore map ≠ smelter map"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI shows bauxite, alumina and unwrought-aluminium trade, but not smelter power sources or captive integration. Unwrought-aluminium trade also routes through metal hubs. Read exporter shares as availability of the traded form, not the smelting map.",
-  "method": [
-    {
-      "stage": "Bauxite",
-      "lens": "USGS mine share",
-      "why": "spread across three countries — not the chokepoint"
-    },
-    {
-      "stage": "Alumina / smelting",
-      "lens": "USGS processing/smelter share",
-      "why": "where the concentration is built (energy-sited)"
-    },
-    {
-      "stage": "Energy",
-      "lens": "MWh per tonne",
-      "why": "smelting is ~40% electricity by cost — the real driver"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI bauxite/alumina/aluminium",
-      "why": "availability of the traded form, not the smelter map"
-    }
-  ],
   "sources": {
-    "usgs_aluminum": {
-      "title": "USGS Mineral Commodity Summaries 2026 — Aluminum",
-      "year": 2026,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf"
+    "mcs2026_bauxite": {
+      "title": "USGS Mineral Commodity Summaries 2026, Bauxite and Alumina",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_bauxite": {
-      "title": "USGS Mineral Commodity Summaries 2026 — Bauxite and Alumina",
-      "year": 2026,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf"
+    "mcs2026_aluminum": {
+      "title": "USGS Mineral Commodity Summaries 2026, Aluminum",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf",
+      "vintage": "February 2026"
     },
-    "usgs_maps": {
-      "title": "USGS, Global Maps of Critical Mineral Production in 2023 (FS 2025-3038)",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/fs/2025/3038/fs20253038.pdf"
+    "mcs2025_bauxite": {
+      "title": "USGS Mineral Commodity Summaries 2025, Bauxite and Alumina",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bauxite-alumina.pdf",
+      "vintage": "January 2025"
+    },
+    "mcs2025_aluminum": {
+      "title": "USGS Mineral Commodity Summaries 2025, Aluminum",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-aluminum.pdf",
+      "vintage": "January 2025"
+    },
+    "myb_guinea": {
+      "title": "USGS 2024 Minerals Yearbook, Guinea",
+      "url": "https://pubs.usgs.gov/myb/vol3/2024/myb3-2024-guinea.pdf",
+      "vintage": "August 2026"
+    },
+    "myb_indonesia_2023": {
+      "title": "USGS 2023 Minerals Yearbook, Indonesia",
+      "url": "https://pubs.usgs.gov/myb/vol3/2023/myb3-2023-indonesia.pdf",
+      "vintage": "June 2025"
+    },
+    "myb_indonesia_2024": {
+      "title": "USGS 2024 Minerals Yearbook, Indonesia",
+      "url": "https://pubs.usgs.gov/myb/vol3/2024/myb3-2024-indonesia.pdf",
+      "vintage": "August 2026"
+    },
+    "ins_guinea": {
+      "title": "Institut National de la Statistique (Guinea), Annuaire statistique du commerce extérieur 2024",
+      "url": "https://www.stat-guinee.org/images/Documents/Publications/INS/annuelles/CE/NOTE_ANALYSE_STATISTIQUE_COMMERCE_EXTERIEUR_2024.pdf",
+      "vintage": "2025"
+    },
+    "smm": {
+      "title": "Shanghai Metals Market, China's bauxite imports rose 12.3% in 2024",
+      "url": "https://news.metal.com/newscontent/103146652-Chinas-Bauxite-Imports-Rose-123-YoY-in-2024-Led-by-Guinea-and-Australia",
+      "vintage": "20 January 2025"
+    },
+    "iai_primary": {
+      "title": "International Aluminium Institute, Primary aluminium production",
+      "url": "https://international-aluminium.org/statistics/primary-aluminium-production/",
+      "vintage": "read 25 November 2026"
+    },
+    "iai_alumina": {
+      "title": "International Aluminium Institute, Alumina production",
+      "url": "https://international-aluminium.org/statistics/alumina-production/",
+      "vintage": "read 25 November 2026"
+    },
+    "iai_energy": {
+      "title": "International Aluminium Institute, Primary aluminium smelting energy intensity",
+      "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-energy-intensity/",
+      "vintage": "annual series to 2025"
+    },
+    "iai_power": {
+      "title": "International Aluminium Institute, Primary aluminium smelting power consumption",
+      "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-power-consumption/",
+      "vintage": "annual series to 2025"
+    },
+    "iai_lci": {
+      "title": "International Aluminium Institute, 2019 Life Cycle Inventory data and environmental metrics",
+      "url": "https://international-aluminium.org/resource/2019-life-cycle-inventory-lci-data-and-environmental-metrics/",
+      "vintage": "November 2022"
+    },
+    "iai_cycle": {
+      "title": "International Aluminium Institute, Global Aluminium Cycle",
+      "url": "https://alucycle.international-aluminium.org/public-access/public-global-cycle/",
+      "vintage": "2025 reference scenario; data updated 12 January 2026"
+    },
+    "oecd2019": {
+      "title": "OECD (2019), Measuring distortions in international markets: The aluminium value chain, OECD Trade Policy Papers No. 218",
+      "url": "https://doi.org/10.1787/c82911ab-en",
+      "vintage": "January 2019"
+    },
+    "wco_ch26": {
+      "title": "World Customs Organization, HS 2017, Chapter 26",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0526_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch28": {
+      "title": "World Customs Organization, HS 2017, Chapter 28",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0628_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch76": {
+      "title": "World Customs Organization, HS 2017, Chapter 76",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1576_2017e.pdf",
+      "vintage": "HS 2017"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+      "vintage": "January 2026"
+    }
+  },
+  "inputs": {
+    "usgs_mcs2026": {
+      "unit": "thousand metric tons; bauxite in dry tons, alumina in calcined equivalent weight",
+      "note": "The 2024 column is used for shares. Every 2025 figure is a USGS estimate. The world bauxite total excludes US production, which is withheld. Values marked estimated by USGS for 2024: alumina for the United States, Brazil, Germany, India, Indonesia, Kazakhstan, Spain and Turkey; bauxite for Brazil, China, Greece, Indonesia, Saudi Arabia and Vietnam; aluminium for Brazil, India, Malaysia and Norway.",
+      "bauxite": {
+        "Guinea": {
+          "y2024": 142000,
+          "y2025": 150000,
+          "reserves": 7400000
+        },
+        "Australia": {
+          "y2024": 100000,
+          "y2025": 97000,
+          "reserves": 3700000
+        },
+        "China": {
+          "y2024": 80500,
+          "y2025": 87000,
+          "reserves": 710000
+        },
+        "Brazil": {
+          "y2024": 33000,
+          "y2025": 33000,
+          "reserves": 1700000
+        },
+        "India": {
+          "y2024": 25000,
+          "y2025": 25000,
+          "reserves": 650000
+        },
+        "Indonesia": {
+          "y2024": 9900,
+          "y2025": 10000,
+          "reserves": 2900000
+        },
+        "Jamaica": {
+          "y2024": 5890,
+          "y2025": 6200,
+          "reserves": 2000000
+        },
+        "Saudi Arabia": {
+          "y2024": 5500,
+          "y2025": 5700,
+          "reserves": 180000
+        },
+        "Russia": {
+          "y2024": 5470,
+          "y2025": 5700,
+          "reserves": 650000
+        },
+        "Kazakhstan": {
+          "y2024": 4780,
+          "y2025": 4800,
+          "reserves": 160000
+        },
+        "Vietnam": {
+          "y2024": 3710,
+          "y2025": 3800,
+          "reserves": 3100000
+        },
+        "Turkey": {
+          "y2024": 3660,
+          "y2025": 3800,
+          "reserves": 69000
+        },
+        "Greece": {
+          "y2024": 970,
+          "y2025": 960,
+          "reserves": null
+        },
+        "Other countries": {
+          "y2024": 7780,
+          "y2025": 8000,
+          "reserves": 5300000
+        },
+        "World": {
+          "y2024": 428000,
+          "y2025": 440000,
+          "reserves": 29000000
+        }
+      },
+      "alumina": {
+        "China": {
+          "y2024": 85500,
+          "y2025": 93000
+        },
+        "Australia": {
+          "y2024": 17100,
+          "y2025": 17000
+        },
+        "Brazil": {
+          "y2024": 10600,
+          "y2025": 11000
+        },
+        "India": {
+          "y2024": 8000,
+          "y2025": 8200
+        },
+        "Russia": {
+          "y2024": 2840,
+          "y2025": 2900
+        },
+        "United Arab Emirates": {
+          "y2024": 2540,
+          "y2025": 2300
+        },
+        "Saudi Arabia": {
+          "y2024": 1870,
+          "y2025": 1900
+        },
+        "Ireland": {
+          "y2024": 1720,
+          "y2025": 1700
+        },
+        "Jamaica": {
+          "y2024": 1480,
+          "y2025": 1500
+        },
+        "Canada": {
+          "y2024": 1460,
+          "y2025": 1500
+        },
+        "Vietnam": {
+          "y2024": 1410,
+          "y2025": 1500
+        },
+        "Kazakhstan": {
+          "y2024": 1400,
+          "y2025": 1500
+        },
+        "Indonesia": {
+          "y2024": 1200,
+          "y2025": 1500
+        },
+        "Greece": {
+          "y2024": 865,
+          "y2025": 850
+        },
+        "Spain": {
+          "y2024": 800,
+          "y2025": 810
+        },
+        "United States": {
+          "y2024": 700,
+          "y2025": 710
+        },
+        "Germany": {
+          "y2024": 450,
+          "y2025": 460
+        },
+        "Guinea": {
+          "y2024": 351,
+          "y2025": 360
+        },
+        "Turkey": {
+          "y2024": 300,
+          "y2025": 310
+        },
+        "Other countries": {
+          "y2024": 1260,
+          "y2025": 1300
+        },
+        "World": {
+          "y2024": 142000,
+          "y2025": 150000
+        }
+      },
+      "aluminium": {
+        "China": {
+          "y2024": 44000,
+          "y2025": 45000,
+          "capacity_2024": 44600,
+          "capacity_2025": 45000
+        },
+        "India": {
+          "y2024": 4200,
+          "y2025": 4200,
+          "capacity_2024": 4200,
+          "capacity_2025": 4200
+        },
+        "Russia": {
+          "y2024": 3880,
+          "y2025": 3900,
+          "capacity_2024": 4080,
+          "capacity_2025": 4080
+        },
+        "Canada": {
+          "y2024": 3320,
+          "y2025": 3300,
+          "capacity_2024": 3310,
+          "capacity_2025": 3310
+        },
+        "United Arab Emirates": {
+          "y2024": 2690,
+          "y2025": 2700,
+          "capacity_2024": 2790,
+          "capacity_2025": 2790
+        },
+        "Bahrain": {
+          "y2024": 1620,
+          "y2025": 1600,
+          "capacity_2024": 1620,
+          "capacity_2025": 1620
+        },
+        "Australia": {
+          "y2024": 1570,
+          "y2025": 1500,
+          "capacity_2024": 1730,
+          "capacity_2025": 1730
+        },
+        "Norway": {
+          "y2024": 1300,
+          "y2025": 1300,
+          "capacity_2024": 1460,
+          "capacity_2025": 1460
+        },
+        "Brazil": {
+          "y2024": 1100,
+          "y2025": 1200,
+          "capacity_2024": 1280,
+          "capacity_2025": 1280
+        },
+        "Malaysia": {
+          "y2024": 1050,
+          "y2025": 1100,
+          "capacity_2024": 1080,
+          "capacity_2025": 1080
+        },
+        "Iceland": {
+          "y2024": 742,
+          "y2025": 750,
+          "capacity_2024": 880,
+          "capacity_2025": 880
+        },
+        "United States": {
+          "y2024": 676,
+          "y2025": 660,
+          "capacity_2024": 1310,
+          "capacity_2025": 1310
+        },
+        "Other countries": {
+          "y2024": 6680,
+          "y2025": 7000,
+          "capacity_2024": 10500,
+          "capacity_2025": 11000
+        },
+        "World": {
+          "y2024": 72800,
+          "y2025": 74000,
+          "capacity_2024": 78800,
+          "capacity_2025": 79700
+        }
+      },
+      "us_2025": {
+        "old_scrap_share_of_apparent_consumption": 0.28,
+        "net_import_reliance_percent": 60,
+        "alumina_share_to_smelters": 0.7,
+        "bauxite_share_refined_by_bayer_process": 0.63
+      },
+      "rule_of_thumb": {
+        "bauxite_per_alumina": 2.0,
+        "alumina_per_aluminium": 2.0,
+        "text": "As a general rule, 4 tons of dried bauxite is required to produce 2 tons of alumina, which, in turn, can be used to produce 1 ton of aluminum."
+      }
     },
-    "iai_power": {
-      "title": "International Aluminium Institute — Primary Aluminium Smelting Power Consumption & Fuel Mix",
-      "year": 2024,
-      "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-power-consumption/"
+    "usgs_mcs2025_estimates_for_2024": {
+      "note": "What the January 2025 edition estimated for 2024, before the revision.",
+      "bauxite": {
+        "Guinea": 130000,
+        "Australia": 100000,
+        "China": 93000,
+        "Indonesia": 32000,
+        "World": 450000
+      },
+      "alumina": {
+        "China": 84000,
+        "World": 142000
+      },
+      "aluminium": {
+        "China": 43000,
+        "World": 72000
+      }
     },
-    "iai_ghg": {
-      "title": "International Aluminium Institute — Greenhouse Gas Emissions Intensity, Primary Aluminium",
-      "year": 2024,
-      "url": "https://international-aluminium.org/statistics/greenhouse-gas-emissions-intensity-primary-aluminium/"
+    "iai": {
+      "primary_aluminium_kt": {
+        "2024": {
+          "China": 43396,
+          "World": 73009
+        },
+        "2025": {
+          "China": 44219,
+          "World": 74032
+        }
+      },
+      "alumina_kt": {
+        "2024": {
+          "metallurgical_world": 137879,
+          "total_world": 146728
+        },
+        "2025": {
+          "metallurgical_world": 145945,
+          "chemical_world": 9302,
+          "total_world": 155247,
+          "metallurgical_china": 88296
+        }
+      },
+      "smelting_energy_kwh_per_tonne_ac_2025": {
+        "World": 13880,
+        "China": 13203,
+        "Africa": 13866,
+        "Asia (ex China)": 14586,
+        "Oceania": 14633,
+        "North America": 14721,
+        "Gulf Cooperation Council": 14891,
+        "Europe": 15482,
+        "South America": 15746
+      },
+      "smelting_power_coverage_2025_mt": {
+        "reported": 69.48,
+        "world": 73.79,
+        "note": "The power figures are the association's World Reported total. Output that does not report, all outside China, has no power figure. The China figures are estimates from sources outside the industry."
+      },
+      "smelting_power_gwh_2025": {
+        "World": {
+          "Coal": 493492,
+          "Hydro": 307336,
+          "Natural gas": 96882,
+          "Other renewable": 80219,
+          "Nuclear": 7537,
+          "Oil": 5235,
+          "Other non-renewable": 588,
+          "Total": 991288
+        },
+        "China": {
+          "Coal": 409269,
+          "Hydro": 112931,
+          "Natural gas": 0,
+          "Other renewable": 64837,
+          "Nuclear": 6708,
+          "Oil": 0,
+          "Other non-renewable": 0,
+          "Total": 593745
+        }
+      },
+      "lci_2019": {
+        "bauxite_per_alumina_wet": 2.685,
+        "alumina_per_aluminium": 1.909,
+        "bauxite_water_note": "The bauxite input typically includes a water component of around 10 to 20%. 35% of world alumina production reported. No Chinese plants reported these flows."
+      },
+      "cycle_model_2024_kt": {
+        "primary": 73009,
+        "recycled": 40674
+      }
+    },
+    "oecd2019": {
+      "bauxite_per_alumina_range": [
+        2,
+        4
+      ],
+      "energy_share_of_cost_up_to": 0.4,
+      "support_usd_billion_2013_2017": [
+        20,
+        70
+      ],
+      "firms_studied": 17,
+      "recycling_energy_saving_up_to": 0.95
+    },
+    "guinea": {
+      "usgs_yearbook_2024_dry_tonnes": 141708931,
+      "usgs_yearbook_2024_wet_kt": 155000,
+      "usgs_share_of_world_2024": 0.332,
+      "ins_exports_mt": {
+        "2022": 65.5,
+        "2023": 107.4,
+        "2024": 138.3
+      },
+      "ins_share_to_china_2024": 0.867
+    },
+    "indonesia": {
+      "ban_month": "June 2023",
+      "usgs_production_mt": {
+        "2022": 30.36,
+        "2023": 9.89,
+        "2024": 9.9
+      },
+      "usgs_production_note": "USGS 2024 Minerals Yearbook, production table, wet basis; 2024 is an estimate. The 2023 Yearbook had estimated 30 million tonnes for 2023.",
+      "usgs_exports_mt": {
+        "2022": 18,
+        "2023": 2
+      }
+    },
+    "smm_china_imports_2024": {
+      "imports_mt": 158.767,
+      "from_guinea_mt": 110.207,
+      "note": "A trade publication's figures. The article does not name its source."
+    },
+    "trade_checks": {
+      "code": "260600",
+      "checked": "2026-11-25",
+      "note": "The BACI record for Australia to China in 2023 carries a weight well below the neighbouring years at about three times the unit value. Its value is in line with them.",
+      "australia_to_china": {
+        "2022": {
+          "tonnes": 34410000,
+          "usd_per_tonne": 30.5
+        },
+        "2023": {
+          "tonnes": 14350000,
+          "usd_per_tonne": 90.0
+        },
+        "2024": {
+          "tonnes": 40280000,
+          "usd_per_tonne": 45.5
+        }
+      }
+    },
+    "scenarios": {
+      "guinea_to_china_cut_fractions": [
+        0.25,
+        0.5
+      ]
+    }
+  },
+  "results": {
+    "trade_year": 2024,
+    "production_2024": {
+      "bauxite": {
+        "world_kt": 428000,
+        "shares": {
+          "Guinea": 0.3317757009345794,
+          "Australia": 0.2336448598130841,
+          "China": 0.18808411214953272,
+          "Brazil": 0.07710280373831775,
+          "India": 0.05841121495327103,
+          "Indonesia": 0.023130841121495327,
+          "Jamaica": 0.013761682242990654,
+          "Saudi Arabia": 0.012850467289719626,
+          "Russia": 0.012780373831775702,
+          "Kazakhstan": 0.011168224299065421,
+          "Vietnam": 0.00866822429906542,
+          "Turkey": 0.008551401869158879,
+          "Greece": 0.0022663551401869157,
+          "Other countries": 0.018177570093457943
+        },
+        "leader": "Guinea",
+        "leader_share": 0.3317757009345794,
+        "hhi": [
+          2107,
+          2111
+        ]
+      },
+      "alumina": {
+        "world_kt": 142000,
+        "shares": {
+          "China": 0.602112676056338,
+          "Australia": 0.12042253521126761,
+          "Brazil": 0.07464788732394366,
+          "India": 0.056338028169014086,
+          "Russia": 0.02,
+          "United Arab Emirates": 0.01788732394366197,
+          "Saudi Arabia": 0.013169014084507042,
+          "Ireland": 0.012112676056338029,
+          "Jamaica": 0.010422535211267606,
+          "Canada": 0.01028169014084507,
+          "Vietnam": 0.009929577464788732,
+          "Kazakhstan": 0.009859154929577466,
+          "Indonesia": 0.008450704225352112,
+          "Greece": 0.006091549295774648,
+          "Spain": 0.005633802816901409,
+          "United States": 0.004929577464788733,
+          "Germany": 0.0031690140845070424,
+          "Guinea": 0.002471830985915493,
+          "Turkey": 0.002112676056338028,
+          "Other countries": 0.008873239436619718
+        },
+        "leader": "China",
+        "leader_share": 0.602112676056338,
+        "hhi": [
+          3874,
+          3875
+        ]
+      },
+      "aluminium": {
+        "world_kt": 72800,
+        "shares": {
+          "China": 0.6043956043956044,
+          "India": 0.057692307692307696,
+          "Russia": 0.053296703296703295,
+          "Canada": 0.0456043956043956,
+          "United Arab Emirates": 0.03695054945054945,
+          "Bahrain": 0.022252747252747253,
+          "Australia": 0.021565934065934066,
+          "Norway": 0.017857142857142856,
+          "Brazil": 0.01510989010989011,
+          "Malaysia": 0.014423076923076924,
+          "Iceland": 0.010192307692307691,
+          "United States": 0.009285714285714286,
+          "Other countries": 0.09175824175824175
+        },
+        "leader": "China",
+        "leader_share": 0.6043956043956044,
+        "hhi": [
+          3768,
+          3852
+        ]
+      }
+    },
+    "trade_2024": {
+      "bauxite": {
+        "world_kt": 182929.197,
+        "traded_over_produced": 0.4274046658878504,
+        "leading_exporter": "Guinea",
+        "leading_exporter_share": 0.6699,
+        "leading_importer": "China",
+        "leading_importer_share": 0.8712,
+        "export_hhi": 5014,
+        "import_hhi": 7611,
+        "exporters": [
+          {
+            "name": "Guinea",
+            "tonnes": 122544404,
+            "share": 0.6699
+          },
+          {
+            "name": "Australia",
+            "tonnes": 41296601,
+            "share": 0.2258
+          },
+          {
+            "name": "Brazil",
+            "tonnes": 5353923,
+            "share": 0.0293
+          },
+          {
+            "name": "Turkey",
+            "tonnes": 4056191,
+            "share": 0.0222
+          },
+          {
+            "name": "Jamaica",
+            "tonnes": 2093726,
+            "share": 0.0114
+          },
+          {
+            "name": "Laos",
+            "tonnes": 1543551,
+            "share": 0.0084
+          },
+          {
+            "name": "Ghana",
+            "tonnes": 1431844,
+            "share": 0.0078
+          },
+          {
+            "name": "Malaysia",
+            "tonnes": 865761,
+            "share": 0.0047
+          }
+        ],
+        "importers": [
+          {
+            "name": "China",
+            "tonnes": 159365810,
+            "share": 0.8712
+          },
+          {
+            "name": "Ireland",
+            "tonnes": 4592184,
+            "share": 0.0251
+          },
+          {
+            "name": "India",
+            "tonnes": 4105982,
+            "share": 0.0224
+          },
+          {
+            "name": "Canada",
+            "tonnes": 3646877,
+            "share": 0.0199
+          },
+          {
+            "name": "United States",
+            "tonnes": 2924119,
+            "share": 0.016
+          },
+          {
+            "name": "Germany",
+            "tonnes": 2248130,
+            "share": 0.0123
+          }
+        ],
+        "china_export_share": 0.00254027245306281,
+        "china_import_share": 0.8711884850180587,
+        "china_exports_over_own_output": 0.005772546583850932
+      },
+      "alumina": {
+        "world_kt": 37266.858,
+        "traded_over_produced": 0.26244266197183097,
+        "leading_exporter": "Australia",
+        "leading_exporter_share": 0.3812,
+        "leading_importer": "Canada",
+        "leading_importer_share": 0.1355,
+        "export_hhi": 2087,
+        "import_hhi": 662,
+        "exporters": [
+          {
+            "name": "Australia",
+            "tonnes": 14206684,
+            "share": 0.3812
+          },
+          {
+            "name": "Brazil",
+            "tonnes": 7510414,
+            "share": 0.2015
+          },
+          {
+            "name": "Indonesia",
+            "tonnes": 4170821,
+            "share": 0.1119
+          },
+          {
+            "name": "China",
+            "tonnes": 1905640,
+            "share": 0.0511
+          },
+          {
+            "name": "India",
+            "tonnes": 1857842,
+            "share": 0.0499
+          },
+          {
+            "name": "Ireland",
+            "tonnes": 1700193,
+            "share": 0.0456
+          },
+          {
+            "name": "Vietnam",
+            "tonnes": 1192395,
+            "share": 0.032
+          },
+          {
+            "name": "Kazakhstan",
+            "tonnes": 996173,
+            "share": 0.0267
+          }
+        ],
+        "importers": [
+          {
+            "name": "Canada",
+            "tonnes": 5050268,
+            "share": 0.1355
+          },
+          {
+            "name": "Russia",
+            "tonnes": 4525891,
+            "share": 0.1214
+          },
+          {
+            "name": "Bahrain",
+            "tonnes": 3002844,
+            "share": 0.0806
+          },
+          {
+            "name": "United Arab Emirates",
+            "tonnes": 2869775,
+            "share": 0.077
+          },
+          {
+            "name": "Norway",
+            "tonnes": 2535498,
+            "share": 0.068
+          },
+          {
+            "name": "India",
+            "tonnes": 1903217,
+            "share": 0.0511
+          }
+        ],
+        "china_export_share": 0.05113497896710262,
+        "china_import_share": 0.036348811590180205,
+        "china_exports_over_own_output": 0.022288187134502924
+      },
+      "aluminium": {
+        "world_kt": 30702.394,
+        "traded_over_produced": 0.42173618131868135,
+        "leading_exporter": "Canada",
+        "leading_exporter_share": 0.0982,
+        "leading_importer": "United States",
+        "leading_importer_share": 0.1308,
+        "export_hhi": 485,
+        "import_hhi": 557,
+        "exporters": [
+          {
+            "name": "Canada",
+            "tonnes": 3013526,
+            "share": 0.0982
+          },
+          {
+            "name": "Russia",
+            "tonnes": 2849428,
+            "share": 0.0928
+          },
+          {
+            "name": "United Arab Emirates",
+            "tonnes": 2781753,
+            "share": 0.0906
+          },
+          {
+            "name": "India",
+            "tonnes": 1968287,
+            "share": 0.0641
+          },
+          {
+            "name": "Malaysia",
+            "tonnes": 1860495,
+            "share": 0.0606
+          },
+          {
+            "name": "Australia",
+            "tonnes": 1550321,
+            "share": 0.0505
+          },
+          {
+            "name": "Norway",
+            "tonnes": 1446585,
+            "share": 0.0471
+          },
+          {
+            "name": "Bahrain",
+            "tonnes": 1346201,
+            "share": 0.0438
+          }
+        ],
+        "importers": [
+          {
+            "name": "United States",
+            "tonnes": 4016295,
+            "share": 0.1308
+          },
+          {
+            "name": "China",
+            "tonnes": 3268117,
+            "share": 0.1064
+          },
+          {
+            "name": "Germany",
+            "tonnes": 2168385,
+            "share": 0.0706
+          },
+          {
+            "name": "Japan",
+            "tonnes": 2107528,
+            "share": 0.0686
+          },
+          {
+            "name": "Malaysia",
+            "tonnes": 1647178,
+            "share": 0.0536
+          },
+          {
+            "name": "South Korea",
+            "tonnes": 1572553,
+            "share": 0.0512
+          }
+        ],
+        "china_export_share": 0.008984250544110664,
+        "china_import_share": 0.10644502184422491,
+        "china_exports_over_own_output": 0.006269045454545455
+      }
+    },
+    "semis_2024": {
+      "world_kt": 20341.329,
+      "export_hhi": 1047,
+      "china_exports_kt": 5820.528,
+      "china_export_share": 0.28614295555614877,
+      "china_import_share": 0.01956179952647145,
+      "china_exports_over_primary_output": 0.13228472727272728,
+      "leading_importer": "United States",
+      "leading_importer_share": 0.0916
+    },
+    "china_bauxite_2024": {
+      "domestic_kt": 80500,
+      "imports_kt": 159365.81,
+      "supply_kt": 239865.81,
+      "import_share_of_supply": 0.6643956885727066,
+      "guinea_kt": 110091.48,
+      "guinea_share_of_supply": 0.4589711222287161,
+      "guinea_share_of_china_imports": 0.6908099045836745,
+      "china_share_of_guinea_exports": 0.8983803128211387,
+      "guinea_exports_over_guinea_output": 0.8629887605633803
+    },
+    "bauxite_series": [
+      {
+        "year": 2005,
+        "world_kt": 34737.433,
+        "guinea_kt": 11511.282,
+        "guinea_share": 0.3313797539386402,
+        "china_imports_kt": 2158.528,
+        "china_import_share": 0.06213838541264693,
+        "indonesia_bauxite_kt": 2733.847,
+        "indonesia_alumina_kt": 0.083
+      },
+      {
+        "year": 2010,
+        "world_kt": 65254.555,
+        "guinea_kt": 15668.81,
+        "guinea_share": 0.24011825687877267,
+        "china_imports_kt": 32631.611,
+        "china_import_share": 0.5000664091571845,
+        "indonesia_bauxite_kt": 25605.85,
+        "indonesia_alumina_kt": 0.025
+      },
+      {
+        "year": 2015,
+        "world_kt": 96153.167,
+        "guinea_kt": 19409.828,
+        "guinea_share": 0.2018636370032409,
+        "china_imports_kt": 57874.69,
+        "china_import_share": 0.6019010273473364,
+        "indonesia_bauxite_kt": 0.113,
+        "indonesia_alumina_kt": 20.463
+      },
+      {
+        "year": 2020,
+        "world_kt": 148778.551,
+        "guinea_kt": 76432.487,
+        "guinea_share": 0.5137332396791524,
+        "china_imports_kt": 111944.024,
+        "china_import_share": 0.7524204480254684,
+        "indonesia_bauxite_kt": 18951.216,
+        "indonesia_alumina_kt": 929.121
+      },
+      {
+        "year": 2022,
+        "world_kt": 155665.904,
+        "guinea_kt": 88801.976,
+        "guinea_share": 0.5704651675038613,
+        "china_imports_kt": 125354.876,
+        "china_import_share": 0.8052815213792739,
+        "indonesia_bauxite_kt": 18479.751,
+        "indonesia_alumina_kt": 3177.067
+      },
+      {
+        "year": 2024,
+        "world_kt": 182929.197,
+        "guinea_kt": 122544.404,
+        "guinea_share": 0.6699007376061461,
+        "china_imports_kt": 159365.81,
+        "china_import_share": 0.8711884850180587,
+        "indonesia_bauxite_kt": 0.0,
+        "indonesia_alumina_kt": 4170.821
+      }
+    ],
+    "ratios_2024": {
+      "bauxite_per_alumina_world": 3.0140845070422535,
+      "bauxite_per_alumina_china": 2.800013099415205,
+      "alumina_per_aluminium_world_usgs": 1.9505494505494505,
+      "alumina_per_aluminium_world_iai": 1.8885205933515046,
+      "alumina_per_aluminium_china": 1.9306583181818182,
+      "bauxite_at_usgs_rule_kt": 284000.0,
+      "bauxite_above_usgs_rule": 0.5070422535211268
+    },
+    "guinea_screen": [
+      {
+        "fraction": 0.25,
+        "bauxite_kt": 27522.87,
+        "share_of_china_bauxite": 0.11474278055717903,
+        "alumina_kt": 9829.550442370528,
+        "share_of_world_alumina": 0.06922218621387696,
+        "aluminium_kt": 5149.057329685976,
+        "share_of_world_aluminium": 0.07072880947370845
+      },
+      {
+        "fraction": 0.5,
+        "bauxite_kt": 55045.74,
+        "share_of_china_bauxite": 0.22948556111435806,
+        "alumina_kt": 19659.100884741056,
+        "share_of_world_alumina": 0.13844437242775393,
+        "aluminium_kt": 10298.114659371951,
+        "share_of_world_aluminium": 0.1414576189474169
+      }
+    ],
+    "energy_2025": {
+      "mix": {
+        "World": {
+          "Coal": 0.49782908700599626,
+          "Hydro": 0.310037042716143,
+          "Natural gas": 0.09773345384994069,
+          "Other renewable": 0.08092400997490135,
+          "Nuclear": 0.007603239421843097,
+          "Oil": 0.005281008142941305,
+          "Other non-renewable": 0.000593167676800284
+        },
+        "China": {
+          "Coal": 0.6893009625344213,
+          "Hydro": 0.1902011806415212,
+          "Natural gas": 0.0,
+          "Other renewable": 0.10920007747433663,
+          "Nuclear": 0.01129777934972084,
+          "Oil": 0.0,
+          "Other non-renewable": 0.0
+        }
+      },
+      "china_share_of_smelting_power": 0.5989631671118787,
+      "china_share_of_coal_power": 0.82933259303089,
+      "coverage": 0.9415910014907168,
+      "world_twh": 991.288
+    },
+    "capacity_utilisation_2024": {
+      "China": 0.9865470852017937,
+      "World": 0.9238578680203046,
+      "United States": 0.516030534351145,
+      "Other countries": 0.6361904761904762
+    },
+    "revisions": {
+      "guinea_share_2025_edition": 0.28888888888888886,
+      "guinea_share_2026_edition": 0.3317757009345794,
+      "china_share_usgs": 0.6043956043956044,
+      "china_share_iai": 0.5943924721609665,
+      "china_share_iai_2025": 0.5972957639939486
+    },
+    "recycled_share_of_metal_2024": 0.35778436529648233,
+    "cross_checks_2024": {
+      "baci_china_imports_mt": 159.36581,
+      "customs_china_imports_mt": 158.767,
+      "baci_guinea_to_china_mt": 110.09148,
+      "customs_guinea_to_china_mt": 110.207,
+      "baci_guinea_exports_mt": 122.544404,
+      "ins_guinea_exports_mt": 138.3,
+      "guinea_ins_minus_baci_mt": {
+        "2022": -23.3,
+        "2023": -13.0,
+        "2024": 15.8
+      }
+    },
+    "bauxite_2023_record": {
+      "year": 2023,
+      "guinea_share": 0.7880412932814241,
+      "world_mt": 152.744945
     }
   }
 }

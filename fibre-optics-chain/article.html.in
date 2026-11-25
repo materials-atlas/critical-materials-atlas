@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/fibre-optics-chain/fibre-optics-chain">
+<title>$title — Critical Materials Atlas</title><meta name="description" content="$deck">
+<meta property="og:title" content="$title"><meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root { --acc: #15323a; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 30rem; }
+  caption { text-align: left; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains · A research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Optical fibre · Research note</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$date">25 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p>Optical fibre is a strand of very pure silica glass that carries data as light. In standard fibre the core is doped with germanium, a metal that China has placed under export licensing. This note sets out how much germanium fibre uses, what is known about germanium supply, which fibre is made without germanium in the core, and who supplies submarine cable systems.</p>
+  <p><strong>Finding.</strong> A US Geological Survey model puts the germanium in the core of single-mode fibre at $sm_g grams per kilometre and in multimode fibre at $mm_g grams, about $per_km_ratio times as much. On that model the fibre made in the United States in 2021 contained about 5 tonnes of germanium, nearly all of it in multimode fibre. World germanium supply is known only from estimates, and those put China's share of refining between about three-quarters and $iea_share. Fibre for the longest submarine cables is offered with a core of pure silica, which contains no germanium. A European Commission expert group reports that only three firms currently make fibre for submarine systems with repeaters, and that four suppliers built $tier_share of submarine cable length between 2020 and 2024. $ofr2024 $eu</p>
+
+  <h2>How much germanium is in fibre</h2>
+  <p>Germanium dioxide raises the refractive index of the glass in the core, which keeps the light inside it. The only public estimate of the quantity found for this review is a USGS model of fibre made in the United States. It counts the core only and assumes that the core glass is $geo2 germanium dioxide, or $ge_frac germanium. $ofr2024</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Germanium in fibre made in the United States, USGS model">
+    <table>
+      <caption>Germanium in optical fibre made in the United States in 2021. USGS estimate, Open-File Report 2024-1057, table 1.24. The market shares come from a market report on North America; the remaining share is plastic fibre.</caption>
+      <thead><tr><th scope="col">Measure</th><th scope="col" class="n">Single-mode</th><th scope="col" class="n">Multimode</th></tr></thead>
+      <tbody>
+$model_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The total is $contained tonnes: $sm_contained tonnes in single-mode fibre and $mm_contained tonnes in multimode fibre. Multimode fibre has a much wider core. The International Telecommunication Union's manual describes it as used in cabling inside premises, over lengths of 300 to 2,000 metres, and says single-mode fibre has almost completely replaced it in public networks. The estimate therefore rests on the assumed share of multimode fibre more than on anything else. $itu_manual</p>
+  <p>More germanium is bought than ends up in the glass. USGS, citing a 2015 study, reports that $inc_lo to $inc_hi of the germanium fed to the process is incorporated in the fibre, that $rec_lo to $rec_hi of the rest is recovered from the waste, and that $recycled_input of the germanium used comes from recycled material. It puts the primary germanium needed at $ratio tonnes per tonne in the fibre, which gives $primary tonnes for the United States in 2021. $ofr2024</p>
+  <p>Fibre is a large share of germanium use. USGS last reported a split for the United States in 2016, when fibre took $us_2016, and lists fibre first among US uses in its 2026 edition. For the world it quotes an industry data provider's estimate of $world_use in 2020 to 2022. $ofr2024 $mcs2026</p>
+
+  <h2>What the per-kilometre figures imply for the world</h2>
+  <p><strong class="note">Modelled.</strong> The table applies the two USGS per-kilometre figures to an assumed world output of $world_km million kilometres of fibre a year, at different shares of multimode fibre. The world length is not a published statistic. It is the figure implied by two numbers USGS quotes for 2021: US output of $us_km million kilometres as $us_km_share of the world, and North American demand of $na_km million kilometres as $na_share, which give $world_lo and $world_hi million. A manufacturer put world output at about $sei_km million kilometres a year in 2018. $ofr2024 $sei</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Germanium in world fibre output at different multimode shares">
+    <table>
+      <caption>Modelled. Germanium in $world_km million kilometres of fibre, using the USGS per-kilometre figures and its ratio of $ratio tonnes of primary germanium per tonne in the fibre.</caption>
+      <thead><tr><th scope="col">Multimode share of fibre length</th><th scope="col" class="n">Average germanium, grams per kilometre</th><th scope="col" class="n">Germanium in the fibre, tonnes</th><th scope="col" class="n">Primary germanium needed, tonnes</th></tr></thead>
+      <tbody>
+$screen_rows
+      </tbody>
+    </table>
+  </div>
+  <p>The result ranges thirty-fold with the multimode share. A second estimate gives a point of comparison. If fibre takes $world_use of world germanium, and world primary output is the $w22 tonnes that USGS estimates for 2022, fibre uses about $benchmark tonnes a year. If that is primary germanium, the per-kilometre figures would need multimode fibre to be about $matching of world fibre length. No source opened for this review gives the multimode share of world output, so the two estimates cannot be reconciled here. Either multimode fibre is a larger share than long-distance use suggests, or fibre holds more germanium than a core-only count, or one of the estimates is too high.</p>
+
+  <h2>World germanium supply is estimated, not measured</h2>
+  <p>The USGS annual summary for germanium gives no world production figure and no share for China. Its 2026 edition says that data were limited and that available estimates were difficult to verify. Two other USGS reports give estimates. The first puts world primary production in 2022 at $w22 tonnes: $w22_cn in China, $w22_ca in Canada, $w22_ru in Russia and $w22_be in Belgium, which makes China's share $w22_cn_share and leaves $w22_out tonnes outside China. It excludes recycled metal and describes the figures as highly uncertain. The second gives Chinese refined output of $cn_t tonnes in 2023 and a share of $cn_share, and states that the share rests on an assumed world total of $assumed_world tonnes carried forward from 2020. It gives Chinese capacity as $cn_cap tonnes. The International Energy Agency's 2026 outlook gives China $iea_share of refining in 2025 in one table, and plots a share of about three-quarters in a chart elsewhere in the same report. The two exhibits appear to be on different bases. The previous version of this page gave about $old_share and attributed it to USGS, which publishes no such figure. $mcs2026 $ofr2024 $ofr2026 $iea</p>
+  <p>China introduced export licensing for germanium in August 2023 and in December 2024 ruled out exports to the United States. $mcs2026 The part of the December 2024 measure that ruled out approval for US-bound shipments has since been suspended, at present through 27 January 2027, and the licensing requirement remains. The <a href="../controls">export-controls tracker</a> gives the notices and follows the status.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Germanium prices and trade, 2021 to 2025">
+    <table>
+      <caption>Germanium prices and trade. USGS, 2026 edition. The 2025 figures are estimates, and USGS marks the import figures as estimated in every year. China's exports are for January to September of each year, as USGS reports them.</caption>
+      <thead><tr><th scope="col">Measure</th><th scope="col" class="n">2021</th><th scope="col" class="n">2022</th><th scope="col" class="n">2023</th><th scope="col" class="n">2024</th><th scope="col" class="n">2025</th></tr></thead>
+      <tbody>
+$market_rows
+      </tbody>
+    </table>
+  </div>
+  <p>China's reported exports of germanium metal in the first nine months fell from $ex_2023 kilograms in 2023 to $ex_2025 kilograms in 2025, a fall of $ex_change. The 2025 exports went mainly to $dest. The average price rose from USD $price_2023 per kilogram in 2023 to an estimated USD $price_2025 in 2025. US imports of germanium metal fell by $us_imp_change in 2025. The International Energy Agency reports that European germanium prices are around three times Chinese domestic prices, and that a refinery planned by Korea Zinc, with capacity for $kz tonnes of germanium a year, could double what the agency calls diversified supply. That is consistent with the USGS estimate of $w22_out tonnes produced outside China. $mcs2026 $iea</p>
+  <p>USGS reports that fibre makers consume germanium as dioxide and tetrachloride, and that a company in Quapaw, Oklahoma, makes germanium tetrachloride for fibre from imported and recycled material. The quantities of tetrachloride made for fibre that were reported to the US Environmental Protection Agency were $gecl4_lo to $gecl4_hi tonnes of germanium a year in 2016 to 2019. USGS presumes these to be recycled manufacturing scrap and considers the reported totals a likely undercount. In 2021 to 2024 US imports of germanium dioxide came mostly from Belgium ($ds_be) and Canada ($ds_ca), and imports of metal from China ($ms_cn), Belgium ($ms_be) and Germany ($ms_de). $ofr2024 $mcs2026</p>
+
+  <h2>Fibre without germanium in the core</h2>
+  <p>A germanium-doped core is not the only design. The International Telecommunication Union's manual describes the simplest fibre as a germanium-doped core inside pure silica cladding, and shows an alternative design with an undoped core. Sumitomo Electric describes its fibre of that kind as a core of pure silica inside cladding doped with fluorine, which lowers the refractive index of the cladding. $itu_manual $sei</p>
+  <p>The alternative is established in submarine cables, where the lowest signal loss matters most. Sumitomo Electric states that it brought pure-silica-core fibre to market in 1988 and that such fibre has contributed to the development of submarine cable networks. Its current data sheets give the core glass as pure silica for its low-loss submarine fibres, including the one for ocean-crossing systems of 6,000 to 12,000 kilometres, and as germanium-doped silica for its lower-cost fibre for regional systems. Lightera, the name under which OFS now trades, describes its ocean fibre as having a pure silica core. Corning describes its submarine fibre as “silica core”, and a 2020 journal article describes one of its products as a pure-silica-core fibre. $sei $sumitomo_z $lightera $corning $morana</p>
+  <p>The International Energy Agency lists “germanium for high-performance fibre optics” among uses with limited options for substitutes. The manufacturers' documents show that at the highest performance the core is made without it. What they do not show is quantity: no source opened for this review gives the share of fibre, submarine or other, that has a pure silica core. The telecommunication standard that covers fibre for amplified submarine and long-distance land systems, G.654, sets geometrical, optical and mechanical characteristics and does not specify the glass. It says only that the substances should be indicated. $iea $itu_g654</p>
+
+  <h2>Who makes fibre</h2>
+  <p>No free, authoritative source gives world fibre output by country. A brokerage estimate quoted in the press puts China at $cn_preform of preform output, $cn_fibre of fibre output and $cn_cable of cable output in 2025. The preform is the glass rod from which fibre is drawn. These are reported estimates and are not used in the calculations above. $scmp</p>
+  <p>For submarine fibre the supplier base is narrower. The European Commission's expert group reports that only three companies currently make fibre for submarine systems with repeaters, which it defines as long-distance systems: Corning and OFS in the United States and Sumitomo Electric in Japan. It adds that all three can make ultra-low-loss fibre, which no European manufacturer can currently match. $eu</p>
+
+  <h2>Who supplies submarine cable systems</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Submarine cable system suppliers, 2020 to 2024">
+    <table>
+      <caption>Submarine cable length deployed between 2020 and 2024, by system supplier, and cable-laying vessels owned in 2025. European Commission expert group, Annex, figures 3.3, 3.4 and 3.6. The report describes the shares as estimated.</caption>
+      <thead><tr><th scope="col">Supplier</th><th scope="col" class="n">Country</th><th scope="col" class="n">Thousand kilometres</th><th scope="col" class="n">Share</th><th scope="col" class="n">Cable-laying vessels owned</th></tr></thead>
+      <tbody>
+$supplier_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Four suppliers built $tier_share of the cable length: ASN ($asn), SubCom ($subcom), NEC ($nec) and HMN Tech ($hmn). Short systems without repeaters, built by smaller suppliers, account for $other, and Xtera for $xtera. The three large suppliers outside China built $three_share. The concentration index (HHI, zero to 10,000) of these shares is at least $hhi; the smaller suppliers are not listed one by one. The report gives ASN's ownership as 80% French state and 20% Nokia. $eu</p>
+  <p>Supplying a system and laying it are different activities. SubCom and ASN own cable-laying vessels. NEC and HMN Tech own none and contract the work out. The report counts $v_all vessels worldwide that can install or maintain long submarine cables, $v_lay for laying and $v_maint for repair. SubCom and ASN own half of the cable-laying vessels. The rest belong mostly to telecommunication carriers and independent marine contractors. The report adds that vessels have to be reserved years in advance and that much of SubCom's fleet is in practice reserved for Google's cables. $eu</p>
+  <p class="note">A 2026 study of ownership and supply, based on an open dataset, finds that US and Chinese state interventions are particularly pronounced in the supply sector, which it describes as an oligopoly where corporate and state interests align more strongly. $abels</p>
+
+  <h2>What the customs records cover</h2>
+  <p>The trade table uses three customs codes. One covers optical fibres, bundles and cables that are not made up of individually sheathed fibres. One covers cables made up of individually sheathed fibres, and does not separate land cable from submarine cable. The third is a group of minor metals in unwrought form, waste and powder: germanium is in it with gallium, indium, vanadium, niobium and others, and cannot be separated. Germanium dioxide is classified with zirconium dioxide, and germanium tetrachloride with other chlorides. No six-digit code isolates germanium in any form, and the extract has no code for preforms. $wco90 $wco85 $wco81 $wco28</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">$trade_year</b></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="BACI trade data">
+      <table>
+        <caption>World exports by customs code, by value. The latest year in the extract is $trade_year. Values are nominal US dollars.</caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Coverage</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p>The table shows where fibre and cable are exported from. It does not show who made the preform, how much germanium the fibre contains, or who supplied a submarine system. $baci</p>
+
+  <h2>What remains open</h2>
+  <p>Four quantities would settle the questions this note leaves open, and none was found as a measured figure in a public source. The first is world germanium production, for which only estimates exist. The second is the share of world fibre that is multimode, which decides how much germanium fibre uses. The third is the share of fibre made with a pure silica core. The fourth is world fibre and preform output by country from a statistical source. The supplier shares for submarine systems are estimates by length for one five-year period, and say nothing about systems now on order.</p>
+
+  <h2>Revision note · 25 November 2026</h2>
+  <p>The previous overview was headed “The internet's backbone is a trace of germanium, drawn by a handful of firms”. It gave China about 60% of refined germanium and labelled the figure measured. It said four firms build essentially all submarine cables, that three of them had more than 60% of 2024 revenue, and that about 99% of intercontinental data crosses on submarine fibre. It named a different set of fibre makers. This revision replaces the germanium share with the published range and its basis, adds the USGS quantity model, records that fibre for the longest submarine cables is offered without germanium in the core, and replaces the supplier claims with the European Commission expert group's figures. The revenue and data-traffic figures were not checked and are not carried forward. The <a href="PRODUCTION.md">claim register</a> lists each change.</p>
+
+  <h2>Sources and downloads</h2>
+  <ul>
+$references
+  </ul>
+  <p>The <a href="PRODUCTION.md">claim register</a> records the audit of the previous page. The <a href="README.md">methods and rebuild commands</a>, the <a href="evidence_inputs.json">transcribed source figures</a>, the <a href="out/fibre_chain.json">evidence and calculations</a> and the <a href="out/fibre_trade.json">frozen trade extract</a> give the underlying data. The earlier <a href="library">source library</a> is kept as a dated record.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data research on materials and supply chains.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../germanium-chain/germanium-chain">Germanium chain</a><br><a href="../profile-germanium">Germanium profile</a><br><a href="../controls">Export-controls tracker</a></div><div><h4>Evidence</h4><a href="out/fibre_chain.json">Evidence JSON</a><br><a href="PRODUCTION.md">Claim register</a></div><div class="fineprint">Found an error? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/fibre_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

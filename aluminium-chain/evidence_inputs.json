@@ -1,0 +1,141 @@
+{
+  "version": "2026-11-25",
+  "sources": {
+    "mcs2026_bauxite": {"title": "USGS Mineral Commodity Summaries 2026, Bauxite and Alumina", "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf", "vintage": "February 2026"},
+    "mcs2026_aluminum": {"title": "USGS Mineral Commodity Summaries 2026, Aluminum", "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf", "vintage": "February 2026"},
+    "mcs2025_bauxite": {"title": "USGS Mineral Commodity Summaries 2025, Bauxite and Alumina", "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bauxite-alumina.pdf", "vintage": "January 2025"},
+    "mcs2025_aluminum": {"title": "USGS Mineral Commodity Summaries 2025, Aluminum", "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-aluminum.pdf", "vintage": "January 2025"},
+    "myb_guinea": {"title": "USGS 2024 Minerals Yearbook, Guinea", "url": "https://pubs.usgs.gov/myb/vol3/2024/myb3-2024-guinea.pdf", "vintage": "August 2026"},
+    "myb_indonesia_2023": {"title": "USGS 2023 Minerals Yearbook, Indonesia", "url": "https://pubs.usgs.gov/myb/vol3/2023/myb3-2023-indonesia.pdf", "vintage": "June 2025"},
+    "myb_indonesia_2024": {"title": "USGS 2024 Minerals Yearbook, Indonesia", "url": "https://pubs.usgs.gov/myb/vol3/2024/myb3-2024-indonesia.pdf", "vintage": "August 2026"},
+    "ins_guinea": {"title": "Institut National de la Statistique (Guinea), Annuaire statistique du commerce extérieur 2024", "url": "https://www.stat-guinee.org/images/Documents/Publications/INS/annuelles/CE/NOTE_ANALYSE_STATISTIQUE_COMMERCE_EXTERIEUR_2024.pdf", "vintage": "2025"},
+    "smm": {"title": "Shanghai Metals Market, China's bauxite imports rose 12.3% in 2024", "url": "https://news.metal.com/newscontent/103146652-Chinas-Bauxite-Imports-Rose-123-YoY-in-2024-Led-by-Guinea-and-Australia", "vintage": "20 January 2025"},
+    "iai_primary": {"title": "International Aluminium Institute, Primary aluminium production", "url": "https://international-aluminium.org/statistics/primary-aluminium-production/", "vintage": "read 25 November 2026"},
+    "iai_alumina": {"title": "International Aluminium Institute, Alumina production", "url": "https://international-aluminium.org/statistics/alumina-production/", "vintage": "read 25 November 2026"},
+    "iai_energy": {"title": "International Aluminium Institute, Primary aluminium smelting energy intensity", "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-energy-intensity/", "vintage": "annual series to 2025"},
+    "iai_power": {"title": "International Aluminium Institute, Primary aluminium smelting power consumption", "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-power-consumption/", "vintage": "annual series to 2025"},
+    "iai_lci": {"title": "International Aluminium Institute, 2019 Life Cycle Inventory data and environmental metrics", "url": "https://international-aluminium.org/resource/2019-life-cycle-inventory-lci-data-and-environmental-metrics/", "vintage": "November 2022"},
+    "iai_cycle": {"title": "International Aluminium Institute, Global Aluminium Cycle", "url": "https://alucycle.international-aluminium.org/public-access/public-global-cycle/", "vintage": "2025 reference scenario; data updated 12 January 2026"},
+    "oecd2019": {"title": "OECD (2019), Measuring distortions in international markets: The aluminium value chain, OECD Trade Policy Papers No. 218", "url": "https://doi.org/10.1787/c82911ab-en", "vintage": "January 2019"},
+    "wco_ch26": {"title": "World Customs Organization, HS 2017, Chapter 26", "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0526_2017e.pdf", "vintage": "HS 2017"},
+    "wco_ch28": {"title": "World Customs Organization, HS 2017, Chapter 28", "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0628_2017e.pdf", "vintage": "HS 2017"},
+    "wco_ch76": {"title": "World Customs Organization, HS 2017, Chapter 76", "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1576_2017e.pdf", "vintage": "HS 2017"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37", "vintage": "January 2026"}
+  },
+  "usgs_mcs2026": {
+    "unit": "thousand metric tons; bauxite in dry tons, alumina in calcined equivalent weight",
+    "note": "The 2024 column is used for shares. Every 2025 figure is a USGS estimate. The world bauxite total excludes US production, which is withheld. Values marked estimated by USGS for 2024: alumina for the United States, Brazil, Germany, India, Indonesia, Kazakhstan, Spain and Turkey; bauxite for Brazil, China, Greece, Indonesia, Saudi Arabia and Vietnam; aluminium for Brazil, India, Malaysia and Norway.",
+    "bauxite": {
+      "Guinea": {"y2024": 142000, "y2025": 150000, "reserves": 7400000},
+      "Australia": {"y2024": 100000, "y2025": 97000, "reserves": 3700000},
+      "China": {"y2024": 80500, "y2025": 87000, "reserves": 710000},
+      "Brazil": {"y2024": 33000, "y2025": 33000, "reserves": 1700000},
+      "India": {"y2024": 25000, "y2025": 25000, "reserves": 650000},
+      "Indonesia": {"y2024": 9900, "y2025": 10000, "reserves": 2900000},
+      "Jamaica": {"y2024": 5890, "y2025": 6200, "reserves": 2000000},
+      "Saudi Arabia": {"y2024": 5500, "y2025": 5700, "reserves": 180000},
+      "Russia": {"y2024": 5470, "y2025": 5700, "reserves": 650000},
+      "Kazakhstan": {"y2024": 4780, "y2025": 4800, "reserves": 160000},
+      "Vietnam": {"y2024": 3710, "y2025": 3800, "reserves": 3100000},
+      "Turkey": {"y2024": 3660, "y2025": 3800, "reserves": 69000},
+      "Greece": {"y2024": 970, "y2025": 960, "reserves": null},
+      "Other countries": {"y2024": 7780, "y2025": 8000, "reserves": 5300000},
+      "World": {"y2024": 428000, "y2025": 440000, "reserves": 29000000}
+    },
+    "alumina": {
+      "China": {"y2024": 85500, "y2025": 93000},
+      "Australia": {"y2024": 17100, "y2025": 17000},
+      "Brazil": {"y2024": 10600, "y2025": 11000},
+      "India": {"y2024": 8000, "y2025": 8200},
+      "Russia": {"y2024": 2840, "y2025": 2900},
+      "United Arab Emirates": {"y2024": 2540, "y2025": 2300},
+      "Saudi Arabia": {"y2024": 1870, "y2025": 1900},
+      "Ireland": {"y2024": 1720, "y2025": 1700},
+      "Jamaica": {"y2024": 1480, "y2025": 1500},
+      "Canada": {"y2024": 1460, "y2025": 1500},
+      "Vietnam": {"y2024": 1410, "y2025": 1500},
+      "Kazakhstan": {"y2024": 1400, "y2025": 1500},
+      "Indonesia": {"y2024": 1200, "y2025": 1500},
+      "Greece": {"y2024": 865, "y2025": 850},
+      "Spain": {"y2024": 800, "y2025": 810},
+      "United States": {"y2024": 700, "y2025": 710},
+      "Germany": {"y2024": 450, "y2025": 460},
+      "Guinea": {"y2024": 351, "y2025": 360},
+      "Turkey": {"y2024": 300, "y2025": 310},
+      "Other countries": {"y2024": 1260, "y2025": 1300},
+      "World": {"y2024": 142000, "y2025": 150000}
+    },
+    "aluminium": {
+      "China": {"y2024": 44000, "y2025": 45000, "capacity_2024": 44600, "capacity_2025": 45000},
+      "India": {"y2024": 4200, "y2025": 4200, "capacity_2024": 4200, "capacity_2025": 4200},
+      "Russia": {"y2024": 3880, "y2025": 3900, "capacity_2024": 4080, "capacity_2025": 4080},
+      "Canada": {"y2024": 3320, "y2025": 3300, "capacity_2024": 3310, "capacity_2025": 3310},
+      "United Arab Emirates": {"y2024": 2690, "y2025": 2700, "capacity_2024": 2790, "capacity_2025": 2790},
+      "Bahrain": {"y2024": 1620, "y2025": 1600, "capacity_2024": 1620, "capacity_2025": 1620},
+      "Australia": {"y2024": 1570, "y2025": 1500, "capacity_2024": 1730, "capacity_2025": 1730},
+      "Norway": {"y2024": 1300, "y2025": 1300, "capacity_2024": 1460, "capacity_2025": 1460},
+      "Brazil": {"y2024": 1100, "y2025": 1200, "capacity_2024": 1280, "capacity_2025": 1280},
+      "Malaysia": {"y2024": 1050, "y2025": 1100, "capacity_2024": 1080, "capacity_2025": 1080},
+      "Iceland": {"y2024": 742, "y2025": 750, "capacity_2024": 880, "capacity_2025": 880},
+      "United States": {"y2024": 676, "y2025": 660, "capacity_2024": 1310, "capacity_2025": 1310},
+      "Other countries": {"y2024": 6680, "y2025": 7000, "capacity_2024": 10500, "capacity_2025": 11000},
+      "World": {"y2024": 72800, "y2025": 74000, "capacity_2024": 78800, "capacity_2025": 79700}
+    },
+    "us_2025": {"old_scrap_share_of_apparent_consumption": 0.28, "net_import_reliance_percent": 60,
+                "alumina_share_to_smelters": 0.70, "bauxite_share_refined_by_bayer_process": 0.63},
+    "rule_of_thumb": {"bauxite_per_alumina": 2.0, "alumina_per_aluminium": 2.0,
+                      "text": "As a general rule, 4 tons of dried bauxite is required to produce 2 tons of alumina, which, in turn, can be used to produce 1 ton of aluminum."}
+  },
+  "usgs_mcs2025_estimates_for_2024": {
+    "note": "What the January 2025 edition estimated for 2024, before the revision.",
+    "bauxite": {"Guinea": 130000, "Australia": 100000, "China": 93000, "Indonesia": 32000, "World": 450000},
+    "alumina": {"China": 84000, "World": 142000},
+    "aluminium": {"China": 43000, "World": 72000}
+  },
+  "iai": {
+    "primary_aluminium_kt": {"2024": {"China": 43396, "World": 73009}, "2025": {"China": 44219, "World": 74032}},
+    "alumina_kt": {
+      "2024": {"metallurgical_world": 137879, "total_world": 146728},
+      "2025": {"metallurgical_world": 145945, "chemical_world": 9302, "total_world": 155247, "metallurgical_china": 88296}
+    },
+    "smelting_energy_kwh_per_tonne_ac_2025": {"World": 13880, "China": 13203, "Africa": 13866, "Asia (ex China)": 14586, "Oceania": 14633, "North America": 14721, "Gulf Cooperation Council": 14891, "Europe": 15482, "South America": 15746},
+    "smelting_power_coverage_2025_mt": {"reported": 69.48, "world": 73.79, "note": "The power figures are the association's World Reported total. Output that does not report, all outside China, has no power figure. The China figures are estimates from sources outside the industry."},
+    "smelting_power_gwh_2025": {
+      "World": {"Coal": 493492, "Hydro": 307336, "Natural gas": 96882, "Other renewable": 80219, "Nuclear": 7537, "Oil": 5235, "Other non-renewable": 588, "Total": 991288},
+      "China": {"Coal": 409269, "Hydro": 112931, "Natural gas": 0, "Other renewable": 64837, "Nuclear": 6708, "Oil": 0, "Other non-renewable": 0, "Total": 593745}
+    },
+    "lci_2019": {"bauxite_per_alumina_wet": 2.685, "alumina_per_aluminium": 1.909, "bauxite_water_note": "The bauxite input typically includes a water component of around 10 to 20%. 35% of world alumina production reported. No Chinese plants reported these flows."},
+    "cycle_model_2024_kt": {"primary": 73009, "recycled": 40674}
+  },
+  "oecd2019": {
+    "bauxite_per_alumina_range": [2, 4],
+    "energy_share_of_cost_up_to": 0.40,
+    "support_usd_billion_2013_2017": [20, 70],
+    "firms_studied": 17,
+    "recycling_energy_saving_up_to": 0.95
+  },
+  "guinea": {
+    "usgs_yearbook_2024_dry_tonnes": 141708931, "usgs_yearbook_2024_wet_kt": 155000,
+    "usgs_share_of_world_2024": 0.332,
+    "ins_exports_mt": {"2022": 65.5, "2023": 107.4, "2024": 138.3},
+    "ins_share_to_china_2024": 0.867
+  },
+  "indonesia": {"ban_month": "June 2023", "usgs_production_mt": {"2022": 30.36, "2023": 9.89, "2024": 9.9}, "usgs_production_note": "USGS 2024 Minerals Yearbook, production table, wet basis; 2024 is an estimate. The 2023 Yearbook had estimated 30 million tonnes for 2023.", "usgs_exports_mt": {"2022": 18, "2023": 2}},
+  "smm_china_imports_2024": {"imports_mt": 158.767, "from_guinea_mt": 110.207, "note": "A trade publication's figures. The article does not name its source."},
+  "trade_checks": {
+    "code": "260600", "checked": "2026-11-25",
+    "note": "The BACI record for Australia to China in 2023 carries a weight well below the neighbouring years at about three times the unit value. Its value is in line with them.",
+    "australia_to_china": {
+      "2022": {"tonnes": 34410000, "usd_per_tonne": 30.5},
+      "2023": {"tonnes": 14350000, "usd_per_tonne": 90.0},
+      "2024": {"tonnes": 40280000, "usd_per_tonne": 45.5}
+    }
+  },
+  "scenarios": {"guinea_to_china_cut_fractions": [0.25, 0.5]},
+  "trade_boundaries": {
+    "260600": "Aluminium ores and concentrates of every grade. Customs weight, which can include moisture; USGS production is in dry tonnes.",
+    "281820": "Aluminium oxide of every grade except artificial corundum. Smelter-grade and chemical-grade alumina are not separated. Aluminium hydroxide is a different code.",
+    "760110": "Unwrought metal of at least 99% aluminium. Remelted metal of that purity is included.",
+    "760120": "Unwrought alloys. Mixes primary alloyed ingot with recycled metal."
+  }
+}

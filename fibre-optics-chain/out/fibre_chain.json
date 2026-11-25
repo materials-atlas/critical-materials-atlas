@@ -1,203 +1,521 @@
 {
   "title": "Fibre-optics / telecom chain",
-  "chokepoint": {
-    "product": "Optical fibre",
-    "stage": "Preform",
-    "mechanism": "capability",
-    "physics": "Vapour-deposition preform-making — a few firms hold the process know-how",
-    "holder": "US · JP",
-    "share": "—",
-    "control": "—",
-    "conf": "measured"
-  },
+  "h1": "Germanium in optical fibre and the suppliers of submarine cables",
+  "deck": "Standard optical fibre has a germanium-doped core. The quantity is small and known only from estimates. Fibre for the longest submarine cables is offered with a pure silica core. Four suppliers built 83% of submarine cable length between 2020 and 2024.",
   "published": true,
-  "related": [
-    {
-      "href": "../silicon-chip/silicon-chain",
-      "label": "Silicon-chip chain"
-    },
-    {
-      "href": "../displays-indium-chain/displays-indium-chain",
-      "label": "Displays / indium chain"
-    }
-  ],
-  "accent": "#2f7d8a",
-  "eyebrow": "Product-chain pilot · the physical internet",
-  "h1": "The internet's backbone is a trace of germanium, drawn by a handful of firms",
-  "deck": "Almost all intercontinental data crosses the ocean on optical fibre. That fibre is ultra-pure silica doped with a trace of germanium, drawn from giant preforms by a few manufacturers, and laid as submarine cable by just four companies. There are chokepoints at both ends of the chain.",
-  "byline": "germanium dopant ≠ silica preform ≠ drawn fibre ≠ submarine cable system",
-  "correction": "Fibre optics has two chokepoints, not one. Upstream: germanium — a China-dominated, export-controlled trace element that raises the glass's refractive index. Downstream: the submarine-cable systems that carry the world's data are built by only four firms, one of them Chinese.",
-  "stats": [
-    {
-      "v": "~60%",
-      "l": "of refined germanium is China — the fibre dopant, export-controlled since 2023",
-      "conf": "measured"
-    },
-    {
-      "v": "4",
-      "l": "firms build essentially all the world's submarine cables",
-      "conf": "estimate"
-    },
-    {
-      "v": ">60%",
-      "l": "of wet-plant revenue is ASN + NEC + SubCom (2024)",
-      "conf": "estimate"
-    },
-    {
-      "v": "~99%",
-      "l": "of intercontinental data crosses on subsea fibre",
-      "conf": "estimate"
-    }
-  ],
-  "hops": [
-    {
-      "n": "1 · Dopant",
-      "t": "germanium doped into silica raises the refractive index — a trace, but essential"
-    },
-    {
-      "n": "2 · Preform",
-      "t": "giant germanium-doped silica blanks; a handful of makers (Corning leads)"
-    },
-    {
-      "n": "3 · Fibre",
-      "t": "preforms drawn into hair-thin fibre; low-loss grades are specialised"
-    },
-    {
-      "n": "4 · Subsea system",
-      "t": "cable + repeaters laid by ASN, SubCom, NEC, HMN — the physical internet"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The dopant chokepoint is upstream",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "A trace element that carries the light",
-          "text": "Optical fibre is ultra-pure silica with its core doped by germanium, which raises the refractive index so the fibre guides infrared light with very low loss. Fibre optics is one of germanium's largest single uses. And germanium is exactly the material China placed under export licensing in 2023 — so the fibre chain inherits the germanium chokepoint (see the defence chain).",
-          "note": "USGS: China ~60% of refined germanium; fibre optics a major end use.",
-          "flag": "the germanium export-control link"
-        },
-        {
-          "kind": "text",
-          "h3": "Small volume, high leverage",
-          "text": "The germanium in a cable is a tiny mass, so this is not a tonnage risk — it is a qualification and single-source risk, the same pattern as gallium in radar. A trace input with one dominant supplier can gate a strategic system.",
-          "flag": "trace input, strategic leverage"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The preform and fibre stage is a few firms",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Giant glass blanks, drawn to hair-thin fibre",
-          "text": "The chain's hard capability is the preform — a metre-scale germanium-doped silica blank drawn into thousands of kilometres of fibre. The lowest-loss grades used for subsea are made by a handful of firms; Corning (US) leads and supplies most submarine consortia, alongside makers such as Prysmian, YOFC (China) and Sumitomo. Corning's 2024 preform-capacity expansion signals how few players hold this stage.",
-          "note": "Company disclosures; market analyses.",
-          "flag": "capability, not tonnage"
-        }
-      ]
-    },
-    {
-      "h2": "3 · Four firms lay the world's data cables",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "The submarine-cable oligopoly",
-          "cards": [
-            {
-              "t": "ASN (France)",
-              "d": "Alcatel Submarine Networks, a Nokia division — the 2024 market leader by systems and cable-km."
-            },
-            {
-              "t": "SubCom (US)",
-              "d": "The US supplier; strategic for allied and trans-oceanic routes."
-            },
-            {
-              "t": "NEC (Japan)",
-              "d": "The Japanese builder; ASN + NEC + SubCom together were >60% of 2024 wet-plant revenue."
-            },
-            {
-              "t": "HMN Tech (China)",
-              "d": "Formerly Huawei Marine; the Chinese challenger, growing via price and Belt-and-Road routes."
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "The most geopolitically contested stage",
-          "text": "Subsea cables carry almost all intercontinental data, and who builds, owns and repairs them has become a security question in its own right. The stage is concentrated in four firms across the US, France, Japan and China — a four-country oligopoly for the physical internet.",
-          "note": "CSIS; Carnegie Endowment.",
-          "flag": "the physical internet"
-        }
-      ]
-    },
-    {
-      "h2": "4 · China sits at both ends",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Dopant and cable-maker",
-          "text": "The fibre chain is unusual in that one country appears at both the upstream chokepoint (germanium) and the downstream one (a submarine-cable maker, HMN). The West's exposure is a trace element it largely imports and a physical-internet stage in which it holds three of four builders — but not the low-cost challenger.",
-          "flag": "two chokepoints, one country at both"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI shows optical-fibre and cable trade, but not the preform capability, the germanium content, or who lays a given subsea system. Cable trade also routes through integrators. Read the table as availability of the traded good, not the maker structure.",
-  "method": [
-    {
-      "stage": "Dopant",
-      "lens": "USGS germanium refining share",
-      "why": "the upstream chokepoint; a trace input"
-    },
-    {
-      "stage": "Preform/fibre",
-      "lens": "company capability",
-      "why": "few firms make low-loss subsea-grade fibre"
-    },
-    {
-      "stage": "Subsea systems",
-      "lens": "supplier market share",
-      "why": "a four-firm oligopoly; a security question"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI optical fibre & cable",
-      "why": "availability of the traded good, not the maker"
-    }
-  ],
+  "version": "2026-11-25",
+  "chokepoint": {
+    "product": "Optical fibre and submarine cable systems",
+    "stage": "Fibre for long submarine systems; cable system supply",
+    "mechanism": "capability",
+    "physics": "Ultra-low-loss fibre and cable systems with repeaters are each made by a few firms",
+    "holder": "US · JP (fibre); FR · US · JP · CN (systems)",
+    "share": "3 firms make fibre for submarine systems with repeaters; 4 suppliers built 83% of cable length (2020–2024)",
+    "control": "—",
+    "conf": "estimate"
+  },
   "sources": {
-    "usgs_germanium": {
-      "title": "USGS Mineral Commodity Summaries 2025 — Germanium",
-      "year": 2025,
-      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"
+    "ofr2024": {
+      "title": "USGS Open-File Report 2024-1057, Nassar and others, Quantifying potential effects of China’s gallium and germanium export restrictions on the U.S. economy",
+      "url": "https://pubs.usgs.gov/of/2024/1057/ofr20241057.pdf",
+      "vintage": "2024"
     },
-    "csis_subsea": {
-      "title": "CSIS, Safeguarding Subsea Cables (Aug 2024)",
-      "year": 2024,
-      "url": "https://csis-website-prod.s3.amazonaws.com/s3fs-public/2024-08/240816_Runde_Subsea_Cables.pdf"
+    "mcs2026": {
+      "title": "USGS Mineral Commodity Summaries 2026, Germanium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf",
+      "vintage": "February 2026"
     },
-    "carnegie_subsea": {
-      "title": "Carnegie Endowment, Securing Europe's Subsea Data Cables (Dec 2024)",
-      "year": 2024,
-      "url": "https://carnegieendowment.org/research/2024/12/securing-europes-subsea-data-cables"
+    "mcs2025": {
+      "title": "USGS Mineral Commodity Summaries 2025, Germanium",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
+      "vintage": "January 2025"
     },
-    "market_subsea": {
-      "title": "Submarine cable systems market analyses (Mordor Intelligence; Submarine Networks), 2024",
-      "year": 2024,
-      "url": "https://www.mordorintelligence.com/industry-reports/submarine-cabling-systems-market",
-      "note": "Secondary market analyses; supplier shares approximate."
+    "ofr2026": {
+      "title": "USGS Open-File Report 2026-1018, Production of mineral commodities and geospatial map of the mineral industries and related infrastructure of China",
+      "url": "https://pubs.usgs.gov/of/2026/1018/ofr20261018_pamphlet.pdf",
+      "vintage": "2026"
     },
-    "corning": {
-      "title": "Corning, Hemlock (Michigan) preform-capacity expansion announcement (2024)",
-      "year": 2024,
-      "url": "https://www.corning.com/worldwide/en/about-us/news-events.html"
+    "iea2026": {
+      "title": "International Energy Agency, Global Critical Minerals Outlook 2026",
+      "url": "https://www.iea.org/files/19c60aa0-ee07-4a20-a138-33c967ac5008/GlobalCriticalMineralsOutlook2026.pdf",
+      "vintage": "July 2026"
+    },
+    "itu_manual": {
+      "title": "International Telecommunication Union, Optical fibres, cables and systems (manual)",
+      "url": "https://www.itu.int/dms_pub/itu-t/opb/hdb/T-HDB-OUT.10-2009-1-PDF-E.pdf",
+      "vintage": "2009"
+    },
+    "itu_g654": {
+      "title": "ITU-T Recommendation G.654, Characteristics of a cut-off shifted single-mode optical fibre and cable",
+      "url": "https://www.itu.int/rec/T-REC-G.654-202408-I",
+      "vintage": "August 2024"
+    },
+    "sei_tr86": {
+      "title": "Sumitomo Electric, SEI Technical Review No. 86, Hasegawa and others, The first 0.14-dB/km ultra-low loss optical fiber",
+      "url": "https://global-sei.com/technology/tr/bn86/pdf/86-04.pdf",
+      "vintage": "April 2018"
+    },
+    "sumitomo_z": {
+      "title": "Sumitomo Electric, Z Fiber product page and data sheets",
+      "url": "https://sumitomoelectric.com/products/optical-fibers/z-fiber",
+      "vintage": "read 25 November 2026"
+    },
+    "corning_ex3000": {
+      "title": "Corning, Vascade EX3000 optical fiber, product information sheet PI1441 (archived copy)",
+      "url": "http://web.archive.org/web/20250712043836/https://www.corning.com/media/worldwide/coc/documents/Fiber/product-information-sheets/PI-1441.pdf",
+      "vintage": "January 2022"
+    },
+    "morana2020": {
+      "title": "Morana and others (2020), Extreme radiation sensitivity of ultra-low loss pure-silica-core optical fibers at low dose levels and infrared wavelengths, Sensors 20(24), 7254",
+      "url": "https://doi.org/10.3390/s20247254",
+      "vintage": "2020"
+    },
+    "lightera": {
+      "title": "Lightera, TeraWave SCUBA 125 ocean fiber",
+      "url": "https://lightera.com/?p=991521",
+      "vintage": "read 25 November 2026"
+    },
+    "eu_report": {
+      "title": "European Commission expert group, Security and resilience of EU submarine cable infrastructures, report and annex",
+      "url": "https://digital-strategy.ec.europa.eu/en/library/report-security-and-resilience-eu-submarine-cable-infrastructures",
+      "vintage": "October 2025"
+    },
+    "eu_annex": {
+      "title": "The same report, Annex (mapping, risk assessments, stress tests)",
+      "url": "https://ec.europa.eu/newsroom/dae/redirection/document/120905",
+      "vintage": "October 2025"
+    },
+    "abels_babic": {
+      "title": "Abels and Babić (2026), Cable wars? Mapping the political economy of submarine cables, Globalizations",
+      "url": "https://doi.org/10.1080/14747731.2025.2599691",
+      "vintage": "January 2026"
+    },
+    "scmp": {
+      "title": "South China Morning Post, 8 May 2026, quoting Huatai estimates of China's share of preform, fibre and cable output (archived copy)",
+      "url": "http://web.archive.org/web/20260508173934/https://www.scmp.com/tech/tech-trends/article/3352907/how-nvidias-corning-pact-shines-light-chinas-dominant-role-global-fibre-supply",
+      "vintage": "May 2026"
+    },
+    "wco_ch81": {
+      "title": "World Customs Organization, HS 2017, Chapter 81",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1581_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch28": {
+      "title": "World Customs Organization, HS 2017, Chapter 28",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/0628_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch85": {
+      "title": "World Customs Organization, HS 2017, Chapter 85",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1685_2017e.pdf",
+      "vintage": "HS 2017"
+    },
+    "wco_ch90": {
+      "title": "World Customs Organization, HS 2017, Chapter 90",
+      "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/topics/nomenclature/instruments-and-tools/hs-nomenclature-2017/2017/1890_2017e.pdf",
+      "vintage": "HS 2017"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+      "vintage": "January 2026"
+    }
+  },
+  "inputs": {
+    "usgs_fibre_model": {
+      "source": "ofr2024",
+      "table": "Table 1.24, p. 50",
+      "year": 2021,
+      "note": "A USGS estimate for fibre made in the United States. It counts the core only and assumes 4% germanium dioxide (2.8% germanium) in the core glass. The market split comes from a market report on North America.",
+      "assumed_germanium_fraction_of_core": 0.028,
+      "single_mode": {
+        "core_diameter_um": 9,
+        "core_g_per_km": 0.14,
+        "germanium_g_per_km": 0.0039,
+        "us_market_share": 0.355,
+        "us_million_fibre_km": 17.2,
+        "germanium_tonnes": 0.07
+      },
+      "multimode": {
+        "core_diameter_um": 62.5,
+        "core_g_per_km": 6.75,
+        "germanium_g_per_km": 0.19,
+        "us_market_share": 0.544,
+        "us_million_fibre_km": 26.3,
+        "germanium_tonnes": 4.9
+      },
+      "total_contained_tonnes": 4.97,
+      "primary_to_incorporated_ratio": 2.68,
+      "primary_tonnes": 13.3,
+      "process": {
+        "incorporated_share": [
+          0.08,
+          0.15
+        ],
+        "waste_recovered_share": [
+          0.8,
+          0.95
+        ],
+        "recycled_share_of_input": 0.6,
+        "attribution": "Licht and others (2015), Journal of Industrial Ecology, as cited by USGS"
+      },
+      "us_fibre_share_of_world": 0.097,
+      "us_million_fibre_km": 48,
+      "north_america_demand_2021": {
+        "million_fibre_km": 82,
+        "share_of_world": 0.16
+      },
+      "us_gecl4_for_fibre_kg": {
+        "2016": 12776,
+        "2017": 13666,
+        "2018": 13737,
+        "2019": 9754
+      }
+    },
+    "germanium_use_shares": {
+      "us_2016_fibre": 0.4,
+      "us_model_input_fibre": 0.452,
+      "world_2020_2022_fibre": 0.3,
+      "note": "The US split was last reported for 2016. The world split is from an industry data provider, quoted by USGS."
+    },
+    "germanium_supply": {
+      "usgs_world_2022": {
+        "source": "ofr2024",
+        "table": "Table 1.14, p. 39",
+        "primary_tonnes": {
+          "China": 180,
+          "Canada": 20,
+          "Russia": 6,
+          "Belgium": 4
+        },
+        "total_tonnes": 210,
+        "outside_china_tonnes": 30,
+        "capacity_tonnes": {
+          "China": 309,
+          "total": 389
+        },
+        "note": "A USGS estimate of primary production. It excludes secondary production, and USGS describes world germanium production as highly uncertain."
+      },
+      "usgs_china_2023": {
+        "refined_tonnes": 154,
+        "share": 0.77,
+        "assumed_world_tonnes": 200,
+        "china_capacity_tonnes": 262,
+        "note": "USGS assumed a world total of 200 tonnes for 2023, based on 2020, the latest year with data."
+      },
+      "iea_2025_table_share": 0.94,
+      "iea_chart_share_reading": 0.74,
+      "iea_korea_zinc_planned_tonnes": 54,
+      "previous_page_share": 0.6
+    },
+    "germanium_market": {
+      "china_metal_exports_jan_sep_kg": {
+        "2023": 36656,
+        "2024": 18787,
+        "2025": 7520
+      },
+      "china_export_destinations_2025": {
+        "Russia": 0.28,
+        "Belgium": 0.26,
+        "Germany": 0.26,
+        "Japan": 0.18
+      },
+      "price_metal_usd_per_kg": {
+        "2021": 1187,
+        "2022": 1294,
+        "2023": 1392,
+        "2024": 1991,
+        "2025": 4100
+      },
+      "us_imports_metal_kg": {
+        "2021": 13000,
+        "2022": 14000,
+        "2023": 22000,
+        "2024": 21000,
+        "2025": 7000
+      },
+      "us_imports_dioxide_kg": {
+        "2021": 17000,
+        "2022": 15000,
+        "2023": 14000,
+        "2024": 11000,
+        "2025": 17000
+      },
+      "us_dioxide_sources_2021_2024": {
+        "Belgium": 0.57,
+        "Canada": 0.37,
+        "Japan": 0.03,
+        "Other": 0.03
+      },
+      "us_metal_sources_2021_2024": {
+        "China": 0.41,
+        "Belgium": 0.27,
+        "Germany": 0.25,
+        "Russia": 0.03,
+        "Other": 0.04
+      },
+      "note": "The 2025 figures are USGS estimates, and USGS marks the import figures as estimated in every year. Prices are annual averages for metal of at least 99.999% purity in Europe."
+    },
+    "world_fibre": {
+      "sumitomo_2018_million_km": 400,
+      "china_2025_brokerage_estimate": {
+        "preform": 0.59,
+        "fibre": 0.57,
+        "cable": 0.47
+      }
+    },
+    "submarine_suppliers_2020_2024": {
+      "source": "eu_annex",
+      "figure": "Figure 3.3, p. 45",
+      "unit": "thousand km of cable built",
+      "note": "Shares of submarine cable length deployed between 2020 and 2024, by system supplier. The report calls them estimated; its underlying source is the Submarine Telecoms Forum industry report.",
+      "suppliers": [
+        {
+          "name": "ASN",
+          "full": "Alcatel Submarine Networks",
+          "country": "France",
+          "thousand_km": 131.5,
+          "printed_share": 0.337,
+          "laying_vessels": 4,
+          "maintenance_vessels": 3
+        },
+        {
+          "name": "SubCom",
+          "full": "SubCom",
+          "country": "United States",
+          "thousand_km": 92.2,
+          "printed_share": 0.237,
+          "laying_vessels": 8,
+          "maintenance_vessels": 0
+        },
+        {
+          "name": "NEC",
+          "full": "NEC",
+          "country": "Japan",
+          "thousand_km": 59.0,
+          "printed_share": 0.151,
+          "laying_vessels": 0,
+          "maintenance_vessels": 0
+        },
+        {
+          "name": "HMN Tech",
+          "full": "HMN Technologies",
+          "country": "China",
+          "thousand_km": 39.7,
+          "printed_share": 0.102,
+          "laying_vessels": 0,
+          "maintenance_vessels": 0
+        },
+        {
+          "name": "Xtera",
+          "full": "Xtera",
+          "country": "",
+          "thousand_km": 0.7,
+          "printed_share": 0.002,
+          "laying_vessels": null,
+          "maintenance_vessels": null
+        },
+        {
+          "name": "Other suppliers (systems without repeaters)",
+          "full": "",
+          "country": "",
+          "thousand_km": 66.6,
+          "printed_share": 0.171,
+          "laying_vessels": null,
+          "maintenance_vessels": null
+        }
+      ],
+      "tier_one": [
+        "ASN",
+        "SubCom",
+        "NEC",
+        "HMN Tech"
+      ],
+      "repeatered_fibre_makers": [
+        "Corning",
+        "OFS",
+        "Sumitomo Electric"
+      ]
+    },
+    "vessels_2025": {
+      "source": "eu_annex",
+      "figure": "Figure 3.6, p. 55",
+      "owners": [
+        {
+          "owner": "SubCom",
+          "laying": 8,
+          "maintenance": 0
+        },
+        {
+          "owner": "ASN",
+          "laying": 4,
+          "maintenance": 3
+        },
+        {
+          "owner": "GMSL",
+          "laying": 2,
+          "maintenance": 4
+        },
+        {
+          "owner": "OMS",
+          "laying": 1,
+          "maintenance": 4
+        },
+        {
+          "owner": "E-Marine",
+          "laying": 1,
+          "maintenance": 3
+        },
+        {
+          "owner": "Orange Marine",
+          "laying": 1,
+          "maintenance": 3
+        },
+        {
+          "owner": "Elettra",
+          "laying": 1,
+          "maintenance": 1
+        },
+        {
+          "owner": "S.B. Submarine Systems",
+          "laying": 3,
+          "maintenance": 0
+        },
+        {
+          "owner": "Kokusai Cable Ship",
+          "laying": 1,
+          "maintenance": 2
+        },
+        {
+          "owner": "NTT",
+          "laying": 1,
+          "maintenance": 2
+        },
+        {
+          "owner": "Asean Cableship",
+          "laying": 0,
+          "maintenance": 2
+        },
+        {
+          "owner": "FiberHome",
+          "laying": 1,
+          "maintenance": 0
+        },
+        {
+          "owner": "IT International Telecom",
+          "laying": 0,
+          "maintenance": 1
+        },
+        {
+          "owner": "LS Marine Solution",
+          "laying": 0,
+          "maintenance": 1
+        },
+        {
+          "owner": "Limin Marine & Offshore",
+          "laying": 0,
+          "maintenance": 1
+        },
+        {
+          "owner": "Bina Nusantara Perkasa",
+          "laying": 0,
+          "maintenance": 1
+        },
+        {
+          "owner": "Jala Nusantara Mardika",
+          "laying": 0,
+          "maintenance": 1
+        }
+      ],
+      "printed_totals": {
+        "laying": 24,
+        "maintenance": 29,
+        "all": 53
+      }
+    },
+    "scenarios": {
+      "multimode_shares_of_length": [
+        0.0,
+        0.05,
+        0.1,
+        0.25
+      ],
+      "world_million_fibre_km": 500
+    }
+  },
+  "results": {
+    "germanium_model": {
+      "multimode_share_of_us_glass_fibre": 0.6051167964404894,
+      "multimode_over_single_mode_per_km": 48.71794871794872,
+      "multimode_share_of_contained": 0.9859154929577466,
+      "implied_world_million_fibre_km_2021": [
+        494.8453608247423,
+        512.5
+      ],
+      "screen": [
+        {
+          "multimode_share": 0.0,
+          "us_split": false,
+          "grams_per_km": 0.0039,
+          "contained_tonnes": 1.95,
+          "primary_tonnes": 5.226
+        },
+        {
+          "multimode_share": 0.05,
+          "us_split": false,
+          "grams_per_km": 0.013205000000000001,
+          "contained_tonnes": 6.602500000000001,
+          "primary_tonnes": 17.694700000000005
+        },
+        {
+          "multimode_share": 0.1,
+          "us_split": false,
+          "grams_per_km": 0.022510000000000002,
+          "contained_tonnes": 11.255,
+          "primary_tonnes": 30.163400000000003
+        },
+        {
+          "multimode_share": 0.25,
+          "us_split": false,
+          "grams_per_km": 0.050425,
+          "contained_tonnes": 25.2125,
+          "primary_tonnes": 67.5695
+        },
+        {
+          "multimode_share": 0.6051167964404894,
+          "us_split": true,
+          "grams_per_km": 0.11651223581757508,
+          "contained_tonnes": 58.256117908787544,
+          "primary_tonnes": 156.12639599555064
+        }
+      ],
+      "benchmark_tonnes": 63.0,
+      "multimode_share_matching_benchmark": 0.23167611699696036,
+      "china_share_of_usgs_2022_estimate": 0.8571428571428571
+    },
+    "germanium_market": {
+      "china_exports_change_2023_2025": -0.7948494107376691,
+      "price_multiple_2023_2025": 2.9454022988505746,
+      "us_metal_imports_change_2024_2025": -0.6666666666666667
+    },
+    "submarine_suppliers": {
+      "total_thousand_km": 389.69999999999993,
+      "shares": {
+        "ASN": 0.33743905568385946,
+        "SubCom": 0.23659225044906343,
+        "NEC": 0.15139851167564797,
+        "HMN Tech": 0.10187323582242754,
+        "Xtera": 0.0017962535283551453,
+        "Other suppliers (systems without repeaters)": 0.17090069284064666
+      },
+      "tier_one_share": 0.8273030536309984,
+      "hhi_lower_bound": 2031
+    },
+    "vessels": {
+      "laying": 24,
+      "maintenance": 29,
+      "all": 53,
+      "subcom_asn_share_of_laying": 0.5
     }
   }
 }
