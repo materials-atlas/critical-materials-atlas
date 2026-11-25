@@ -57,7 +57,7 @@ bilateral trade aggregation needs the underlying CEPII files.
 
 ## Review corrections, 25 November 2026
 
-A second reading of the cited sources before publication found nothing wrong. The titanium sponge concentration was recomputed
+A second reading before publication compared the claims on the page with the cited sources and found no discrepancy other than the two locators below. It did not rebuild the customs aggregates from the bilateral trade files. The titanium sponge concentration was recomputed
 from JRC Figure 5 (2023 capacity): all qualities 4,396, aviation grade 3,014, lead shifting from China (63%) to Japan (41%).
 Two locators fixed:
 
