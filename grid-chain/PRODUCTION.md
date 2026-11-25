@@ -47,3 +47,41 @@ Every outside source was re-read. Four changes followed:
 - Prodcom 27904155 to CN 85044086 is a partial correspondence (the CN code also feeds a telecom and computer power-supply line).
 
 The September grid-trade study's filed section 4.6b-c is kept as filed; the 24 November interpretation note and sensitivity table follow it.
+
+## Split into two papers and new evidence, 25 November 2026
+
+The supplier-exposure analysis now has its own page, [grid-exposure](../grid-exposure.html), built by
+`eu-grid-supply/build_paper.py` from the filed results. This page keeps a summary and links to it.
+
+A section on order books and output was added. Its inputs are two files:
+
+- `market_inputs.json`: official series copied without change on 25 November 2026 (Destatis order backlog range and
+  volume index; US Census M3 unfilled orders and shipments; US producer prices; Japanese transformer orders and the
+  METI production survey; Eurostat Prodcom code 27114180; the European Commission business survey for NACE 27; the
+  Federal Reserve G.17 series). Each block carries its source, series identifiers and definition.
+- `firm_inputs.json`: year-end order backlog and revenue of the reporting segments that contain power transformers,
+  read from company results documents, with the document, page and link for each year; maker statements; capacity
+  announcements that state a capacity figure; the plant-count study; and the European Commission's figures for
+  grain-oriented electrical steel from Implementing Regulation (EU) 2026/2133.
+
+`market.py` does the arithmetic and stops the build if a sentence on the page no longer matches the numbers.
+
+| Claim before | Evidence added | Disposition |
+| --- | --- | --- |
+| "Is qualified output short? Unresolved across the EU and US." | EU mills for electrical steel used 71% of capacity in 2025 (Commission questionnaire data). EU units of transformers above 10 MVA: 3,792 in 2021, 3,733 in 2025. Japanese units of 100 MVA and above: 72 a year in fiscal 2015 to 2018, 48 a year in fiscal 2022 to 2025. | **Partly answered.** No shortage of electrical steel in total tonnage in the EU; the highest grades come from imports and are not measured separately. The unit counts show no rise in transformer output; larger units, higher prices and delivery lags can also explain that. Capacity by rating is still unpublished. |
+| Procurement pressure "documented" from surveys. | German order-backlog range for branch 27.11: 5.9 months (end 2019), 14.1 months (September 2026). Four makers' backlogs equal 2.9 to 3.7 years of segment revenue. | **Strengthened** with official statistics and company accounts. |
+| An earlier status message said no public source holds capacity or backlog data. | The sources above. | **Corrected.** Public data exist for backlogs, prices and unit output; they do not exist for deliverable capacity by rating. |
+
+Limits. The German and US backlog series cover electrical equipment more widely than transformers. Company segments
+are wider than transformers and differ between companies. The Japanese orders survey covers 13 firms. The EU unit
+counts do not show unit size, and the 2025 figures come from a newer dataset than 2021. The plant-count study is a
+trade-journal article. The electrical-steel figures do not separate grades.
+
+Corrections after a second reading against the source documents, same day. The comparison for US order books now
+uses the manufacturing industries that report unfilled orders (6.3 to 7.2 months) and no longer total manufacturing
+shipments, which mixed two bases. Electrical equipment has a shorter order book than that average; what holds is that
+it lengthened more (45% against 14%). The maker statements about filled production slots are attributed to the one
+company and region they describe. The Hitachi Energy investment was removed from the list of announcements that state
+a capacity figure. The Siemens Energy investment figure is given as the segment total. The electrical-steel paragraph
+now carries the Commission's findings on grades (recitals 49, 62 and 63). Backlogs printed in round billions are marked
+"about".

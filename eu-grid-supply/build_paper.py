@@ -39,6 +39,8 @@ SOURCES = {
                "https://pierrerousseaux.github.io/research/MejeanRousseaux_ITCEI.pdf"),
     "arjona": ("Arjona, Connell and Herghelegiu, An enhanced methodology to monitor the EU's strategic dependencies and vulnerabilities, Single Market Economics Papers WP2023/14",
                "https://single-market-economy.ec.europa.eu/publications/enhanced-methodology-monitor-eus-strategic-dependencies-and-vulnerabilities_en"),
+    "safeguard": ("Commission Implementing Regulation (EU) 2026/2133 of 18 September 2026, provisional safeguard on grain-oriented electrical steel, tables 1, 5 and 6",
+                  "https://eur-lex.europa.eu/eli/reg_impl/2026/2133/oj"),
     "prereg": ("Critical Materials Atlas, pre-registration of the seven-component study, filed 21 September 2026",
                "eu-grid-supply/PREREGISTRATION.md"),
     "trade": ("Critical Materials Atlas, September 2026 transformer trade study, sections 4.6b, 4.6c and 4.7", "grid-trade"),
@@ -102,6 +104,23 @@ def evaluate():
             "sensitivity": x["sensitivity"], "context_supply_share": context,
         }
     us = read("out/buildout_us.json")["checks"]
+    steel = read("grid-chain/firm_inputs.json")["eu_electrical_steel"]
+    i24 = steel["years"].index("2024")
+    mass = exposure["goes_mass_check_2024"]
+    union_sales, com_imports, com_production = (steel["union_sales_to_unrelated_customers_t"][i24], steel["imports_steel_t"][i24], steel["union_production_t"][i24])
+    commission = {
+        "source": steel["source"], "url": steel["url"], "imports_2024_t": com_imports, "atlas_imports_2024_t": round(mass["imports_kg"] / 1000),
+        "union_production_2024_t": com_production, "atlas_production_2024_t": round(mass["production_kg"] / 1000),
+        "union_sales_2024_t": union_sales, "sales_plus_imports_2024_t": union_sales + com_imports,
+        "china_share_on_sales_plus_imports": mass["imports_from_china_kg"] / 1000 / (union_sales + com_imports),
+        "atlas_china_share_by_mass": mass["china_apparent_supply_share"],
+        "recorded_exports_2024_t": round(mass["exports_kg"] / 1000), "production_less_union_sales_2024_t": com_production - union_sales,
+    }
+    if abs(commission["imports_2024_t"] - commission["atlas_imports_2024_t"]) > 500:
+        raise SystemExit("the Commission import figure and the Comext extraction no longer agree")
+    if not (commission["recorded_exports_2024_t"] > 1.5 * commission["production_less_union_sales_2024_t"]
+            and commission["china_share_on_sales_plus_imports"] < commission["atlas_china_share_by_mass"]):
+        raise SystemExit("the electrical-steel cross-check no longer reads as the page states")
     split = published["inverters_2026_by_function"]
     return {
         "headline_year": int(year), "components": components,
@@ -114,6 +133,7 @@ def evaluate():
         "inverters_jan_jul_2026_china_share_of_imports": {
             "solar": split["solar_mppt_85044084"]["from_china_meur"] / split["solar_mppt_85044084"]["imports_meur"],
             "other": split["other_85044087"]["from_china_meur"] / split["other_85044087"]["imports_meur"]},
+        "electrical_steel_cross_check": commission,
         "us_2024": {"goes_china_share_of_import_value": us["goes_us_imports"]["2024"]["china_value_share"],
                     "transformer_china_share_of_import_value": us["transformer_import_origins"]["2024"]["china_share"]},
         "eurostat_source_dates": {k: audit[k]["updated"] for k in ("trade", "sold_production")},
@@ -178,6 +198,12 @@ def render(r):
         "tr_lo": pct(tr["sensitivity"]["combined_excluding_scope"]["range"][0]), "tr_hi": pct(tr["sensitivity"]["combined_excluding_scope"]["range"][1]),
         "inv_lo": pct(inv["sensitivity"]["production"]["range"][0]), "inv_hi": pct(inv["sensitivity"]["production"]["range"][1]),
         "inv_base": f'{rounding["base_eur"] / 1e9:.0f}', "inv_round_lo": pct(rounding["share_from_production_rounding_alone"][0]),
+        "x_imp": f'{r["electrical_steel_cross_check"]["imports_2024_t"]:,}', "x_imp_atlas": f'{r["electrical_steel_cross_check"]["atlas_imports_2024_t"]:,}',
+        "x_sales": f'{r["electrical_steel_cross_check"]["union_sales_2024_t"]:,}', "x_share": pct(r["electrical_steel_cross_check"]["china_share_on_sales_plus_imports"]),
+        "x_share_atlas": pct(r["electrical_steel_cross_check"]["atlas_china_share_by_mass"]),
+        "x_prod": f'{r["electrical_steel_cross_check"]["union_production_2024_t"]:,}', "x_prod_atlas": f'{r["electrical_steel_cross_check"]["atlas_production_2024_t"]:,}',
+        "x_exports": f'{r["electrical_steel_cross_check"]["recorded_exports_2024_t"]:,}', "x_left": f'{r["electrical_steel_cross_check"]["production_less_union_sales_2024_t"]:,}',
+        "go_lo": pct(go["sensitivity"]["combined_excluding_scope"]["range"][0]), "go_hi": pct(go["sensitivity"]["combined_excluding_scope"]["range"][1]),
         "us_goes": pct(r["us_2024"]["goes_china_share_of_import_value"]), "us_tr": pct(r["us_2024"]["transformer_china_share_of_import_value"]),
         "sources": "\n".join(f'  <li id="source-{k}"><a href="{escape(url, quote=True)}">{escape(label)}</a></li>' for k, (label, url) in SOURCES.items()),
     }

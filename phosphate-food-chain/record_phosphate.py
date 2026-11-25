@@ -170,7 +170,7 @@ def build_evidence():
         "chokepoint": {
             "product": "Phosphate fertilizer", "stage": "Reserve concentration",
             "mechanism": "geological", "physics": "Reserves, mine output and fertilizer origins differ. The binding stage remains untested.",
-            "holder": "Morocco (USGS reserves)", "share": "68.5% of reserves", "control": "—",
+            "holder": "Morocco (USGS reserves)", "share": "68.5% of reserves; binding stage not established", "control": "—",
             "conf": "snapshot", "research": True,
         },
         "sources": SOURCES, "upstream": upstream(),

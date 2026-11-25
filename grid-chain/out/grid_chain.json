@@ -1,7 +1,7 @@
 {
   "title": "Electricity-grid chain",
   "published": true,
-  "version": "2026-11-24",
+  "version": "2026-11-25",
   "h1": "When does transformer procurement delay the grid?",
   "deck": "Procurement is slow and trade in transformer core steel is concentrated. Which constraint delays a project depends on the equipment it needs and when the site is ready.",
   "sources": {
@@ -48,13 +48,13 @@
   },
   "chokepoint": {
     "product": "Electricity grid",
-    "stage": "Transformer core steel",
+    "stage": "Large-transformer manufacturing",
     "mechanism": "capability",
-    "conf": "measured",
+    "conf": "estimate",
     "research": true,
-    "physics": "Specialised core steel has more concentrated gross exports than the transformer basket. Qualified capacity and project-level constraints remain unresolved.",
-    "holder": "China · Japan",
-    "share": "53% of pooled export value, 2022–24",
+    "physics": "Large units are built to order in a small number of plants, and order backlogs have grown to several years of revenue. Deliverable capacity by rating is not published. In the EU there was no shortage of electrical steel in total tonnage in 2025; the highest grades come from imports and are not measured separately.",
+    "holder": "A small group of makers in Europe, Japan, South Korea and the United States",
+    "share": "Order backlogs of 2.9 to 3.7 years of segment revenue at four large makers",
     "control": "—"
   },
   "goes_series": {
@@ -1290,5 +1290,345 @@
       "completion_after": 40,
       "months_saved": 0
     }
-  ]
+  ],
+  "order_books_and_output": {
+    "germany": {
+      "latest_month": "2026-09",
+      "range_months": {
+        "WZ08-2711": {
+          "2015-12": null,
+          "2019-12": 5.9,
+          "2021-12": 9.2,
+          "2022-12": 10.1,
+          "2023-12": 10.4,
+          "2024-12": 11.3,
+          "2025-12": 13.1,
+          "2026-09": 14.1
+        },
+        "WZ08-271": {
+          "2015-12": 4.7,
+          "2019-12": 5.1,
+          "2021-12": 7.3,
+          "2022-12": 9.7,
+          "2023-12": 9.9,
+          "2024-12": 12.1,
+          "2025-12": 13.3,
+          "2026-09": 13.4
+        },
+        "WZ08-27": {
+          "2015-12": 4.3,
+          "2019-12": 4.5,
+          "2021-12": 6.4,
+          "2022-12": 7.9,
+          "2023-12": 7.9,
+          "2024-12": 9.5,
+          "2025-12": 9.9,
+          "2026-09": 10.2
+        },
+        "WZ08-C": {
+          "2015-12": 4.8,
+          "2019-12": 5.6,
+          "2021-12": 7.7,
+          "2022-12": 7.3,
+          "2023-12": 7.0,
+          "2024-12": 7.5,
+          "2025-12": 8.3,
+          "2026-09": 8.9
+        }
+      },
+      "volume_index_start": {
+        "WZ08-271": 73.8,
+        "WZ08-27": 66.1,
+        "WZ08-C": 73.7
+      },
+      "volume_index_latest": {
+        "WZ08-271": 193.0,
+        "WZ08-27": 164.0,
+        "WZ08-C": 119.2
+      }
+    },
+    "united_states": {
+      "latest_month": "2026-09",
+      "months_of_shipments": {
+        "35C": {
+          "2015-12": 2.695889548007769,
+          "2019-12": 3.98670816465027,
+          "2021-12": 5.252486116492316,
+          "2022-12": 6.944590595198948,
+          "2023-12": 5.930850102966147,
+          "2024-12": 5.826942948822538,
+          "2025-12": 5.8913386664774645,
+          "2026-09": 5.772077856590581
+        },
+        "35S": {
+          "2015-12": 1.842053027080675,
+          "2019-12": 2.4146642066971924,
+          "2021-12": 3.386758439855785,
+          "2022-12": 3.5963324034820126,
+          "2023-12": 3.191150633974435,
+          "2024-12": 3.092962970348362,
+          "2025-12": 3.0729740549402367,
+          "2026-09": 3.05154959716875
+        },
+        "MTM": {
+          "2015-12": 2.6050332647920817,
+          "2019-12": 2.219358108195458,
+          "2021-12": 2.3434508059547134,
+          "2022-12": 2.1993645175836,
+          "2023-12": 2.3549009081066705,
+          "2024-12": 2.3402789273998197,
+          "2025-12": 2.530375528151572,
+          "2026-09": 2.5525374972163637
+        },
+        "MTU": {
+          "2015-12": 7.400650375621437,
+          "2019-12": 6.3237780341574314,
+          "2021-12": 6.915463271823146,
+          "2022-12": 6.693359771384552,
+          "2023-12": 6.973098294805077,
+          "2024-12": 6.931214160578951,
+          "2025-12": 7.243231031246741,
+          "2026-09": 7.191309232169362
+        }
+      }
+    },
+    "us_producer_prices": {
+      "latest_month": "2026-10",
+      "index_2019_100": {
+        "PCU335311335311": {
+          "2021-12": 137.89807654174103,
+          "2022-12": 162.72337894110652,
+          "2023-12": 168.90065437239738,
+          "2024-12": 171.5812016656752,
+          "2025-12": 180.80864564743212,
+          "2026-10": 191.9135435256792
+        },
+        "WPU117409": {
+          "2021-12": 139.9512091099074,
+          "2022-12": 166.7645327760481,
+          "2023-12": 174.28941868895808,
+          "2024-12": 176.48193798780227,
+          "2025-12": 185.59542798652276,
+          "2026-10": 199.822237386446
+        },
+        "PCUOMFG--OMFG--": {
+          "2021-12": 115.07134691112333,
+          "2022-12": 124.54503112164964,
+          "2023-12": 123.60553838336789,
+          "2024-12": 125.03688021340557,
+          "2025-12": 127.9839098954143,
+          "2026-10": 145.81039082017188
+        },
+        "PCU333---333---": {
+          "2021-12": 111.32425197787163,
+          "2022-12": 123.2500148712153,
+          "2023-12": 128.95199571709003,
+          "2024-12": 132.35334007495092,
+          "2025-12": 138.48503955743263,
+          "2026-10": 143.33543513175894
+        }
+      },
+      "transformers_relative_to_manufacturing": 0.31618564662079796
+    },
+    "japan": {
+      "orders_change_fy2020_fy2025": 1.0811933104268103,
+      "production_value_change_fy2020_fy2025": 0.28350987676485895,
+      "large_units": {
+        "FY2015": 62.0,
+        "FY2016": 72.0,
+        "FY2017": 77.0,
+        "FY2018": 75.0,
+        "FY2019": 56.0,
+        "FY2020": 57.0,
+        "FY2021": 49.0,
+        "FY2022": 59.0,
+        "FY2023": 51.0,
+        "FY2024": 37.0,
+        "FY2025": 46.0
+      },
+      "large_gva": {
+        "FY2015": 22.42204,
+        "FY2016": 22.537259,
+        "FY2017": 22.61652,
+        "FY2018": 25.35704,
+        "FY2019": 18.329,
+        "FY2020": 19.3241,
+        "FY2021": 16.8093,
+        "FY2022": 16.33226,
+        "FY2023": 16.3843,
+        "FY2024": 9.5779,
+        "FY2025": 14.334
+      },
+      "large_units_average_fy2015_fy2018": 71.5,
+      "large_units_average_fy2022_fy2025": 48.25
+    },
+    "eu_large_transformers": {
+      "value_change_2021_2025": 1.1660201982711325,
+      "units_change_2021_2025": -0.015559071729957852,
+      "value_per_unit_eur": {
+        "2021": 625582.4825949367,
+        "2022": 713930.8514056224,
+        "2023": 928423.8148366206,
+        "2024": 900000.0,
+        "2025": 1376440.4283418162
+      }
+    },
+    "eu_survey": {
+      "latest_quarter": "2026-Q4",
+      "first_quarter": "2015-Q1",
+      "first": {
+        "capacity_utilisation_pct": 79.6,
+        "limited_by_material_or_equipment_pct": 4.2,
+        "limited_by_labour_pct": 6.8,
+        "limited_by_demand_pct": 38.4,
+        "no_limit_pct": 50.9
+      },
+      "latest": {
+        "capacity_utilisation_pct": 80.0,
+        "limited_by_material_or_equipment_pct": 21.7,
+        "limited_by_labour_pct": 16.3,
+        "limited_by_demand_pct": 35.7,
+        "no_limit_pct": 38.1
+      },
+      "material_peak_quarter": "2022-Q3",
+      "material_peak": 70.9
+    },
+    "us_capacity": {
+      "latest_month": "2026-10",
+      "utilisation": {
+        "2015-01": 79.916,
+        "2019-12": 77.0369,
+        "2026-10": 84.3499
+      },
+      "production_index": {
+        "2015-01": 104.7788,
+        "2019-12": 105.7774,
+        "2026-10": 94.6983
+      }
+    }
+  },
+  "manufacturers": {
+    "manufacturers": [
+      {
+        "company": "Siemens Energy",
+        "segment": "Grid Technologies",
+        "unit": "EUR million",
+        "first_year": "FY2022",
+        "last_year": "FY2026",
+        "backlog_first": 15000.0,
+        "backlog_last": 52000.0,
+        "backlog_multiple": 3.466666666666667,
+        "ratio_comparable": true,
+        "years_of_revenue": {
+          "FY2022": 2.386634844868735,
+          "FY2023": 3.2028965325163625,
+          "FY2024": 3.5560344827586206,
+          "FY2025": 3.7151702786377707,
+          "FY2026": 3.68637459237204
+        }
+      },
+      {
+        "company": "GE Vernova",
+        "segment": "Electrification",
+        "unit": "USD million",
+        "first_year": "2021",
+        "last_year": "2025",
+        "backlog_first": 7488.0,
+        "backlog_last": 34667.0,
+        "backlog_multiple": 4.629674145299146,
+        "ratio_comparable": true,
+        "years_of_revenue": {
+          "2021": 1.4149659863945578,
+          "2022": 1.7673364854215918,
+          "2023": 2.562245217936657,
+          "2024": 3.10635761589404,
+          "2025": 3.5954158888197467
+        }
+      },
+      {
+        "company": "Hitachi",
+        "segment": "Hitachi Energy",
+        "unit": "USD million",
+        "first_year": "FY2021",
+        "last_year": "FY2025",
+        "backlog_first": 14000.0,
+        "backlog_last": 57900.0,
+        "backlog_multiple": 4.135714285714286,
+        "ratio_comparable": true,
+        "years_of_revenue": {
+          "FY2021": 1.4,
+          "FY2024": 2.7770700636942673,
+          "FY2025": 2.9242424242424243
+        }
+      },
+      {
+        "company": "HD Hyundai Electric",
+        "segment": "Whole company",
+        "unit": "backlog in USD million; sales in KRW billion",
+        "first_year": "2021",
+        "last_year": "2025",
+        "backlog_first": 1798.0,
+        "backlog_last": 6731.0,
+        "backlog_multiple": 3.7436040044493883,
+        "ratio_comparable": false,
+        "revenue_multiple": 2.258859357696567
+      },
+      {
+        "company": "Hyosung Heavy Industries",
+        "segment": "Heavy Industries division",
+        "unit": "KRW billion",
+        "first_year": "2024",
+        "last_year": "2025",
+        "backlog_first": 9200.0,
+        "backlog_last": 11900.0,
+        "backlog_multiple": 1.2934782608695652,
+        "ratio_comparable": true,
+        "years_of_revenue": {
+          "2024": 2.967454762442344,
+          "2025": 2.8686449871031505
+        }
+      },
+      {
+        "company": "LS Electric",
+        "segment": "Electric business backlog",
+        "unit": "KRW billion",
+        "first_year": "2023",
+        "last_year": "2025",
+        "backlog_first": 2300.0,
+        "backlog_last": 5015.0,
+        "backlog_multiple": 2.1804347826086956,
+        "ratio_comparable": false
+      }
+    ],
+    "eu_electrical_steel": {
+      "years": [
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "utilisation": [
+        0.8545800799847648,
+        0.8882014018863078,
+        0.8084400501051966,
+        0.7879828708028668,
+        0.7127040480624589
+      ],
+      "union_market_share": [
+        0.6601944188806582,
+        0.5982180144478111,
+        0.5828959838813683,
+        0.5351275712292622,
+        0.4342300719117557
+      ],
+      "imports_multiple_2021_2025": 2.237775175413563,
+      "production_change_2021_2025": -0.0891860171443003,
+      "overcapacity_over_union_consumption_2024": 1.750712656488137
+    },
+    "latest_ratio_range": [
+      2.8686449871031505,
+      3.68637459237204
+    ]
+  }
 }

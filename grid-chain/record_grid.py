@@ -11,7 +11,7 @@ from string import Template
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-VERSION = "2026-11-24"
+VERSION = "2026-11-25"
 TITLE = "When does transformer procurement delay the grid?"
 DECK = ("Procurement is slow and trade in transformer core steel is concentrated. "
         "Which constraint delays a project depends on the equipment it needs and when the site is ready.")
@@ -86,6 +86,9 @@ EXPOSURE_LABELS = {
 }
 
 
+MARKET_MODULE = run_path(str(HERE / "market.py"))
+
+
 def read(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
 
@@ -148,15 +151,19 @@ def combine():
             "p": v["p_wild_line"]}
         for k, v in regressions.items()
     }
+    firms = MARKET_MODULE["evaluate_firms"](read("grid-chain/firm_inputs.json"))
     return {
         "title": "Electricity-grid chain", "published": True, "version": VERSION, "h1": TITLE, "deck": DECK,
         "sources": {k: {"title": title, "url": url} for k, (title, url) in SOURCES.items()},
         "chokepoint": {
-            "product": "Electricity grid", "stage": "Transformer core steel",
-            "mechanism": "capability", "conf": "measured", "research": True,
-            "physics": ("Specialised core steel has more concentrated gross exports than the transformer basket. "
-                        "Qualified capacity and project-level constraints remain unresolved."),
-            "holder": "China · Japan", "share": "53% of pooled export value, 2022–24", "control": "—",
+            "product": "Electricity grid", "stage": "Large-transformer manufacturing",
+            "mechanism": "capability", "conf": "estimate", "research": True,
+            "physics": ("Large units are built to order in a small number of plants, and order backlogs have grown to several years of revenue. "
+                        "Deliverable capacity by rating is not published. In the EU there was no shortage of electrical steel in total tonnage in 2025; "
+                        "the highest grades come from imports and are not measured separately."),
+            "holder": "A small group of makers in Europe, Japan, South Korea and the United States",
+            "share": "Order backlogs of {:.1f} to {:.1f} years of segment revenue at four large makers".format(*firms["latest_ratio_range"]),
+            "control": "—",
         },
         "goes_series": series,
         "pooled_export_value_hhi": {k: v["window"]["hhi"] for k, v in groups.items()},
@@ -172,6 +179,8 @@ def combine():
         "replication": replication,
         "filed_pretrend": filed["checks"]["pretrend_rule"]["B_price"],
         "market_evidence": MARKET, "modelled_projects": project_results(PROJECTS),
+        "order_books_and_output": MARKET_MODULE["evaluate"](read("grid-chain/market_inputs.json")),
+        "manufacturers": firms,
     }
 
 
@@ -269,7 +278,7 @@ def render(data, trade):
     )
     sources = "\n".join(f'<li id="source-{key}"><a href="{escape(url, quote=True)}">{escape(label)}</a></li>'
                         for key, (label, url) in SOURCES.items())
-    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute({
+    values = {
         "title": escape(TITLE), "deck": escape(DECK), "version": VERSION,
         "trends": trends, "pairs": pair_bars(exposure), "crosswalk": scope, "sensitivity": sensitivity,
         "forest_rows": forest_rows(data["filed_models"]), "market": market, "sources": sources,
@@ -296,7 +305,9 @@ def render(data, trade):
             for r in data["modelled_projects"]
         ),
         "trade_year": trade["years"][-1], "trade_rows": table_rows(trade_rows(trade)),
-    })
+    }
+    values.update(MARKET_MODULE["template_values"](read("grid-chain/market_inputs.json"), read("grid-chain/firm_inputs.json")))
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(values)
 
 
 def main():
