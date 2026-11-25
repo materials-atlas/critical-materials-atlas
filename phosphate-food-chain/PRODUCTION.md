@@ -18,7 +18,7 @@ Reviewed 25 November 2026. The [prior article][old-page], [evidence JSON][old-ev
 
 ## Benchmarks and publication status
 
-Raddant et al. reconstruct national phosphate flows through 2022 using mining, trade and agricultural-use data. Their reconstructed 2022 EU flows have a wider scope and different timing from the 2024 customs observations here. Hirner et al. map five product groups across 235 reporting entities in 2001–2023 and examine alternative trading partners. Barbieri et al. trace fertilizer phosphorus linked to food exports and examine soil and mineral stocks. The present result is a source-linked comparison for one importing bloc. The literature comparison checks scope and overlap. It does not reproduce the three studies' bilateral estimates. [Raddant et al. (2025)] · [Hirner et al. (2026)] · [Barbieri et al. (2022)]
+Raddant et al. reconstruct national phosphate flows through 2022 using mining, trade and agricultural-use data. Their reconstructed 2022 EU flows have a wider scope and different timing from the 2024 customs observations here. Hirner et al. map five product groups across 235 countries in 2001–2023 (checked against the abstract and an index of the text; the full paper could not be opened) and examine alternative trading partners. Barbieri et al. trace fertilizer phosphorus linked to food exports and examine soil and mineral stocks. The present result is a source-linked comparison for one importing bloc. The literature comparison checks scope and overlap. It does not reproduce the three studies' bilateral estimates. [Raddant et al. (2025)] · [Hirner et al. (2026)] · [Barbieri et al. (2022)]
 
 The revision is suitable for editorial review as a descriptive evidence note. A global material-flow study still needs an internally consistent set of processing outputs and yields, bilateral partner records, import and export agreement checks, actual nutrient grades, stock changes and allocation between uses. The one-product stress test states a hypothetical import gap under assumed reallocation. Crop, shortage and recovery outcomes remain unmeasured.
 
@@ -34,3 +34,25 @@ The revision is suitable for editorial review as a descriptive evidence note. A 
 [Raddant et al. (2025)]: https://doi.org/10.3390/resources14100151
 [Hirner et al. (2026)]: https://doi.org/10.1016/j.resourpol.2026.106064
 [Barbieri et al. (2022)]: https://doi.org/10.1038/s41893-021-00816-1
+
+## Review corrections, 25 November 2026
+
+This study was completed and published by the main review after its author's work stopped before the final commit. A second
+reading of every cited source found the USGS table identical cell for cell (26 rows, three columns), the Eurostat and FAOSTAT
+snapshots identical to a fresh download, and all three papers in place. Five wordings were tightened:
+
+- Barbieri et al. (2022): the abstract names soil phosphorus stocks and domestic rock reserves, not manure or recycled
+  materials; the page now attributes only the first two to the paper. The body of the paper could not be read.
+- Morocco and Western Sahara: USGS summaries of 2020 and 2021 label the 50 billion tonnes "Morocco and Western Sahara"; later
+  editions label the same figure "Morocco". The 2019 yearbook gives Bou Craa 800 million tonnes, about 2%. The page now says so.
+- MAP grade: the linked specification gives 48-61% P2O5 for MAP, most commonly 52%. The 46% case is the DAP grade applied to
+  the DAP mixtures inside heading 310540; the page now says so.
+- FAOSTAT coverage: nutrient totals exclude rock and intermediates, so FAOSTAT is wider than the Comext list on finished
+  fertilizers and narrower upstream. EU production and trade are flagged as estimates. In the same file, world 2024 exports
+  (27.08 Mt) exceed imports (22.57 Mt), so the 2024 unallocated gap of 0.406 Mt should be read with care.
+- Reserves: the USGS definition is in Appendix C of the 2026 summaries. Reserve figures are not strictly like for like: some
+  are reported as ore tonnage, and USGS notes that Australia's JORC-compliant reserves were 120 million tonnes against the
+  800 million listed.
+- Shares use the rounded world totals (250 Mt, 73 billion t); on row sums Morocco would be 14.7% and China 44.8% of output.
+- Charts redrawn in the atlas's colours; data unchanged. The proposed edits to the site-wide thesis paragraphs on the Value
+  chains page and the chokepoint map were not applied; they are the owner's decision.
