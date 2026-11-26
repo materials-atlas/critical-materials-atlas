@@ -17,7 +17,7 @@ world totals within 1%, or if a sentence on the page no longer matches the numbe
 | "About 77% goes into steel" and "77% of niobium goes into steel (21% into superalloys)". | USGS 2026: "domestic niobium consumption ... steels, about 77%, and superalloys, about 23%". The 21% is the 2025 edition. World: about 89% in 2022 (USGS Minerals Yearbook 2022, from market consultancies). | **Corrected.** 77% is a US share. The world figure is given with its origin. |
 | "Brazil's exports run ~49% to China." | USGS 2026 prints 49% without a period or a weight basis. The Brazilian mining agency gives 49.8% by value for 2025. BACI 2024 by weight: China took 30% of world ferroniobium trade and bought 96% of it from Brazil. | **Replaced** by the trade-by-weight figures, which have a stated basis. |
 | Bar chart: "Vanadium (China, mine) 75%"; stat "~75% ... (82,000 of 110,000 t, 2025)". | USGS 2026: 84,000 of 118,000 t in 2024 (71%); 82,000 of 110,000 t in 2025, an estimate (75%). | **Restated** for 2024, the year used throughout. |
-| Bar chart: "Chromium (China, ferrochrome) 60%". | No source was given. USGS Minerals Yearbook 2023: China an estimated 49% of 2023 ferrochromium output. Industry association regional figures for 2025 sum to about 58% for China; the association prints no total. | **Replaced.** The old figure was unsourced. 49% (2023, USGS) and about 58% (2025, this note's sum of association figures) are both shown. |
+| Bar chart: "Chromium (China, ferrochrome) 60%". | No source was given. USGS Minerals Yearbook 2023: China an estimated 49% of 2023 ferrochromium output. Industry association regional figures for 2025 sum to about 58% for China; the association prints no total. | **Replaced.** The old figure was unsourced. 49% (2023, USGS), 51% (2024, the association's figure as published by the OECD) and about 58% (2025, this note's sum of association figures) are all shown, with the caution that they are not one series. |
 | "South Africa mines the ore, China makes the ferrochrome." | USGS 2026: South Africa 46% of 2024 chromium ore output. BACI 2024: South Africa 83% of traded ore; China 56% of ore imports. South Africa is also the largest ferrochromium exporter (53% of trade). | **Qualified.** Both stages are reported; South Africa makes and exports ferrochromium too. Contrary figures are given: recorded ore exports (24.8 Mt) exceed the USGS output figure (22.9 Mt), and the association's 2025 figures give South Africa about 63% of ore output. |
 | "Vanadium: a Chinese-steel by-product ... much of it recovered from steelmaking slag." | USGS 2026: "most of its production originating as a coproduct from vanadiferous titanomagnetite ores processed during steelmaking". Vanitec: slag about 59% of world supply, primary mines 26%, secondary 15%. | **Supported**, with the split. |
 | "Molybdenum (China, mine) 40%." | USGS 2026: 100,000 of 256,000 t in 2024 (39%). | **Supported.** |
@@ -85,8 +85,12 @@ The conversion of alloy tonnage to metal content, listed as not done at the firs
 
 ## Not found or not opened
 
-- OECD, Annual market and policy report on steelmaking raw materials, 2025 edition: the document would not open. A
-  figure quoted from it in an earlier review (China 51% of ferrochromium, 2024) is not used.
+- OECD, Annual market and policy report on steelmaking raw materials, 2025 edition (dated 15 January 2026): it did not
+  open on 25 November and was read on 26 November from a copy saved in a browser. Its figure 2, sourced to the industry
+  association, gives China 51.18% of 2024 ferrochromium output and South Africa 61.03% of chrome ore output; the text
+  gives world ferrochromium output of about 18.5 million tonnes. The shares were read from the chart labels, because
+  the text layer of that page does not carry them. The same report quotes the USGS figure of 45% for South African ore
+  beside the association's 61%.
 - A world figure for the share of vanadium, manganese or molybdenum used in steel.
 - Company shares of niobium supply on one basis. The Brazilian mining agency publishes a royalty split, which is not
   a production share, and its editions disagree on the basis of the production figure.
