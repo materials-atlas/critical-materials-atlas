@@ -81,3 +81,7 @@ Backlog arithmetic re-done by hand (300 open orders after month 8; +100 a month 
 would clear by month 12). JRC Figure 28 and the 2025 reference year for 7.7 million units confirmed in the JRC text. Model tests
 pass (6). One change at integration: the chokepoint-map row keeps a figure, "About 90% of rotary compressor capacity (2024);
 scroll capacity is more dispersed", instead of the follow-up's blank share.
+
+Added 26 November 2026. The paragraph on the compressor in the follow-up case now says in so many words that the
+China-origin exposure is assumed for the test and is not inferred from purchase or customs records for the modelled
+product. A second review had asked for that sentence.
