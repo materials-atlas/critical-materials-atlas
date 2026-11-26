@@ -4200,8 +4200,8 @@
     "out/casestudies.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "9919d3f3abbfe765",
+   "secs": 0.1,
+   "code_sha": "80079535aa37790d",
    "restored": 2
   },
   "build_catalog.py": {
@@ -5063,7 +5063,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "fd6f749e37a503ad"
+   "code_sha": "ec33257da6ae7c75",
+   "restored": 1
   },
   "build_eucrm.py": {
    "reads": [
@@ -6994,13 +6995,16 @@
    "code_sha": "fd3503242c0eee16"
   },
   "germanium-chain/record_germanium.py": {
-   "reads": [],
+   "reads": [
+    "germanium-chain/"
+   ],
    "writes": [
     "germanium-chain/out/germanium_chain.json"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "097510c6b45af5eb"
+   "code_sha": "df84aa1211f8babf",
+   "restored": 1
   },
   "grid-chain/build_goes.py": {
    "reads": [

@@ -37,11 +37,11 @@ def topexp(label, k=3):
 # curated authoritative picture (USGS MCS 2025 / IEA 2025)
 CASES = [
     {'label': 'bauxite', 'name': 'Bauxite / alumina / aluminium', 'verdict': 'agree',
-     'ext_mine': 'Guinea ~29%, Australia ~22%, China ~21%, Brazil ~7% (USGS 2024)',
-     'ext_refine': 'Alumina: China ~59%, Australia ~13% (IEA); smelting China-dominant',
+     'ext_mine': 'Guinea 33%, Australia 23%, China 19%, Brazil 8% (USGS, 2024 output in the 2026 edition)',
+     'ext_refine': 'Alumina: China 60%, Australia 12% (USGS, 2024); primary aluminium: China 60%',
      'choke': 'Alumina refining and energy-intensive smelting — China',
-     'misread': '"Australia controls bauxite" — but China refines ~59% of alumina; mine tonnage ≠ value-added control',
-     'note': 'Atlas refined share (China 58%) matches IEA (59%); mine shares align (Australia and Guinea are neck-and-neck — the atlas lists Australia first, USGS 2024 Guinea first). The network layer correctly identifies China as the processing chokepoint despite its small export share.'},
+     'misread': '"Australia controls bauxite" — but China refines 60% of alumina; mine tonnage ≠ value-added control',
+     'note': 'The atlas refined share for China matches the USGS figure of 60%. Mine shares align and both put Guinea first; USGS revised its 2024 bauxite figures between editions, and the earlier ones had Guinea at 29%. The network layer correctly identifies China as the processing chokepoint despite its small export share.'},
     {'label': 'cobalt', 'name': 'Cobalt', 'verdict': 'agree',
      'ext_mine': 'DR Congo ~76%, Indonesia ~10% (USGS 2024)',
      'ext_refine': 'China ~70–80% of refined (IEA)',
@@ -143,7 +143,7 @@ out = f'''<!doctype html>
   magnets the atlas matches USGS/IEA on mine and refining shares, and its refiner-illusion / processing-chokepoint
   signals hold. On <b>lithium</b> the audit did its job — it surfaced a stale mine-share vintage (now corrected to
   USGS 2024) and a product-definition nuance (the traded code is carbonate, not spodumene). External figures: USGS
-  Mineral Commodity Summaries 2025 and IEA Critical Minerals Outlook 2025.
+  Mineral Commodity Summaries 2025 (the 2026 edition for bauxite and alumina) and IEA Critical Minerals Outlook 2025.
   Atlas figures are pulled live by <code>build_casestudies.py</code>, so this page cannot drift from the data.</div>
   {''.join(cards)}
   <p class="note">Computed from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + the layer outputs → <a href="out/casestudies.json">casestudies.json</a>. External shares are rounded public figures; mine production ≠ exports ≠ refined output, and that distinction is central to the atlas.</p>

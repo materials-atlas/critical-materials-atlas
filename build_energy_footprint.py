@@ -46,11 +46,11 @@ DATA = [
      'note': '~40-70 kWh/kg of ELECTRICITY; quartz is cheap and ubiquitous, so power dominates the cost and '
              'it sites on cheap Chinese coal/hydro. The solar chokepoint is a power chokepoint. ~93% China.'},
     {'m': 'Aluminium', 'process': 'Hall–Héroult electrolysis', 'group': 'power',
-     'mwh_elec': 14, 'mwh_primary': 14, 'co2': 16, 'share': 59, 'stage': 'primary metal (smelting)',
+     'mwh_elec': 14, 'mwh_primary': 14, 'co2': 16, 'share': 60, 'stage': 'primary metal (smelting)',
      'holder': 'China', 'energy_type': 'electricity', 'conf': 'measured',
      'src': 'IAI; USGS aluminium',
      'note': '~14 MWh/t of ELECTRICITY; alumina is shipped in, so power is the siting force — China on coal '
-             '(~16 t CO2/t), or hydro (~2 t) in Canada/Iceland/Gulf. ~59% China smelting.'},
+             '(~16 t CO2/t), or hydro (~2 t) in Canada/Iceland/Gulf. ~60% China smelting (USGS, 2024).'},
     {'m': 'Silicon metal', 'process': 'Carbothermic arc furnace', 'group': 'power',
      'mwh_elec': 11, 'mwh_primary': 11, 'co2': 5, 'share': 70, 'stage': 'silicon metal (process)',
      'holder': 'China', 'energy_type': 'electricity', 'conf': 'estimate',
